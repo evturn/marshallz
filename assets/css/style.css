@@ -22,6 +22,32 @@ body {
 
 }
 
+.post-container {
+  margin-top: 100px;
+  text-align: center;
+}
+
+img.post-top {
+  position: relative;
+  z-index: 3;
+}
+
+.post-content {
+  background: #fff;
+  padding: 2%;
+  margin-top: -3%;
+}
+
+.post-content p {
+  text-align: justify;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.post-img-container {
+  text-align: center;
+}
+
 ::-moz-selection {
   color: #222;
   background: #D6EDFF;
@@ -33,7 +59,6 @@ body {
   background: #D6EDFF;
   text-shadow: none;
 }
-
 
 .blog-title {
 	font-family: 'Monofett', cursive;

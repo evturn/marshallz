@@ -22,7 +22,7 @@
    0. Includes - Ground zero
    ========================================================================== */
 
-@import url(normalize.css);
+/*@import url(normalize.css);*/
 
 
 /* ==========================================================================
@@ -891,7 +891,7 @@ text-align:left;
     margin-right: 0.2em;
 }
 
-/* The subscribe icon on the footer */
+/*/* The subscribe icon on the footer */
 .subscribe {
     width: 28px;
     height: 28px;
@@ -1130,7 +1130,7 @@ text-align:left;
         font-size: 1.1rem;
     }
 
-}
+}*/
 
 /* ==========================================================================
    End of file. Media queries should be the last thing here. Do not add stuff
