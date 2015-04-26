@@ -1,5 +1,5 @@
 var express 		= require('express');
-var request			= require('request');
+var Firebase    = require("firebase");
 var logger 			= require('morgan');
 var MarkovChain = require('markovchain').MarkovChain
   , title 			= new MarkovChain({files: 'quotes.txt'});
@@ -19,6 +19,35 @@ app.get('/api/quotes', function(req, res) {
   res.status(200).json(post);
 });
 
+
+var firebasePost = function(post) {
+  bodyArray.length = 0;
+  var fb = new Firebase("https://marshallz.firebaseio.com/posts");
+    fb.push(
+      {
+        title: post.title,
+        body: post.body,
+        timestamp: Firebase.ServerValue.TIMESTAMP
+      });  
+}
+
+
+setInterval(publish, 1000);
+
+function publish() {
+  var d = new Date();
+  var h = d.getHours();
+  var m = d.getMinutes();
+  var s = d.getSeconds();
+  if (s && m === 00) {
+    var post = newPost();
+    firebasePost(post);
+  } else {
+    console.log('Marshall is writing.');
+  }
+}
+
+
 var useUpperCase = function(wordList) {
   var tmpList = Object.keys(wordList).filter(function(word) {
     return word[0] >= 'A' && word[0] <= 'Z' 
@@ -26,7 +55,7 @@ var useUpperCase = function(wordList) {
   return tmpList[~~(Math.random()*tmpList.length)]
 }
 
-var body = new MarkovChain({files: 'quotes.txt'})
+var body = new MarkovChain({files: 'quotes.txt'});
 var bodyArray = [];
 var newPost = function() {
   title
