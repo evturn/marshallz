@@ -71,7 +71,7 @@ img.post-author {
   text-align: justify;
   padding-left: 35px;
   padding-right: 35px;
-  line-height: 1.7em;
+  line-height: 1.5em;
 }
 
 ::-moz-selection {
@@ -176,34 +176,18 @@ header h1 {
   color: #50585D;
 }
 
-
-
-/*icons*/
-.icon-ghost, .icon-feed, .icon-twitter, .icon-google-plus, .icon-facebook {
-    font-family: 'icons';
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    text-decoration: none;
-}
-
-.icon-ghost:before {
-    content: "\e000";
-}
-.icon-feed:before {
-    content: "\e001";
-}
-.icon-twitter:before {
-    content: "\e002";
-    font-size: 1.1em;
-}
-.icon-google-plus:before {
-    content: "\e003";
-}
-.icon-facebook:before {
-    content: "\e004";
+@media (max-width: 620px) {
+  .post-content p {
+    text-align: justify;
+    padding-left: 15px;
+    padding-right: 15px;
+    line-height: 1.5em;
+    font-size: 0.6em;
+  }
+  h1.post-title {
+    font-size: 25px;
+  }
+  h1.blog-title {
+    font-size: 55px;
+  }
 }
