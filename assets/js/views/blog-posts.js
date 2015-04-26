@@ -10,6 +10,8 @@ app.BlogPosts = Backbone.View.extend({
 		this.$el.append(view.el);
 	},
 	addAll: function() {
-		
+		this.collection.each(function(model) {
+			this.addOne(model);
+		}.bind(this));
 	},
 });
