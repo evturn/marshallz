@@ -39,7 +39,7 @@ var newPost = function() {
       console.log('Title: ', sentence);
       return sentence;
     })
-  for (var i = 0; i < 3; i++) {
+  for (var i = 0; i < 2; i++) {
     body
       .start(useUpperCase) // 
       .end()
@@ -56,6 +56,8 @@ var newPost = function() {
   var post = {title: title.sentence, body: content};
   return post;
 };
+
+
 var port = app.get('port');
 app.listen(port, function() {
   console.log('Express listening on 3000')
