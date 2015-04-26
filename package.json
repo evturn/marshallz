@@ -1,0 +1,32 @@
+{
+  "name": "marshallz",
+  "version": "1.0.0",
+  "description": "Welcome! And more importantly, Welcome to Marshallz Blog",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:evturn/marshallz.git"
+  },
+  "keywords": [
+    "marshallz"
+  ],
+  "author": "Evan Turner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evturn/marshallz/issues"
+  },
+  "homepage": "https://github.com/evturn/marshallz",
+  "dependencies": {
+    "body-parser": "^1.12.3",
+    "express": "^4.12.3",
+    "markovchain": "0.0.4",
+    "morgan": "^1.5.2",
+    "path": "^0.11.14",
+    "request": "^2.55.0",
+    "url": "^0.10.3"
+  }
+}
