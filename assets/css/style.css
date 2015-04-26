@@ -27,9 +27,29 @@ body {
   text-align: center;
 }
 
-img.post-top {
+.blog-author-footer {
+  margin-top: 70px;
+}
+
+.blog-author-description {
+  background: #fff;
+}
+
+img.blog-author {
+  margin-right: 10px;
+  border-radius:5px;
+  float:left;
+  width:80px;
+  border-radius: 50px;
+}
+
+
+img.post-author {
   position: relative;
   z-index: 3;
+  width: 100px;
+  margin-top: -100px;
+  border-radius: 100px;
 }
 
 .post-content {
@@ -42,10 +62,6 @@ img.post-top {
   text-align: justify;
   padding-left: 15px;
   padding-right: 15px;
-}
-
-.post-img-container {
-  text-align: center;
 }
 
 ::-moz-selection {
