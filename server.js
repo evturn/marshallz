@@ -2,7 +2,7 @@ var express 		= require('express');
 var request			= require('request');
 var logger 			= require('morgan');
 var MarkovChain = require('markovchain').MarkovChain
-  , quotes 			= new MarkovChain({ files: 'quotes.txt' })
+  , quotes 			= new MarkovChain({ files: 'quotes.txt' });
 var app 				= express();
 
 app.set('port', process.env.PORT || 3000);
@@ -31,18 +31,16 @@ var useUpperCase = function(wordList) {
 
 var title = quotes
   .start(useUpperCase) // 
-  .end()
-  .process(function(err, s) {
-    console.log('title', s)
-    return s;
+  .end(7)
+  .process(function(err, sentence) {
+    console.log('Title: ', sentence)
   })
 
 var body = quotes
   .start(useUpperCase) // 
-  .end(20)
-  .process(function(err, s) {
-    console.log('body', s)
-    return s;
+  .end()
+  .process(function(err, sentence) {
+    console.log('Body: ', sentence)
   })
 
 
