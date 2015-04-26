@@ -17,7 +17,8 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/quotes', function(req, res) {
-  var post = {title: title.sentence, body: body.sentence};
+  var sentences = 'title: ' + title.sentence + '. body: ' + body.sentence;
+  var post = sentences.toString();
   res.status(200).json(post);
 });
 
