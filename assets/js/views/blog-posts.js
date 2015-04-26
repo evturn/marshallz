@@ -6,7 +6,7 @@ app.BlogPosts = Backbone.View.extend({
 		this.addAll();
 	},
 	addOne: function(model) {
-		var view = new app.BlogPost(model: model);
+		var view = new app.BlogPost({model: model});
 		this.$el.append(view.el);
 	},
 	addAll: function() {

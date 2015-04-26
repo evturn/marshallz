@@ -6,7 +6,7 @@ app.BlogPost = Backbone.View.extend({
 		this.render();
 	},
 	render: function() {
-		this.$el.html(this.postTemplate());
+		this.$el.html(this.postTemplate(this.model.toJSON()));
 		return this;
 	}
 });
