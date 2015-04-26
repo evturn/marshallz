@@ -9,4 +9,4 @@ data = [
 ];
 
 var fakePosts = new app.Posts(data);
-new app.BlogPosts({collection: fakePosts});
+var blogPosts = new app.BlogPosts({collection: fakePosts});

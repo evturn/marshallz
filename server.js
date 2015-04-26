@@ -17,24 +17,34 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/quotes', function(req, res) {
-	res.json(phrase.sentence);
-})
+  var post = {title: title.sentence, body: body.sentence};
+  res.status(200).json(post);
+});
 
 var useUpperCase = function(wordList) {
   var tmpList = Object.keys(wordList).filter(function(word) {
-  	return word[0] >= 'A' && word[0] <= 'Z' 
+    return word[0] >= 'A' && word[0] <= 'Z' 
   })
   return tmpList[~~(Math.random()*tmpList.length)]
 }
 
-var phrase = quotes
+var title = quotes
   .start(useUpperCase) // 
   .end()
   .process(function(err, s) {
-    console.log(s)
+    console.log('title', s)
     return s;
   })
 
+var body = quotes
+  .start(useUpperCase) // 
+  .end(20)
+  .process(function(err, s) {
+    console.log('body', s)
+    return s;
+  })
+
+
 app.listen(app.get('port'), function() {
-	console.log('Express listening on 3000')
+  console.log('Express listening on 3000')
 });
