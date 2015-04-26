@@ -20,9 +20,9 @@ app.BlogPosts = Backbone.View.extend({
 		var api = new app.Api();
 		api.fetch({
 			success: function(data) {
-				var title = data.attributes.title;
-				var body 	= data.attributes.body;
-				
+				var title  = data.attributes.title;
+				var body = data.attributes.body;
+
 				if (title.length > 1) {
 
 					posts.create({

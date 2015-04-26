@@ -41,11 +41,16 @@ var newPost = function() {
       .start(useUpperCase) // 
       .end()
       .process(function(err, sentence) {
-        console.log('Body: ', sentence)
+        console.log('Body: ', sentence);
+        var idx = sentence.length - 1;
+        if (sentence[idx] !== '?') {
+         var sentence = sentence.concat('.');
+        }
         bodyArray.push(sentence);
         return sentence;
       })
-    var phrase = bodyArray.join('. ')
+
+    var phrase = bodyArray.join(' ')
     console.log('phrase ', phrase);
     content = phrase;
   };
