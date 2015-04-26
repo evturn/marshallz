@@ -2,8 +2,7 @@ var express 		= require('express');
 var request			= require('request');
 var logger 			= require('morgan');
 var MarkovChain = require('markovchain').MarkovChain
-  , title 			= new MarkovChain({files: 'quotes.txt'})
-  , body        = new MarkovChain({files: 'quotes.txt'});
+  , title 			= new MarkovChain({files: 'quotes.txt'});
 var app 				= express();
 
 app.set('port', process.env.PORT || 3000);
@@ -30,24 +29,31 @@ var useUpperCase = function(wordList) {
 }
 
 
-
-newPost = function() {
+var body = new MarkovChain({files: 'quotes.txt'})
+var bodyArray = [];
+var newPost = function() {
   title
     .start(useUpperCase) // 
-    .end(7)
+    .end()
     .process(function(err, sentence) {
       console.log('Title: ', sentence);
       return sentence;
     })
-  body
-    .start(useUpperCase) // 
-    .end()
-    .process(function(err, sentence) {
-      console.log('Body: ', sentence)
-      return sentence;
-    })
+  for (var i = 0; i < 5; i++) {
+    body
+      .start(useUpperCase) // 
+      .end()
+      .process(function(err, sentence) {
+        console.log('Body: ', sentence)
+        bodyArray.push(sentence);
+        return sentence;
+      })
+    var phrase = bodyArray.join('. ')
+    console.log('phrase ', phrase);
+    content = phrase;
+  };
 
-  var post = {title: title.sentence, body: body.sentence};
+  var post = {title: title.sentence, body: content};
   return post;
 };
 
