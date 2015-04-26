@@ -42,6 +42,7 @@ body {
 
 #site-head {
   height: 175px;
+  background: url('../img/headbg.jpg')
 }
 
 #site-head-content.inner {
