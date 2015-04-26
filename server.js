@@ -56,7 +56,7 @@ var newPost = function() {
   var post = {title: title.sentence, body: content};
   return post;
 };
-
-app.listen(app.get('port'), function() {
+var port = app.get('port');
+app.listen(port, function() {
   console.log('Express listening on 3000')
 });
