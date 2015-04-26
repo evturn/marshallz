@@ -23,12 +23,18 @@ app.BlogPosts = Backbone.View.extend({
 				var title = data.attributes.title;
 				var body 	= data.attributes.body;
 				
-				posts.create({
-					title: title,
-					body: body,
-					timestamp: Firebase.ServerValue.TIMESTAMP
-				});
+				if (title.length > 1) {
 
+					posts.create({
+						title: title,
+						body: body,
+						timestamp: Firebase.ServerValue.TIMESTAMP
+					});
+
+				} else {
+
+					return;
+				}
 			},
 			error: function() {
 				console.log('Error');

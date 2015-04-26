@@ -10,8 +10,6 @@ app.set('view engine', 'html');
 app.use(logger('dev'));
 app.use(express.static(__dirname + '/assets'))
 
-
-
 app.get('/', function(req, res) {
 	res.render('index');
 });
@@ -27,7 +25,6 @@ var useUpperCase = function(wordList) {
   })
   return tmpList[~~(Math.random()*tmpList.length)]
 }
-
 
 var body = new MarkovChain({files: 'quotes.txt'})
 var bodyArray = [];
