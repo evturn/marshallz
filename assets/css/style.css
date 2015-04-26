@@ -19,7 +19,6 @@ body {
   line-height: 1.6em;
   color: #3A4145;
   background:url('../img/bg.jpg');
-
 }
 
 .post-container {
@@ -135,19 +134,6 @@ header h1 {
   margin-top: 5px;
 }
 
-.site-footer {
-  position: relative;
- 	margin: 0; 
-  padding: 0; 
-  border-top: #DEE7DB 1px solid;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1.3rem;
-  line-height: 1.7em;
-  color: #7A7A7A;
-  text-align: center;
-  background: #fff;
-}
-
 .copyright a {
 	text-decoration: none;
 }
@@ -165,6 +151,29 @@ header h1 {
   font-size: 1.3rem;
   color: #9EABB3;
   text-align: center;
+}
+
+.blog-footer {
+  position: relative;
+  margin: 3rem 0 0 0;
+  padding: 2rem 0;
+  border-top: #DEE7DB 1px solid;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.7em;
+  color: #7A7A7A;
+  text-align: center;
+  background:url('../img/bg.jpg');
+}
+
+.blog-footer a {
+  color: #7A7A7A;
+  text-decoration: none;
+  background: none;
+}
+
+.blog-footer a:hover {
+  color: #50585D;
 }
 
 
