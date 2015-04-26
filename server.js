@@ -39,7 +39,7 @@ var newPost = function() {
       console.log('Title: ', sentence);
       return sentence;
     })
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 3; i++) {
     body
       .start(useUpperCase) // 
       .end()
