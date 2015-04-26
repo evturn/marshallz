@@ -2,8 +2,8 @@ var express 		= require('express');
 var request			= require('request');
 var logger 			= require('morgan');
 var MarkovChain = require('markovchain').MarkovChain
-  , title 			= new MarkovChain({ files: 'quotes.txt' })
-  , body        = new MarkovChain({ files: 'quotes.txt' });
+  , title 			= new MarkovChain({files: 'quotes.txt'})
+  , body        = new MarkovChain({files: 'quotes.txt'});
 var app 				= express();
 
 app.set('port', process.env.PORT || 3000);
@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/quotes', function(req, res) {
-  var post = {title: title.sentence, body: body.sentence};
+  var post = newPost();
   res.status(200).json(post);
 });
 
@@ -29,22 +29,27 @@ var useUpperCase = function(wordList) {
   return tmpList[~~(Math.random()*tmpList.length)]
 }
 
-title
-  .start(useUpperCase) // 
-  .end(7)
-  .process(function(err, sentence) {
-    console.log('Title: ', sentence);
-    return sentence;
-  })
 
-body
-  .start(useUpperCase) // 
-  .end()
-  .process(function(err, sentence) {
-    console.log('Body: ', sentence)
-    return sentence;
-  })
 
+newPost = function() {
+  title
+    .start(useUpperCase) // 
+    .end(7)
+    .process(function(err, sentence) {
+      console.log('Title: ', sentence);
+      return sentence;
+    })
+  body
+    .start(useUpperCase) // 
+    .end()
+    .process(function(err, sentence) {
+      console.log('Body: ', sentence)
+      return sentence;
+    })
+
+  var post = {title: title.sentence, body: body.sentence};
+  return post;
+};
 
 app.listen(app.get('port'), function() {
   console.log('Express listening on 3000')
