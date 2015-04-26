@@ -1,12 +1,7 @@
 var app = app || {};
 
+var posts = new app.Posts();
+posts.fetch();
 
-data = [
-{title: 'We are all screwed for 59 cents', body: 'jkfdsla; fjdsklafdsjal fdsa fdsa  fdsa  dsaf dfsa dfs  fdsa fdsa fdsa  fdsa '},
-{title: 'We are all screwed for getting a ticket', body: 'jkfdsla; fjdsklafdsjal fdsa fdsa  fdsa  dsaf dfsa dfs  fdsa fdsa fdsa  fdsa '},
-{title: 'We are all screwed for eleven hours', body: 'jkfdsla; fjdsklafdsjal fdsa fdsa  fdsa  dsaf dfsa dfs  fdsa fdsa fdsa  fdsa '}
-
-];
-
-var fakePosts = new app.Posts(data);
-var blogPosts = new app.BlogPosts({collection: fakePosts});
+var blogPosts = new app.BlogPosts({collection: posts});
+blogPosts.quote();

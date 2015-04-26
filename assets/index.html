@@ -23,20 +23,7 @@
     </div>
   </header>
   
-  <div class="blog-posts">
-    <div class="container post-container">
-      <div class="row">
-          <img class='post-author' src='img/av.png'>
-          <div class="col-md-10 col-md-offset-1">
-          <div class="text-center post-content">
-          <h1 class="post-title">After School Handball</h1>
-          <span class="post-meta">by Marshall</span>
-          <p>Mr. Jenner, the Olympic gold medalist, who ended months of speculation with the announcement in an interview on ABC on Friday night, said he preferred the pronoun “he” for now. Even in an apartment, chefs say, you can prepare fish successfully without lingering odors. (Article plus video.) Two new studies suggest that the ideal dose of exercise for a long life is a bit more than many of us currently believe we should get, but less than many of us might expect.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="blog-posts"></div>
 
 
 
@@ -82,8 +69,9 @@
         <div class="col-md-10 col-md-offset-1">
           <div class="text-center post-content">
             <h1 class="post-title"><%= title %></h1>
-            <span class="post-meta">by Marshall</span>
-            <p><%= body %>.</p>
+            <span class="post-meta">by Marshall &#183; </span>
+            <span class="post-meta" data-livestamp="<%= moment(timestamp).unix() %>"></span>
+            <p><%= body %></p>
           </div>
         </div>
       </div>
@@ -93,6 +81,10 @@
   <script src="js/lib/jquery.js"></script>
   <script src="js/lib/underscore.js"></script>
   <script src="js/lib/backbone.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
+  <script src="js/lib/moment.js"></script>
+  <script src="js/lib/livestamp.js"></script>
   <script src="js/lib/bootstrap.js"></script>
   <script src="js/models/post.js"></script>
   <script src="js/models/api.js"></script>
