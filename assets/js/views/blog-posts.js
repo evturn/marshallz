@@ -23,10 +23,17 @@ app.BlogPosts = Backbone.View.extend({
 		setTimeout(this.getLength, 3000);
 	},
 	getLength: function() {
-		var length = app.posts.length;
+		var total = app.posts.length;
+		console.log(app.posts);
+		console.log(total);
 		count += 3;
-		var numToRender = length - count;
-		console.log('we need to start with model ' + length + ' and end at model ' + numToRender);
+		var numToRender = total - count;
+		for (var i = numToRender; i < total; i++) {
+			var model = app.posts.at(i);
+			console.log(model);
+		};
+		console.log('we need to start with model ' + total + ' and end at model ' + numToRender);
+
 	}
 
 /*	
