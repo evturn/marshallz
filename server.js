@@ -91,6 +91,41 @@ var client = new Twitter({
   access_token_secret: process.env.MARSHALLZ_TWITTER_TOKEN_SECRET
 });
 
+setTimeout(newPost, 1000);
+
+setInterval(writeTweet, 21600000)
+
+function writeTweet() {
+  var sentence1 = newPost();
+  var sentence2 = newPost();
+  var tweetArray = [sentence1, sentence2];
+  var update = tweetArray[1];
+  var status = update.title;
+  console.log('Tweet String: ', status);
+  sendTweet(status);
+  // client.post('statuses/update', {status: update},  function(error, tweet, response){
+  //     if(error) { 
+  //       throw error 
+  //     } else {
+  //       console.log('Tweet: ', tweet);  // Tweet body. 
+  //       console.log(response);  // Raw response object. 
+  //     }
+  //     tweetArray.length = 0;
+  // });
+}
+var sendTweet = function(phrase) {
+client.post('statuses/update', {status: phrase},  function(error, tweet, response){
+      if(error) { 
+        throw error 
+      } else {
+        console.log('Tweet: ', tweet);  // Tweet body. 
+        console.log(response);  // Raw response object. 
+      }
+  });
+}
+
+
+
 var port = app.get('port');
 app.listen(port, function() {
   console.log('Express listening on 3000')
