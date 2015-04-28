@@ -3,6 +3,7 @@ var Firebase    = require("firebase");
 var logger 			= require('morgan');
 var MarkovChain = require('markovchain').MarkovChain
   , title 			= new MarkovChain({files: 'quotes.txt'});
+var Twitter     = require('twitter');
 var app 				= express();
 
 app.set('port', process.env.PORT || 3000);
@@ -82,6 +83,13 @@ var newPost = function() {
   return post;
 };
 
+// twitter
+var client = new Twitter({
+  consumer_key: process.env.MARSHALLZ_TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.MARSHALLZ_TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.MARSHALLZ_TWITTER_TOKEN_KEY,
+  access_token_secret: process.env.MARSHALLZ_TWITTER_TOKEN_SECRET
+});
 
 var port = app.get('port');
 app.listen(port, function() {
