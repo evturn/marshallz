@@ -30,8 +30,6 @@ var firebasePost = function(post) {
         timestamp: Firebase.ServerValue.TIMESTAMP
       });  
 }
-
-
 setInterval(publish, 3600000);
 console.log(newPost);
 function publish() {
@@ -39,8 +37,8 @@ function publish() {
   var h = d.getHours();
   var m = d.getMinutes();
   var s = d.getSeconds();
-    var post = newPost();
-    firebasePost(post);
+  var post = newPost();
+  firebasePost(post);
 }
 
 
