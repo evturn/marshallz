@@ -3,8 +3,11 @@ var app = app || {};
 app.BlogPosts = Backbone.View.extend({
 	el: '.blog-posts',
 	initialize: function() {
-		this.addAll();
 		this.listenTo(this.collection, 'add', this.addOne);
+		this.read();
+	},
+	events: {
+		'click .post-content' : 'getLength'
 	},
 	addOne: function(model) {
 		var view = new app.BlogPost({model: model});
@@ -15,6 +18,16 @@ app.BlogPosts = Backbone.View.extend({
 			this.addOne(model);
 		}.bind(this));
 	},
+	read: function() {
+		count = 0;
+		setTimeout(this.getLength, 3000);
+	},
+	getLength: function() {
+		var length = app.posts.length;
+		count += 3;
+		var numToRender = length - count;
+		console.log('we need to start with model ' + length + ' and end at model ' + numToRender);
+	}
 
 /*	
 
