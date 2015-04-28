@@ -32,24 +32,16 @@ var firebasePost = function(post) {
 }
 
 
-
-
-setInterval(publish, 1000);
-
-
+setInterval(publish, 3600000);
+console.log(newPost);
 function publish() {
   var d = new Date();
   var h = d.getHours();
   var m = d.getMinutes();
   var s = d.getSeconds();
-  if (s === 01 && m === 16) {
     var post = newPost();
     firebasePost(post);
-  } else {
-    console.log('Marshall is writing.');
-  }
 }
-
 
 
 var useUpperCase = function(wordList) {
