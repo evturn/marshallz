@@ -4,7 +4,6 @@ app.BlogPosts = Backbone.View.extend({
 	el: '.blog-posts',
 	initialize: function() {
 		this.read();
-		// this.listenTo(this.collection, 'add', this.addOne);
 	},
 	events: {
 		'click .post-content' : 'paginate'
@@ -24,11 +23,9 @@ app.BlogPosts = Backbone.View.extend({
 	},
 	getLength: function() {
 		var total = app.posts.length;
-		console.log(app.posts);
-		console.log('total ', total);
+		num = 1;
 		count += 3;
 		numToRender = total - count;
-		console.log('numToRender', numToRender);
 		for (var i = numToRender; i < total; i++) {
 			var model = app.posts.at(i);
 			var view = new app.BlogPost({model: model});
@@ -38,11 +35,16 @@ app.BlogPosts = Backbone.View.extend({
 	paginate: function() {
 		var total = numToRender; 
 		numToRender = total - count;
-		console.log('numToRender', numToRender);
+		num += 1;
+		var page = 'pagination-' + num;
+		var pageSelector = '.' + page;
+		var element = document.createElement('div');
+		$(element).addClass(page);
+		$('.blog-posts').append(element);
 		for (var i = numToRender; i < total; i++) {
 			var model = app.posts.at(i);
 			var view = new app.BlogPost({model: model});
-			$('.blog-pagination').append(view.el);
+			$(pageSelector).prepend(view.el);
 		};
 	}
 /*	
