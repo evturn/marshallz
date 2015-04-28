@@ -23,15 +23,18 @@ app.get('/api/quotes', function(req, res) {
 
 var firebasePost = function(post) {
   bodyArray.length = 0;
-  var fb = new Firebase("https://marshallz.firebaseio.com/posts");
-    fb.push(
-      {
-        title: post.title,
-        body: post.body,
-        timestamp: Firebase.ServerValue.TIMESTAMP
-      });  
+  var fb = new Firebase("https://marshallz.firebaseio.com/posts"); // change back to posts
+  var newPost = fb.push(
+  {
+    title: post.title,
+    body: post.body,
+    timestamp: Firebase.ServerValue.TIMESTAMP
+  });
+  var postID = newPost.key();
+  console.log(postID);
 }
-setInterval(publish, 3600000);
+
+setInterval(publish, 3600000);  // change back to 3600000
 console.log(newPost);
 function publish() {
   var d = new Date();

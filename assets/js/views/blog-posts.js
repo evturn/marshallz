@@ -15,31 +15,36 @@ app.BlogPosts = Backbone.View.extend({
 			this.addOne(model);
 		}.bind(this));
 	},
-	// quote: function() {
-	// 	var posts = this.collection;
-	// 	var api = new app.Api();
-	// 	api.fetch({
-	// 		success: function(data) {
-	// 			var title  = data.attributes.title;
-	// 			var body = data.attributes.body;
 
-	// 			if (title.length > 1) {
+/*	
 
-	// 				posts.create({
-	// 					title: title,
-	// 					body: body,
-	// 					timestamp: Firebase.ServerValue.TIMESTAMP
-	// 				});
+	To make client side requests:
 
-	// 			} else {
+	quote: function() {
+		var posts = this.collection;
+		var api = new app.Api();
+		api.fetch({
+			success: function(data) {
+				var title  = data.attributes.title;
+				var body = data.attributes.body;
 
-	// 				return;
-	// 			}
-	// 		},
-	// 		error: function() {
-	// 			console.log('Error');
-	// 		}
-	// 	});
-	// },
+				if (title.length > 1) {
+
+					posts.create({
+						title: title,
+						body: body,
+						timestamp: Firebase.ServerValue.TIMESTAMP
+					});
+
+				} else {
+
+					return;
+				}
+			},
+			error: function() {
+				console.log('Error');
+			}
+		});
+	}, */
 
 });
