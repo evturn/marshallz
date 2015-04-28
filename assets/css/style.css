@@ -74,6 +74,12 @@ img.post-author {
   line-height: 1.5em;
 }
 
+.btn-pagination {
+  cursor: pointer;
+  font-size: 14px;
+  color: #9EABB3;
+}
+
 ::-moz-selection {
   color: #222;
   background: #D6EDFF;

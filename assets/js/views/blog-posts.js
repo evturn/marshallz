@@ -31,7 +31,7 @@ app.BlogPosts = Backbone.View.extend({
 			var view = new app.BlogPost({model: model});
 			$('.blog-posts').prepend(view.el);
 		};
-		$('.blog-posts').append('<p class="text-center btn-pagination">See More</p>');
+		$('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
 	},
 	paginate: function() {
 		var total = numToRender; 
@@ -47,7 +47,7 @@ app.BlogPosts = Backbone.View.extend({
 			var view = new app.BlogPost({model: model});
 			$(pageSelector).prepend(view.el);
 		};
-		$('.blog-posts').append('<p class="text-center btn-pagination">See More</p>');
+		$('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
 	}
 /*	
 
