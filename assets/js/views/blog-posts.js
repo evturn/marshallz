@@ -18,10 +18,10 @@ app.BlogPosts = Backbone.View.extend({
 		}.bind(this));
 	},
 	read: function() {
-		var count = 0;
+		count = 0;
 		var total = app.posts.length;
 		num = 1;
-		count += 3;
+		count += 10;
 		numToRender = total - count;
 		for (var i = numToRender; i < total; i++) {
 			var model = app.posts.at(i);
