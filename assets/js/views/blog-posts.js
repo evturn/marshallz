@@ -31,6 +31,7 @@ app.BlogPosts = Backbone.View.extend({
 		$('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
 	},
 	paginate: function() {
+		$('.btn-pagination').remove();
 		var total = numToRender;
 		if (numToRender > 10) {
 			numToRender = total - count;
