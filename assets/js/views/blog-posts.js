@@ -3,7 +3,7 @@ var app = app || {};
 app.BlogPosts = Backbone.View.extend({
 	el: '.blog-posts',
 	initialize: function() {
-		this.read();
+		this.read()
 	},
 	events: {
 		'click .btn-pagination' : 'paginate'
@@ -18,10 +18,7 @@ app.BlogPosts = Backbone.View.extend({
 		}.bind(this));
 	},
 	read: function() {
-		count = 0;
-		setTimeout(this.getLength, 3000);
-	},
-	getLength: function() {
+		var count = 0;
 		var total = app.posts.length;
 		num = 1;
 		count += 3;

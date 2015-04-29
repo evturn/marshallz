@@ -4,6 +4,7 @@ var logger 			= require('morgan');
 var MarkovChain = require('markovchain').MarkovChain
   , title 			= new MarkovChain({files: 'quotes.txt'});
 var Twitter     = require('twitter');
+var Promise     = require('promise');
 var app 				= express();
 
 app.set('port', process.env.PORT || 3000);
