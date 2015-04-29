@@ -31,8 +31,12 @@ app.BlogPosts = Backbone.View.extend({
 		$('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
 	},
 	paginate: function() {
-		var total = numToRender; 
-		numToRender = total - count;
+		var total = numToRender;
+		if (numToRender > 10) {
+			numToRender = total - count;
+		} else {
+			numToRender = 0;
+		}
 		num += 1;
 		var page = 'pagination-' + num;
 		var pageSelector = '.' + page;
@@ -44,8 +48,10 @@ app.BlogPosts = Backbone.View.extend({
 			var view = new app.BlogPost({model: model});
 			$(pageSelector).prepend(view.el);
 		};
-		$('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
-	}
+		if (numToRender !== 0) {
+			$('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
+		}
+	},
 /*	
 
 	To make client side requests:
