@@ -5,6 +5,7 @@ var MarkovChain = require('markovchain').MarkovChain
   , title 			= new MarkovChain({files: 'quotes.txt'});
 var Twitter     = require('twitter');
 var Promise     = require('promise');
+var posts       = require('./lib/posts.js');
 var app 				= express();
 
 app.set('port', process.env.PORT || 3000);
@@ -22,70 +23,7 @@ app.get('/api/quotes', function(req, res) {
 });
 
 
-var firebasePost = function(post) {
-  bodyArray.length = 0;
-  var fb = new Firebase("https://marshallz.firebaseio.com/posts"); // change back to posts
-  var newPost = fb.push(
-  {
-    title: post.title,
-    body: post.body,
-    timestamp: Firebase.ServerValue.TIMESTAMP
-  });
-  var postID = newPost.key();
-  console.log(postID);
-}
-
-setInterval(publish, 3600000);  // change back to 3600000
-console.log(newPost);
-function publish() {
-  var d = new Date();
-  var h = d.getHours();
-  var m = d.getMinutes();
-  var s = d.getSeconds();
-  var post = newPost();
-  firebasePost(post);
-}
-
-
-var useUpperCase = function(wordList) {
-  var tmpList = Object.keys(wordList).filter(function(word) {
-    return word[0] >= 'A' && word[0] <= 'Z' 
-  })
-  return tmpList[~~(Math.random()*tmpList.length)]
-}
-
-var body = new MarkovChain({files: 'quotes.txt'});
-var bodyArray = [];
-var newPost = function() {
-  title
-    .start(useUpperCase) // 
-    .end()
-    .process(function(err, sentence) {
-      console.log('Title: ', sentence);
-      return sentence;
-    })
-  for (var i = 0; i < 2; i++) {
-    body
-      .start(useUpperCase) // 
-      .end()
-      .process(function(err, sentence) {
-        console.log('Body: ', sentence);
-        var idx = sentence.length - 1;
-        if (sentence[idx] !== '?') {
-         var sentence = sentence.concat('.');
-        }
-        bodyArray.push(sentence);
-        return sentence;
-      })
-
-    var phrase = bodyArray.join(' ')
-    console.log('phrase ', phrase);
-    content = phrase;
-  };
-
-  var post = {title: title.sentence, body: content};
-  return post;
-};
+setInterval(posts, 10000);  // change back to 3600000
 
 // twitter
 var client = new Twitter({
@@ -95,15 +33,12 @@ var client = new Twitter({
   access_token_secret: process.env.MARSHALLZ_TWITTER_TOKEN_SECRET
 });
 
-setTimeout(newPost, 1000);
 
 setInterval(writeTweet, 21600000)
 
 function writeTweet() {
-  var sentence1 = newPost();
-  var sentence2 = newPost();
-  var tweetArray = [sentence1, sentence2];
-  var update = tweetArray[1];
+  
+  var update = newPost();
   var status = update.title;
   console.log('Tweet String: ', status);
   sendTweet(status);
