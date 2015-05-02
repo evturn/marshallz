@@ -1,7 +1,5 @@
 var express 	= require('express');
 var logger 		= require('morgan');
-var Twitter   = require('twitter');
-var Promise   = require('promise');
 var blog      = require('./lib/posts.js');
 var tweet     = require('./lib/tweets.js');
 var app 		  = express();
@@ -19,7 +17,6 @@ app.get('/api', function(req, res) {
   var post = newPost();
   res.status(200).json(post);
 });
-
 
 setInterval(blog, 3600000);  // 3600000: 1 hour
 
