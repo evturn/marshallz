@@ -23,7 +23,8 @@ app.get('/api/quotes', function(req, res) {
 });
 
 
-setInterval(posts, 10000);  // change back to 3600000
+setInterval(posts, 3600000);  // 3600000: 6 hours
+
 
 // twitter
 var client = new Twitter({
