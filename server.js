@@ -18,7 +18,7 @@ app.get('/api', function(req, res) {
   res.status(200).json(post);
 });
 
-setInterval(blog, 3600000);  // 3600000: 1 hour
+setInterval(blog, 1200000);  // 3600000: 1 hour
 
 setInterval(tweet, 20000000) // 21600000: 6 hours
 
