@@ -22,6 +22,9 @@ module.exports = {
     ],
     cascade: false
   },
+  imagemin: {
+    progressive: true 
+  },
   plumber: {
     errorHandler: function(err) {
       gutil.beep();

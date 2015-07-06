@@ -34,7 +34,6 @@ module.exports = {
   },
   css: {
     src: [
-    'assets/css/lib/screen'
     'assets/css/lib/bootstrap.css',
     'assets/css/style.css'
     ],
@@ -61,9 +60,9 @@ module.exports = {
         'assets/js/lib/jquery.js',
         'assets/js/lib/underscore.js',
         'assets/js/lib/backbone.js',
-        'https://cdn.firebase.com/js/client/2.2.2/firebase.js',
-        'https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js',
-        'https://www.promisejs.org/polyfills/promise-6.1.0.js',
+        'assets/js/lib/firebase.js',
+        'assets/js/lib/backbonefire.js',
+        'assets/js/lib/promise.js',
         'assets/js/lib/promise-done-6.1.0.js',
         'assets/js/lib/promise-done-6.1.0.min.js',
         'assets/js/lib/moment.js',
@@ -73,5 +72,9 @@ module.exports = {
       dest: 'dist/js',
       filename: 'vendor.js'
     }
+  },
+    img: {
+    src: 'assets/img/**/*',
+    dest: 'dist/img'
   }
 };

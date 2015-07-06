@@ -1,15 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Monofett);
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic|Open+Sans:700,400);
 
-@font-face {
-  font-family: 'icons';
-  src:url('../fonts/icons.eot');
-  src:url('../fonts/icons.eot?#iefix') format('embedded-opentype'),
-      url('../fonts/icons.woff') format('woff'),
-      url('../fonts/icons.ttf') format('truetype'),
-      url('../fonts/icons.svg#icons') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
 
 body {
   height: 100%;
@@ -19,6 +10,12 @@ body {
   line-height: 1.6em;
   color: #3A4145;
   background:url('../img/bg.jpg');
+}
+
+.blog-description {
+  text-align: center;
+  font-family: 'Droid Serif', serif;
+  color: #fff;
 }
 
 .post-container {
@@ -80,21 +77,10 @@ img.post-author {
   color: #9EABB3;
 }
 
-::-moz-selection {
-  color: #222;
-  background: #D6EDFF;
-  text-shadow: none;
-}
-
-::selection {
-  color: #222;
-  background: #D6EDFF;
-  text-shadow: none;
-}
-
 .blog-title {
 	font-family: 'Monofett', cursive;
 	color: #000;
+  text-align: center;
 }
 
 #site-head {

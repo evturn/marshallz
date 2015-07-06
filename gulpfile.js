@@ -5,7 +5,7 @@ var paths = require('./config/paths');
 var options = require('./config/gulp-options');
 
 gulp.task('watch', function() {
-  gulp.watch(paths.less.watch, ['less']);
+  gulp.watch(paths.css.src, ['css']);
   gulp.watch(paths.jshint.watch, ['lint']);
   gulp.watch(paths.js.watch, ['js']);
 });
@@ -45,4 +45,10 @@ gulp.task('lint', function() {
     .pipe(G.plumber(options.plumber))
     .pipe(G.jshint())
     .pipe(G.notify(options.notify.jshint));
+});
+
+gulp.task('img', function() {
+  return gulp.src(paths.img.src)
+  .pipe(G.imagemin(options.imagemin))
+  .pipe(gulp.dest(paths.img.dest));
 });

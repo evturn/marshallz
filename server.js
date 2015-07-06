@@ -7,7 +7,7 @@ var app 		  = express();
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'html');
 app.use(logger('dev'));
-app.use(express.static(__dirname + '/assets'))
+app.use(express.static(__dirname + '/dist'))
 
 app.get('/', function(req, res) {
 	res.render('index');
