@@ -1,16 +1,19 @@
 var express 	= require('express');
 var logger 		= require('morgan');
-var blog      = require('./lib/posts.js');
-var tweet     = require('./lib/tweets.js');
+var hbs       = require('./config/handlebars');
+var blog      = require('./controllers/posts.js');
+var tweet     = require('./controllers/tweets.js');
 var app 		  = express();
 
 app.set('port', process.env.PORT || 3000);
-app.set('view engine', 'html');
+app.set('view engine', 'hbs');
+app.set('views', 'views');
+app.engine('hbs', hbs.engine);
 app.use(logger('dev'));
-app.use(express.static(__dirname + '/dist'))
+app.use(express.static(__dirname + '/dist'));
 
 app.get('/', function(req, res) {
-	res.render('index');
+	res.render('app/index');
 });
 
 app.get('/api', function(req, res) {
@@ -20,9 +23,9 @@ app.get('/api', function(req, res) {
 
 setInterval(blog, 1200000);  // 3600000: 1 hour
 
-setInterval(tweet, 20000000) // 21600000: 6 hours
+setInterval(tweet, 20000000) ;// 21600000: 6 hours
 
 var port = app.get('port');
 app.listen(port, function() {
-  console.log('Express listening on 3000')
+  console.log('Express listening on 3000');
 });

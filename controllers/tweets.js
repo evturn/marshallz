@@ -1,16 +1,10 @@
-var Twitter  = require('twitter');
 var Promise  = require('promise');
 var MarkovChain = require('markovchain').MarkovChain;
+var markov 	 = new MarkovChain({files: 'quotes.txt'});
 
-var client = new Twitter({
-  consumer_key: process.env.MARSHALLZ_TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.MARSHALLZ_TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.MARSHALLZ_TWITTER_TOKEN_KEY,
-  access_token_secret: process.env.MARSHALLZ_TWITTER_TOKEN_SECRET
-});
+var client = require('../config/credentials');
 
 var sentences = [];
-var markov 	 = new MarkovChain({files: 'quotes.txt'});
 
 function capitalize(wordList) {
   var tmpList = Object.keys(wordList).filter(function(word) {
@@ -21,7 +15,7 @@ function capitalize(wordList) {
 
 function createTweet() {
 	markov
-    .start(capitalize) // 
+    .start(capitalize)
     .end()
     .process(function(err, sentence) {
     	phrase = sentence

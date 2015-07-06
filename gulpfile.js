@@ -10,7 +10,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.js.watch, ['js']);
 });
 
-gulp.task('build', ['js', 'css', 'jslib'])
+gulp.task('build', ['js', 'css', 'jslib']);
 
 gulp.task('js', function() {
   return gulp.src(paths.js.src)

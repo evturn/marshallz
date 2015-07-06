@@ -35,7 +35,7 @@ var app = app || {};
 app.BlogPosts = Backbone.View.extend({
 	el: '.blog-posts',
 	initialize: function() {
-		this.read()
+		this.read();
 	},
 	events: {
 		'click .btn-pagination' : 'paginate'
@@ -59,7 +59,7 @@ app.BlogPosts = Backbone.View.extend({
 			var model = app.posts.at(i);
 			var view = new app.BlogPost({model: model});
 			$('.blog-posts').prepend(view.el);
-		};
+		}
 		$('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
 	},
 	paginate: function() {
@@ -80,42 +80,11 @@ app.BlogPosts = Backbone.View.extend({
 			var model = app.posts.at(i);
 			var view = new app.BlogPost({model: model});
 			$(pageSelector).prepend(view.el);
-		};
+		}
 		if (numToRender !== 0) {
 			$('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
 		}
 	},
-/*	
-
-	To make client side requests:
-
-	quote: function() {
-		var posts = this.collection;
-		var api = new app.Api();
-		api.fetch({
-			success: function(data) {
-				var title  = data.attributes.title;
-				var body = data.attributes.body;
-
-				if (title.length > 1) {
-
-					posts.create({
-						title: title,
-						body: body,
-						timestamp: Firebase.ServerValue.TIMESTAMP
-					});
-
-				} else {
-
-					return;
-				}
-			},
-			error: function() {
-				console.log('Error');
-			}
-		});
-	}, */
-
 });
 var app = app || {};
 

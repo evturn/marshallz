@@ -1,9 +1,10 @@
-var Firebase    = require("firebase");
-var MarkovChain = require('markovchain').MarkovChain;
 var Promise     = require('promise');
+var MarkovChain = require('markovchain').MarkovChain;
+var markov      = new MarkovChain({files: 'quotes.txt'});
 
-var markov 	 	= new MarkovChain({files: 'quotes.txt'});
-var firebase 	= new Firebase("https://marshallz.firebaseio.com/posts"); // change back to posts
+var Firebase    = require("firebase");
+var firebase  = new Firebase("https://marshallz.firebaseio.com/posts");
+
 var sentences = [];
 
 function capitalize(wordList) {
