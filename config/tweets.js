@@ -2,13 +2,13 @@ var Promise  = require('promise');
 var MarkovChain = require('markovchain').MarkovChain;
 var markov 	 = new MarkovChain({files: 'quotes.txt'});
 
-var client = require('../config/credentials');
+var client = require('./credentials');
 
 var sentences = [];
 
 function capitalize(wordList) {
   var tmpList = Object.keys(wordList).filter(function(word) {
-    return word[0] >= 'A' && word[0] <= 'Z' 
+    return word[0] >= 'A' && word[0] <= 'Z'
   })
   return tmpList[~~(Math.random()*tmpList.length)]
 }
@@ -23,11 +23,11 @@ function createTweet() {
   	return phrase;
 }
 
-function draftTweet() {	
-	writeTweet().then(function(value) {	
+function draftTweet() {
+	writeTweet().then(function(value) {
 		finishTweet(value);
 	});
-	
+
 }
 
 function writeTweet() {
@@ -45,11 +45,11 @@ function finishTweet(tweet) {
 
 function postTweet(phrase) {
 	client.post('statuses/update', {status: phrase}, function(error, tweet, response) {
-    if(error) { 
-      throw error 
+    if(error) {
+      throw error
     } else {
-      console.log('Tweet: ', tweet);  // Tweet body. 
-      console.log(response);  // Raw response object. 
+      console.log('Tweet: ', tweet);  // Tweet body.
+      console.log(response);  // Raw response object.
     }
   });
 }

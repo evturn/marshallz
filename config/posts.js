@@ -9,14 +9,14 @@ var sentences = [];
 
 function capitalize(wordList) {
   var tmpList = Object.keys(wordList).filter(function(word) {
-    return word[0] >= 'A' && word[0] <= 'Z' 
+    return word[0] >= 'A' && word[0] <= 'Z'
   })
   return tmpList[~~(Math.random()*tmpList.length)]
 }
 
 function createSentence() {
 	markov
-    .start(capitalize) // 
+    .start(capitalize) //
     .end()
     .process(function(err, sentence) {
     	phrase = sentence
@@ -24,8 +24,8 @@ function createSentence() {
   	return phrase;
 }
 
-function draftPost() {	
-	writeSentence().then(function(value) {	
+function draftPost() {
+	writeSentence().then(function(value) {
 		sentences.push(value);
 	});
 	writePost();
@@ -53,8 +53,8 @@ function writePost() {
 
 function createBody(sentence) {
   	if (sentence !== '?') {
- 			var content = sentence.concat('.');	
-  	}		      
+ 			var content = sentence.concat('.');
+  	}
   return content;
 }
 
