@@ -24,5 +24,4 @@ cron.blog = new CronJob('00 00 * * * *', function() {
   post();
 }, null, true);
 
-
 module.exports = cron;
