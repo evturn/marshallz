@@ -8,9 +8,9 @@ var sentences = [];
 
 function capitalize(wordList) {
   var tmpList = Object.keys(wordList).filter(function(word) {
-    return word[0] >= 'A' && word[0] <= 'Z'
-  })
-  return tmpList[~~(Math.random()*tmpList.length)]
+    return word[0] >= 'A' && word[0] <= 'Z';
+  });
+  return tmpList[~~(Math.random()*tmpList.length)];
 }
 
 function createTweet() {
@@ -18,7 +18,7 @@ function createTweet() {
     .start(capitalize)
     .end()
     .process(function(err, sentence) {
-    	phrase = sentence
+    	phrase = sentence;
   	});
   	return phrase;
 }
@@ -46,7 +46,7 @@ function finishTweet(tweet) {
 function postTweet(phrase) {
 	client.post('statuses/update', {status: phrase}, function(error, tweet, response) {
     if(error) {
-      throw error
+      throw error;
     } else {
       console.log('Tweet: ', tweet);  // Tweet body.
       console.log(response);  // Raw response object.
