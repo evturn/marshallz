@@ -20,6 +20,7 @@ module.exports = function marshallz() {
             body      : phrases[1] + ' ' + phrases[2],
             timestamp : Firebase.ServerValue.TIMESTAMP
           });
+          phrases.length = 0;
         } else {
           counter += 1;
           if (sentence.charAt(sentence.length - 1) === '?' || '!') {
