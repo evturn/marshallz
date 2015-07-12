@@ -1,57 +1,36 @@
-var Promise  = require('promise');
-var MarkovChain = require('markovchain').MarkovChain;
-var markov 	 = new MarkovChain({files: 'quotes.txt'});
+var Markov = require('markovchain').MarkovChain;
 
 var client = require('./credentials');
 
-var sentences = [];
+module.exports = function marshallz() {
 
-function capitalize(wordList) {
-  var tmpList = Object.keys(wordList).filter(function(word) {
-    return word[0] >= 'A' && word[0] <= 'Z';
-  });
-  return tmpList[~~(Math.random()*tmpList.length)];
-}
+  var singlePhrase = function() {
+    var markov = new Markov({files: 'quotes.txt'});
 
-function createTweet() {
-	markov
-    .start(capitalize)
-    .end()
-    .process(function(err, sentence) {
-    	phrase = sentence;
-  	});
-  	return phrase;
-}
+    markov
+      .start(capitalize)
+      .end()
+      .process(function(err, sentence) {
+        client.post('statuses/update', {status: sentence},
+          function(error, tweet, response) {
+            if(error) {
+              throw error;
+            } else {
+              console.log('Tweet: ', tweet);  // Tweet body.
+              console.log(response);          // Raw response object.
+            }
+          });
+      });
 
-function draftTweet() {
-	writeTweet().then(function(value) {
-		finishTweet(value);
-	});
-
-}
-
-function writeTweet() {
-	return new Promise(function(resolve, reject) {
-		var snippet = createTweet();
-		resolve(snippet);
-	});
-}
-
-function finishTweet(tweet) {
-  var status = tweet;
-  console.log('Tweet String: ', status);
-  postTweet(status);
-}
-
-function postTweet(phrase) {
-	client.post('statuses/update', {status: phrase}, function(error, tweet, response) {
-    if(error) {
-      throw error;
-    } else {
-      console.log('Tweet: ', tweet);  // Tweet body.
-      console.log(response);  // Raw response object.
+    function capitalize(wordList) {
+      var tmpList = Object.keys(wordList).filter(function(word) {
+        return word[0] >= 'A' && word[0] <= 'Z';
+      });
+      return tmpList[~~(Math.random()*tmpList.length)];
     }
-  });
-}
 
-module.exports = draftTweet;
+  };
+
+  singlePhrase();
+
+};
