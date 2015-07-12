@@ -36,6 +36,16 @@
     }
     .meta {
       color: @grey;
+      &.sig {
+        float: right;
+        a {
+          text-decoration: none;
+          color: @grey;
+          &:hover {
+            color: black;
+          }
+        }
+      }
     }
     .body-text {
       text-align: left;
