@@ -1,15 +1,10 @@
   <script type="text/template" id="post-template">
-    <div class="container post-container">
-      <div class="row">
-        <img class='post-author' src='img/av.png'>
-        <div class="col-md-10 col-md-offset-1">
-          <div class="text-center post-content">
-            <h1 class="post-title"><%= title %></h1>
-            <span class="post-meta">by Marshall &#183; </span>
-            <span class="post-meta" data-livestamp="<%= moment(timestamp).unix() %>"></span>
-            <p><%= body %></p>
-          </div>
-        </div>
-      </div>
+    <div class="img-container">
+      <img class="img-responsive avatar" src='img/av.png'>
+    </div>
+    <div class="content-container">
+      <p class="title-text"><%= title %></p>
+      <p class="meta">by Marshall &#183; <span data-livestamp="<%= moment(timestamp).unix() %>"></span></p>
+      <p class="body-text"><%= body %></p>
     </div>
   </script>

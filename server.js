@@ -11,8 +11,8 @@ app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
 app.engine('hbs', hbs.engine);
-app.use(logger('dev'));
 app.use(express.static(__dirname + '/dist'));
+app.use(logger('dev'));
 app.use('/', appRouter);
 app.use('/api', apiRouter);
 
