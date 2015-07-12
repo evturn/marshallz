@@ -1,0 +1,30 @@
+.pagination-wrapper {
+  text-align: center;
+  .paginator {
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid @grey;
+    border-radius: 50%;
+    .btn-pagination {
+      margin-top: 40%;
+      font-size: 6vw;
+      color: @grey;
+      @media (min-width: @screen-xs) {
+        font-size: 2.5vw;
+      }
+      @media (min-width: @screen-lg) {
+        margin-top: 35%;
+      }
+    }
+  }
+  .loader {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 30px;
+  }
+}

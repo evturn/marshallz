@@ -34,12 +34,12 @@ app.BlogPost = Backbone.View.extend({
 var app = app || {};
 
 app.BlogPosts = Backbone.View.extend({
-  el: '.blog-posts',
+  el: 'body',
   initialize: function() {
     this.read();
   },
   events: {
-    'click .btn-pagination' : 'paginate'
+    'click .paginator' : 'paginate'
   },
   addOne: function(model) {
     var view = new app.BlogPost({model: model});
@@ -61,10 +61,10 @@ app.BlogPosts = Backbone.View.extend({
       var view = new app.BlogPost({model: model});
       $('.blog-posts').prepend(view.el);
     }
-    $('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
+    $('.pagination-wrapper').append('<div class="paginator"><p class="btn-pagination">Next <span>10</span></p></div>');
   },
   paginate: function() {
-    $('.btn-pagination').remove();
+    $('.paginator').remove();
     var total = numToRender;
     if (numToRender > 10) {
       numToRender = total - count;
@@ -83,7 +83,7 @@ app.BlogPosts = Backbone.View.extend({
       $(pageSelector).prepend(view.el);
     }
     if (numToRender !== 0) {
-      $('.blog-posts').append('<p class="text-center btn-pagination">Older Posts</p>');
+    $('.pagination-wrapper').append('<div class="paginator"><p class="btn-pagination">Next <span>10</span></p></div>');
     }
   },
 });
