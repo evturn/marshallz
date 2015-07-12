@@ -17,12 +17,10 @@ app.get('/', function(req, res) {
 	res.render('app/index');
 });
 
-
 app.get('/api', function(req, res) {
   var post = newPost();
   res.status(200).json(post);
 });
-
 
 var port = app.get('port');
 app.listen(port, function() {
