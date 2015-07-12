@@ -4,13 +4,26 @@ var gulp = require('gulp'),
 var paths = require('./config/paths');
 var options = require('./config/gulp-options');
 
+gulp.task('default', ['less', 'js', 'watch', 'lint']);
+
 gulp.task('watch', function() {
   gulp.watch(paths.css.src, ['css']);
   gulp.watch(paths.jshint.watch, ['lint']);
   gulp.watch(paths.js.watch, ['js']);
 });
 
-gulp.task('build', ['js', 'css', 'jslib']);
+gulp.task('build', ['less', 'js', 'css', 'jslib']);
+
+gulp.task('less', function() {
+  return gulp.src(paths.less.src)
+    .pipe($.plumber(options.plumber))
+    .pipe($.less())
+    .pipe($.rename(paths.less.filename))
+    .on('error', options.plumber.errorHandler)
+    .pipe($.autoprefixer(options.autoprefixer))
+    .pipe($.cssmin())
+    .pipe(gulp.dest(paths.less.dest)).on('error', gutil.log);
+});
 
 gulp.task('js', function() {
   return gulp.src(paths.js.src)
