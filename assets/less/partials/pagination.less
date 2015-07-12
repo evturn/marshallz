@@ -8,23 +8,37 @@
     margin-bottom: 30px;
     margin-left: auto;
     margin-right: auto;
-    border: 5px solid @grey;
+    border: 5px solid @black;
     border-radius: 50%;
-    .btn-pagination {
-      margin-top: 40%;
-      font-size: 6vw;
+    color: @black;
+    text-transform: uppercase;
+    font-family: @sansserif;
+    span {
+      font-family: @serif;
+    }
+    .transition(0.3s);
+    &:hover {
+      border-color: @grey;
       color: @grey;
+    }
+    .btn-pagination {
+      font-size: 8vw;
+      margin-top: 40%;
       @media (min-width: @screen-xs) {
-        font-size: 2.5vw;
+        margin-top: 35%;
+        font-size: 6vw;
+      }
+      @media (min-width: @screen-sm) {
+        font-size: 4vw;
       }
       @media (min-width: @screen-lg) {
-        margin-top: 35%;
+        font-size: 2.5vw;
       }
     }
   }
   .loader {
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 30px;
+    padding-top: 30px;
   }
 }
