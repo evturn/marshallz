@@ -21,6 +21,7 @@ module.exports = function marshallz() {
             timestamp : Firebase.ServerValue.TIMESTAMP
           });
           phrases.length = 0;
+          counter = 0;
         } else {
           counter += 1;
           if (sentence.charAt(sentence.length - 1) === '?' || '!') {
