@@ -10,8 +10,8 @@
       margin-right: auto;
       z-index: 1;
       margin-bottom: -50px;
-      border-top: 1px solid @darkgrey;
-      border-left: 1px solid @darkgrey;
+      border-top: 1px solid @grey;
+      border-left: 1px solid @grey;
     }
   }
 
@@ -27,9 +27,20 @@
     }
     .title-text {
       font-size: 22px;
+      font-weight: 800;
+      line-height: 1.1em;
       text-transform: uppercase;
       @media (min-width: @screen-sm) {
         font-size: 3vw;
+      }
+    }
+    .meta {
+      color: @grey;
+    }
+    .body-text {
+      text-align: left;
+      @media (min-width: @screen-sm) {
+        font-size: 2vw;
       }
     }
   }
