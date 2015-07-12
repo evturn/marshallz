@@ -1,5 +1,5 @@
 var express = require('express');
-
+var tweet   = require('../config/tweets.js');
 var api = express.Router();
 
 api.get('/', function(req, res) {

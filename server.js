@@ -1,12 +1,11 @@
-var express 	= require('express');
-var logger 		= require('morgan');
+var express   = require('express');
+var logger    = require('morgan');
 var hbs       = require('./config/handlebars');
 var blog      = require('./config/posts.js');
-var tweet     = require('./config/tweets.js');
 var crony     = require('./config/cron');
 var appRouter = require('./routes/app');
 var apiRouter = require('./routes/api');
-var app 		  = express();
+var app       = express();
 
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'hbs');
