@@ -8,7 +8,7 @@ var promise = new Promise(function(resolve, reject) {
   $('.kurt-loader').html('<img class="loader img-responsive" src="img/bananas.gif">');
   var collection = app.posts.fetch({
     success: function(data) {
-      console.log('we got: ', data);
+      console.log('we got bananas : ', data);
       resolve(collection);
     }
   });
