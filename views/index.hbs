@@ -1,41 +1,51 @@
-<div class="wrapper site-header">
-  <div class="header-wrapper">
-    <p class="header-text">Marshallz Blog</h1>
-    <p class="meta">Welcome! And more importantly, Welcome to Marshallz Blog</p>
+<div class="container site-header">
+  <div class="inner">
+    <div class="header-wrapper">
+      <p class="header-text">Marshallz Blog</h1>
+      <p class="meta">Welcome! And more importantly, Welcome to Marshallz Blog</p>
+    </div>
   </div>
 </div>
 <div class="container blog-posts"></div>
-<div class="wrapper pagination">
-  <div class="pagination-wrapper">
+<div class="container pagination">
+  <div class="inner">
+    <div class="pagination-wrapper">
 
-    <div class="kurt-loader"></div>
+      <div class="kurt-loader"></div>
+    </div>
   </div>
 </div>
 <div class="container">
-  <div class="bio-wrapper">
-    <div class="img-container">
-      <img class="img-scale avatar" src='img/av.png'>
-    </div>
-    <div class="content-container">
-      <p class="meta dark">Marshall has lived on four continents and traveled to more than 150 countries, graduated from Harvard, studied law at Oxford University as a Rhodes Scholar, and then studied Arabic in Cairo. In his free time also teaches at Yale University, and is a member of the American Academy of Arts and Sciences</p>
+  <div class="inner">
+    <div class="bio-wrapper">
+      <div class="img-container">
+        <img class="img-scale avatar" src='img/av.png'>
+      </div>
+      <div class="content-container">
+        <p class="meta dark">Marshall has lived on four continents and traveled to more than 150 countries, graduated from Harvard, studied law at Oxford University as a Rhodes Scholar, and then studied Arabic in Cairo. In his free time also teaches at Yale University, and is a member of the American Academy of Arts and Sciences</p>
+      </div>
     </div>
   </div>
 </div>
 <br/>
-<div class="wrapper site-footer">
-  <div class="footer-wrapper">
-    <p class="meta">2032 &copy; <a href="/">evturn.com</a> &bull; All rights reserved</p>
+<div class="container site-footer">
+  <div class="inner">
+    <div class="footer-wrapper">
+      <p class="meta">2032 &copy; <a href="/">evturn.com</a> &bull; All rights reserved</p>
+    </div>
   </div>
 </div>
 
 <script type="text/template" id="post-template">
-  <div class="img-container">
-    <img class="img-scale avatar" src='img/av.png'>
-  </div>
-  <div class="content-container">
-    <p class="title-text"><%= title %></p>
-    <p class="meta" data-livestamp="<%= moment(timestamp).unix() %>"></span></p>
-    <p class="body-text"><%= body %></p>
-    <p class="meta sig">by <a href="http://twitter.com/marshallzBlog">Marshall</a></p>
+  <div class="inner">
+    <div class="img-container">
+      <img class="img-scale avatar" src='img/av.png'>
+    </div>
+    <div class="content-container">
+      <p class="title-text"><%= title %></p>
+      <p class="meta" data-livestamp="<%= moment(timestamp).unix() %>"></span></p>
+      <p class="body-text"><%= body %></p>
+      <p class="meta sig">by <a href="http://twitter.com/marshallzBlog">Marshall</a></p>
+    </div>
   </div>
 </script>

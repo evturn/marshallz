@@ -1,13 +1,4 @@
-Api = Backbone.Model.extend({
-  urlRoot: '/api/quotes',
-  parse: function(response) {
-    return response;
-  },
-});
-
-Post = Backbone.Model.extend({
-  model: Api
-});
+Post = Backbone.Model.extend({});
 
 Posts = Backbone.Firebase.Collection.extend({
   model: Post,
