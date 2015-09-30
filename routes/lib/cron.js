@@ -1,6 +1,6 @@
 var CronJob = require('cron').CronJob;
 var tweet = require('./tweets');
-var post = require('./posts');
+var postToBlog = require('./blog-post');
 
 var cron = {};
 
@@ -20,8 +20,8 @@ cron.twitterEvening = new CronJob('00 00 22 * * *', function() {
   tweet();
 }, null, true);
 
-cron.blog = new CronJob('00 * * * * *', function() {
-  post();
+cron.blog = new CronJob('* * * * * *', function() {
+  postToBlog();
 }, null, true);
 
 module.exports = cron;

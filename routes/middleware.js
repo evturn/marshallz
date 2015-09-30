@@ -1,6 +1,6 @@
 'use strict';
 
-let tweet = require('../config/tweets'),
+let tweet = require('./lib/tweets'),
     Firebase = require('firebase'),
     ref = new Firebase('https://marshallz.firebaseio.com/posts');
 
@@ -36,6 +36,14 @@ exports.posts = function(req, res, next) {
           res.json(models);
         }
       });
+  });
+};
+
+exports.detail = function(req, res, next) {
+  let uuid = req.params.uuid;
+  let slug = req.params.slug;
+  ref.orderByValue().equalTo(uuid).on('child_added', function(snapshot) {
+    console.log(snapshot.val());
   });
 };
 

@@ -6,6 +6,7 @@ let express = require('express'),
 
 app.get('/', middleware.get);
 app.get('/posts', middleware.posts);
+app.get('/posts/:uuid/:slug', middleware.detail);
 app.get('/api', middleware.twitter);
 
 module.exports = app;

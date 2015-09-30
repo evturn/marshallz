@@ -1,11 +1,11 @@
 var Markov = require('markovchain').MarkovChain;
 
-var client = require('./credentials');
+var client = require('../../config/credentials');
 
 module.exports = function marshallz() {
 
   var singlePhrase = function() {
-    var markov = new Markov({files: 'quotes.txt'});
+    var markov = new Markov({files: 'routes/lib/quotes.txt'});
 
     markov
       .start(capitalize)
