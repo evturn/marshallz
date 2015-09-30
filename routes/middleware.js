@@ -1,7 +1,6 @@
 'use strict';
 
-let tweet = require('./lib/tweets'),
-    Firebase = require('firebase'),
+let Firebase = require('firebase'),
     ref = new Firebase('https://marshallz.firebaseio.com/posts');
 
 exports.get = function(req, res, next) {
@@ -17,12 +16,6 @@ exports.get = function(req, res, next) {
         }
       });
   });
-};
-
-exports.twitter = function(req, res) {
-  let post = newPost();
-
-  res.status(200).json(post);
 };
 
 exports.posts = function(req, res, next) {
