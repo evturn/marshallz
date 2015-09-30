@@ -2,6 +2,10 @@ var app = app || {};
 
 app.BlogPosts = Backbone.View.extend({
   el: 'body',
+  count: 0,
+  num: 1,
+  total: null,
+  numToRender: null,
   initialize: function() {
     this.read();
   },
@@ -18,12 +22,10 @@ app.BlogPosts = Backbone.View.extend({
     }.bind(this));
   },
   read: function() {
-    count = 0;
-    var total = app.posts.length;
-    num = 1;
-    count += 10;
-    numToRender = total - count;
-    for (var i = numToRender; i < total; i++) {
+    this.total = app.posts.length;
+    this.count += 10;
+    this.numToRender = this.total - this.count;
+    for (var i = this.numToRender; i < this.total; i++) {
       var model = app.posts.at(i);
       var view = new app.BlogPost({model: model});
       $('.blog-posts').prepend(view.el);
@@ -32,24 +34,24 @@ app.BlogPosts = Backbone.View.extend({
   },
   paginate: function() {
     $('.paginator').remove();
-    var total = numToRender;
-    if (numToRender > 10) {
-      numToRender = total - count;
+    this.total = this.numToRender;
+    if (this.numToRender > 10) {
+      this.numToRender = this.total - this.count;
     } else {
-      numToRender = 0;
+      this.numToRender = 0;
     }
-    num += 1;
-    var page = 'pagination-' + num;
+    this.num += 1;
+    var page = 'pagination-' + this.num;
     var pageSelector = '.' + page;
     var element = document.createElement('div');
     $(element).addClass(page);
     $('.blog-posts').append(element);
-    for (var i = numToRender; i < total; i++) {
+    for (var i = this.numToRender; i < this.total; i++) {
       var model = app.posts.at(i);
       var view = new app.BlogPost({model: model});
       $(pageSelector).prepend(view.el);
     }
-    if (numToRender !== 0) {
+    if (this.numToRender !== 0) {
     $('.pagination-wrapper').append('<div class="paginator"><p class="btn-pagination">Next <span>10</span></p></div>');
     }
   },
