@@ -1,38 +1,5 @@
 var app = app || {};
 
-app.Api = Backbone.Model.extend({
-	urlRoot: '/api/quotes',
-	parse: function(response) {
-    return response;
-  },
-});
-var app = app || {};
-
-app.Post = Backbone.Model.extend({
-	model: app.Api
-});
-var app = app || {};
-var app = app || {};
-
-app.Posts = Backbone.Firebase.Collection.extend({
-	model: app.Post,
-	url: 'https://marshallz.firebaseio.com/posts'
-});
-var app = app || {};
-
-app.BlogPost = Backbone.View.extend({
-  className: 'post-item-wrapper',
-  postTemplate: _.template($('#post-template').html()),
-  initialize: function() {
-    this.render();
-  },
-  render: function() {
-    this.$el.html(this.postTemplate(this.model.toJSON()));
-    return this;
-  }
-});
-var app = app || {};
-
 app.BlogPosts = Backbone.View.extend({
   el: 'body',
   initialize: function() {
@@ -86,23 +53,4 @@ app.BlogPosts = Backbone.View.extend({
     $('.pagination-wrapper').append('<div class="paginator"><p class="btn-pagination">Next <span>10</span></p></div>');
     }
   },
-});
-var app = app || {};
-
-var ref = new Firebase('https://marshallz.firebaseio.com/posts');
-
-app.posts = new app.Posts();
-
-var promise = new Promise(function(resolve, reject) {
-  $('.kurt-loader').html('<img class="loader img-responsive" src="img/bananas.gif">');
-  var collection = app.posts.fetch({
-    success: function(data) {
-      console.log('we got bananYas : ', data);
-      resolve(collection);
-    }
-  });
-});
-promise.then(function() {
-  $('.kurt-loader').empty();
-  var blogPosts = new app.BlogPosts({collection: app.posts});
 });
