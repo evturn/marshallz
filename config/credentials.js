@@ -1,3 +1,5 @@
+'use strict';
+
 let Twitter = require('twitter');
 
 let client = new Twitter({
