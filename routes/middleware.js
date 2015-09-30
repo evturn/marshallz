@@ -5,7 +5,17 @@ let tweet = require('../config/tweets'),
     ref = new Firebase('https://marshallz.firebaseio.com/posts');
 
 exports.get = function(req, res, next) {
-  res.render('index');
+  let models = [];
+  ref.limitToLast(50).on('child_added', function(data) {
+    return new Promise(function(resolve, reject) {
+      resolve(data.val());
+    }).then(function(v) {
+        models.push(v);
+        if (models.length === 50) {
+          res.render('index', {posts: models});
+        }
+      });
+  });
 };
 
 exports.twitter = function(req, res) {

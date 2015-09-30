@@ -6,7 +6,23 @@
     </div>
   </div>
 </div>
-<div class="container blog-posts"></div>
+<div class="blog-posts">
+  {{#each posts}}
+  <div class="container post-item">
+    <div class="inner">
+      <div class="img-container">
+        <img class="img-scale avatar" src='img/av.png'>
+        </div>
+      <div class="content-container">
+        <p class="title-text">{{this.title}}</p>
+        <p class="meta" data-livestamp="{{this.timestamp}}"></span></p>
+        <p class="body-text">{{this.body}}</p>
+        <p class="meta sig">by <a href="http://twitter.com/marshallzBlog">Marshall</a></p>
+      </div>
+    </div>
+  </div>
+{{/each}}
+</div>
 <div class="container pagination">
   <div class="inner">
     <div class="pagination-wrapper">

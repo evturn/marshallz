@@ -5,6 +5,7 @@ let handlebars = require('express-handlebars');
 module.exports = handlebars.create({
   defaultLayout: 'main',
   extname: '.hbs',
+  helpers: 'views/helpers',
   partialsDir: 'views/partials',
   layoutsDir: 'views/layouts'
 });

@@ -1,4 +1,4 @@
-module.exports = function() {
+(function() {
   let root = this;
   let Handlebars;
   let moment;
@@ -75,4 +75,4 @@ module.exports = function() {
     return '';
   });
 
-}();
+})();
