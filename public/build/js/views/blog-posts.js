@@ -23,7 +23,6 @@ let BlogPosts = Backbone.View.extend({
     }.bind(this));
   },
   read: function() {
-    console.log(this.collection);
     this.total = this.collection.models.length;
     this.count += 10;
     this.numToRender = this.total - this.count;

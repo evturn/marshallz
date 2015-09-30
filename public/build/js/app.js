@@ -1,6 +1,7 @@
 let $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
+    livestamp = require('./vendor/livestamp'),
     Post = Backbone.Model.extend({}),
     Posts = Backbone.Collection.extend({
       model: Post,
@@ -17,12 +18,7 @@ let start = function() {
     success: function(data) {
       $('.kurt-loader').empty();
       console.log('we got bananYas: ', data);
-      let modelsObj = data.models[0].attributes;
-      for (var m in modelsObj) {
-        console.log(m);
-      }
-
-      // let blogPosts = new BlogPosts({collection: models});
+      let blogPosts = new BlogPosts({collection: data});
     },
     error: function(err) {
       console.log(err);

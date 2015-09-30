@@ -130,4 +130,4 @@ module.exports = function() {
 
     return livestampLocal[method](this, options);
   };
-};
+}();
