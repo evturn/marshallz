@@ -20,7 +20,7 @@ cron.twitterEvening = new CronJob('00 00 22 * * *', function() {
   tweet();
 }, null, true);
 
-cron.blog = new CronJob('* * * * * *', function() {
+cron.blog = new CronJob('00 * * * * *', function() {
   postToBlog();
 }, null, true);
 

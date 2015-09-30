@@ -5,7 +5,6 @@ let Markov    = require('markovchain').MarkovChain,
     firebase  = new Firebase('https://marshallz.firebaseio.com/posts'),
     composer = require('./composer');
 
-
 let Entry = {
   title     : null,
   slug      : null,

@@ -1,36 +1,29 @@
-var Markov = require('markovchain').MarkovChain;
+'use strict';
 
-var client = require('../../config/credentials');
+let Markov = require('markovchain').MarkovChain,
+    twitterReq = require('../../config/credentials'),
+    composer = require('./composer');
 
-module.exports = function marshallz() {
+module.exports = function init() {
+  let sentence = composer();
 
-  var singlePhrase = function() {
-    var markov = new Markov({files: 'routes/lib/quotes.txt'});
-
-    markov
-      .start(capitalize)
-      .end()
-      .process(function(err, sentence) {
-        client.post('statuses/update', {status: sentence},
-          function(error, tweet, response) {
-            if(error) {
-              throw error;
-            } else {
-              console.log('Tweet: ', tweet);  // Tweet body.
-              console.log(response);          // Raw response object.
-            }
-          });
+  return new Promise(function(resolve, reject) {
+    resolve(sentence)
+  })
+  .then(function(v) {
+    let string = v;
+    twitterReq.post('statuses/update', {status: string},
+      function(error, tweet, response) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log(response);
+            console.log('=====================');
+            console.log('=====SUCCESSFULL=====');
+            console.log('=====================');
+        }
       });
-
-    function capitalize(wordList) {
-      var tmpList = Object.keys(wordList).filter(function(word) {
-        return word[0] >= 'A' && word[0] <= 'Z';
-      });
-      return tmpList[~~(Math.random()*tmpList.length)];
-    }
-
-  };
-
-  singlePhrase();
-
+    return tweet;
+  });
 };
