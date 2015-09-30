@@ -10,14 +10,13 @@ let $ = require('jquery'),
     BlogPosts = require('./views/blog-posts'),
     BlogPost = require('./views/blog-post');
 
-
 let start = function() {
   let posts = new Posts();
   $('.kurt-loader').html('<img class="loader img-responsive" src="img/bananas.gif">');
   posts.fetch({
     success: function(data) {
       $('.kurt-loader').empty();
-      console.log('we got bananYas: ', data);
+      console.log('Fetch:', data);
       let blogPosts = new BlogPosts({collection: data});
     },
     error: function(err) {

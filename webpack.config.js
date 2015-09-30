@@ -1,7 +1,6 @@
 'use strict';
 
 let webpack = require('webpack'),
-    webpackDevServer = require('webpack-dev-server'),
     path = require('path');
 
 module.exports = {
@@ -22,7 +21,9 @@ module.exports = {
   },
   resolve: {
     extension: [
-    '.js'
+      '',
+      '.js',
+      '.json'
     ],
     alias: {
       jquery: 'jquery',

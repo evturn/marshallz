@@ -20,12 +20,11 @@ exports.posts = function(req, res, next) {
     return new Promise(function(resolve, reject) {
       resolve(data.val());
     }).then(function(v) {
-        console.log(v);
         models.push(v);
-        console.log(models.length);
         if (models.length === 50) {
           res.json(models);
         }
       });
   });
 };
+

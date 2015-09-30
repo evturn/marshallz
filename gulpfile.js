@@ -7,7 +7,29 @@ let gulp = require('gulp'),
     paths = require('./config/gulp-paths'),
     opts = require('./config/gulp-options');
 
-gulp.task('default', ['less:watch', 'js:watch', 'eslint:watch', 'browserSync']);
+gulp.task('default', ['less:watch', 'eslint:watch', 'browserSync']);
+
+gulp.task('start', ['less:watch', 'eslint:watch', 'nodemon'], function() {
+  setTimeout(function() {
+    browserSync.init(opts.browserSync);
+    gulp.watch('*.hbs').on('change', browserSync.reload);
+  }, 2000);
+});
+
+gulp.task('nodemon', function() {
+  return $.nodemon({
+    script: 'server.js',
+    ext: 'js hbs',
+    ignore: 'public/*',
+    tasks: [
+      'less:watch',
+      'eslint:watch'
+    ],
+    env: {
+      'NODE_ENV' : 'development'
+    }
+  });
+});
 
 //////////////////////
 // LESS
