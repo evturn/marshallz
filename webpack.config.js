@@ -20,6 +20,16 @@ module.exports = {
     ]
   },
   resolve: {
+    root: [
+      'web_modules',
+      'node_modules',
+      'shared'
+    ],
+    moduleDirectories: [
+      'web_modules',
+      'node_modules',
+      'shared'
+    ],
     extension: [
       '',
       '.js',

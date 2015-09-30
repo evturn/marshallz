@@ -8,6 +8,4 @@ let $ = require('jquery'),
     Posts = Backbone.Collection.extend({
       model: Post,
       url: '/posts'
-    }),
-    BlogPosts = require('./views/blog-posts'),
-    BlogPost = require('./views/blog-post');
+    });

@@ -58,14 +58,12 @@
 	    Backbone = __webpack_require__(4),
 	    Handlebars = __webpack_require__(5),
 	    helpers = __webpack_require__(33),
-	    livestamp = __webpack_require__(122),
+	    livestamp = __webpack_require__(123),
 	    Post = Backbone.Model.extend({}),
 	    Posts = Backbone.Collection.extend({
 	  model: Post,
 	  url: '/posts'
-	}),
-	    BlogPosts = __webpack_require__(124),
-	    BlogPost = __webpack_require__(125);
+	});
 
 /***/ },
 /* 2 */
@@ -9587,7 +9585,7 @@
 	
 	var moment = __webpack_require__(34),
 	    _ = __webpack_require__(3),
-	    utils = __webpack_require__(126);
+	    utils = __webpack_require__(122);
 	
 	module.exports = function () {
 	
@@ -18028,6 +18026,45 @@
 
 	'use strict';
 	
+	var _ = __webpack_require__(3);
+	
+	module.exports = (function () {
+	
+	  function escapeForRegExp(value) {
+	    if (_.isUndefined(value)) {
+	      return '';
+	    }
+	    return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+	  }
+	
+	  function trim(value, chars) {
+	    chars = escapeForRegExp(chars);
+	    return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
+	  }
+	
+	  function toSlug(value) {
+	    value = value || '';
+	    return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
+	  };
+	
+	  function getQueryParams(url) {
+	    if (!url) {
+	      return false;
+	    }
+	    var query = url.split('?')[1];
+	    return _.chain(query.split('&')).map(function (params) {
+	      var p = params.split('=');
+	      return [p[0], decodeURIComponent(p[1])];
+	    }).object().value();
+	  };
+	})();
+
+/***/ },
+/* 123 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
 	var moment = __webpack_require__(34),
 	    $ = __webpack_require__(2);
 	
@@ -18142,141 +18179,6 @@
 	    }
 	
 	    return livestampLocal[method](this, options);
-	  };
-	})();
-
-/***/ },
-/* 123 */,
-/* 124 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-	
-	var _ = __webpack_require__(3);
-	var BlogPost = __webpack_require__(125);
-	
-	var BlogPosts = Backbone.View.extend({
-	  el: 'body',
-	  count: 0,
-	  num: 1,
-	  total: null,
-	  numToRender: null,
-	  initialize: function initialize() {
-	    this.read();
-	  },
-	  events: {
-	    'click .paginator': 'paginate'
-	  },
-	  addOne: function addOne(model) {
-	    var view = new BlogPost({ model: model });
-	    this.$el.prepend(view.el);
-	  },
-	  addAll: function addAll() {
-	    this.collection.each((function (model) {
-	      this.addOne(model);
-	    }).bind(this));
-	  },
-	  read: function read() {
-	    this.total = this.collection.models.length;
-	    this.count += 10;
-	    this.numToRender = this.total - this.count;
-	    for (var i = this.numToRender; i < this.total; i++) {
-	      var model = this.collection.at(i);
-	      var view = new BlogPost({ model: model });
-	      $('.blog-posts').prepend(view.el);
-	    }
-	    $('.pagination-wrapper').append('<div class="paginator"><p class="btn-pagination">Next <span>10</span></p></div>');
-	  },
-	  paginate: function paginate() {
-	    $('.paginator').remove();
-	    this.total = this.numToRender;
-	    if (this.numToRender > 10) {
-	      this.numToRender = this.total - this.count;
-	    } else {
-	      this.numToRender = 0;
-	    }
-	    this.num += 1;
-	    var page = 'pagination-' + this.num;
-	    var pageSelector = '.' + page;
-	    var element = document.createElement('div');
-	    $(element).addClass(page);
-	    $('.blog-posts').append(element);
-	    for (var i = this.numToRender; i < this.total; i++) {
-	      var model = posts.at(i);
-	      var view = new BlogPost({ model: model });
-	      $(pageSelector).prepend(view.el);
-	    }
-	    if (this.numToRender !== 0) {
-	      $('.pagination-wrapper').append('<div class="paginator"><p class="btn-pagination">Next <span>10</span></p></div>');
-	    }
-	  }
-	});
-	
-	module.exports = BlogPosts;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ },
-/* 125 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var moment = __webpack_require__(34);
-	var BlogPost = Backbone.View.extend({
-	  className: 'post-item-wrapper',
-	  initialize: function initialize() {
-	    this.render();
-	  },
-	  render: function render() {
-	    this.$el.html(this.template());
-	    return this;
-	  },
-	  template: function template() {
-	    var model = this.model,
-	        timestamp = moment(model.get('timestamp')).unix(),
-	        html = '\n        <div class="inner">\n          <div class="img-container">\n            <img class="img-scale avatar" src=\'img/av.png\'>\n            </div>\n          <div class="content-container">\n            <p class="title-text">' + model.get('title') + '</p>\n            <p class="meta" data-livestamp="' + timestamp + '"></span></p>\n            <p class="body-text">' + model.get('body') + '</p>\n            <p class="meta sig">by <a href="http://twitter.com/marshallzBlog">Marshall</a></p>\n          </div>\n        </div>';
-	    return html;
-	  }
-	});
-	
-	module.exports = BlogPost;
-
-/***/ },
-/* 126 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _ = __webpack_require__(3);
-	
-	module.exports = (function () {
-	
-	  function escapeForRegExp(value) {
-	    if (_.isUndefined(value)) {
-	      return '';
-	    }
-	    return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-	  }
-	
-	  function trim(value, chars) {
-	    chars = escapeForRegExp(chars);
-	    return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
-	  }
-	
-	  function toSlug(value) {
-	    value = value || '';
-	    return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
-	  };
-	
-	  function getQueryParams(url) {
-	    if (!url) {
-	      return false;
-	    }
-	    var query = url.split('?')[1];
-	    return _.chain(query.split('&')).map(function (params) {
-	      var p = params.split('=');
-	      return [p[0], decodeURIComponent(p[1])];
-	    }).object().value();
 	  };
 	})();
 
