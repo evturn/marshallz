@@ -1,6 +1,4 @@
-var ref = new Firebase('https://marshallz.firebaseio.com/posts');
-
-posts = new Posts();
+let posts = new Posts();
 
 var promise = new Promise(function(resolve, reject) {
   $('.kurt-loader').html('<img class="loader img-responsive" src="img/bananas.gif">');

@@ -1,4 +1,4 @@
-BlogPosts = Backbone.View.extend({
+let BlogPosts = Backbone.View.extend({
   el: 'body',
   count: 0,
   num: 1,

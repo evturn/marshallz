@@ -5,6 +5,7 @@ let express = require('express'),
     app = express.Router();
 
 app.get('/', middleware.get);
+app.get('/posts', middleware.get);
 app.get('/api', middleware.twitter);
 
 module.exports = app;
