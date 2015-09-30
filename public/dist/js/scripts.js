@@ -1,8 +1,8 @@
 'use strict';
 
-var Post = Backbone.Model.extend({});
+exports.Post = Backbone.Model.extend({});
 
-var Posts = Backbone.Firebase.Collection.extend({
+exports.Posts = Backbone.Collection.extend({
   model: Post,
   url: '/posts'
 });
@@ -19,7 +19,11 @@ var BlogPost = Backbone.View.extend({
     return this;
   }
 });
+
+module.exports = BlogPost;
 'use strict';
+
+var BlogPost = require('./blog-post');
 
 var BlogPosts = Backbone.View.extend({
   el: 'body',
@@ -77,6 +81,8 @@ var BlogPosts = Backbone.View.extend({
     }
   }
 });
+
+module.exports = BlogPosts;
 'use strict';
 
 var posts = new Posts();

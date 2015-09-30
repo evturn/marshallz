@@ -1,3 +1,6 @@
+let _ = require('underscore');
+let BlogPost = require('./blog-post');
+
 let BlogPosts = Backbone.View.extend({
   el: 'body',
   count: 0,
@@ -20,11 +23,12 @@ let BlogPosts = Backbone.View.extend({
     }.bind(this));
   },
   read: function() {
-    this.total = posts.length;
+    console.log(this.collection);
+    this.total = this.collection.models.length;
     this.count += 10;
     this.numToRender = this.total - this.count;
     for (var i = this.numToRender; i < this.total; i++) {
-      var model = posts.at(i);
+      var model = this.collection.at(i);
       var view = new BlogPost({model: model});
       $('.blog-posts').prepend(view.el);
     }
@@ -54,3 +58,5 @@ let BlogPosts = Backbone.View.extend({
     }
   },
 });
+
+module.exports = BlogPosts;
