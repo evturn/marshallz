@@ -1,6 +1,6 @@
-var Twitter  = require('twitter');
+let Twitter = require('twitter');
 
-var client = new Twitter({
+let client = new Twitter({
   consumer_key: process.env.MARSHALLZ_TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.MARSHALLZ_TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.MARSHALLZ_TWITTER_TOKEN_KEY,
