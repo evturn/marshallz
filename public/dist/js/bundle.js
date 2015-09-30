@@ -56,7 +56,7 @@
 	var $ = __webpack_require__(2),
 	    _ = __webpack_require__(3),
 	    Backbone = __webpack_require__(4),
-	    livestamp = __webpack_require__(95),
+	    livestamp = __webpack_require__(96),
 	    Post = Backbone.Model.extend({}),
 	    Posts = Backbone.Collection.extend({
 	  model: Post,
@@ -13490,7 +13490,8 @@
 	//! author : Ben : https://github.com/ben-lin
 
 /***/ },
-/* 95 */
+/* 95 */,
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

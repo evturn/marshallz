@@ -1,7 +1,7 @@
 let $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
-    livestamp = require('./vendor/livestamp'),
+    livestamp = require('livestamp'),
     Post = Backbone.Model.extend({}),
     Posts = Backbone.Collection.extend({
       model: Post,
