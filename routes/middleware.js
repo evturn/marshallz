@@ -12,6 +12,7 @@ exports.get = function(req, res, next) {
     }).then(function(v) {
         models.push(v);
         if (models.length === 50) {
+          models.reverse();
           res.render('index', {posts: models});
         }
       });

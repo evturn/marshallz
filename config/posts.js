@@ -1,47 +1,95 @@
-var Markov    = require('markovchain').MarkovChain;
-var Firebase  = require("firebase");
-var firebase  = new Firebase("https://marshallz.firebaseio.com/posts");
+'use strict';
 
-var counter = 0;
-var phrases = [];
+let Markov    = require('markovchain').MarkovChain,
+    Firebase  = require('firebase'),
+    firebase  = new Firebase('https://marshallz.firebaseio.com/posts'),
+    utils = require('../shared/utils');
 
-module.exports = function marshallz() {
 
-  var singlePhrase = function() {
-    var markov = new Markov({files: 'quotes.txt'});
+module.exports = function() {
 
-    markov
-      .start(capitalize)
-      .end()
-      .process(function(err, sentence) {
-        if (counter === 3) {
-          var post = firebase.push({
-            title     : phrases[0],
-            body      : phrases[1] + ' ' + phrases[2],
-            timestamp : Firebase.ServerValue.TIMESTAMP
-          });
-          phrases.length = 0;
-          counter = 0;
-        } else {
-          counter += 1;
-          if (sentence.charAt(sentence.length - 1) === '?' || '!') {
-            phrases.push(sentence);
-          } else {
-            phrases.push(sentence + '.');
+  let Entry = {
+    title     : null,
+    slug      : null,
+    body      : null,
+    timestamp : null
+  };
+
+  function escapeForRegExp(value) {
+    if (_.isUndefined(value)) {
+      return '';
+    }
+    return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+  }
+
+  function trim(value, chars) {
+    chars = escapeForRegExp(chars);
+    return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
+  }
+
+  function toSlug(value) {
+    value = value || '';
+    return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g,'').toLowerCase();
+  };
+
+
+  let Composer = {
+    phrases: [],
+    length: 4,
+    init: function() {
+      let fragment = new Markov({files: 'quotes.txt'});
+      fragment
+        .start(Composer.capitalize)
+        .end()
+        .process(function(err, sentence) {
+          if (err) {
+            console.log(err);
           }
-          marshallz();
-        }
+          else {
+            Composer.callback(sentence);
+          }
       });
-
-    function capitalize(wordList) {
-      var tmpList = Object.keys(wordList).filter(function(word) {
+    },
+    capitalize: function(wordList) {
+      let tmpList = Object.keys(wordList).filter(function(word) {
         return word[0] >= 'A' && word[0] <= 'Z';
       });
+
       return tmpList[~~(Math.random()*tmpList.length)];
+    },
+    callback: function(string) {
+      if (string !== undefined && Entry.title === null) {
+          Entry.title = string;
+          Entry.slug = toSlug(string);
+      }
+      else if (string !== undefined && Composer.phrases.length < Composer.length) {
+          if (string.endsWith('?' || '!')) {
+              Composer.phrases.push(string);
+          }
+          else {
+              Composer.phrases.push(string + '.');
+          }
+      }
+      else if (Composer.phrases.length === Composer.length) {
+          let body = '';
+
+          for (let str of Composer.phrases) {
+            body = body += ' ' + str;
+          }
+
+          Entry.body = body;
+          Entry.timestamp = Firebase.ServerValue.TIMESTAMP;
+
+          let _entry = firebase.push(Entry);
+
+          return Entry;
+      }
+
+      Composer.init();
     }
 
   };
 
-  singlePhrase();
+Composer.init();
 
 };

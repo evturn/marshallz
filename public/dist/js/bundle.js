@@ -58,6 +58,7 @@
 	    Backbone = __webpack_require__(4),
 	    Handlebars = __webpack_require__(5),
 	    helpers = __webpack_require__(33),
+	    utils = __webpack_require__(122),
 	    livestamp = __webpack_require__(123),
 	    Post = Backbone.Model.extend({}),
 	    Posts = Backbone.Collection.extend({
