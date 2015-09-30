@@ -1,6 +1,4 @@
-var app = app || {};
-
-app.BlogPost = Backbone.View.extend({
+BlogPost = Backbone.View.extend({
   className: 'post-item-wrapper',
   postTemplate: _.template($('#post-template').html()),
   initialize: function() {

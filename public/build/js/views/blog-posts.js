@@ -1,6 +1,4 @@
-var app = app || {};
-
-app.BlogPosts = Backbone.View.extend({
+BlogPosts = Backbone.View.extend({
   el: 'body',
   count: 0,
   num: 1,
@@ -13,7 +11,7 @@ app.BlogPosts = Backbone.View.extend({
     'click .paginator' : 'paginate'
   },
   addOne: function(model) {
-    var view = new app.BlogPost({model: model});
+    var view = new BlogPost({model: model});
     this.$el.prepend(view.el);
   },
   addAll: function() {
@@ -22,12 +20,12 @@ app.BlogPosts = Backbone.View.extend({
     }.bind(this));
   },
   read: function() {
-    this.total = app.posts.length;
+    this.total = posts.length;
     this.count += 10;
     this.numToRender = this.total - this.count;
     for (var i = this.numToRender; i < this.total; i++) {
-      var model = app.posts.at(i);
-      var view = new app.BlogPost({model: model});
+      var model = posts.at(i);
+      var view = new BlogPost({model: model});
       $('.blog-posts').prepend(view.el);
     }
     $('.pagination-wrapper').append('<div class="paginator"><p class="btn-pagination">Next <span>10</span></p></div>');
@@ -47,8 +45,8 @@ app.BlogPosts = Backbone.View.extend({
     $(element).addClass(page);
     $('.blog-posts').append(element);
     for (var i = this.numToRender; i < this.total; i++) {
-      var model = app.posts.at(i);
-      var view = new app.BlogPost({model: model});
+      var model = posts.at(i);
+      var view = new BlogPost({model: model});
       $(pageSelector).prepend(view.el);
     }
     if (this.numToRender !== 0) {

@@ -1,4 +1,5 @@
 'use strict';
+
 let tweet = require('../config/tweets');
 
 exports.get = function(req, res) {
