@@ -3,7 +3,8 @@
 let Markov    = require('markovchain').MarkovChain,
     Firebase  = require('firebase'),
     firebase  = new Firebase('https://marshallz.firebaseio.com/posts'),
-    utils = require('../shared/utils');
+    utils = require('../shared/utils'),
+    uuid = require('node-uuid');
 
 
 module.exports = function() {
@@ -12,7 +13,8 @@ module.exports = function() {
     title     : null,
     slug      : null,
     body      : null,
-    timestamp : null
+    timestamp : null,
+    uuid      : null,
   };
 
   function escapeForRegExp(value) {
@@ -79,6 +81,7 @@ module.exports = function() {
 
           Entry.body = body;
           Entry.timestamp = Firebase.ServerValue.TIMESTAMP;
+          Entry.uuid = uuid.v1();
 
           let _entry = firebase.push(Entry);
 
