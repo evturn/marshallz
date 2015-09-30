@@ -14,7 +14,7 @@ module.exports = {
   eslint: {
     src: [
       'public/build/js/**/*.js',
-      '!public/build/js/lib/**/*.js',
+      '!public/build/js/vendor/**/*.js',
       '!node_modules',
       'config/**/*.js',
       'gulpfile.js'

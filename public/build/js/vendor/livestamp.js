@@ -1,5 +1,9 @@
-// Livestamp.js / v1.1.2 / (c) 2012 Matt Bradley / MIT License
-(function($, moment) {
+'use strict';
+
+let moment = require('moment'),
+    $ = require('jquery');
+
+module.exports = function() {
   var updateInterval = 1e3,
       paused = false,
       $livestamps = $([]),
@@ -126,4 +130,4 @@
 
     return livestampLocal[method](this, options);
   };
-})(jQuery, moment);
+};

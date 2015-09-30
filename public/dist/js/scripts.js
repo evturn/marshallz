@@ -8,20 +8,14 @@ app.Api = Backbone.Model.extend({
     return response;
   }
 });
-"use strict";
-
-var app = app || {};
 
 app.Post = Backbone.Model.extend({
-	model: app.Api
+  model: app.Api
 });
-'use strict';
-
-var app = app || {};
 
 app.Posts = Backbone.Firebase.Collection.extend({
-	model: app.Post,
-	url: 'https://marshallz.firebaseio.com/posts'
+  model: app.Post,
+  url: 'https://marshallz.firebaseio.com/posts'
 });
 'use strict';
 
