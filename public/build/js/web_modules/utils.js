@@ -1,12 +1,8 @@
-module.exports = function() {
-  let root = this;
-  let _;
+'use strict';
 
-  if (typeof module !== 'undefined' && module.exports) {
-    _ = require('underscore');
-  } else {
-    _ = root._;
-  }
+let _ = require('underscore');
+
+module.exports = function() {
 
   function escapeForRegExp(value) {
     if (_.isUndefined(value)) {
@@ -39,16 +35,4 @@ module.exports = function() {
       .value();
   };
 
-  let exports = {
-    escapeForRegExp: escapeForRegExp,
-    trim: trim,
-    toSlug: toSlug,
-    getQueryParams: getQueryParams
-  };
-
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = exports;
-  } else {
-    root.utils = exports;
-  }
 }();

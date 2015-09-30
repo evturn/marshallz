@@ -58,7 +58,7 @@
 	    Backbone = __webpack_require__(4),
 	    Handlebars = __webpack_require__(5),
 	    helpers = __webpack_require__(33),
-	    livestamp = __webpack_require__(123),
+	    livestamp = __webpack_require__(122),
 	    Post = Backbone.Model.extend({}),
 	    Posts = Backbone.Collection.extend({
 	  model: Post,
@@ -9585,26 +9585,21 @@
 
 	'use strict';
 	
-	(function () {
-	    var root = this;
-	    var Handlebars = undefined;
-	    var moment = undefined;
-	    var _ = undefined;
-	    var utils = undefined;
+	var moment = __webpack_require__(34),
+	    _ = __webpack_require__(3),
+	    utils = __webpack_require__(126);
 	
-	    if (typeof module !== 'undefined' && module.exports) {
-	        Handlebars = __webpack_require__(5);
-	        moment = __webpack_require__(34);
-	        _ = __webpack_require__(3);
-	        utils = __webpack_require__(122);
-	    } else {
-	        Handlebars = root.Handlebars;
-	        moment = root.moment;
-	        _ = root._;
-	        utils = root.util;
-	    }
+	module.exports = function () {
 	
-	    Handlebars.registerHelper('eq', function (first, second, options) {
+	    var _helpers = {};
+	
+	    _helpers.ts = function (milliseconds) {
+	        var humanReadable = moment(milliseconds).unix();
+	
+	        return humanReadable;
+	    };
+	
+	    _helpers.eq = function (first, second, options) {
 	        if (options.hash.firstKey) {
 	            first = first[options.hash.firstKey];
 	        }
@@ -9622,25 +9617,25 @@
 	        } else {
 	            return options.inverse(this);
 	        }
-	    });
+	    };
 	
-	    Handlebars.registerHelper('gt', function (first, second, options) {
+	    _helpers.gt = function (first, second, options) {
 	        if (first > second) {
 	            return options.fn(this);
 	        } else {
 	            return options.inverse(this);
 	        }
-	    });
+	    };
 	
-	    Handlebars.registerHelper('lt', function (first, second, options) {
+	    _helpers.lt = function (first, second, options) {
 	        if (first < second) {
 	            return options.fn(this);
 	        } else {
 	            return options.inverse(this);
 	        }
-	    });
+	    };
 	
-	    Handlebars.registerHelper('set', function () {
+	    _helpers.set = function () {
 	        var args = Array.prototype.slice.call(arguments, 0);
 	        args.pop();
 	        var key = args.shift();
@@ -9648,16 +9643,18 @@
 	            this[key] = args.shift();
 	        }
 	        return '';
-	    });
+	    };
 	
-	    Handlebars.registerHelper('log', function () {
+	    _helpers.log = function () {
 	        var args = Array.prototype.slice.call(arguments, 0);
 	        args.pop();
 	        args.unshift('handlebars log:');
 	        console.log.apply(console, args);
 	        return '';
-	    });
-	})();
+	    };
+	
+	    return _helpers;
+	};
 
 /***/ },
 /* 34 */
@@ -18031,64 +18028,6 @@
 
 	'use strict';
 	
-	module.exports = (function () {
-	  var root = this;
-	  var _ = undefined;
-	
-	  if (typeof module !== 'undefined' && module.exports) {
-	    _ = __webpack_require__(3);
-	  } else {
-	    _ = root._;
-	  }
-	
-	  function escapeForRegExp(value) {
-	    if (_.isUndefined(value)) {
-	      return '';
-	    }
-	    return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-	  }
-	
-	  function trim(value, chars) {
-	    chars = escapeForRegExp(chars);
-	    return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
-	  }
-	
-	  function toSlug(value) {
-	    value = value || '';
-	    return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
-	  };
-	
-	  function getQueryParams(url) {
-	    if (!url) {
-	      return false;
-	    }
-	    var query = url.split('?')[1];
-	    return _.chain(query.split('&')).map(function (params) {
-	      var p = params.split('=');
-	      return [p[0], decodeURIComponent(p[1])];
-	    }).object().value();
-	  };
-	
-	  var exports = {
-	    escapeForRegExp: escapeForRegExp,
-	    trim: trim,
-	    toSlug: toSlug,
-	    getQueryParams: getQueryParams
-	  };
-	
-	  if (typeof module !== 'undefined' && module.exports) {
-	    module.exports = exports;
-	  } else {
-	    root.utils = exports;
-	  }
-	})();
-
-/***/ },
-/* 123 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	var moment = __webpack_require__(34),
 	    $ = __webpack_require__(2);
 	
@@ -18207,6 +18146,7 @@
 	})();
 
 /***/ },
+/* 123 */,
 /* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -18300,6 +18240,45 @@
 	});
 	
 	module.exports = BlogPost;
+
+/***/ },
+/* 126 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _ = __webpack_require__(3);
+	
+	module.exports = (function () {
+	
+	  function escapeForRegExp(value) {
+	    if (_.isUndefined(value)) {
+	      return '';
+	    }
+	    return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+	  }
+	
+	  function trim(value, chars) {
+	    chars = escapeForRegExp(chars);
+	    return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
+	  }
+	
+	  function toSlug(value) {
+	    value = value || '';
+	    return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
+	  };
+	
+	  function getQueryParams(url) {
+	    if (!url) {
+	      return false;
+	    }
+	    var query = url.split('?')[1];
+	    return _.chain(query.split('&')).map(function (params) {
+	      var p = params.split('=');
+	      return [p[0], decodeURIComponent(p[1])];
+	    }).object().value();
+	  };
+	})();
 
 /***/ }
 /******/ ]);
