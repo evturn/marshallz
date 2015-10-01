@@ -1,9 +1,8 @@
 'use strict';
 
 let Markov    = require('markovchain').MarkovChain,
-    Firebase  = require('firebase'),
-    firebase  = new Firebase('https://marshallz.firebaseio.com/posts'),
-    composer = require('./composer');
+    BlogPost  = require('../../config/schema'),
+    composer  = require('./composer');
 
 let Entry = {
   title     : null,
@@ -76,10 +75,10 @@ function buildEntry(string) {
       }
 
       Entry.body = body;
-      Entry.timestamp = Firebase.ServerValue.TIMESTAMP;
+      Entry.timestamp = Date.now();
       Entry.uuid = Date.now();
 
-      let _entry = firebase.push(Entry);
+      let _entry = new BlogPost(Entry);
       reset.entry();
       reset.phrases();
 

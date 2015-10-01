@@ -1,26 +1,27 @@
-var CronJob = require('cron').CronJob;
-var postToTwitter = require('./twitter-post');
-var postToBlog = require('./blog-post');
+'use strict';
 
-var cron = {};
+let CronJob = require('cron').CronJob,
+    postToTwitter = require('./twitter-post'),
+    postToBlog = require('./blog-post'),
+    cron = {};
 
-cron.twitterLate = new CronJob('00 00 04 * * *', function() {
+cron.twitterFourAM = new CronJob('00 00 04 * * *', function() {
   postToTwitter();
 }, null, true);
 
-cron.twitterMorning = new CronJob('00 00 10 * * *', function() {
+cron.twitterTenAM = new CronJob('00 00 10 * * *', function() {
   postToTwitter();
 }, null, true);
 
-cron.twitterAfternoon = new CronJob('00 00 16 * * *', function() {
+cron.twitterTwoPM = new CronJob('00 00 16 * * *', function() {
   postToTwitter();
 }, null, true);
 
-cron.twitterEvening = new CronJob('00 00 22 * * *', function() {
+cron.twitterTenPM = new CronJob('00 00 22 * * *', function() {
   postToTwitter();
 }, null, true);
 
-cron.blog = new CronJob('00 00 * * * *', function() {
+cron.blogHourly = new CronJob('00 00 * * * *', function() {
   postToBlog();
 }, null, true);
 

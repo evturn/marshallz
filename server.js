@@ -2,11 +2,15 @@
 
 let express    = require('express'),
     logger     = require('morgan')('dev'),
+    mongoose   = require('mongoose'),
     hbs        = require('./routes/views'),
     crony      = require('./routes/lib/cron'),
     routes     = require('./routes/routes'),
+    init       = require('./config/base'),
     app        = express();
 
+
+init.database(mongoose);
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
