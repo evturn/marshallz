@@ -1,7 +1,6 @@
 'use strict';
 
-let Firebase = require('firebase'),
-    ref = new Firebase('https://marshallz.firebaseio.com/posts');
+let BlogPost = require('../config/schema');
 
 exports.get = function(req, res, next) {
   let models = [];
@@ -33,10 +32,19 @@ exports.posts = function(req, res, next) {
 };
 
 exports.detail = function(req, res, next) {
-  let uuid = req.params.uuid;
-  let slug = req.params.slug;
-  ref.orderByValue().equalTo(uuid).on('child_added', function(snapshot) {
-    console.log(snapshot.val());
-  });
+  let uuid = req.params.uuid,
+      slug = req.params.slug;
+  
+    BlogPost.findOne({
+      'uuid': uuid
+    },
+    function(err, post) {
+      if (err) {
+        return done(null, false, err);
+      }
+      else {
+        res.render('detail', {post: post});
+      }
+    });
 };
 
