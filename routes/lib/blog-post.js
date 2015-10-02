@@ -81,6 +81,8 @@ function buildEntry(string) {
       let _entry = new BlogPost(Entry);
       reset.entry();
       reset.phrases();
+      _entry.save();
+      console.log(_entry);
 
       return _entry;
   }
