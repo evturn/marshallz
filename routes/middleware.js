@@ -14,3 +14,15 @@ exports.get = function(req, res, next) {
     }
   });
 };
+
+exports.detail = function(req, res, next) {
+  BlogPost.findById(req.params.id, function(err, post) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log(post);
+      res.render('detail', post);
+    }
+  });
+};
