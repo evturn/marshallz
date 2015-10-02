@@ -10,7 +10,7 @@ exports.get = function(req, res, next) {
     }
     else {
       console.log(posts);
-      res.render('index', {post: posts});
+      res.render('index', {posts: posts});
     }
   });
 };
