@@ -15,36 +15,19 @@ let Entry = {
 let phrases = [];
 let length = 4;
 
-let reset = {
-  entry() {
-    Entry = {
-      title     : null,
-      slug      : null,
-      body      : null,
-      timestamp : null,
-      uuid      : null,
-    };
-  },
-  phrases() {
-    phrases = [];
-  }
-};
+function init() {
+  let sentence = composer();
 
-function escapeForRegExp(value) {
-  if (_.isUndefined(value)) {
-    return '';
-  }
-  return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-}
-
-function trim(value, chars) {
-  chars = escapeForRegExp(chars);
-  return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
-}
-
-function toSlug(value) {
-  value = value || '';
-  return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g,'').toLowerCase();
+  return new Promise(function(resolve, reject) {
+    resolve(sentence)
+  })
+  .then(function(v) {
+    let string = v;
+    buildEntry(string);
+  })
+  .then(function(v) {
+    return v;
+  });
 };
 
 function buildEntry(string) {
@@ -52,6 +35,38 @@ function buildEntry(string) {
       hasNoTitle = !!(Entry.title === null),
       isBelowTotal = !!(phrases.length < length),
       hasReachedTotal = !!(phrases.length === length);
+
+  let reset = {
+    entry() {
+      Entry = {
+        title     : null,
+        slug      : null,
+        body      : null,
+        timestamp : null,
+        uuid      : null,
+      };
+    },
+    phrases() {
+      phrases = [];
+    }
+  };
+
+  function escapeForRegExp(value) {
+  if (_.isUndefined(value)) {
+    return '';
+  }
+  return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+  }
+
+  function trim(value, chars) {
+    chars = escapeForRegExp(chars);
+    return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
+  }
+
+  function toSlug(value) {
+    value = value || '';
+    return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g,'').toLowerCase();
+  };
 
   if (isDefined && hasNoTitle) {
       Entry.title = string;
@@ -88,14 +103,4 @@ function buildEntry(string) {
   }
 };
 
-module.exports = function init() {
-  let sentence = composer();
-
-  return new Promise(function(resolve, reject) {
-    resolve(sentence)
-  })
-  .then(function(v) {
-    let string = v;
-    buildEntry(string);
-  });
-};
+module.exports = init;
