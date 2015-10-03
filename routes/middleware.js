@@ -3,7 +3,7 @@
 let BlogPost = require('../config/schema'),
     mongoose = require('mongoose');
 
-exports.get = function(req, res, next) {
+exports.index = function(req, res, next) {
   BlogPost.find({}).sort({uuid: 'desc'}).exec(function(err, posts) {
     if (err) {
       console.log(err);

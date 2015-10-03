@@ -5,5 +5,5 @@ let express = require('express'),
     app = express.Router(),
     posts = express.Router();
 
-exports.app = app.get('/', middleware.get);
+exports.app = app.get('/', middleware.index);
 exports.posts = posts.get('/:id/:slug', middleware.detail);
