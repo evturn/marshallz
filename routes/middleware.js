@@ -30,9 +30,12 @@ exports.detail = function(req, res, next) {
 };
 
 exports.page = function(req, res, next) {
-  let page = req.params.page,
+  let page = req.query.page,
       count = 2,
-      start = count * page;
+      start = count * page,
+      increment = parseInt(page) + 1;
+
+  console.log('=========', page);
 
   BlogPost
     .find({})
@@ -44,8 +47,7 @@ exports.page = function(req, res, next) {
           console.log(err);
       }
       else {
-          console.log(posts.length);
-          res.json({posts: posts});
+          res.json({posts: posts, page: increment});
       }
   });
 };

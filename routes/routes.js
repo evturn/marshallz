@@ -7,5 +7,5 @@ let express = require('express'),
     posts = express.Router();
 
 exports.app = app.get('/', middleware.index);
-exports.pages = pages.get('/:page', middleware.page);
+exports.pages = pages.get('/', middleware.page);
 exports.detail = posts.get('/:id/:slug', middleware.detail);

@@ -56,7 +56,7 @@
 	var $ = __webpack_require__(2),
 	    _ = __webpack_require__(3),
 	    Handlebars = __webpack_require__(4),
-	    helpers = __webpack_require__(32),
+	    helpers = __webpack_require__(124)(),
 	    utils = __webpack_require__(121),
 	    livestamp = __webpack_require__(122);
 	
@@ -64,13 +64,14 @@
 	  var windowY = $(window).height(),
 	      windowTop = $(window).scrollTop(),
 	      documentY = $(document).height(),
-	      scrollBottom = documentY - (windowY + windowTop);
+	      scrollBottom = documentY - (windowY + windowTop),
+	      templates = [];
 	
 	  var requestNextPage = function requestNextPage(page) {
 	    $.ajax({
-	      url: '/pages/' + page,
+	      url: '/pages?page=' + page,
 	      success: function success(data) {
-	        console.log(data);
+	        renderPosts(data);
 	      },
 	      error: function error(err) {
 	        console.log(err);
@@ -78,8 +79,27 @@
 	    });
 	  };
 	
+	  var loadTemplate = function loadTemplate(url, callback) {
+	    if (templates[url]) {
+	      return callback(templates[url]);
+	    }
+	
+	    $.get(url, function (contents) {
+	      templates[url] = Handlebars.compile(contents);
+	      callback(templates[url]);
+	    }, '');
+	  };
+	
+	  var renderPosts = function renderPosts(data) {
+	    loadTemplate('/pages/pagination.hbs', function (template) {
+	      var html = template(data);
+	      $('.blog-posts').append(html);
+	      $('#pagination').data('page', data.page);
+	    });
+	  };
+	
 	  if (scrollBottom === 0) {
-	    var page = $('.page').data('page');
+	    var page = $('#pagination').data('page');
 	
 	    requestNextPage(page);
 	  }
@@ -16292,6 +16312,23 @@
 	    return livestampLocal[method](this, options);
 	  };
 	})();
+
+/***/ },
+/* 123 */,
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Handlebars = __webpack_require__(4),
+	    helpers = __webpack_require__(32)();
+	
+	module.exports = function () {
+	
+	  for (var helper in helpers) {
+	    Handlebars.registerHelper(helper, helpers[helper]);
+	  }
+	};
 
 /***/ }
 /******/ ]);

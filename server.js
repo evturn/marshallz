@@ -17,6 +17,7 @@ app.set('views', 'views');
 app.engine('hbs', hbs.engine);
 app.use('/', express.static(__dirname + '/public/dist'));
 app.use('/posts/:id', express.static(__dirname + '/public/dist'));
+app.use('/pages', express.static(__dirname + '/views/partials'));
 app.use(logger);
 app.use('/', routes.app);
 app.use('/pages', routes.pages);
