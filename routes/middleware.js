@@ -6,7 +6,7 @@ let BlogPost = require('../config/schema'),
 exports.index = function(req, res, next) {
   BlogPost
     .find({})
-    .limit(2)
+    .limit(10)
     .sort({uuid: 'desc'})
     .exec(function(err, posts) {
     if (err) {
@@ -31,11 +31,9 @@ exports.detail = function(req, res, next) {
 
 exports.page = function(req, res, next) {
   let page = req.query.page,
-      count = 2,
+      count = 5,
       start = count * page,
       increment = parseInt(page) + 1;
-
-  console.log('=========', page);
 
   BlogPost
     .find({})

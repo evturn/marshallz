@@ -3,7 +3,10 @@ let $ = require('jquery'),
     Handlebars = require('handlebars'),
     helpers = require('hbs-client')(),
     utils = require('utils'),
+    spin = require('spin'),
+    jspin = require('jquery.spin'),
     livestamp = require('livestamp');
+
 
 const paginate = function() {
   let windowY = $(window).height(),
@@ -13,6 +16,10 @@ const paginate = function() {
       templates = [];
 
   let requestNextPage = function(page) {
+    $('.kurt-loader').fadeTo(0, 0.3);
+    $('.pagination').spin({
+      top: '45%'
+    });
     $.ajax({
       url: `/pages?page=${page}`,
       success(data) {
