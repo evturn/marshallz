@@ -36,7 +36,7 @@ function init() {
 };
 
 function createQuery() {
-  let words = ['1980', 'cars', 'dog', 'kids', 'retro', 'commercial', '1990', '80\'s', '90\'s', 'cartoons', 'Gary+Busey'],
+  let words = ['1980', 'cars', 'dog', 'kids', 'retro', 'commercial', '1990', '80\'s', '90\'s', 'cartoons', 'Gary+Busey,', 'cool', 'rad', 'rollerblade', 'huffy', 'moonbounce', 'big+wheels', 'shredder', 'steve+guttenberg', 'mattel', 'WWF', 'WCW', 'NWO', 'slimer'],
       query = words[Math.floor(Math.random() * words.length)];
 
   return requestGif(query);
@@ -45,11 +45,12 @@ function createQuery() {
 function requestGif(query) {
   request(`http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${config.giphy}`, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      let responseBody = JSON.parse(body);
-      let data = responseBody.data;
-      console.log('DATA.LENGTH', data.length);
+      let responseBody = JSON.parse(body),
+          data = responseBody.data;
+
       if (data.length) {
         let item = data[Math.floor(Math.random() * data.length)];
+
         Entry.image = item.images.original.url;
       }
     }
