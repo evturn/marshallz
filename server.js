@@ -3,18 +3,16 @@
 let express    = require('express'),
     logger     = require('morgan')('dev'),
     mongoose   = require('mongoose'),
-    hbs        = require('./routes/views'),
     crony      = require('./routes/lib/cron'),
     routes     = require('./routes/routes'),
-    init       = require('./config/base'),
+    config     = require('./config/base'),
     app        = express();
 
-
-init.database(mongoose);
+config.database(mongoose);
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
-app.engine('hbs', hbs.engine);
+app.engine('hbs', config.hbs.engine);
 app.use('/', express.static(__dirname + '/public/dist'));
 app.use('/posts/:id', express.static(__dirname + '/public/dist'));
 app.use('/pages', express.static(__dirname + '/views/partials'));

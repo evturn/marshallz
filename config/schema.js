@@ -9,7 +9,8 @@ let blogPostSchema = function() {
     slug      : {type : String},
     timestamp : {type : Date, default: Date.now()},
     uuid      : {type : String, default: Date.now()},
-    image     : {type : String}
+    image     : {type : String},
+    author    : {type : String}
   });
 };
 
