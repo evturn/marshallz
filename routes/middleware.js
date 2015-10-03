@@ -13,8 +13,7 @@ exports.index = function(req, res, next) {
         console.log(err);
     }
     else {
-        console.log(posts.length);
-        res.render('index', {posts: posts, page: 1});
+        res.render('index', {posts: posts, page: 2});
     }
   });
 };
@@ -31,11 +30,14 @@ exports.detail = function(req, res, next) {
 };
 
 exports.page = function(req, res, next) {
-  console.log(req.params);
+  let page = req.params.page,
+      count = 2,
+      start = count * page;
+
   BlogPost
     .find({})
-    .skip(2)
-    .limit(2)
+    .skip(start)
+    .limit(count)
     .sort({uuid: 'desc'})
     .exec(function(err, posts) {
       if (err) {
