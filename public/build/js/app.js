@@ -9,6 +9,10 @@ let $ = require('jquery'),
 
 
 const paginate = function() {
+  if ($('#detail').length) {
+      return false;
+  }
+
   let windowY = $(window).height(),
       windowTop = $(window).scrollTop(),
       documentY = $(document).height(),

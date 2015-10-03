@@ -63,6 +63,10 @@
 	    livestamp = __webpack_require__(122);
 	
 	var paginate = function paginate() {
+	  if ($('#detail').length) {
+	    return false;
+	  }
+	
 	  var windowY = $(window).height(),
 	      windowTop = $(window).scrollTop(),
 	      documentY = $(document).height(),
