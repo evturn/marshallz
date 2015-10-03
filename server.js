@@ -19,7 +19,8 @@ app.use('/', express.static(__dirname + '/public/dist'));
 app.use('/posts/:id', express.static(__dirname + '/public/dist'));
 app.use(logger);
 app.use('/', routes.app);
-app.use('/posts', routes.posts);
+app.use('/pages', routes.pages);
+app.use('/posts', routes.detail);
 
 let port = app.get('port');
 app.listen(port, function() {
