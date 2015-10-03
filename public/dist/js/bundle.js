@@ -101,6 +101,8 @@
 	      var html = template(data);
 	      $('.blog-posts').append(html);
 	      $('#pagination').data('page', data.page);
+	      $('.kurt-loader').fadeTo(0.3, 1);
+	      $('.spinner').hide();
 	    });
 	  };
 	
