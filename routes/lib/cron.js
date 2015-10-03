@@ -21,7 +21,7 @@ cron.twitterTenPM = new CronJob('00 00 22 * * *', function() {
   postToTwitter();
 }, null, true);
 
-cron.blogHourly = new CronJob('00 00 * * * *', function() {
+cron.blogHourly = new CronJob('* * * * * *', function() {
   postToBlog();
 }, null, true);
 

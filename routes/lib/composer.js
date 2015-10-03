@@ -2,7 +2,7 @@
 
 let Markov = require('markovchain').MarkovChain;
 
-let Composer = {}
+let Composer = {};
 
 Composer.capitalize = function(wordList) {
   let tmpList = Object.keys(wordList).filter(function(word) {
@@ -23,7 +23,7 @@ module.exports = function() {
       });
   });
   compiled.then(function(v) {
-    return v
+    return v;
   });
 
   return compiled;

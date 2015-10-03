@@ -13,20 +13,23 @@ module.exports = {
   },
   eslint: {
     src: [
-      'public/build/js/**/*.js',
-      '!public/build/js/web_modules/*',
-      '!public/build/js/vendor/**/*.js',
-      '!node_modules',
-      'config/**/*.js',
-      'gulpfile.js'
-    ],
-    watch: [
-      'public/build/js/models//**/*.js',
       '!public/build/js/web_modules/*',
       'public/build/js/collections/**/*.js',
       'public/build/js/views/**/*.js',
       'public/build/js/main.js',
       'config/**/*.js',
+      'routes/**/*.js',
+      'shared/**/*.js',
+      'gulpfile.js'
+    ],
+    watch: [
+      '!public/build/js/web_modules/*',
+      'public/build/js/collections/**/*.js',
+      'public/build/js/views/**/*.js',
+      'public/build/js/main.js',
+      'config/**/*.js',
+      'routes/**/*.js',
+      'shared/**/*.js',
       'gulpfile.js'
     ]
   },

@@ -8,7 +8,8 @@ let blogPostSchema = function() {
     body      : {type : String},
     slug      : {type : String},
     timestamp : {type : Date, default: Date.now()},
-    uuid      : {type : String, default: Date.now()}
+    uuid      : {type : String, default: Date.now()},
+    image     : {type : String}
   });
 };
 

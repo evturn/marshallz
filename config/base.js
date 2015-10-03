@@ -21,5 +21,6 @@ module.exports = {
     access_token_key    : process.env.MARSHALLZ_TWITTER_TOKEN_KEY,
     access_token_secret : process.env.MARSHALLZ_TWITTER_TOKEN_SECRET
   }),
+  giphy: process.env.GIPHY_DEV
 
 };

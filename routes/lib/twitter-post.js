@@ -8,7 +8,7 @@ module.exports = function init() {
   let sentence = composer();
 
   return new Promise(function(resolve, reject) {
-    resolve(sentence)
+    resolve(sentence);
   })
   .then(function(v) {
     let string = v;

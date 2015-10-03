@@ -2,7 +2,9 @@
 
 let Markov    = require('markovchain').MarkovChain,
     BlogPost  = require('../../config/schema'),
-    composer  = require('./composer');
+    composer  = require('./composer'),
+    config = require('../../config/base'),
+    request = require('request');
 
 let Entry = {
   title     : null,
@@ -10,6 +12,8 @@ let Entry = {
   body      : null,
   timestamp : null,
   uuid      : null,
+  image     : null,
+  keyword   : null,
 };
 
 let phrases = [];
@@ -19,15 +23,38 @@ function init() {
   let sentence = composer();
 
   return new Promise(function(resolve, reject) {
-    resolve(sentence)
+    resolve(sentence);
   })
   .then(function(v) {
     let string = v;
+    createQuery();
     buildEntry(string);
   })
   .then(function(v) {
     return v;
   });
+};
+
+function createQuery() {
+  let words = ['1980', 'cars', 'dog', 'kids', 'retro', 'commercial', '1990', '80\'s', '90\'s', 'cartoons', 'Gary+Busey'],
+      query = words[Math.floor(Math.random() * words.length)];
+
+  return requestGif(query);
+};
+
+function requestGif(query) {
+  request(`http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${config.giphy}`, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      let responseBody = JSON.parse(body);
+      let data = responseBody.data;
+      console.log('DATA.LENGTH', data.length);
+      if (data.length) {
+        let item = data[Math.floor(Math.random() * data.length)];
+        Entry.image = item.images.original.url;
+      }
+    }
+  });
+  return Entry;
 };
 
 function buildEntry(string) {
@@ -43,7 +70,7 @@ function buildEntry(string) {
         slug      : null,
         body      : null,
         timestamp : null,
-        uuid      : null,
+        uuid      : null
       };
     },
     phrases() {

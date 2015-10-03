@@ -9,7 +9,6 @@ exports.index = function(req, res, next) {
       console.log(err);
     }
     else {
-      console.log(posts);
       res.render('index', {posts: posts});
     }
   });
@@ -21,7 +20,6 @@ exports.detail = function(req, res, next) {
       console.log(err);
     }
     else {
-      console.log(post);
       res.render('detail', post);
     }
   });
