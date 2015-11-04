@@ -1,8 +1,9 @@
 'use strict';
 
-let path = require('path'),
-    Twitter = require('twitter'),
-    handlebars = require('express-handlebars');
+const path = require('path');
+const Twitter = require('twitter');
+const handlebars = require('express-handlebars');
+const helpers = require('../shared/hbs-helpers');
 
 module.exports = {
 
@@ -19,7 +20,7 @@ module.exports = {
   hbs: handlebars.create({
     defaultLayout: 'main',
     extname: '.hbs',
-    helpers: new require('../shared/handlebars-helpers')(),
+    helpers: helpers,
     partialsDir: 'views/partials',
     layoutsDir: 'views/layouts'
   }),

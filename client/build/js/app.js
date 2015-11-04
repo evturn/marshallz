@@ -1,12 +1,10 @@
-let $ = require('jquery'),
-    _ = require('underscore'),
-    Handlebars = require('handlebars'),
-    helpers = require('hbs-client')(),
-    utils = require('utils'),
-    spin = require('spin'),
-    jspin = require('jquery.spin'),
-    livestamp = require('livestamp');
-
+const $ = require('jquery');
+const _ = require('underscore');
+const Handlebars = require('handlebars');
+const helpers = require('helpers');
+const spin = require('spin');
+const jspin = require('jquery.spin');
+const livestamp = require('livestamp');
 
 const paginate = function() {
   if ($('#detail').length) {
@@ -27,6 +25,7 @@ const paginate = function() {
     $.ajax({
       url: `/pages?page=${page}`,
       success(data) {
+        console.log(data);
         renderPosts(data);
       },
       error(err) {

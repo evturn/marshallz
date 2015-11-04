@@ -1,15 +1,15 @@
 'use strict';
 
-let webpack = require('webpack'),
-    path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: ['./public/build/js/app.js'],
+  entry: ['./client/build/js/app.js'],
   output: {
-      path: __dirname + '/public/dist/js',
+      path: 'client/dist/js/',
       filename: 'bundle.js',
-      publicPath: '/public/dist/js/'
+      publicPath: '/client/dist/js/'
   },
   module: {
     loaders: [
@@ -21,19 +21,17 @@ module.exports = {
   },
   resolve: {
     root: [
-      'web_modules',
       'node_modules',
+      'shared/web_modules',
       'shared'
     ],
     moduleDirectories: [
-      'web_modules',
       'node_modules',
+      'shared/web_modules',
       'shared'
     ],
     extension: [
-      '',
-      '.js',
-      '.json'
+      '.js'
     ],
     alias: {
       jquery: 'jquery',

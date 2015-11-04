@@ -33,7 +33,7 @@ $('#el').spin('flower', 'red');
 
 */
 
-(function(factory) {
+module.exports = (function(factory) {
 
   if (typeof exports == 'object') {
     // CommonJS

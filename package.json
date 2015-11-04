@@ -4,8 +4,7 @@
   "description": "Welcome! And more importantly, Welcome to Marshallz Blog",
   "main": "server.js",
   "scripts": {
-    "start": "gulp start",
-    "watch": "webpack --watch"
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
@@ -26,6 +25,7 @@
     "express": "^4.12.3",
     "express-handlebars": "^2.0.1",
     "firebase": "^2.3.0",
+    "fs": "0.0.2",
     "handlebars": "^4.0.3",
     "jquery": "^2.1.4",
     "markovchain": "0.0.4",
@@ -58,10 +58,12 @@
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.5.1",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.5",
     "less": "^2.5.3",
+    "run-sequence": "^1.1.4",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.0"
   }
