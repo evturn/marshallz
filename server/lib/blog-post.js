@@ -1,16 +1,15 @@
 'use strict';
-
-let Markov    = require('markovchain').MarkovChain,
-    BlogPost  = require('../../config/schema'),
-    composer  = require('./composer'),
-    config    = require('../../config/base'),
-    request   = require('request');
+const Markov = require('markovchain').MarkovChain;
+const BlogPost = require('../models/blog-post');
+const composer = require('./composer');
+const credentials = require('../config/credentials');
+const request = require('request');
 
 let Entry, phrases, length, words;
 
 function startLoop() {
   let query = words[Math.floor(Math.random() * words.length)];
-  let url = `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${config.giphy}`;
+  let url = `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${credentials.giphy}`;
   let req = new Promise(function(resolve, reject) {
         request(url, function(error, response, body) {
           if (!error && response.statusCode === 200) {

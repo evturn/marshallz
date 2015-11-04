@@ -8085,11 +8085,9 @@
 	var moment = __webpack_require__(38);
 	var regex = /P((([0-9]*\.?[0-9]*)Y)?(([0-9]*\.?[0-9]*)M)?(([0-9]*\.?[0-9]*)W)?(([0-9]*\.?[0-9]*)D)?)?(T(([0-9]*\.?[0-9]*)H)?(([0-9]*\.?[0-9]*)M)?(([0-9]*\.?[0-9]*)S)?)?/;
 	
-	function init() {
-	
+	module.exports = (function () {
 	  moment.duration.fromIsoduration = function (duration) {
 	    var matches = duration.match(regex);
-	
 	    return moment.duration({
 	      years: parseFloat(matches[3]),
 	      months: parseFloat(matches[5]),
@@ -8103,14 +8101,11 @@
 	
 	  moment.duration.fn.isoduration = function () {
 	    var duration = 'P' + (this.years() ? this.years() + 'Y' : '') + (this.months() ? this.months() + 'M' : '') + (this.days() ? this.days() + 'D' : '') + (this.hours() || this.minutes() || this.seconds() ? 'T' : '') + (this.hours() ? this.hours() + 'H' : '') + (this.minutes() ? this.minutes() + 'M' : '') + (this.seconds() ? this.seconds() + 'S' : '');
-	
 	    return duration;
 	  };
 	
 	  return moment;
-	};
-	
-	module.exports = init();
+	})();
 
 /***/ },
 /* 38 */

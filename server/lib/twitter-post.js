@@ -1,7 +1,7 @@
 'use strict';
 
-let Markov = require('markovchain').MarkovChain,
-    twitterReq = require('../../config/base').twitter,
+const Markov = require('markovchain').MarkovChain,
+    twitterReq = require('../config/credentials').twitter,
     composer = require('./composer');
 
 module.exports = function init() {

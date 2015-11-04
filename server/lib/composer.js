@@ -1,6 +1,5 @@
 'use strict';
-
-let Markov = require('markovchain').MarkovChain;
+const Markov = require('markovchain').MarkovChain;
 
 let capitalize = function(wordList) {
   let tmpList = Object.keys(wordList).filter(function(word) {
@@ -11,7 +10,7 @@ let capitalize = function(wordList) {
 };
 
 module.exports = function() {
-  let fragment = new Markov({files: 'routes/lib/quotes.txt'});
+  let fragment = new Markov({files: 'server/lib/quotes.txt'});
   let compiled = new Promise(function(resolve, reject) {
     fragment
       .start(capitalize)

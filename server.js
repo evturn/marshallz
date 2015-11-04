@@ -1,27 +1,15 @@
 'use strict';
+const express = require('express');
+const app = module.exports = express();
+const o_O = require('./server/config');
+const scheduler = require('./server/lib/scheduler');
 
-let express    = require('express'),
-    logger     = require('morgan')('dev'),
-    mongoose   = require('mongoose'),
-    crony      = require('./routes/lib/cron'),
-    routes     = require('./routes/routes'),
-    config     = require('./config/base'),
-    app        = express();
-
-config.database(mongoose);
-app.set('port', process.env.PORT || 3000);
+app.engine('hbs', o_O.hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
-app.engine('hbs', config.hbs.engine);
-app.use('/', express.static(__dirname + '/client/dist'));
-app.use('/posts/:id', express.static(__dirname + '/client/dist'));
-app.use('/pages', express.static(__dirname + '/views/partials'));
-app.use(logger);
-app.use('/', routes.app);
-app.use('/pages', routes.pages);
-app.use('/posts', routes.detail);
-
-let port = app.get('port');
-app.listen(port, function() {
-  console.log('Express listening on 3000');
-});
+app.set('port', o_O.port);
+app.use('/', o_O.static.dist);
+app.use('/', o_O.static.hbs);
+app.use('/posts/:id', o_O.static.dist);
+o_O.router(app);
+app.listen(o_O.port, o_O.isListening());

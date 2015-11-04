@@ -4,9 +4,8 @@ const gutil = require('gulp-util');
 const browserSync = require('browser-sync').create();
 const runSequence = require('run-sequence');
 const $ = require('gulp-load-plugins')();
-const paths = require('./config/gulp.config').paths;
-const opts = require('./config/gulp.config').opts;
-const shell = require('gulp-shell');
+const paths = require('./tools/gulp.config').paths;
+const opts = require('./tools/gulp.config').opts;
 
 ////
 // `$ npm run watch`

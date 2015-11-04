@@ -1,12 +1,10 @@
 'use strict';
-let moment = require('moment');
-let regex = /P((([0-9]*\.?[0-9]*)Y)?(([0-9]*\.?[0-9]*)M)?(([0-9]*\.?[0-9]*)W)?(([0-9]*\.?[0-9]*)D)?)?(T(([0-9]*\.?[0-9]*)H)?(([0-9]*\.?[0-9]*)M)?(([0-9]*\.?[0-9]*)S)?)?/;
+const moment = require('moment');
+const regex = /P((([0-9]*\.?[0-9]*)Y)?(([0-9]*\.?[0-9]*)M)?(([0-9]*\.?[0-9]*)W)?(([0-9]*\.?[0-9]*)D)?)?(T(([0-9]*\.?[0-9]*)H)?(([0-9]*\.?[0-9]*)M)?(([0-9]*\.?[0-9]*)S)?)?/;
 
-function init() {
-
+module.exports = () => {
   moment.duration.fromIsoduration = function(duration) {
-    let matches = duration.match(regex);
-
+    const matches = duration.match(regex);
     return moment.duration({
       years: parseFloat(matches[3]),
       months: parseFloat(matches[5]),
@@ -28,12 +26,8 @@ function init() {
       + ((this.minutes())? this.minutes() + 'M' : '')
       + ((this.seconds())? this.seconds() + 'S' : '')
     ;
-
     return duration;
   };
 
 return moment;
-
-};
-
-module.exports = init();
+}();
