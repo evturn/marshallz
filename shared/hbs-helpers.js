@@ -4,7 +4,7 @@ const _ = require('underscore');
 const Handlebars = require('handlebars');
 const utils = require('./utils');
 
-const precompiled = module.exports.precompiled = {
+const helpers = module.exports.helpers = {
   ts(milliseconds) {
     let humanReadable = moment(milliseconds).unix();
     return humanReadable;
@@ -100,3 +100,10 @@ const precompiled = module.exports.precompiled = {
     return result.join('');
   }
 };
+
+const precompiled = module.exports.precompiled = (() => {
+  for (let fn in helpers) {
+    Handlebars.registerHelper(fn, helpers[fn]);
+  }
+  return Handlebars;
+}());
