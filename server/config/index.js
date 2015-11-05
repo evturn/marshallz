@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
-const helpers = require('../../shared/hbs-helpers');
+const helpers = require('../../shared/hbs-helpers').helpers;
 
 module.exports = {
   mongo: () => {
