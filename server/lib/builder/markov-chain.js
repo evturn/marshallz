@@ -1,20 +1,19 @@
 'use strict';
-const select = require('./utils').select;
-const confirmType = require('./utils').confirmType;
-const ofType = require('./utils').ofType;
 const async = require('async');
-const path = require('path');
 const fs = require('fs');
-
+const path = require('path');
+const utils = require('./utils');
 
 module.exports = class MarkovChain {
   constructor(args) {
     if (!args) {
       args = {};
     }
-    this.wordBank = {};
+
+    this.bank = {};
     this.sentence = '';
     this.files = [];
+
     if (args.files) {
       return this.use(args.files);
     }
@@ -29,12 +28,13 @@ module.exports = class MarkovChain {
     this.endFn = function() {
       return this.sentence.split(' ').length > 7;
     };
+
     return this;
   }
   use(files) {
-    if (confirmType(files) === 'array') {
+    if (utils.confirmType(files) === 'array') {
       this.files = files;
-    } else if (confirmType(files) === 'string') {
+    } else if (utils.confirmType(files) === 'string') {
       this.files = [files];
     } else {
       throw new Error('Need to pass a string or array for use()');
@@ -45,7 +45,7 @@ module.exports = class MarkovChain {
     return (callback) => {
       fs.readFile(file, 'utf8', (err, data) => {
         if (err) {
-          if (err.code === 'ENOENT' && !ofType(file)) {
+          if (err.code === 'ENOENT' && !utils.ofType(file)) {
             return callback(null, file);
           }
           return callback(err);
@@ -56,18 +56,16 @@ module.exports = class MarkovChain {
       });
     };
   }
-
   countTotal(word) {
     let total = 0;
 
-    for (let prop in this.wordBank[word]) {
-      if (this.wordBank[word].hasOwnProperty(prop)) {
-        total += this.wordBank[word][prop];
+    for (let prop in this.bank[word]) {
+      if (this.bank[word].hasOwnProperty(prop)) {
+        total += this.bank[word][prop];
       }
     }
     return total;
   }
-
   runProcess(callback) {
     let readFiles = [];
 
@@ -79,11 +77,11 @@ module.exports = class MarkovChain {
       let words, curWord;
 
       this.parseFile(retFiles.toString());
-      curWord = this.startFn(this.wordBank);
+      curWord = this.startFn(this.bank);
       this.sentence = curWord;
 
-      while (this.wordBank[curWord] && !this.endFn()) {
-        curWord = select(this.wordBank[curWord]);
+      while (this.bank[curWord] && !this.endFn()) {
+        curWord = utils.select(this.bank[curWord]);
         this.sentence += ' ' + curWord;
       }
       callback(null, this.sentence.trim());
@@ -100,19 +98,19 @@ module.exports = class MarkovChain {
         let curWord = this.normalize(words[i]);
         let nextWord = this.normalize(words[i + 1]);
 
-        if (!this.wordBank[curWord]) {
-          this.wordBank[curWord] = {};
+        if (!this.bank[curWord]) {
+          this.bank[curWord] = {};
         }
-        if (!this.wordBank[curWord][nextWord]) {
-          this.wordBank[curWord][nextWord] = 1;
+        if (!this.bank[curWord][nextWord]) {
+          this.bank[curWord][nextWord] = 1;
         } else {
-          this.wordBank[curWord][nextWord] += 1;
+          this.bank[curWord][nextWord] += 1;
         }
       }
     });
   }
   start(fnStr) {
-    let startType = confirmType(fnStr);
+    let startType = utils.confirmType(fnStr);
 
     if (startType === 'string') {
       this.startFn = () => {
@@ -128,7 +126,7 @@ module.exports = class MarkovChain {
     return this;
   }
   end(fnStrOrNum) {
-    let endType = confirmType(fnStrOrNum);
+    let endType = utils.confirmType(fnStrOrNum);
 
     if (endType === 'function') {
       this.endFn = function() {
