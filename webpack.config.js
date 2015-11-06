@@ -1,5 +1,4 @@
 'use strict';
-
 const webpack = require('webpack');
 const path = require('path');
 
@@ -43,6 +42,7 @@ module.exports = {
     root: path.join(__dirname, 'node_modules')
   },
   plugins: [
+    new webpack.NoErrorsPlugin(),
     new webpack.ProvidePlugin({
       jQuery: 'jquery',
       $: 'jquery'
