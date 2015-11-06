@@ -25,6 +25,7 @@ module.exports.paths = {
       'config/**/*.js',
       'routes/**/*.js',
       'shared/**/*.js',
+      'server/**/*.js',
       '!shared/web_modules/**/*.js',
       'gulpfile.js'
     ]
