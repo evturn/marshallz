@@ -1,34 +1,33 @@
 'use strict';
+const _ = require('underscore');
 
-let _ = require('underscore');
+module.exports = () => {
 
-module.exports = function() {
-
-  function escapeForRegExp(value) {
+  const escapeForRegExp = (value) => {
     if (_.isUndefined(value)) {
       return '';
     }
     return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-  }
+  };
 
-  function trim(value, chars) {
+  const trim = (value, chars) => {
     chars = escapeForRegExp(chars);
     return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
-  }
+  };
 
-  function toSlug(value) {
+  const toSlug = (value) => {
     value = value || '';
     return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g,'').toLowerCase();
   };
 
-  function getQueryParams(url) {
+  const getQueryParams = (url) => {
     if (!url) {
       return false;
     }
-    var query = url.split('?')[1];
+    let query = url.split('?')[1];
     return _.chain(query.split('&'))
-      .map(function(params) {
-        var p = params.split('=');
+      .map((params) => {
+        let p = params.split('=');
         return [p[0], decodeURIComponent(p[1])];
       })
       .object()

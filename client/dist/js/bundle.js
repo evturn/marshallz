@@ -16407,29 +16407,28 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
 	var _ = __webpack_require__(3);
 	
 	module.exports = (function () {
 	
-	  function escapeForRegExp(value) {
+	  var escapeForRegExp = function escapeForRegExp(value) {
 	    if (_.isUndefined(value)) {
 	      return '';
 	    }
 	    return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-	  }
+	  };
 	
-	  function trim(value, chars) {
+	  var trim = function trim(value, chars) {
 	    chars = escapeForRegExp(chars);
 	    return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
-	  }
+	  };
 	
-	  function toSlug(value) {
+	  var toSlug = function toSlug(value) {
 	    value = value || '';
 	    return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
 	  };
 	
-	  function getQueryParams(url) {
+	  var getQueryParams = function getQueryParams(url) {
 	    if (!url) {
 	      return false;
 	    }
