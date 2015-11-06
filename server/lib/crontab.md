@@ -1,13 +1,15 @@
 ### ////CRONTAB SYNTAX/////
 
-`*     *     *     *     *`  command to be executed
+```
+*     *     *     *     *      // command to be executed
 -     -     -     -     -
 |     |     |     |     |
-|     |     |     |     +----- day of week (0 - 6) (Sunday=0)
-|     |     |     +------- month (1 - 12)
-|     |     +--------- day of month (1 - 31)
-|     +----------- hour (0 - 23)
-*+------------- min (0 - 59)
+|     |     |     |     +----- // day of week (0 - 6) (Sunday=0)
+|     |     |     +----------- // month (1 - 12)
+|     |     +----------------- // day of month (1 - 31)
+|     +----------------------- // hour (0 - 23)
+*+---------------------------- // min (0 - 59)
+```
 
 ```
 min  hour  day/month  month   day/week  // Execution time
