@@ -1,57 +1,118 @@
 'use strict';
 const select = require('./utils').select;
 const confirmType = require('./utils').confirmType;
+const ofType = require('./utils').ofType;
+const async = require('async');
+const path = require('path');
+const fs = require('fs');
+
 
 module.exports = class MarkovChain {
-  constructor(contents) {
-    this.bank = {};
-    this.sentence = '';
-    this.parse(contents);
-  }
-  startFn(wordList) {
-    let k = Object.keys(wordList);
-    let l = k.length;
-    return k[~~(Math.random()*l)];
-  }
-  endFn() {
-    return this.sentence.split(' ').length > 7;
-  }
-  process() {
-    let curWord = this.startFn(this.bank);
-    this.sentence = curWord;
-
-    while (this.bank[curWord] && !this.endFn()) {
-      curWord = select(this.bank[curWord]);
-      this.sentence += ' ' + curWord;
+  constructor(args) {
+    if (!args) {
+      args = {};
     }
-    return this.sentence;
+    this.wordBank = {};
+    this.sentence = '';
+    this.files = [];
+    if (args.files) {
+      return this.use(args.files);
+    }
+
+    this.startFn = function(wordList) {
+      let k = Object.keys(wordList);
+      let l = k.length;
+
+      return k[~~(Math.random()*l)];
+    };
+
+    this.endFn = function() {
+      return this.sentence.split(' ').length > 7;
+    };
+    return this;
   }
-  parse(text) {
-    let line = text ? text : '';
-    line.split(/(?:\. |\n)/ig).forEach((lines) => {
+  use(files) {
+    if (confirmType(files) === 'array') {
+      this.files = files;
+    } else if (confirmType(files) === 'string') {
+      this.files = [files];
+    } else {
+      throw new Error('Need to pass a string or array for use()');
+    }
+    return this;
+  }
+  readFile(file) {
+    return (callback) => {
+      fs.readFile(file, 'utf8', (err, data) => {
+        if (err) {
+          if (err.code === 'ENOENT' && !ofType(file)) {
+            return callback(null, file);
+          }
+          return callback(err);
+        }
+        process.nextTick(() => {
+          callback(null, data);
+        });
+      });
+    };
+  }
+
+  countTotal(word) {
+    let total = 0;
+
+    for (let prop in this.wordBank[word]) {
+      if (this.wordBank[word].hasOwnProperty(prop)) {
+        total += this.wordBank[word][prop];
+      }
+    }
+    return total;
+  }
+
+  runProcess(callback) {
+    let readFiles = [];
+
+    this.files.forEach((file) => {
+      readFiles.push(this.readFile(file));
+    });
+
+    async.parallel(readFiles, (err, retFiles) => {
+      let words, curWord;
+
+      this.parseFile(retFiles.toString());
+      curWord = this.startFn(this.wordBank);
+      this.sentence = curWord;
+
+      while (this.wordBank[curWord] && !this.endFn()) {
+        curWord = select(this.wordBank[curWord]);
+        this.sentence += ' ' + curWord;
+      }
+      callback(null, this.sentence.trim());
+    });
+    return this;
+  }
+  parseFile(file) {
+    file.split(/(?:\. |\n)/ig).forEach((lines) => {
       let words = lines.split(' ').filter((w) => {
-        return w.trim() !== '';
+        return (w.trim() !== '');
       });
 
       for (let i = 0; i < words.length - 1; i++) {
         let curWord = this.normalize(words[i]);
         let nextWord = this.normalize(words[i + 1]);
 
-        if (!this.bank[curWord]) {
-          this.bank[curWord] = {};
+        if (!this.wordBank[curWord]) {
+          this.wordBank[curWord] = {};
         }
-
-        if (!this.bank[curWord][nextWord]) {
-          this.bank[curWord][nextWord] = 1;
+        if (!this.wordBank[curWord][nextWord]) {
+          this.wordBank[curWord][nextWord] = 1;
         } else {
-          this.bank[curWord][nextWord] += 1;
+          this.wordBank[curWord][nextWord] += 1;
         }
       }
     });
-    return this;
   }
   start(fnStr) {
-    const startType = confirmType(fnStr);
+    let startType = confirmType(fnStr);
 
     if (startType === 'string') {
       this.startFn = () => {
@@ -67,10 +128,10 @@ module.exports = class MarkovChain {
     return this;
   }
   end(fnStrOrNum) {
-    const endType = confirmType(fnStrOrNum);
+    let endType = confirmType(fnStrOrNum);
 
     if (endType === 'function') {
-      this.endFn = () => {
+      this.endFn = function() {
         return fnStrOrNum(this.sentence);
       };
     } else if (endType === 'string') {

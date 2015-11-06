@@ -1,25 +1,15 @@
 'use strict';
+const path = require('path');
 
-module.exports.slugify = (value) => {
+module.exports.capitalize = (wordList) => {
+  let tmpList = Object.keys(wordList).filter((word) => {
+    return word[0] >= 'A' && word[0] <= 'Z';
+  });
+  return tmpList[~~(Math.random() * tmpList.length)];
+};
 
-  const escapeForRegExp = (value) => {
-  if (_.isUndefined(value)) {
-    return '';
-  }
-  return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-  };
-
-  const trim = (value, chars) => {
-    chars = escapeForRegExp(chars);
-    return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
-  };
-
-  const toSlug = (value) => {
-    value = value || '';
-    return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g,'').toLowerCase();
-  };
-
-  return toSlug(value);
+module.exports.ofType = (file) => {
+  return file.indexOf('.' + path.sep) === 0 || file.indexOf(path.sep) === 0;
 };
 
 module.exports.select = (obj) => {
@@ -42,4 +32,26 @@ module.exports.select = (obj) => {
 
 module.exports.confirmType = (t) => {
   return Object.prototype.toString.call(t).slice(8, -1).toLowerCase();
+};
+
+module.exports.slugify = (value) => {
+
+  const escapeForRegExp = (value) => {
+  if (_.isUndefined(value)) {
+    return '';
+  }
+  return value.toString().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+  };
+
+  const trim = (value, chars) => {
+    chars = escapeForRegExp(chars);
+    return value.replace(new RegExp('^(' + chars + ')+|(' + chars + ')+$', 'g'), '').toLowerCase();
+  };
+
+  const toSlug = (value) => {
+    value = value || '';
+    return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g,'').toLowerCase();
+  };
+
+  return toSlug(value);
 };

@@ -1,8 +1,8 @@
 'use strict';
 const request = require('request');
 const Markov = require('../markov-chain');
+const composer = require('../sentence');
 const BlogPost = require('../../../models/blog-post');
-const composer = require('../../composer');
 const credentials = require('../../../config/credentials');
 const slugify = require('../utils').slugify;
 

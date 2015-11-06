@@ -1,25 +1,27 @@
 'use strict';
 const Markov = require('../markov-chain');
-const twitterReq = require('../../../config/credentials').twitter;
-const composer = require('../composer');
+const twitter = require('../../../config/credentials').twitter;
+const composer = require('../sentence');
 
-module.exports = function init() {
+module.exports = () => {
   let sentence = composer();
 
   return new Promise((resolve, reject) => {
     resolve(sentence);
   })
   .then((sentence) => {
-    twitterReq.post('statuses/update', {status: sentence},
-      (error, tweet, response) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('=====TWEET POSTED=====');
-          console.log(response);
-          console.log('=====TWEET POSTED=====');
-        }
-      });
+    let endpoint = 'statuses/update';
+    let params = { status: sentence };
+
+    twitter.post(endpoint, params, (error, tweet, response) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('=====TWEET POSTED=====');
+        console.log(response);
+        console.log('=====TWEET POSTED=====');
+      }
+    });
     return tweet;
   });
 };

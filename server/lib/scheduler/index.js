@@ -1,7 +1,7 @@
 'use strict';
 const Cron = require('cron').CronJob;
 const jobs = require('./jobs.json');
-const toTwitter = require('../twitter');
+const toTwitter = require('../builder/twitter');
 const toBlog = require('../builder/blog');
 
 module.exports = () => {
