@@ -2,7 +2,7 @@
 const express = require('express');
 const app = module.exports = express();
 const o_O = require('./server/config');
-const scheduler = require('./server/lib/scheduler');
+const cronjobs = require('./server/lib/scheduler/cronjobs')();
 
 app.engine('hbs', o_O.hbs.engine);
 app.set('view engine', 'hbs');

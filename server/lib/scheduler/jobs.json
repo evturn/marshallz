@@ -1,0 +1,28 @@
+[
+  {
+    "media": "twitter",
+    "time": "4:00am",
+    "repeats": "daily",
+    "crontab": "00 00 04 * * *"
+  }, {
+    "media": "twitter",
+    "time": "10:00am",
+    "repeats": "daily",
+    "crontab": "00 00 10 * * *"
+  }, {
+    "media": "twitter",
+    "time": "2:00pm",
+    "repeats": "daily",
+    "crontab": "00 00 16 * * *"
+  }, {
+    "media": "twitter",
+    "time": "10:00pm",
+    "repeats": "daily",
+    "crontab": "00 00 22 * * *"
+  }, {
+    "media": "blog",
+    "time": "*:00am",
+    "repeats": "hourly",
+    "crontab": "00 00 * * * *"
+  }
+]
