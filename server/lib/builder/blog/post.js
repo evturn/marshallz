@@ -17,7 +17,6 @@ module.exports = class Post {
   getSentence() {
     sentence(this.user)
       .then((text) => {
-        // console.log('text', text);
         return this.allocate(text);
       })
       .catch((err) => {
@@ -27,6 +26,7 @@ module.exports = class Post {
   allocate(text) {
     if (this.title === null) {
       this.title = text;
+      this.slug = slugify(text);
       return this.getSentence();
     } else if (this.length < this.policy) {
       this.sentences = `${this.sentences}. ${text}.`;
@@ -50,7 +50,6 @@ module.exports = class Post {
           body: this.sentences,
           author: this.user
         };
-        // console.log('post', post);
         return resolve(post);
       });
     }
