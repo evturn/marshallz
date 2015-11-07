@@ -5118,13 +5118,15 @@ body {
   position: relative;
   width: 100%;
   z-index: 101;
-  -webkit-backface-visibility: hidden;
   background: url('../img/headbg.jpg');
   background-size: cover;
 }
 .site-header .site-nav {
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
   color: #2C3235;
   text-align: center;
+  -webkit-backface-visibility: hidden;
 }
 @media (min-width: 1280px) {
   .site-header .site-nav {
@@ -5148,6 +5150,17 @@ body {
   transition: 0.3s;
   margin-top: 0;
   margin-bottom: 0;
+  padding-bottom: 5px;
+}
+@media (min-width: 768px) {
+  .site-header .site-nav__header {
+    padding-bottom: 15px;
+  }
+}
+@media (min-width: 1280px) {
+  .site-header .site-nav__header {
+    padding-bottom: 0;
+  }
 }
 .site-header .site-nav__header a {
   -webkit-transition: 0.5s;
@@ -5160,16 +5173,21 @@ body {
   color: #1f2325;
 }
 .site-header .site-nav__subhead {
+  display: none;
   font-family: 'Droid Serif', serif;
   font-weight: 400;
-  font-size: 2vw;
+  font-size: 1.8vw;
   line-height: 2vw;
-  padding-bottom: 7.5px;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
   color: #FEFEFE;
   text-transform: uppercase;
+}
+@media (min-width: 1280px) {
+  .site-header .site-nav__subhead {
+    display: block;
+  }
 }
 .site-footer {
   text-align: center;
