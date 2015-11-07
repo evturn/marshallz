@@ -28,6 +28,12 @@
     "media": "blog",
     "time": "*:00am",
     "repeats": "hourly",
-    "crontab": "00 00 * * * *"
+    "crontab": "00 * * * * *"
+  }, {
+    "author": "clang",
+    "media": "blog",
+    "time": "*:00am",
+    "repeats": "hourly",
+    "crontab": "30 * * * * *"
   }
 ]

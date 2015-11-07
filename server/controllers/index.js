@@ -5,7 +5,7 @@ module.exports.index = function(req, res, next) {
   BlogPost
     .find({})
     .limit(10)
-    .sort({uuid: 'desc'})
+    .sort({timestamp: 'desc'})
     .deepPopulate(['author'])
     .exec((err, posts) => {
       if (err) { return (err); }
@@ -33,7 +33,7 @@ module.exports.page = function(req, res, next) {
     .find({})
     .skip(start)
     .limit(count)
-    .sort({uuid: 'desc'})
+    .sort({timestamp: 'desc'})
     .deepPopulate(['author'])
     .exec((err, posts) => {
       if (err) { return (err); }

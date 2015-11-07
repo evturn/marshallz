@@ -14,6 +14,7 @@ module.exports = (author) => {
         title     : post.title,
         body      : post.sentences,
         slug      : post.slug,
+        timestamp : post.timestamp,
         image     : image,
         author    : author._id
       });

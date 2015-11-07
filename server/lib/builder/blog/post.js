@@ -31,25 +31,28 @@ module.exports = class Post {
     } else if (this.length < this.policy) {
       let punc = text.endsWith('?') ? '' : '.';
       this.sentences = `${this.sentences} ${text}${punc}`;
-      this.length =+ 1;
+      this.length += 1;
       if (this.length < this.policy) {
         return this.getSentence();
-      } else {
+      }
+      if (this.length === this.policy) {
+        this.timestamp = Date.now();
         return this.createPost()
       }
     }
   }
   createPost() {
-    if (this.title !== null) {
+    if (this.title === null) {
       throw new Error('Blog post title still `null`');
-    } else if (this.sentences.length !== this.policy) {
-      throw new Error(`Blog post body needs ${this.policy} current has ${this.sentences.length}`);
+    } else if (this.length !== this.policy) {
+      throw new Error(`Blog post body needs ${this.policy} current has ${this.length}`);
     } else {
       return new Promise((resolve, reject) => {
         const post = {
           title: this.title,
           body: this.sentences,
-          author: this.author
+          author: this.author,
+          timestamp: this.timestamp
         };
         return resolve(post);
       });

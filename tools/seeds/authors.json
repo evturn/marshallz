@@ -4,7 +4,7 @@
     "username": "marshall",
     "avatar": "img/av.png",
     "policy": 4,
-    "filepath": "server/lib/builder/quotes.txt",
+    "filepath": "server/lib/builder/content/marshall.txt",
     "social": {
       "twitter": "https://twitter.com/marshallzBlog"
     },

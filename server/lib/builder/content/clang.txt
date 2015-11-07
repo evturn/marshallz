@@ -1,1 +1,9 @@
-There are certain formulas in Physics that are so powerful and so pervasive that they reach the state of popular knowledge. A student of Physics has written such formulas down so many times that they have memorized it without trying to. Certainly to the professionals in the field, such formulas are so central that they become engraved in their minds. In the field of Modern Physics, there is E = m • c2. In the field of Newtonian Mechanics, there is Fnet = m • a. In the field of Wave Mechanics, there is v = f • λ. And in the field of current electricity, there is ΔV = I • R.
+There are certain formulas in Physics that are so powerful and so pervasive that they reach the state of popular knowledge.
+There is E = m • c2. In the field of Newtonian Mechanics, there is Fnet = m • a.
+In the field of Wave Mechanics, there is v = f • λ.
+And in the field of current electricity, there is ΔV = I • R.
+The first fuel cells were invented in 1838.
+The first commercial use of fuel cells came more than a century later in NASA space programs to generate power for satellites and space capsules.
+Since then, fuel cells have been used in many other applications.
+Fuel cells are used for primary and backup power for commercial, industrial and residential buildings and in remote or inaccessible areas.
+They are also used to power fuel cell vehicles, including forklifts, automobiles, buses, boats, motorcycles and submarines.
