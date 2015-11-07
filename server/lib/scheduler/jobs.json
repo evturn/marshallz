@@ -23,6 +23,6 @@
     "media": "blog",
     "time": "*:00am",
     "repeats": "hourly",
-    "crontab": "00 00 * * * *"
+    "crontab": "* * * * * *"
   }
 ]

@@ -1,6 +1,10 @@
 'use strict';
 const path = require('path');
 
+module.exports.random = (array) => {
+  return array[Math.floor(Math.random() * array.length)];
+};
+
 module.exports.capitalize = (wordList) => {
   let tmpList = Object.keys(wordList).filter((word) => {
     return word[0] >= 'A' && word[0] <= 'Z';

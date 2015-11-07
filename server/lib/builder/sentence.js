@@ -1,11 +1,10 @@
 'use strict';
 const Markov = require('./markov-chain');
 const capitalize = require('./utils').capitalize;
-const filepath = 'server/lib/builder/quotes.txt';
 
-module.exports = () => {
+module.exports = (user) => {
   return new Promise((resolve, reject) => {
-    return new Markov({files: filepath})
+    return new Markov({files: user.filepath})
       .start(capitalize)
       .end()
       .runProcess((err, sentence) => {
