@@ -17,7 +17,7 @@
     "username": "clang",
     "avatar": "img/clang.png",
     "policy": 4,
-    "filepath": "",
+    "filepath": "server/lib/builder/content/clang.txt",
     "social": {
       "twitter": "https://twitter.com/__clang__"
     },

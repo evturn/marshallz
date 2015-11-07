@@ -6,13 +6,11 @@ module.exports.index = function(req, res, next) {
     .find({})
     .limit(10)
     .sort({uuid: 'desc'})
-    .exec(function(err, posts) {
-    if (err) {
-      console.log(err);
-    } else {
+    .deepPopulate(['author'])
+    .exec((err, posts) => {
+      if (err) { return (err); }
       res.render('index', {posts: posts, page: 2});
-    }
-  });
+    });
 };
 
 module.exports.detail = function(req, res, next) {
@@ -36,11 +34,9 @@ module.exports.page = function(req, res, next) {
     .skip(start)
     .limit(count)
     .sort({uuid: 'desc'})
-    .exec(function(err, posts) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json({posts: posts, page: increment});
-      }
+    .deepPopulate(['author'])
+    .exec((err, posts) => {
+      if (err) { return (err); }
+      res.json({posts: posts, page: increment});
   });
 };
