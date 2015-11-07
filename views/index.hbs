@@ -7,24 +7,7 @@
   </div>
 </div>
 <div class="blog-posts">
-  {{#each posts}}
-  <div class="container post-item">
-    <div class="inner">
-      <div class="img-container">
-        <img class="img-scale avatar" src='{{author.avatar}}'>
-        </div>
-      <div class="content-container">
-        <p class="title-text"><a href="/posts/{{_id}}/{{slug}}">{{title}}</a></p>
-        <p class="meta" data-livestamp="{{ts timestamp}}"></span></p>
-        {{#if this.image}}
-          <div class="image-container" style="background-image: url('{{image}}')";></div>
-        {{/if}}
-        <p class="body-text">{{body}}</p>
-        <p class="meta sig">by <a href="{{author.social.twitter}}">{{author.username}}</a></p>
-      </div>
-    </div>
-  </div>
-{{/each}}
+  {{> pagination}}
 </div>
 <div class="container pagination">
   <div class="inner">
