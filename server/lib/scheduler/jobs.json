@@ -1,25 +1,30 @@
 [
   {
+    "author": "marshall",
     "media": "twitter",
     "time": "4:00am",
     "repeats": "daily",
     "crontab": "00 00 04 * * *"
   }, {
+    "author": "marshall",
     "media": "twitter",
     "time": "10:00am",
     "repeats": "daily",
     "crontab": "00 00 10 * * *"
   }, {
+    "author": "marshall",
     "media": "twitter",
     "time": "2:00pm",
     "repeats": "daily",
     "crontab": "00 00 16 * * *"
   }, {
+    "author": "marshall",
     "media": "twitter",
     "time": "10:00pm",
     "repeats": "daily",
     "crontab": "00 00 22 * * *"
   }, {
+    "author": "marshall",
     "media": "blog",
     "time": "*:00am",
     "repeats": "hourly",

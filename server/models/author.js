@@ -16,5 +16,5 @@ const authorSchema = new Schema({
   posts     : [{type: Schema.Types.ObjectId, ref: 'BlogPost'}]
 });
 
-blogPostSchema.plugin(deepPopulate);
+authorSchema.plugin(deepPopulate);
 module.exports = mongoose.model('Author', authorSchema);

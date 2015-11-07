@@ -1,25 +1,17 @@
 'use strict';
 const Cron = require('cron').CronJob;
 const jobs = require('./jobs.json');
-const toTwitter = require('../builder/twitter');
-const toBlog = require('../builder/blog');
+const init = require('./init');
 
 module.exports = () => {
 
-  const exec = (crontab, fn) => {
+  const exec = (crontab, job, fn) => {
     return new Cron(crontab, () => {
-      fn();
+      fn(job);
     }, null, true);
   };
 
   for (let job of jobs) {
-    switch (job.media) {
-      case 'twitter':
-        exec(job.crontab, toTwitter);
-        break;
-      case 'blog':
-        exec(job.crontab, toBlog);
-        break;
-    }
+    exec(job.crontab, job, init);
   }
 };

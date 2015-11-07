@@ -8,12 +8,11 @@ module.exports = (author) => {
   const copy = new Post(author);
   Promise.all([media, copy])
     .then((values) => {
-      console.log(values);
-      const image = values[0];
-      const post = values[1].Post;
+      const image = values[0].image;
+      const post = values[1];
       const blogPost = new BlogPost({
         title     : post.title,
-        body      : post.body,
+        body      : post.sentences,
         slug      : post.slug,
         image     : image,
         author    : author._id
@@ -21,9 +20,8 @@ module.exports = (author) => {
 
       blogPost.save((err, blogPost) => {
         if (err) { return err; }
-        console.log('========NEW POST=======');
-        console.log(blogPost);
-        console.log('========NEW POST=======');
+        author.posts.push(blogPost._id);
+        author.save();
         return blogPost;
       });
     })

@@ -14,7 +14,7 @@ module.exports = (author) => {
         const parsed = JSON.parse(body);
         if (parsed.data.length) {
           const item = random(parsed.data);
-          resolve(item.images.original.url);
+          resolve({image: item.images.original.url});
         }
       }
     });
