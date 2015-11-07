@@ -9,7 +9,6 @@ const user = {
   keywords: [
     '1980', 'cars', 'dog', 'kids', 'retro', 'commercial', '1990', '80\'s', '90\'s', 'cartoons', 'Gary+Busey,', 'cool', 'rad', 'rollerblade', 'huffy', 'moonbounce', 'big+wheels', 'shredder', 'steve+guttenberg', 'mattel', 'WWF', 'WCW', 'NWO', 'slimer', 'shaq', 'mutombo', 'macho+man', 'razor+ramon', 'keith+sweat', 'skeletor', 'snuggles', 'dude'
   ],
-  posts: [],
   filepath: 'server/lib/builder/quotes.txt'
 };
 
