@@ -32,9 +32,7 @@ module.exports = class Tweet {
 
     this.request.post(endpoint, params, (error, tweet, response) => {
       if (error) { return error; }
-      console.log('=====TWEET POSTED=====');
       console.log(JSON.parse(response.body));
-      console.log('=====TWEET POSTED=====');
       return tweet;
     });
   }

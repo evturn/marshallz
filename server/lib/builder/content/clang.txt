@@ -9,7 +9,7 @@ Fuel cells are used for primary and backup power for commercial, industrial and 
 They are also used to power fuel cell vehicles, including forklifts, automobiles, buses, boats, motorcycles and submarines.
 Use a wood-handled bristle brush, not a synthetic one (they will fall apart).
 Work outside or in a fume hood.
-You can also use commercial carb cleaner.
+You can also use commercial carb cleaner @BritneySpears.
 If your cleaner contains dichloromethane or tetracholoroethylene (2-layer type cleaner) DO NOT soak aluminum parts any longer than necessary.
 They will corrode if left overnight.
 Many bike carbs and SU’s have been ruined this way.
@@ -34,7 +34,7 @@ Although no defect in the paint job causes this, GMwill repair, at no charge to 
 The ADE7753 is an accurate active and apparent energy measurements IC with a serial interface and a pulse output.
 The ADE7753 incorporates two second order sigma deltaADCs, a digital integrator (on CH1), reference circuitry, temperature sensor, and all the signal processing required toperform RMS calculation on the voltage and current, active,reactive, and apparent energy measurement.
 The sigma-delta converter uses two techniques to achievehigh resolution from what is essentially a 1-bit conversiontechnique.
-The first is over-sampling.
+The first is over-sampling @JessicaSimpson.
 By over sampling wemean that the signal is sampled at a rate (frequency) which ismany times higher than the bandwidth of interest.
 Forexample the sampling rate in the ADE7753 is CLKIN/4(894kHz) and the band of interest is 40Hz to 2kHz.
 Over-sampling has the effect of spreading the quantization noise(noise due to sampling) over a wider bandwidth.
@@ -51,7 +51,7 @@ Use of a Ventilation Damper is an economical way to get outdoor air into your ho
 Control of a ventilation damper is enhanced by the Model 6504 Control Panel when anoutdoor temperature sensor is installed with your system and enhanced even more when an Aprilaire Automatic Humidifier hasbeen installed.
 Direct ventilation from outside can increase the heating or cooling load on your heating and cooling equipment orcause uncomfortably cool or warm drafts.
 Bringing in moist air can cause the indoor relative humidity to reach uncomfortable,“stuffy feeling” levels.
-With an outdoor temperature sensor installed, the control panel will discontinue ventilation if the outdoortemperature is above 100°F or lower than 0°F, and will limit ventilation to occur only when the heat is on when the outdoortemperature is between 20°F and 0°F.
+With an outdoor temperature sensor installed, @KanyeWest the control panel will discontinue ventilation if the outdoortemperature is above 100°F or lower than 0°F, and will limit ventilation to occur only when the heat is on when the outdoortemperature is between 20°F and 0°F.
 When an Aprilaire Automatic Humidifier is installed, ventilation is also discontinued whenthe indoor relative humidity is above 55% RH and the outdoor temperature is above 50°F.
 This dryer can be connected directly to the fused disconnect or circuit breaker box with two-wire or three-wire flexible, armored or non-metallic sheathed copper cable (with ground wire).
 Do Not use two-wire with bare ground wire.
