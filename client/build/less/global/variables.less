@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Monofett);
-@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic|Open+Sans:700,400);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
 
 @font-serif:              'Droid Serif', serif;
 @font-sans-serif:         'Monofett', sans-serif;
@@ -15,9 +15,19 @@
 @desktop-md:              ~'min-width: 1440px';
 @desktop-lg:              ~'min-width: 1920px';
 
-@tx-color-0:              #2C3235;
-@tx-color-1:              #FEFEFE;
-@tx-color-grey:           #C8C5C7;
+@bg-main-light:           #FEFEFE;
+@bg-main-dark:            #2C3235;
+
+@tx-main-light:           @bg-main-light;
+@tx-main-dark:            @bg-main-dark;
+
+@bg-header:               #C8C5C7;
+@tx-header:               @tx-main-dark;
+
+@tx-color-0:              @tx-main-dark;
+@tx-color-1:              @tx-main-light;
+@tx-color-grey:           @bg-header;
+
 
 @black:                   @tx-color-0;
 @white:                   @tx-color-1;
