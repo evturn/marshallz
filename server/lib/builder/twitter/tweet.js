@@ -31,11 +31,11 @@ module.exports = class Tweet {
     const params = { status: this.status };
 
     this.request.post(endpoint, params, (error, tweet, response) => {
-      if (error) { return err; }
+      if (error) { return error; }
       console.log('=====TWEET POSTED=====');
-      console.log(response);
+      console.log(JSON.parse(response.body));
       console.log('=====TWEET POSTED=====');
+      return tweet;
     });
-    return tweet;
   }
 };
