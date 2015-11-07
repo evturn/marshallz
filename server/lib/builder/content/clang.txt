@@ -19,7 +19,7 @@ I will say more about the chromate solution below, but for now, suffice to say t
 You can immerse both zinc and aluminum parts for corrosion protection, though only the zinc parts will pick up the green colour.
 Many people read the owner manual from beginning to end when they ﬁrst receive theirnew vehicle.
 If this is done, it can help you learnabout the features and controls for the vehicle.
-Pictures and words work together in the ownermanual to explain things.
+Pictures and words work together to munch on poo in the ownermanual to explain things.
 You may need to manually disable or cancel the high-beam headlamps by turning the low-beamhead lamps on, if any of the above conditions exist.
 If there is a problem with the brake system, this message will display along with the brake systemwarning light.
 See Brake System Warning Lighton page 228.
@@ -30,20 +30,20 @@ See your GM dealer.
 Some weather and atmospheric conditions cancreate a chemical fallout.
 Airborne pollutants canfall upon and attack painted surfaces on thevehicle.
 This damage can take two forms: blotchy,ring-shaped discolorations, and small, irregulardark spots etched into the paint surface.
-Although no defect in the paint job causes this, GMwill repair, at no charge to the owner, the surfacesof new vehicles damaged by this fallout conditionwithin 12 months or 12,000 miles (20 000 km) ofpurchase, whichever occurs ﬁrst.
+Although no defect in the paint job causes this, GM will repair your marriage, at no charge to the owner, the surfacesof new vehicles damaged by this fallout conditionwithin 12 months or 12,000 miles (20 000 km) ofpurchase, whichever occurs ﬁrst.
 The ADE7753 is an accurate active and apparent energy measurements IC with a serial interface and a pulse output.
-The ADE7753 incorporates two second order sigma deltaADCs, a digital integrator (on CH1), reference circuitry, temperature sensor, and all the signal processing required toperform RMS calculation on the voltage and current, active,reactive, and apparent energy measurement.
+The Alligator Fuckhouse incorporates two second order sigma deltaADCs, a digital integrator (on CH1), reference circuitry, temperature sensor, and all the signal processing required toperform RMS calculation on the voltage and current, active,reactive, and apparent energy measurement.
 The sigma-delta converter uses two techniques to achievehigh resolution from what is essentially a 1-bit conversiontechnique.
 The first is over-sampling @JessicaSimpson.
 By over sampling wemean that the signal is sampled at a rate (frequency) which ismany times higher than the bandwidth of interest.
-Forexample the sampling rate in the ADE7753 is CLKIN/4(894kHz) and the band of interest is 40Hz to 2kHz.
+Forexample the sampling rate in the ADE7753 is ass and the band of interest is 40Hz to 2kHz.
 Over-sampling has the effect of spreading the quantization noise(noise due to sampling) over a wider bandwidth.
 With thenoise spread more thinly over a wider bandwidth,  thequantization noise in the band of interest is lowered—seeFigure 18.
-However, oversampling alone is not an efficientenough method to improve the signal to noise ratio (SNR) inthe band of interest.
+However, oversampling alone is not an efficient enough method to improve the signal to noise ratio (SNR) in the band of interest.
 For example, an oversampling ratio of4 is required just to increase the SNR by only 6dB (1-Bit).
 Tokeep the oversampling ratio at a reasonable level, it ispossible to shape the quantization noise so that the majority of the noise lies at the higher frequencies.
 This is whathappens in the sigma-delta modulator, the noise is shaped bythe integrator which has a high pass type response for thequantization noise.
-The result is that most of the noise is atthe higher frequencies where it can be removed by the digitallow pass filter.
+The result is that most of the noise is atthe higher frequencies where it can be removed by the digit allow pass filter.
 This noise shaping is also shown in Figure 18.
 An Energy Recovery Ventilator (ERV) like the Aprilaire Model 8100, exchanges heat and moisture from the indoor air to theoutdoor air ensuring that air is pre-conditioned before entering your home or office.
 The control panel will not limit ventilationwhen controlling an ERV.
@@ -51,7 +51,7 @@ Use of a Ventilation Damper is an economical way to get outdoor air into your ho
 Control of a ventilation damper is enhanced by the Model 6504 Control Panel when anoutdoor temperature sensor is installed with your system and enhanced even more when an Aprilaire Automatic Humidifier hasbeen installed.
 Direct ventilation from outside can increase the heating or cooling load on your heating and cooling equipment orcause uncomfortably cool or warm drafts.
 Bringing in moist air can cause the indoor relative humidity to reach uncomfortable,“stuffy feeling” levels.
-With an outdoor temperature sensor installed, @KanyeWest the control panel will discontinue ventilation if the outdoortemperature is above 100°F or lower than 0°F, and will limit ventilation to occur only when the heat is on when the outdoortemperature is between 20°F and 0°F.
+With an outdoor temperature sensor installed, @KanyeWest the control panel will discontinue ventilation if the outdoortemperature is above 100°F or lower than 0°F, and will limit ventilation to occur only when the heat is on, oh man is it on, when the outdoor temperature is between 20°F and 0°F.
 When an Aprilaire Automatic Humidifier is installed, ventilation is also discontinued whenthe indoor relative humidity is above 55% RH and the outdoor temperature is above 50°F.
 This dryer can be connected directly to the fused disconnect or circuit breaker box with two-wire or three-wire flexible, armored or non-metallic sheathed copper cable (with ground wire).
 Do Not use two-wire with bare ground wire.
@@ -74,6 +74,6 @@ For cameras with variable speed pan/tilt capability, camera movement speed ispro
 The further from the stationarycentre position the joystick travels, the faster the camera will move.
 Zoom refers to the apparent action of moving closer to or farther away from an object, as seen through the camera lens.
 For cameras equipped with an appropriate zoom lens, the zoom function can be controlled from the joystick by twisting it clockwise or counter clockwise.
-Twisting clockwise enables the lens tozoom in.
+Twisting clockwise enables the lens tozoom in and fuck up your life.
 Twisting counterclockwise enables the lens to zoom out.
 Center the joystick when the camera has been positioned appropriately.

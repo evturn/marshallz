@@ -25,8 +25,9 @@ module.exports = class Post {
   }
   allocate(text) {
     if (this.title === null) {
-      this.title = text;
-      this.slug = slugify(text);
+      const truncated = text.match(/^.{140}\w*/);
+      this.title = text.length > 140 ? truncated[0] : text;
+      this.slug = slugify(this.title);
       return this.getSentence();
     } else if (this.length < this.policy) {
       let punc = text.endsWith('?') ? '' : '.';

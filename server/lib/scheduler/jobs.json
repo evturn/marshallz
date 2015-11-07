@@ -15,5 +15,9 @@
     "author": "clang",
     "media": "twitter",
     "crontab": "00 00 04,9,15,21 * * *"
+  }, {
+    "author": "clang",
+    "media": "blog",
+    "crontab": "10,20,30,40,50,00 * * * * *"
   }
 ]
