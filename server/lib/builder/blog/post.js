@@ -5,17 +5,17 @@ const utils = require('../utils');
 const slugify = utils.slugify;
 
 module.exports = class Post {
-  constructor(user) {
-    this.user = user;
+  constructor(author) {
+    this.author = author;
     this.title = null;
     this.sentences = '';
     this.length = 0;
-    this.policy = user.policy;
+    this.policy = author.policy;
 
     this.getSentence();
   }
   getSentence() {
-    sentence(this.user)
+    sentence(this.author)
       .then((text) => {
         return this.allocate(text);
       })
@@ -49,7 +49,7 @@ module.exports = class Post {
         const post = {
           title: this.title,
           body: this.sentences,
-          author: this.user
+          author: this.author
         };
         return resolve(post);
       });
