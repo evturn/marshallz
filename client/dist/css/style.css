@@ -5150,8 +5150,14 @@ body {
   margin-bottom: 0;
 }
 .site-header .site-nav__header a {
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
   text-decoration: none;
   color: #2C3235;
+}
+.site-header .site-nav__header a:hover {
+  color: #1f2325;
 }
 .site-header .site-nav__subhead {
   font-family: 'Droid Serif', serif;

@@ -19,8 +19,12 @@
     .transition(0.3s);
     .margin-y(0);
     a {
+      .transition(0.5s);
       text-decoration: none;
       color: @tx-main-dark;
+      &:hover {
+        color: mix(@tx-main-dark, #000000, 70%);
+      }
     }
   }
   .site-nav__subhead {
