@@ -31,9 +31,9 @@
     "crontab": "00 * * * * *"
   }, {
     "author": "clang",
-    "media": "blog",
+    "media": "twitter",
     "time": "*:00am",
     "repeats": "hourly",
-    "crontab": "30 * * * * *"
+    "crontab": "10,20,30,40,50,00 * * * * *"
   }
 ]

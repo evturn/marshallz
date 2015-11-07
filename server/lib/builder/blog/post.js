@@ -37,7 +37,7 @@ module.exports = class Post {
       }
       if (this.length === this.policy) {
         this.timestamp = Date.now();
-        return this.createPost()
+        return this.createPost();
       }
     }
   }

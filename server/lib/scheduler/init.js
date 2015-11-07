@@ -11,7 +11,7 @@ module.exports = (job) => {
       break;
     case 'twitter':
       publish = toTwitter;
-      break
+      break;
   }
 
   Author.findOne({username: job.author}, (err, author) => {
