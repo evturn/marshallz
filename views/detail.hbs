@@ -1,33 +1,28 @@
 <section id="detail">
   <div class="blog-posts">
     <div class="container post-item">
-      <div class="inner">
-        <div class="img-container">
-          <img class="img-scale avatar" src='img/av.png'>
+      <div class="post-item__content">
+        <div class="post-item__header">
+          <div class="post-item__avatar" style="background-image: url('{{#if author.avatar}}{{author.avatar}}{{else}}img/av.png{{/if}}')"></div>
+          <div class="post-item__content-meta">
+            <div class="post-item__content-author"><a href="{{#if author.social}}{{author.social.twitter}}{{else}}http://twitter.com/marshallzBlog{{/if}}">{{#if author.username}}{{author.username}}{{else}}Marshall{{/if}}</a> <span class="fa fa-circle"></span> <span class="post-item__author-tag">Author</span></div>
+            <div class="post-item__content-timestamp" data-livestamp="{{ts timestamp}}"></div>
           </div>
-        <div class="content-container">
-          <p class="title-text">{{title}}</p>
-          <p class="meta" data-livestamp="{{ts this.timestamp}}"></span></p>
-          {{#if image}}
-            <div class="image-container" style="background-image: url('{{image}}')";></div>
-          {{/if}}
-          <p class="body-text">{{body}}</p>
-          <p class="meta sig">by <a href="http://twitter.com/marshallzBlog">Marshall</a></p>
         </div>
+        <a href="/posts/{{_id}}/{{slug}}">
+          {{#if this.image}}
+            <div class="post-item__content-image" style="background-image: url('{{image}}')";></div>
+          {{/if}}
+          <div class="post-item__content-title">{{title}}</div>
+        </a>
+        <div class="post-item__content-body">{{body}}</div>
       </div>
+    </div>
+  </div>
+  <div class="author-bio">
+    <div class="author-bio__content">
+      <div class="post-item__avatar" style="background-image: url('{{#if author.avatar}}{{author.avatar}}{{else}}img/av.png{{/if}}')"></div>
+      <div class="post-item__content-body">Marshall has lived on four continents and traveled to more than 150 countries, graduated from Harvard, studied law at Oxford University as a Rhodes Scholar, and then studied Arabic in Cairo. In his free time also teaches at Yale University, and is a member of the American Academy of Arts and Sciences</div>
     </div>
   </div>
 </section>
-<div class="container">
-  <div class="inner">
-    <div class="bio-wrapper">
-      <div class="img-container">
-        <img class="img-scale avatar" src='img/av.png'>
-      </div>
-      <div class="content-container">
-        <p class="meta dark">Marshall has lived on four continents and traveled to more than 150 countries, graduated from Harvard, studied law at Oxford University as a Rhodes Scholar, and then studied Arabic in Cairo. In his free time also teaches at Yale University, and is a member of the American Academy of Arts and Sciences</p>
-      </div>
-    </div>
-  </div>
-</div>
-<br/>
