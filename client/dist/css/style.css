@@ -5333,6 +5333,12 @@ a {
   background-size: cover;
   overflow: hidden;
 }
+@media (min-width: 768px) {
+  .post-item .post-item__content-image,
+  .bio-wrapper .post-item__content-image {
+    height: 330px;
+  }
+}
 .post-item .post-item__content-title,
 .bio-wrapper .post-item__content-title {
   padding-top: 10px;
