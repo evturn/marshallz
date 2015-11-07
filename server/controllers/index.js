@@ -1,7 +1,7 @@
 'use strict';
 const BlogPost = require('../models/blog-post');
 
-module.exports.index = function(req, res, next) {
+module.exports.index = (req, res, next) => {
   BlogPost
     .find({})
     .limit(10)
@@ -13,17 +13,17 @@ module.exports.index = function(req, res, next) {
     });
 };
 
-module.exports.detail = function(req, res, next) {
-  BlogPost.findById(req.params.id, function(err, post) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('detail', post);
-    }
-  });
+module.exports.detail = (req, res, next) => {
+  BlogPost
+    .findById(req.params.id)
+    .deepPopulate(['author'])
+    .exec((err, post) => {
+      if (err) { return (err); }
+        res.render('detail', post);
+    });
 };
 
-module.exports.page = function(req, res, next) {
+module.exports.page = (req, res, next) => {
   let page = req.query.page,
       count = 5,
       start = count * page,
