@@ -5115,11 +5115,18 @@ body {
   clear: both;
 }
 .site-header {
-  position: relative;
+  position: fixed;
   width: 100%;
   z-index: 101;
   background: url('../img/headbg.jpg');
   background-size: cover;
+  -webkit-box-shadow: 0px 2px 7px -1px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 2px 7px -1px rgba(0, 0, 0, 0.4);
+}
+@media (min-width: 768px) {
+  .site-header {
+    position: relative;
+  }
 }
 .site-header .site-nav {
   padding-top: 2.5px;
@@ -5163,11 +5170,11 @@ body {
   }
 }
 .site-header .site-nav__header a {
+  text-decoration: none;
+  color: #2C3235;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
-  text-decoration: none;
-  color: #2C3235;
 }
 .site-header .site-nav__header a:hover {
   color: #1f2325;
@@ -5178,11 +5185,11 @@ body {
   font-weight: 400;
   font-size: 1.8vw;
   line-height: 2vw;
+  color: #FEFEFE;
+  text-transform: uppercase;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
-  color: #FEFEFE;
-  text-transform: uppercase;
 }
 @media (min-width: 1280px) {
   .site-header .site-nav__subhead {
@@ -5197,57 +5204,70 @@ body {
   color: #2C3235;
   background: transparent;
 }
+.blog-posts {
+  position: relative;
+  padding-top: 65px;
+  padding-bottom: 50px;
+  zoom: 1;
+}
+.blog-posts:before,
+.blog-posts:after {
+  content: " ";
+  display: table;
+}
+.blog-posts:after {
+  clear: both;
+}
+@media (min-width: 768px) {
+  .blog-posts {
+    padding-top: 25px;
+  }
+}
 .post-item,
 .bio-wrapper {
-  text-align: center;
-}
-.post-item .img-container,
-.bio-wrapper .img-container {
-  margin-top: 30px;
-  text-align: center;
-  background: transparent;
+  position: relative;
+  display: block;
+  padding: 50px 20px;
   margin-left: auto;
   margin-right: auto;
-  display: inline-block;
 }
-.post-item .img-container .avatar,
-.bio-wrapper .img-container .avatar {
+.post-item .post-item__avatar,
+.bio-wrapper .post-item__avatar {
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.post-item .post-item__avatar .post-item__avatar-image,
+.bio-wrapper .post-item__avatar .post-item__avatar-image {
   width: 100px;
-  z-index: 1;
-  margin-bottom: -50px;
-  border-top: 1px solid #C8C5C7;
-  border-left: 1px solid #C8C5C7;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
 }
-.post-item .content-container,
-.bio-wrapper .content-container {
+.post-item .post-item__content,
+.bio-wrapper .post-item__content {
+  zoom: 1;
   border-radius: 3px;
   background-color: #FEFEFE;
-  padding-top: 60px;
-  padding-bottom: 60px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: auto;
-  margin-right: auto;
   -webkit-box-shadow: 0px 4px 13px -2px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 4px 13px -2px rgba(0, 0, 0, 0.4);
 }
-@media (min-width: 768px) {
-  .post-item .content-container,
-  .bio-wrapper .content-container {
-    max-width: 80%;
-  }
+.post-item .post-item__content:before,
+.bio-wrapper .post-item__content:before,
+.post-item .post-item__content:after,
+.bio-wrapper .post-item__content:after {
+  content: " ";
+  display: table;
 }
-@media (min-width: 800px) {
-  .post-item .content-container,
-  .bio-wrapper .content-container {
-    padding-top: 60px;
-    padding-bottom: 60px;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
+.post-item .post-item__content:after,
+.bio-wrapper .post-item__content:after {
+  clear: both;
 }
-.post-item .content-container .image-container,
-.bio-wrapper .content-container .image-container {
+.post-item .post-item__content .post-item__content-image,
+.bio-wrapper .post-item__content .post-item__content-image {
   height: 200px;
   width: 100%;
   background-repeat: no-repeat;
@@ -5255,49 +5275,46 @@ body {
   background-position-y: 50%;
   margin-bottom: 15px;
 }
-.post-item .content-container .title-text,
-.bio-wrapper .content-container .title-text {
+.post-item .post-item__content .post-item__content-title,
+.bio-wrapper .post-item__content .post-item__content-title {
   font-size: 22px;
   font-weight: 800;
   line-height: 1.1em;
+  padding-top: 60px;
   text-transform: uppercase;
 }
 @media (min-width: 768px) {
-  .post-item .content-container .title-text,
-  .bio-wrapper .content-container .title-text {
+  .post-item .post-item__content .post-item__content-title,
+  .bio-wrapper .post-item__content .post-item__content-title {
     font-size: 3vw;
   }
 }
-.post-item .content-container .title-text a,
-.bio-wrapper .content-container .title-text a {
+.post-item .post-item__content .post-item__content-title a,
+.bio-wrapper .post-item__content .post-item__content-title a {
   text-decoration: none;
   color: #2C3235;
 }
-.post-item .content-container .meta,
-.bio-wrapper .content-container .meta {
+.post-item .post-item__content .post-item__content-timestamp,
+.bio-wrapper .post-item__content .post-item__content-timestamp {
   color: #C8C5C7;
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.post-item .content-container .meta.sig,
-.bio-wrapper .content-container .meta.sig {
+.post-item .post-item__content-author,
+.bio-wrapper .post-item__content-author {
   float: right;
 }
-.post-item .content-container .meta.sig a,
-.bio-wrapper .content-container .meta.sig a {
+.post-item .post-item__content-author a,
+.bio-wrapper .post-item__content-author a {
   text-decoration: none;
   color: #C8C5C7;
 }
-.post-item .content-container .meta.sig a:hover,
-.bio-wrapper .content-container .meta.sig a:hover {
+.post-item .post-item__content-author a:hover,
+.bio-wrapper .post-item__content-author a:hover {
   color: #2C3235;
 }
-.post-item .content-container .meta.dark,
-.bio-wrapper .content-container .meta.dark {
-  color: #2C3235;
-}
-.post-item .content-container .body-text,
-.bio-wrapper .content-container .body-text {
+.post-item .post-item__content-author .post-item__content-body,
+.bio-wrapper .post-item__content-author .post-item__content-body {
   text-align: left;
   margin-left: auto;
   margin-right: auto;
@@ -5305,8 +5322,8 @@ body {
   line-height: 1.2em;
 }
 @media (min-width: 768px) {
-  .post-item .content-container .body-text,
-  .bio-wrapper .content-container .body-text {
+  .post-item .post-item__content-author .post-item__content-body,
+  .bio-wrapper .post-item__content-author .post-item__content-body {
     font-size: 2vw;
     width: 80%;
     line-height: 1.5em;
