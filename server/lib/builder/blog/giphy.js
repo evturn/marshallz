@@ -13,7 +13,7 @@ module.exports = (user) => {
       if (!error && response.statusCode === 200) {
         const parsed = JSON.parse(body);
         if (parsed.data.length) {
-          const item = random(data);
+          const item = random(parsed.data);
           resolve(item.images.original.url);
         }
       }

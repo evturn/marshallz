@@ -1,6 +1,6 @@
 'use strict';
 const giphy = require('./giphy');
-const post = require('./post');
+const Post = require('./post');
 const BlogPost = require('../../../models/blog-post');
 const user = {
   author: 'Marshall',
@@ -15,10 +15,13 @@ const user = {
 
 module.exports = () => {
   const media = giphy(user);
-  const copy = post(user);
+  const copy = new Post(user);
   Promise.all([media, copy])
     .then((values) => {
       console.log(values);
       return values;
+    })
+    .catch((err) => {
+      throw new Error(`Couldn't grab your shit.`, err);
     });
 };
