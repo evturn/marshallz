@@ -29,7 +29,8 @@ module.exports = class Post {
       this.slug = slugify(text);
       return this.getSentence();
     } else if (this.length < this.policy) {
-      this.sentences = `${this.sentences}. ${text}.`;
+      let punc = text.endsWith('?') ? '' : '.';
+      this.sentences = `${this.sentences} ${text}${punc}`;
       this.length =+ 1;
       if (this.length < this.policy) {
         return this.getSentence();
