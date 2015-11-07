@@ -23,7 +23,7 @@ module.exports = class Tweet {
       this.status = text;
       return this.postTweet();
     } else {
-      return this.getSentence()
+      return this.getSentence();
     }
   }
   postTweet() {

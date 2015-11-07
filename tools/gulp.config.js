@@ -21,7 +21,6 @@ module.exports.paths = {
   eslint: {
     src: [
       'client/build/js/**/*.js',
-      '!client/build/js/web_modules/*',
       'config/**/*.js',
       'routes/**/*.js',
       'shared/**/*.js',

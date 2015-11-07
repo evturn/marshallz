@@ -1,11 +1,15 @@
 .site-header {
+  position: relative;
+  width: 100%;
+  z-index: 101;
+  -webkit-backface-visibility: hidden;
   background: url('../img/headbg.jpg');
-
+}
+.site-header {
   .header-wrapper {
     text-align: center;
     padding-bottom: 15px;
     padding-top: 15px;
-
     .header-text {
       .transition(0.3s);
       font-family: @sansserif;
@@ -16,7 +20,6 @@
         color: @black;
       }
     }
-
     .meta {
       .transition(0.3s);
       font-family: @serif;
@@ -24,8 +27,5 @@
       color: @white;
       text-transform: uppercase;
     }
-
   }
-
 }
-
