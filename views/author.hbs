@@ -1,0 +1,31 @@
+<div class="blog-posts">
+  {{#each author.posts}}
+    <div class="container post-item">
+      <div class="post-item__content">
+        <div class="post-item__header">
+          {{log ../author.avatar}}
+          <a href="/author/{{../author.username}}/posts">
+            <div class="post-item__avatar" style="background-image: url('{{../author.avatar}}')"></div>
+          </a>
+          <div class="post-item__content-meta">
+            <div class="post-item__content-author"><a href="{{../author.social.twitter}}">{{../author.username}}</a> <span class="fa fa-circle"></span> <span class="post-item__author-tag">Author</span></div>
+            <div class="post-item__content-timestamp" data-livestamp="{{ts timestamp}}"></div>
+          </div>
+        </div>
+        <a href="/posts/{{_id}}/{{slug}}">
+          {{#if this.image}}
+            <div class="post-item__content-image" style="background-image: url('{{image}}')";></div>
+          {{/if}}
+          <div class="post-item__content-title">{{title}}</div>
+        </a>
+        <div class="post-item__content-body">{{body}}</div>
+      </div>
+    </div>
+  {{/each}}
+</div>
+<div class="container pagination">
+  <div class="inner">
+    <div class="kurt-loader"></div>
+    <div id="pagination" data-page={{page}}></div>
+  </div>
+</div>

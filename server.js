@@ -9,6 +9,7 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 app.set('port', o_O.port);
 app.use('/', o_O.static.dist);
+app.use('/author/:username', o_O.static.dist);
 app.use('/pages', o_O.static.hbs);
 app.use('/posts/:id', o_O.static.dist);
 o_O.router(app);

@@ -1,5 +1,6 @@
 'use strict';
 const BlogPost = require('../models/blog-post');
+const Author = require('../models/author');
 
 module.exports.index = (req, res, next) => {
   BlogPost
@@ -20,6 +21,19 @@ module.exports.detail = (req, res, next) => {
     .exec((err, post) => {
       if (err) { return (err); }
         res.render('detail', post);
+    });
+};
+
+module.exports.author = (req, res, next) => {
+  console.log(req.params.username);
+  Author
+    .findOne({'username': req.params.username})
+    .deepPopulate(['posts'])
+    .exec((err, user) => {
+      if (err) { return (err); }
+        const posts = user.posts;
+        const author = user;
+        res.render('author', {posts: posts, author: author});
     });
 };
 
