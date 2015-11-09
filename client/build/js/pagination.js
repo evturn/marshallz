@@ -50,7 +50,7 @@ module.exports = () => {
   };
 
   const renderPosts = (data) => {
-    loadTemplate('/pages/pagination.hbs', (template) => {
+    loadTemplate('/pagination.hbs', (template) => {
       let html = template(data);
       $postsContainer.append(html);
       $pageValContainer.data('page', data.page);

@@ -11647,7 +11647,7 @@
 	  };
 	
 	  var renderPosts = function renderPosts(data) {
-	    loadTemplate('/pages/pagination.hbs', function (template) {
+	    loadTemplate('/pagination.hbs', function (template) {
 	      var html = template(data);
 	      $postsContainer.append(html);
 	      $pageValContainer.data('page', data.page);
