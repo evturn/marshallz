@@ -2,6 +2,7 @@
 const express = require('express');
 const app = module.exports = express();
 const o_O = require('./server/config');
+const middleware = o_O.middleware(app);
 const scheduler = require('./server/lib/scheduler')();
 
 app.engine('hbs', o_O.hbs.engine);

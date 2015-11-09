@@ -1,11 +1,18 @@
 'use strict';
 const express = require('express');
+const middleware = require('../controllers/middleware');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const helpers = require('../../shared/hbs-helpers').helpers;
 
 module.exports = {
+  middleware(app) {
+    var locals = middleware;
+    for (let fn in locals) {
+      app.use(middleware[fn]);
+    }
+  },
   mongo: () => {
     mongoose.connect('mongodb://localhost/marshallz');
     mongoose.connection.on('error',
