@@ -32,9 +32,11 @@ module.exports = {
     ],
     layoutsDir: 'views/layouts'
   }),
-  static: {
-    dist: express.static('client/dist'),
-    hbs: express.static('views/partials')
+  static(app) {
+    app.use('/', express.static('client/dist'));
+    app.use('/posts/:id', express.static('client/dist'));
+    app.use('/author/:username', express.static('client/dist'));
+    app.use('/', express.static('views/partials'));
   },
   router: (app) => {
     require('../routes')(app);
