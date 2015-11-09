@@ -4,6 +4,7 @@ module.exports = {
   init() {
     this.toggleDropdowns();
     this.setNavOpen();
+    this.setNavClosed();
   },
   setNavOpen() {
     const $navTrigger = $('.site-nav__mobile');
@@ -16,6 +17,14 @@ module.exports = {
       } else {
         $nav.removeClass('open');
       }
+    });
+  },
+  setNavClosed() {
+    const $siteBody = $('.site-content');
+    const $dropdowns = $('.site-nav__sublist.js-menu');
+
+    $siteBody.on('click', () => {
+      $dropdowns.removeClass('active');
     });
   },
   toggleDropdowns() {

@@ -16813,6 +16813,7 @@
 	  init: function init() {
 	    this.toggleDropdowns();
 	    this.setNavOpen();
+	    this.setNavClosed();
 	  },
 	  setNavOpen: function setNavOpen() {
 	    var $navTrigger = $('.site-nav__mobile');
@@ -16825,6 +16826,14 @@
 	      } else {
 	        $nav.removeClass('open');
 	      }
+	    });
+	  },
+	  setNavClosed: function setNavClosed() {
+	    var $siteBody = $('.site-content');
+	    var $dropdowns = $('.site-nav__sublist.js-menu');
+	
+	    $siteBody.on('click', function () {
+	      $dropdowns.removeClass('active');
 	    });
 	  },
 	  toggleDropdowns: function toggleDropdowns() {
