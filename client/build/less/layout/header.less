@@ -74,6 +74,10 @@
 
 .site-nav__desktop {
   height: 40px;
+  display: none;
+  &.open {
+    display: block;
+  }
   @media(@tablet) {
     display: block;
   }
@@ -88,12 +92,26 @@
   display: inline-block;
   vertical-align: top;
   .site-nav__author-item {
-  margin-left: 15px;
+    margin-left: 15px;
+    min-width: 75px;
+    cursor: pointer;
   }
   .site-nav__sublist {
     display: none;
+    background: url('../img/headbg.jpg');
+    background-size: cover;
+    width: 100%;
+    padding-top: 15px;
+    border-radius: 3px;
+    a {
+      color: @tx-header;
+    }
     &.js-menu.active {
       display: inline-block;
     }
+  }
+  .site-nav__sublist-item {
+    padding-right: 15px;
+    padding-bottom: 15px;
   }
 }

@@ -2,9 +2,23 @@
 
 module.exports = {
   init() {
-    this.toggleNav();
+    this.toggleDropdowns();
+    this.setNavOpen();
   },
-  toggleNav() {
+  setNavOpen() {
+    const $navTrigger = $('.site-nav__mobile');
+    const $nav = $('.site-nav__desktop');
+
+    $navTrigger.on('click', () => {
+      const isOpen = !!($nav.hasClass('open'));
+      if (!isOpen) {
+        $nav.addClass('open');
+      } else {
+        $nav.removeClass('open');
+      }
+    });
+  },
+  toggleDropdowns() {
     const $itemButton = $('.site-nav__author-item');
     const $dropdowns = $('.site-nav__sublist.js-menu');
 

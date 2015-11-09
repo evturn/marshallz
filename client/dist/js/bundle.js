@@ -16811,9 +16811,23 @@
 	
 	module.exports = {
 	  init: function init() {
-	    this.toggleNav();
+	    this.toggleDropdowns();
+	    this.setNavOpen();
 	  },
-	  toggleNav: function toggleNav() {
+	  setNavOpen: function setNavOpen() {
+	    var $navTrigger = $('.site-nav__mobile');
+	    var $nav = $('.site-nav__desktop');
+	
+	    $navTrigger.on('click', function () {
+	      var isOpen = !!$nav.hasClass('open');
+	      if (!isOpen) {
+	        $nav.addClass('open');
+	      } else {
+	        $nav.removeClass('open');
+	      }
+	    });
+	  },
+	  toggleDropdowns: function toggleDropdowns() {
 	    var $itemButton = $('.site-nav__author-item');
 	    var $dropdowns = $('.site-nav__sublist.js-menu');
 	

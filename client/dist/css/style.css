@@ -5278,6 +5278,10 @@ button:focus {
 }
 .site-nav__desktop {
   height: 40px;
+  display: none;
+}
+.site-nav__desktop.open {
+  display: block;
 }
 @media (min-width: 768px) {
   .site-nav__desktop {
@@ -5294,12 +5298,26 @@ button:focus {
 }
 .site-nav__author .site-nav__author-item {
   margin-left: 15px;
+  min-width: 75px;
+  cursor: pointer;
 }
 .site-nav__author .site-nav__sublist {
   display: none;
+  background: url('../img/headbg.jpg');
+  background-size: cover;
+  width: 100%;
+  padding-top: 15px;
+  border-radius: 3px;
+}
+.site-nav__author .site-nav__sublist a {
+  color: #2C3235;
 }
 .site-nav__author .site-nav__sublist.js-menu.active {
   display: inline-block;
+}
+.site-nav__author .site-nav__sublist-item {
+  padding-right: 15px;
+  padding-bottom: 15px;
 }
 .site-footer {
   text-align: center;
