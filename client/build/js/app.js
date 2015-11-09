@@ -5,7 +5,6 @@ const pagination = require('./pagination');
 const nav = require('./nav');
 
 $(document).on('ready', function() {
-  pagination();
   nav.init();
 });
 

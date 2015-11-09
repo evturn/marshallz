@@ -60,7 +60,6 @@
 	var nav = __webpack_require__(130);
 	
 	$(document).on('ready', function () {
-	  pagination();
 	  nav.init();
 	});
 	
