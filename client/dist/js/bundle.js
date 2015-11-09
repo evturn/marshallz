@@ -11662,9 +11662,7 @@
 	    return fn(cachedTemplates[filepath]);
 	  }
 	
-	  console.log(filepath);
 	  $.get(filepath, function (contents) {
-	    console.log(contents);
 	    cachedTemplates[filepath] = Handlebars.compile(contents);
 	    fn(cachedTemplates[filepath]);
 	  });

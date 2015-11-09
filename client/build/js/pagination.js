@@ -56,9 +56,7 @@ const requestNextPage = (page) => {
 const loadTemplate = (filepath, fn) => {
   if (cachedTemplates[filepath]) { return fn(cachedTemplates[filepath]); }
 
-  console.log(filepath);
   $.get(filepath, (contents) => {
-    console.log(contents);
     cachedTemplates[filepath] = Handlebars.compile(contents);
     fn(cachedTemplates[filepath]);
   });
