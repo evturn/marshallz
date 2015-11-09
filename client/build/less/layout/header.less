@@ -56,18 +56,44 @@
       display: block;
     }
   }
+}
 
-  .site-nav__mobile {
-    position: absolute;
-    float: right;
-    top: 0;
-    right: 15px;
-    font-size: 5vw;
-    margin-top: 15px;
-    margin-bottom: 25px;
-    cursor: pointer;
-    @media(@tablet) {
-      display: none;
+.site-nav__mobile {
+  position: absolute;
+  float: right;
+  top: 0;
+  right: 15px;
+  font-size: 5vw;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  @media(@tablet) {
+    display: none;
+  }
+}
+
+.site-nav__desktop {
+  height: 40px;
+  @media(@tablet) {
+    display: block;
+  }
+}
+
+.site-nav__authors {
+  width: 100%;
+  text-align: right;
+}
+
+.site-nav__author {
+  display: inline-block;
+  vertical-align: top;
+  .site-nav__author-item {
+  margin-left: 15px;
+  }
+  .site-nav__sublist {
+    display: none;
+    &.js-menu.active {
+      display: inline-block;
     }
   }
 }

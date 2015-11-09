@@ -24,6 +24,7 @@
     "cron": "^1.0.9",
     "express": "^4.12.3",
     "express-handlebars": "^2.0.1",
+    "fs": "0.0.2",
     "handlebars": "^4.0.3",
     "jquery": "^2.1.4",
     "moment": "^2.10.6",
