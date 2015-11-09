@@ -2,7 +2,7 @@
   "name": "marshallz",
   "version": "1.0.0",
   "description": "Welcome! And more importantly, Welcome to Marshallz Blog",
-  "main": "server.js",
+  "main": "server/config",
   "scripts": {
     "watch": "gulp watch"
   },

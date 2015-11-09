@@ -25,7 +25,7 @@ gulp.task('gulp:watch', () => {
 ////
 // Shell Scripts
 ////////////////////////
-gulp.task('nodemon', $.shell.task('nodemon server.js'));
+gulp.task('nodemon', $.shell.task('nodemon server/config'));
 gulp.task('webpack:watch',  $.shell.task('webpack --watch &'));
 
 ////
