@@ -5276,15 +5276,15 @@ button:focus {
     display: none;
   }
 }
-.site-nav__desktop {
+.site-nav__menu {
   height: 40px;
   display: none;
 }
-.site-nav__desktop.open {
+.site-nav__menu.open {
   display: block;
 }
 @media (min-width: 768px) {
-  .site-nav__desktop {
+  .site-nav__menu {
     display: block;
   }
 }

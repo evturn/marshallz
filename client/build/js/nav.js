@@ -7,7 +7,7 @@ module.exports = {
   },
   setNavOpen() {
     const $navTrigger = $('.site-nav__mobile');
-    const $nav = $('.site-nav__desktop');
+    const $nav = $('.site-nav__menu');
 
     $navTrigger.on('click', () => {
       const isOpen = !!($nav.hasClass('open'));

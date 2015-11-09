@@ -16816,7 +16816,7 @@
 	  },
 	  setNavOpen: function setNavOpen() {
 	    var $navTrigger = $('.site-nav__mobile');
-	    var $nav = $('.site-nav__desktop');
+	    var $nav = $('.site-nav__menu');
 	
 	    $navTrigger.on('click', function () {
 	      var isOpen = !!$nav.hasClass('open');
