@@ -3,65 +3,92 @@ const helpers = require('hbs-helpers').precompiled;
 const spin = require('spin');
 const jspin = require('jquery.spin');
 
-module.exports = () => {
+const cachedTemplates = [];
+const $container = $('.pagination');
+const $loader = $('.kurt-loader');
+const $spinner = $('.spinner');
+const $postsContainer = $('.blog-posts');
+const activePage = $('body').data('page');
+let filepath = `${activePage}-pagination.hbs`;
+let page = null;
+let params = null;
 
-  const windowY = $(window).height();
-  const windowTop = $(window).scrollTop();
-  const documentY = $(document).height();
-  const scrollBottom = documentY - (windowY + windowTop);
-  const $container = $('.pagination');
-  const $pageValContainer = $('#pagination');
-  const $loader = $('.kurt-loader');
-  const $spinner = $('.spinner');
-  const $postsContainer = $('.blog-posts');
-  const $detailPage = $('#detail');
-  const templates = [];
+const showSpinner = () => {
+  $loader.fadeTo(0, 0.3);
+  $container.spin({
+    top: '45%'
+  });
+};
 
-  if ($detailPage.length) {
-    return false;
+const killSpinner = () => {
+  $loader.fadeTo(0.3, 1);
+  $spinner.hide();
+};
+
+const determineRoute = () => {
+  switch (activePage) {
+    case 'home':
+      params = '/page';
+      break;
+    case 'author':
+      const paths = window.location.pathname.split('/');
+      const [x, author, username] = paths;
+      params = `/${author}/${username}/posts`;
+      break;
   }
+};
 
-  const requestNextPage = (page) => {
-    $loader.fadeTo(0, 0.3);
-    $container.spin({
-      top: '45%'
-    });
-    $.ajax({
-      url: `/pages?page=${page}`,
-      success(data) {
-        console.log(data);
-        renderPosts(data);
-      },
-      error(err) {
-        console.log(err);
-      }
-    });
-  };
-
-  const loadTemplate = (url, callback) => {
-    if (templates[url]) {
-      return callback(templates[url]);
+const requestNextPage = (page) => {
+  const url = `${params}/${page}`;
+  showSpinner();
+  $.ajax({
+    url: url,
+    success(data) {
+      console.log(data);
+      renderNextPage(data);
+    },
+    error(err) {
+      console.log(err);
     }
+  });
+};
 
-    $.get(url, (contents) => {
-      templates[url] = Handlebars.compile(contents);
-        callback(templates[url]);
-      }, '');
-  };
+const loadTemplate = (filepath, fn) => {
+  if (cachedTemplates[filepath]) { return fn(cachedTemplates[filepath]); }
 
-  const renderPosts = (data) => {
-    loadTemplate('/pagination.hbs', (template) => {
-      let html = template(data);
-      $postsContainer.append(html);
-      $pageValContainer.data('page', data.page);
-      $loader.fadeTo(0.3, 1);
-      $spinner.hide();
-    });
-  };
+  console.log(filepath);
+  $.get(filepath, (contents) => {
+    console.log(contents);
+    cachedTemplates[filepath] = Handlebars.compile(contents);
+    fn(cachedTemplates[filepath]);
+  });
+};
+
+const renderNextPage = (data) => {
+  loadTemplate(filepath, (template) => {
+    $postsContainer.append(template(data));
+    killSpinner();
+  });
+};
+
+const init = () => {
+  const windowY = $(window).height();
+  const documentY = $(document).height();
+  const windowTop = $(window).scrollTop();
+  const scrollBottom = documentY - (windowY + windowTop);
+  const $noPage = $('#detail, #bio');
+
+  if ($noPage.length) { return; }
+  if (params === null) { determineRoute(); }
 
   if (scrollBottom === 0) {
-    let page = $pageValContainer.data('page');
+    if (page === null) {
+      page = 1;
+    } else {
+      page += 1;
+    }
     requestNextPage(page);
   }
-
 };
+
+module.exports = init;

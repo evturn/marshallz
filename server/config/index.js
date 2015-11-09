@@ -29,6 +29,8 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 require('../controllers/middleware')(app);
 app.use('/', express.static(templates));
+app.use('/author/:username/:page', express.static(assets));
+app.use('/author/:username/:page', express.static(templates));
 app.use('/', express.static(assets));
 app.use('/posts/:id', express.static(assets));
 app.use('/author/:username', express.static(assets));

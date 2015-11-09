@@ -11595,72 +11595,113 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+	
 	var Handlebars = __webpack_require__(94);
 	var helpers = __webpack_require__(125).precompiled;
 	var spin = __webpack_require__(128);
 	var jspin = __webpack_require__(129);
 	
-	module.exports = function () {
+	var cachedTemplates = [];
+	var $container = $('.pagination');
+	var $loader = $('.kurt-loader');
+	var $spinner = $('.spinner');
+	var $postsContainer = $('.blog-posts');
+	var activePage = $('body').data('page');
+	var filepath = activePage + '-pagination.hbs';
+	var page = null;
+	var params = null;
 	
-	  var windowY = $(window).height();
-	  var windowTop = $(window).scrollTop();
-	  var documentY = $(document).height();
-	  var scrollBottom = documentY - (windowY + windowTop);
-	  var $container = $('.pagination');
-	  var $pageValContainer = $('#pagination');
-	  var $loader = $('.kurt-loader');
-	  var $spinner = $('.spinner');
-	  var $postsContainer = $('.blog-posts');
-	  var $detailPage = $('#detail');
-	  var templates = [];
+	var showSpinner = function showSpinner() {
+	  $loader.fadeTo(0, 0.3);
+	  $container.spin({
+	    top: '45%'
+	  });
+	};
 	
-	  if ($detailPage.length) {
-	    return false;
+	var killSpinner = function killSpinner() {
+	  $loader.fadeTo(0.3, 1);
+	  $spinner.hide();
+	};
+	
+	var determineRoute = function determineRoute() {
+	  switch (activePage) {
+	    case 'home':
+	      params = '/page';
+	      break;
+	    case 'author':
+	      var paths = window.location.pathname.split('/');
+	
+	      var _paths = _slicedToArray(paths, 3),
+	          x = _paths[0],
+	          author = _paths[1],
+	          username = _paths[2];
+	
+	      params = '/' + author + '/' + username + '/posts';
+	      break;
+	  }
+	};
+	
+	var requestNextPage = function requestNextPage(page) {
+	  var url = params + '/' + page;
+	  showSpinner();
+	  $.ajax({
+	    url: url,
+	    success: function success(data) {
+	      console.log(data);
+	      renderNextPage(data);
+	    },
+	    error: function error(err) {
+	      console.log(err);
+	    }
+	  });
+	};
+	
+	var loadTemplate = function loadTemplate(filepath, fn) {
+	  if (cachedTemplates[filepath]) {
+	    return fn(cachedTemplates[filepath]);
 	  }
 	
-	  var requestNextPage = function requestNextPage(page) {
-	    $loader.fadeTo(0, 0.3);
-	    $container.spin({
-	      top: '45%'
-	    });
-	    $.ajax({
-	      url: '/pages?page=' + page,
-	      success: function success(data) {
-	        console.log(data);
-	        renderPosts(data);
-	      },
-	      error: function error(err) {
-	        console.log(err);
-	      }
-	    });
-	  };
+	  console.log(filepath);
+	  $.get(filepath, function (contents) {
+	    console.log(contents);
+	    cachedTemplates[filepath] = Handlebars.compile(contents);
+	    fn(cachedTemplates[filepath]);
+	  });
+	};
 	
-	  var loadTemplate = function loadTemplate(url, callback) {
-	    if (templates[url]) {
-	      return callback(templates[url]);
-	    }
+	var renderNextPage = function renderNextPage(data) {
+	  loadTemplate(filepath, function (template) {
+	    $postsContainer.append(template(data));
+	    killSpinner();
+	  });
+	};
 	
-	    $.get(url, function (contents) {
-	      templates[url] = Handlebars.compile(contents);
-	      callback(templates[url]);
-	    }, '');
-	  };
+	var init = function init() {
+	  var windowY = $(window).height();
+	  var documentY = $(document).height();
+	  var windowTop = $(window).scrollTop();
+	  var scrollBottom = documentY - (windowY + windowTop);
+	  var $noPage = $('#detail, #bio');
 	
-	  var renderPosts = function renderPosts(data) {
-	    loadTemplate('/pagination.hbs', function (template) {
-	      var html = template(data);
-	      $postsContainer.append(html);
-	      $pageValContainer.data('page', data.page);
-	      $loader.fadeTo(0.3, 1);
-	      $spinner.hide();
-	    });
-	  };
+	  if ($noPage.length) {
+	    return;
+	  }
+	  if (params === null) {
+	    determineRoute();
+	  }
 	
 	  if (scrollBottom === 0) {
-	    var page = $pageValContainer.data('page');
+	    if (page === null) {
+	      page = 1;
+	    } else {
+	      page += 1;
+	    }
 	    requestNextPage(page);
 	  }
 	};
+	
+	module.exports = init;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
