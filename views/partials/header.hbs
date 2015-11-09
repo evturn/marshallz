@@ -7,24 +7,17 @@
     </div>
     <div class="site-nav__menu">
       <div class="site-nav__authors">
+        {{#each authors}}
         <ul class="site-nav__author">
-          <li class="site-nav__author-item">Marshall <span class="fa fa-chevron-down"></span>
+          <li class="site-nav__author-item">{{username}} <span class="fa fa-chevron-down"></span>
           <li class="site-nav__sublist js-menu">
             <ul>
-              <li class="site-nav__author-item site-nav__sublist-item"><a href="#">Posts</a></li>
-              <li class="site-nav__author-item site-nav__sublist-item"><a href="#">Bio</a></li>
+              <li class="site-nav__author-item site-nav__sublist-item"><a href="author/{{username}}/posts/">Posts</a></li>
+              <li class="site-nav__author-item site-nav__sublist-item"><a href="author/{{username}}/bio">Bio</a></li>
             </ul>
           </li>
         </ul>
-        <ul class="site-nav__author">
-          <li class="site-nav__author-item">Clang <span class="fa fa-chevron-down"></li>
-          <li class="site-nav__sublist js-menu">
-            <ul>
-              <li class="site-nav__author-item site-nav__sublist-item"><a href="#">Posts</a></li>
-              <li class="site-nav__author-item site-nav__sublist-item"><a href="#">Bio</a></li>
-            </ul>
-          </li>
-        </ul>
+        {{/each}}
       </div>
     </div>
   </nav>

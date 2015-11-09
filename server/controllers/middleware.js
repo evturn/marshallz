@@ -12,3 +12,12 @@ module.exports.activePage = (req, res, next) => {
   res.locals.activePage = firstPath ? firstPath : 'home';
   next();
 };
+
+module.exports.authors = (req, res, next) => {
+  Author
+    .find({})
+    .exec((err, authors) => {
+      res.locals.authors = authors;
+      next();
+    });
+};
