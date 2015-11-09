@@ -10,7 +10,7 @@ const opts = require('./tools/gulp.config').opts;
 ////
 // `$ npm run watch`
 ////////////////////////
-gulp.task('watch', ['webpack:watch', 'gulp:watch', 'browser:init']);
+gulp.task('watch', ['webpack:watch', 'nodemon', 'gulp:watch', 'browser:init']);
 
 ////
 // Gulp Watch
@@ -25,6 +25,7 @@ gulp.task('gulp:watch', () => {
 ////
 // Shell Scripts
 ////////////////////////
+gulp.task('nodemon', $.shell.task('nodemon server.js'));
 gulp.task('webpack:watch',  $.shell.task('webpack --watch &'));
 
 ////
