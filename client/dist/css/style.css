@@ -5454,7 +5454,11 @@ button:focus {
 }
 .post-item .post-item__content-author a:hover,
 .author-bio .post-item__content-author a:hover {
-  color: #2C3235;
+  color: rgba(44, 50, 53, 0.9);
+}
+.post-item .post-item__content-author a .fa,
+.author-bio .post-item__content-author a .fa {
+  color: #2A95D6;
 }
 .post-item .post-item__content-image,
 .author-bio .post-item__content-image {
@@ -5518,6 +5522,10 @@ button:focus {
   text-decoration: none;
   color: #2C3235;
 }
+.post-item a:hover,
+.author-bio a:hover {
+  color: rgba(58, 65, 69, 0.9);
+}
 .post-item .fa-circle,
 .author-bio .fa-circle {
   font-size: 4px;
@@ -5535,6 +5543,10 @@ button:focus {
 .post-item .post-item__content-social a .fa,
 .author-bio .post-item__content-social a .fa {
   color: #2A95D6;
+}
+.post-item .post-item__content-social a:hover,
+.author-bio .post-item__content-social a:hover {
+  color: rgba(58, 65, 69, 0.9);
 }
 .author-bio {
   background-color: #FEFEFE;

@@ -56,8 +56,13 @@
   .post-item__content-author {
     display: block;
     text-align: right;
-    a:hover {
-      color: @tx-main-dark;
+    a {
+      &:hover {
+        color: fade(@tx-main-dark, 90);
+      }
+      .fa {
+        color: @tx-post-social;
+      }
     }
   }
   .post-item__content-image {
@@ -106,6 +111,9 @@
   a {
     text-decoration: none;
     color: @tx-main-dark;
+    &:hover {
+      color: fade(@tx-grey-dark, 90);
+    }
   }
   .fa-circle {
     font-size: 4px;
@@ -118,6 +126,9 @@
       color: @tx-grey-dark;
       .fa {
         color: @tx-post-social;
+      }
+      &:hover {
+        color: fade(@tx-grey-dark, 90);
       }
     }
   }
