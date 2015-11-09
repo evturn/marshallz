@@ -5294,20 +5294,30 @@ button:focus {
 }
 .site-nav__author {
   display: inline-block;
+  position: relative;
   vertical-align: top;
 }
 .site-nav__author .site-nav__author-item {
   margin-left: 15px;
-  min-width: 75px;
   cursor: pointer;
+}
+.site-nav__author .site-nav__author-item .fa {
+  font-size: 11px;
+  vertical-align: middle;
 }
 .site-nav__author .site-nav__sublist {
   display: none;
+  position: absolute;
+  right: 0;
+  top: 25px;
   background: url('../img/headbg.jpg');
   background-size: cover;
   width: 100%;
   padding-top: 15px;
   border-radius: 3px;
+  width: 100px;
+  -webkit-box-shadow: 2px 6px 14px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 6px 14px -5px rgba(0, 0, 0, 0.2);
 }
 .site-nav__author .site-nav__sublist a {
   color: #2C3235;
