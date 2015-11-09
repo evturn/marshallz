@@ -5524,6 +5524,18 @@ button:focus {
   vertical-align: middle;
   color: rgba(58, 65, 69, 0.9);
 }
+.post-item .post-item__content-social,
+.author-bio .post-item__content-social {
+  margin-bottom: 10px;
+}
+.post-item .post-item__content-social a,
+.author-bio .post-item__content-social a {
+  color: #3A4145;
+}
+.post-item .post-item__content-social a .fa,
+.author-bio .post-item__content-social a .fa {
+  color: #2A95D6;
+}
 .author-bio {
   background-color: #FEFEFE;
   margin-top: 25px;
