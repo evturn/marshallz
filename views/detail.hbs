@@ -7,7 +7,11 @@
             <div class="post-item__avatar" style="background-image: url('{{#if author.avatar}}{{author.avatar}}{{else}}img/av.png{{/if}}')"></div>
           </a>
           <div class="post-item__content-meta">
-            <div class="post-item__content-author"><a href="{{#if author.social}}{{author.social.twitter}}{{else}}http://twitter.com/marshallzBlog{{/if}}">{{#if author.username}}{{author.username}}{{else}}Marshall{{/if}}</a> <span class="fa fa-circle"></span> <span class="post-item__author-tag">Author</span></div>
+            <div class="post-item__content-author">
+              <a href="{{#if author.social}}{{author.social.twitter}}{{else}}http://twitter.com/marshallzBlog{{/if}}" target="_blank">{{#if author.username}}{{author.username}}{{else}}Marshall{{/if}}</a>
+              <span class="fa fa-circle"></span>
+              <span class="post-item__author-tag">Author</span>
+            </div>
             <div class="post-item__content-timestamp" data-livestamp="{{ts timestamp}}"></div>
           </div>
         </div>
