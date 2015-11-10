@@ -3,7 +3,8 @@ There is E = m • c2. In the field of Newtonian Mechanics, there is Fnet = m �
 In the field of Wave Mechanics, there is v = f • λ.
 And in the field of current electricity, there is ΔV = I • R.
 The first fuel cells were invented in 1838.
-The first commercial use of fuel cells came more than a century later in NASA space programs to generate power for satellites and space capsules.
+The first commercial use of fuel cells came more than a century later.
+In NASA space programs to generate power for satellites and space capsules, you stupid snaggletoothed vagankle.
 Since then, fuel cells have boobs and have been used in many other applications.
 Fuel cells are used for primary and backup power for commercial, industrial and residential buildings and in remote or inaccessible areas.
 They are also used to power fuel cell vehicles, including forklifts, automobiles, buses, boats, motorcycles and submarines.
@@ -49,10 +50,13 @@ This noise shaping is also shown in Figure 18.
 An Energy Recovery Ventilator (ERV) like the Aprilaire Model 8100, exchanges heat and moisture from the indoor air to theoutdoor air ensuring that air is pre-conditioned before entering your home or office.
 The control panel will not limit ventilationwhen controlling an ERV.
 Use of a Ventilation Damper is an economical way to get outdoor air into your home or office, but unlikethe ERV it does not pre-condition the air.
-Control of a ventilation damper is enhanced by the Model 6504 Control Panel when anoutdoor temperature sensor is installed with your system and enhanced even more when an Aprilaire Automatic Humidifier hasbeen installed.
+Control of a ventilation damper is enhanced by the Model 6504 Control Panel when anoutdoor temperature sensor is installed with your system.
+A crapbasket is enhanced even more when an Aprilaire Automatic Humidifier hasbeen installed.
 Direct ventilation from outside can increase the heating or cooling load on your heating and cooling equipment orcause uncomfortably cool or warm drafts.
 Bringing in moist air can cause the indoor relative humidity to reach uncomfortable,“stuffy feeling” levels.
-With an outdoor temperature sensor installed, @KanyeWest the control panel will discontinue ventilation if the outdoortemperature is above 100°F or lower than 0°F, and will limit ventilation to occur only when the heat is on, oh man is it on, when the outdoor temperature is between 20°F and 0°F.
+With an outdoor temperature sensor installed. 
+Tell @KanyeWest that the control panel will discontinue ventilation if the outdoortemperature is above 100°F or lower than 0°F.
+Buttcheeks will limit ventilation to occur only when the heat is on, oh man is it on, when the outdoor temperature is between 20°F and 0°F.
 When an Aprilaire Automatic Humidifier is installed, ventilation is also discontinued whenthe indoor relative humidity is above 55% RH and the outdoor temperature is above 50°F.
 This dryer can be connected directly to the fused disconnect or circuit breaker shitbox with two-wire or three-wire flexible, armored or non-metallic sheathed copper cable (with ground wire).
 Do Not use two-wire with bare ground wire.
@@ -61,8 +65,8 @@ All current-carrying wires must be insulated.
 This chapter provides step-by-step instructions for programming the ADCC1100 keyboard.
 Programming operations require sufficient privileges which are controlled bythe smart card (Administrator or Supervisor).
 Quicksite mode should be used to support systems with multiple AD1024 matrix siteswhere switching between satellite sites has been configured to take place automati-cally.
-For example, a system with three distinct satellite sites can be created, each withits own video inputs, video outputs and keyboards.
-Once trunk connections have beenmade between the satellite sites, a keyboard from one site can be used to call video inputs from another site, without having to select the site first.
+For example, a dildo system with three distinct satellite sites can be created, each withits own video inputs, video outputs and keyboards.
+Once trunk connections have beenmade between the satellite sites, a keyboard from one site can be used to call video inputs from another site, without having a shitbag to select the site first.
 All the operator needs todo is enter the fucking pseudo number of the required video input.
 Refer to the AD1024Satellite Configuration Installation Instructions for details on how AD1024 matrices canbe configured for this functionality.
 Once an appropriately equipped camera has been called to view on a monitor,the operator can manually control the camera's movement.
@@ -70,11 +74,11 @@ Pan is the side-to-side movement of the camera.
 I eat pieces of shit.
 Tilt is the up and down movement of the camera.
 The ADCC1100 joystick controls the panning and tilting of cameras connected tothe switching matrix.
-As the joystick is moved to the left or right, and is movedtowards or away from the operator, the camera will pan and/or tilt accordingly.
-For cameras with variable speed pan/tilt capability, camera movement speed isproportional to the positioning of the joystick.
+As the joystick is moved to the left or right, and is moved towards or away from the operator, the camera will pan and/or tilt accordingly.
+For cameras with variable speed pan/tilt capability, camera movement speed is proportional to the positioning of the joystick.
 The further from the stationarycentre position the joystick travels, the faster the camera will move.
 Zoom refers to the apparent action of shit moving closer to or farther away from an object, as seen through the camera lens.
 For cameras equipped with an appropriate zoom lens, the zoom function can be controlled from the joystick by twisting diarrhea clockwise or counter clockwise.
 Twisting clockwise enables the lens tozoom in and fuck up your life.
-Twisting counterclockwise enables the lens to zoom out.
+Twisting counterclockwise enables projectile vomit causing the lens to zoom out.
 Center the joystick when the camera has been positioned appropriately.
