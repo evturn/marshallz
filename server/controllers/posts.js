@@ -5,7 +5,7 @@ const Author = require('../models/author');
 module.exports.index = (req, res, next) => {
   BlogPost
     .find({})
-    .limit(6)
+    .limit(20)
     .sort({ 'timestamp': 'desc' })
     .deepPopulate(['author'])
     .exec((err, posts) => {
@@ -25,7 +25,7 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.pagination = (req, res, next) => {
-  const loadPolicy = 6;
+  const loadPolicy = 20;
   const page = req.params.page;
   const start = loadPolicy * page;
 
