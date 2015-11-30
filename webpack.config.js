@@ -38,7 +38,8 @@ module.exports = {
     alias: {
       jquery: 'jquery',
       underscore: 'underscore',
-      backbone: 'backbone'
+      backbone: 'backbone',
+      Handlebars: 'handlebars'
     }
   },
   resolveLoader: {

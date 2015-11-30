@@ -1,92 +1,90 @@
 const Handlebars = require('handlebars');
-const helpers = require('hbs-helpers').precompiled;
+const view = require('view');
 const spin = require('spin');
 const jspin = require('jquery.spin');
 
-const cachedTemplates = [];
-const $container = $('.pagination');
-const $loader = $('.kurt-loader');
-const $spinner = $('.spinner');
-const $postsContainer = $('.blog-posts');
-const activePage = $('body').data('page');
-let filepath = `${activePage}-pagination.hbs`;
-let page = null;
-let params = null;
+const Pagination = exports = module.exports = {
+  cache: [],
+  page: null,
+  params: null,
+  template: null,
+  $postsContainer: $('.blog-posts'),
+  activePage: $('body').data('page'),
+  init: function init() {
+    const windowY = $(window).height();
+    const documentY = $(document).height();
+    const windowTop = $(window).scrollTop();
+    const scrollBottom = documentY - (windowY + windowTop);
 
-const showSpinner = () => {
-  $loader.fadeTo(0, 0.3);
-  $container.spin({
-    top: '45%'
-  });
-};
+    if (this.activePage === 'posts') { return; }
+    if (this.params === null) { this.getParams(); }
 
-const killSpinner = () => {
-  $loader.fadeTo(0.3, 1);
-  $spinner.hide();
-};
-
-const determineRoute = () => {
-  switch (activePage) {
-    case 'home':
-      params = '/page';
-      break;
-    case 'author':
-      const paths = window.location.pathname.split('/');
-      const [x, author, username] = paths;
-      params = `/${author}/${username}/posts`;
-      break;
-  }
-};
-
-const requestNextPage = (page) => {
-  const url = `${params}/${page}`;
-  showSpinner();
-  $.ajax({
-    url: url,
-    success(data) {
-      console.log(data);
-      renderNextPage(data);
-    },
-    error(err) {
-      console.log(err);
+    if (scrollBottom === 0) {
+      this.page += 1;
+      this.spinner('start');
+      this.request();
     }
-  });
-};
-
-const loadTemplate = (filepath, fn) => {
-  if (cachedTemplates[filepath]) { return fn(cachedTemplates[filepath]); }
-
-  $.get(filepath, (contents) => {
-    cachedTemplates[filepath] = Handlebars.compile(contents);
-    fn(cachedTemplates[filepath]);
-  });
-};
-
-const renderNextPage = (data) => {
-  loadTemplate(filepath, (template) => {
-    $postsContainer.append(template(data));
-    killSpinner();
-  });
-};
-
-const init = () => {
-  const windowY = $(window).height();
-  const documentY = $(document).height();
-  const windowTop = $(window).scrollTop();
-  const scrollBottom = documentY - (windowY + windowTop);
-  const $noPage = $('#detail, #bio');
-
-  if ($noPage.length) { return; }
-  if (params === null) { determineRoute(); }
-
-  if (scrollBottom === 0) {
-    if (page === null) {
-      page = 1;
-    } else {
-      page += 1;
+  },
+  getParams: function getParams() {
+    switch (this.activePage) {
+      case 'home':
+        this.params = '/page';
+        this.page = 1;
+        this.template = view.index;
+        break;
+      case 'author':
+        [x, author, username] = window.location.pathname.split('/');
+        this.params = `/${author}/${username}/posts`;
+        this.page = 1;
+        this.template = view.author;
+        break;
     }
-    requestNextPage(page);
-  }
+  },
+  loadTemplate: function load(url) {
+    if (this.cache[url]) { return this.cache[url]; }
+
+    return new Promise((resolve, reject) => {
+      $.get(url, (contents) => {
+        this.cache[url] = Promise.resolve(Handlebars.compile(contents));
+        resolve(this.cache[url]);
+      });
+    });
+  },
+  renderNext: function renderNext(data) {
+    this.loadTemplate(this.template)
+
+      .then((template) => {
+        this.$postsContainer.append(template(data));
+        this.spinner('kill');
+        return this;
+      })
+
+      .catch((err) => console.log(err));
+  },
+  request: function request() {
+    $.ajax({
+      url: `${this.params}/${this.page}`,
+      success: (data) => {
+        console.log(data);
+        this.renderNext(data);
+      },
+      error(err) {
+        console.log(err);
+      }
+    });
+  },
+  spinner: function spinner(arg='start') {
+    const $container = $('.pagination');
+    const $loader = $('.kurt-loader');
+    const $spinner = $('.spinner');
+
+    if (arg === 'start') {
+      $loader.fadeTo(0, 0.3);
+      $container.spin({ top: '45%' });
+    } else if (arg === 'kill') {
+      $loader.fadeTo(0.3, 1);
+      $spinner.hide();
+    }
+  },
 };
 
-module.exports = init;

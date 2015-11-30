@@ -4,7 +4,7 @@ const app = module.exports = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
-const helpers = require('../../shared/hbs-helpers').helpers;
+const helpers = require('../../shared/hbs-helpers');
 const scheduler = require('../lib/scheduler')();
 
 const port = process.env.PORT || 3000;
