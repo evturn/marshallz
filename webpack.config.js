@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: ['./client/build/js/app.js'],
+  entry: ['./client/js/app.js'],
   output: {
       path: 'client/dist/js/',
       filename: 'bundle.js',
@@ -15,6 +15,9 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader'
+      },{
+        test: /\.hbs$/,
+        loader:'handlebars-loader'
       }
     ]
   },

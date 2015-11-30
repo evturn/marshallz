@@ -10,8 +10,8 @@ module.exports.paths = {
     img: 'client/dist/img'
   },
   less: {
-    src: 'client/build/less/*.less',
-    watch: 'client/build/less/**/*.less',
+    src: 'client/less/*.less',
+    watch: 'client/less/**/*.less',
     filename: 'style.css',
     min: 'style.min.css'
   },
@@ -20,7 +20,7 @@ module.exports.paths = {
   },
   eslint: {
     src: [
-      'client/build/js/**/*.js',
+      'client/js/**/*.js',
       'config/**/*.js',
       'routes/**/*.js',
       'shared/**/*.js',
@@ -33,7 +33,7 @@ module.exports.paths = {
     src: '*.hbs'
   },
   img: {
-    src: 'client/build/img/**/*'
+    src: 'client/img/**/*'
   },
 };
 

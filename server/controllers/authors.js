@@ -10,7 +10,7 @@ module.exports.posts = (req, res, next) => {
       options: { limit: 5, sort: { 'timestamp': 'desc' } }
     }];
     Author.populate(author, opts, (err, author) => {
-      res.render('author/posts', { author: author });
+      res.render('author', { author: author });
     });
   }));
 };
@@ -20,7 +20,7 @@ module.exports.bio = (req, res, next) => {
     .findOne({ 'username': req.params.username })
     .exec((err, author) => {
       if (err) { return (err); }
-        res.render('author/bio', { author: author });
+        res.render('author', { author: author });
     });
 };
 
