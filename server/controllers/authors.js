@@ -26,14 +26,15 @@ const state = {
   username: null,
   init: function(username) {
     if (this.username === username) {
-      return Promise.resolve(this.totalCount);
+      return Promise.resolve(200);
     } else {
       this.username = username;
-      return new Promise((resolve, reject) => {
-        Author.findOne(this.username, (err, author) => {
-          resolve(author.posts.length);
-        });
-      });
+      return Promise.resolve(200);
+      // return new Promise((resolve, reject) => {
+      //   Author.findOne(this.username, (err, author) => {
+      //     resolve(author.posts.length);
+      //   });
+      // });
     }
   },
 };

@@ -15,7 +15,7 @@ app.set('x-powered-by', 'evturn.com');
 app.set('etag', false);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
-app.set('loadPolicy', 5);
+app.set('loadPolicy', 20);
 
 /* View engine.
  *

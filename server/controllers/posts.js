@@ -28,7 +28,7 @@ module.exports.detail = (req, res, next) => {
 
 
 const state = {
-  totalCount: null,
+  totalCount: 400,
   page: null,
   pages: null,
   start: null,
@@ -40,7 +40,7 @@ const state = {
   },
 };
 
-state.init();
+// state.init();
 
 module.exports.pagination = (req, res, next) => {
   state.page = parseInt(req.params.page);
