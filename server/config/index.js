@@ -47,8 +47,10 @@ const templates = 'views/partials';
 
 app.use('/', express.static(assets));
 app.use('/', express.static(templates));
-app.use('/author/:username/:page', express.static(assets));
-app.use('/author/:username/:page', express.static(templates));
+app.use('/author/:username/posts', express.static(assets));
+app.use('/author/:username/posts', express.static(templates));
+app.use('/author/:username/page/:page', express.static(assets));
+app.use('/author/:username/page/:page', express.static(templates));
 app.use('/posts/:id', express.static(assets));
 app.use('/author/:username', express.static(assets));
 

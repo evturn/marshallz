@@ -3111,7 +3111,6 @@
 	  cache: [],
 	  init: function init() {
 	    for (var fn in helpers) {
-	      console.log(fn);
 	      Handlebars.registerHelper(fn, helpers[fn]);
 	    }
 	    return Handlebars;
@@ -16611,6 +16610,7 @@
 	var view = __webpack_require__(4);
 	var spin = __webpack_require__(129);
 	var jspin = __webpack_require__(130);
+	var url = view.templates.posts;
 
 	var Pagination = exports = module.exports = {
 	  page: null,
@@ -16618,19 +16618,22 @@
 	  template: null,
 	  $postsContainer: $('.blog-posts'),
 	  activePage: $('body').data('page'),
+	  deactivate: false,
 	  init: function init() {
 	    var windowY = $(window).height();
 	    var documentY = $(document).height();
 	    var windowTop = $(window).scrollTop();
 	    var scrollBottom = documentY - (windowY + windowTop);
 
+	    if (this.deactivate) {
+	      return;
+	    }
 	    if (this.activePage === 'posts') {
 	      return;
 	    }
 	    if (this.params === null) {
 	      this.getParams();
 	    }
-
 	    if (scrollBottom === 0) {
 	      this.page += 1;
 	      this.spinner('start');
@@ -16642,20 +16645,18 @@
 	      case 'home':
 	        this.params = '/page';
 	        this.page = 1;
-	        this.template = 'posts-home.hbs';
+	        this.template = url.index;
 	        break;
 	      case 'author':
-	        var _window$location$pathname$split = window.location.pathname.split('/');
+	        var _window$location$pathname$split = window.location.pathname.split('/'),
+	            _window$location$pathname$split2 = _slicedToArray(_window$location$pathname$split, 3),
+	            x = _window$location$pathname$split2[0],
+	            author = _window$location$pathname$split2[1],
+	            username = _window$location$pathname$split2[2];
 
-	        var _window$location$pathname$split2 = _slicedToArray(_window$location$pathname$split, 3);
-
-	        x = _window$location$pathname$split2[0];
-	        author = _window$location$pathname$split2[1];
-	        username = _window$location$pathname$split2[2];
-
-	        this.params = '/' + author + '/' + username + '/posts';
+	        this.params = '/' + author + '/' + username + '/page';
 	        this.page = 1;
-	        this.template = view.author;
+	        this.template = url.author;
 	        break;
 	    }
 	  },
@@ -16673,11 +16674,15 @@
 	  request: function request() {
 	    var _this2 = this;
 
+	    console.log(this.params + '/' + this.page);
 	    $.ajax({
 	      url: this.params + '/' + this.page,
 	      jsonp: 'callback',
 	      dataType: 'jsonp',
 	      success: function success(data) {
+	        if (data.message) {
+	          _this2.deactivate = true;
+	        }
 	        _this2.renderNext(data);
 	      },
 	      error: function error(err) {

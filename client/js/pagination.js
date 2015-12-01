@@ -1,6 +1,7 @@
 const view = require('./view');
 const spin = require('spin');
 const jspin = require('jquery.spin');
+const url = view.templates.posts;
 
 const Pagination = exports = module.exports = {
   page: null,
@@ -8,15 +9,16 @@ const Pagination = exports = module.exports = {
   template: null,
   $postsContainer: $('.blog-posts'),
   activePage: $('body').data('page'),
+  deactivate: false,
   init: function init() {
     const windowY = $(window).height();
     const documentY = $(document).height();
     const windowTop = $(window).scrollTop();
     const scrollBottom = documentY - (windowY + windowTop);
 
+    if (this.deactivate) { return; }
     if (this.activePage === 'posts') { return; }
     if (this.params === null) { this.getParams(); }
-
     if (scrollBottom === 0) {
       this.page += 1;
       this.spinner('start');
@@ -28,13 +30,13 @@ const Pagination = exports = module.exports = {
       case 'home':
         this.params = '/page';
         this.page = 1;
-        this.template = 'posts-home.hbs';
+        this.template = url.index;
         break;
       case 'author':
-        [x, author, username] = window.location.pathname.split('/');
-        this.params = `/${author}/${username}/posts`;
+        const [x, author, username] = window.location.pathname.split('/');
+        this.params = `/${author}/${username}/page`;
         this.page = 1;
-        this.template = view.author;
+        this.template = url.author;
         break;
     }
   },
@@ -50,11 +52,13 @@ const Pagination = exports = module.exports = {
       .catch((err) => console.log(err));
   },
   request: function request() {
+    console.log(`${this.params}/${this.page}`);
     $.ajax({
       url: `${this.params}/${this.page}`,
       jsonp: 'callback',
       dataType: 'jsonp',
       success: (data) => {
+        if (data.message) { this.deactivate = true; }
         this.renderNext(data);
       },
       error(err) {
