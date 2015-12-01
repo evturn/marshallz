@@ -19,11 +19,7 @@ const Pagination = exports = module.exports = {
     if (this.deactivate) { return; }
     if (this.activePage === 'posts') { return; }
     if (this.params === null) { this.getParams(); }
-    if (scrollBottom === 0) {
-      this.page += 1;
-      this.spinner('start');
-      this.request();
-    }
+    if (scrollBottom === 0) { this.request(); }
   },
   getParams: function getParams() {
     switch (this.activePage) {
@@ -52,7 +48,8 @@ const Pagination = exports = module.exports = {
       .catch((err) => console.log(err));
   },
   request: function request() {
-    console.log(`${this.params}/${this.page}`);
+    this.page += 1;
+    this.spinner('start');
     $.ajax({
       url: `${this.params}/${this.page}`,
       dataType: 'json',
@@ -60,7 +57,7 @@ const Pagination = exports = module.exports = {
         if (data.message) { this.deactivate = true; }
         this.renderNext(data);
       },
-      error(err) {
+      error: (err) => {
         console.log(err);
       }
     });
@@ -82,4 +79,3 @@ const Pagination = exports = module.exports = {
     }
   },
 };
-
