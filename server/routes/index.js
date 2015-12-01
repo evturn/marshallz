@@ -1,6 +1,5 @@
 'use strict';
 const controllers = require('../controllers');
-const middleware = require('../controllers/middleware');
 
 exports = module.exports = (app) => {
   app.get('/', controllers.posts.index);
