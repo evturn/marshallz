@@ -1,7 +1,6 @@
 const view = require('./view');
 const spin = require('spin');
 const jspin = require('jquery.spin');
-const url = view.templates.posts;
 
 const Pagination = exports = module.exports = {
   page: null,
@@ -22,16 +21,16 @@ const Pagination = exports = module.exports = {
     switch (this.activePage) {
       case 'home':
         this.params = '/page';
-        this.page = 1;
-        this.template = url.index;
+        this.template =  view.templates.posts.index;
         break;
       case 'author':
         const [x, author, username] = window.location.pathname.split('/');
         this.params = `/${author}/${username}/page`;
-        this.page = 1;
-        this.template = url.author;
+        this.template =  view.templates.posts.author;
         break;
     }
+    this.page = 1;
+    return this;
   },
   renderNext: function renderNext(data) {
     view.loadTemplate(this.template)
@@ -47,6 +46,7 @@ const Pagination = exports = module.exports = {
   request: function request() {
     this.page += 1;
     this.spinner('start');
+
     $.ajax({
       url: `${this.params}/${this.page}`,
       dataType: 'json',
