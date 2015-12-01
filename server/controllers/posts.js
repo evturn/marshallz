@@ -3,6 +3,8 @@ const BlogPost = require('../models/blog-post');
 const Author = require('../models/author');
 const app = require('../config');
 const loadPolicy = app.get('loadPolicy');
+const paginate = require('../lib/pagination');
+const pg = paginate();
 
 module.exports.index = (req, res, next) => {
   BlogPost
@@ -26,32 +28,13 @@ module.exports.detail = (req, res, next) => {
     });
 };
 
-
-const state = {
-  totalCount: 400,
-  page: null,
-  pages: null,
-  start: null,
-  end: null,
-  init: function() {
-    BlogPost.find({}, (err, posts) => {
-      this.totalCount = posts.length;
-    });
-  },
-};
-
-// state.init();
-
 module.exports.pagination = (req, res, next) => {
-  state.page = parseInt(req.params.page);
-  state.start = loadPolicy * state.page;
-  state.end = state.start + loadPolicy;
-  state.pages = Math.ceil(state.totalCount / loadPolicy);
+  pg.inate(req.params.page);
 
   BlogPost
     .find({})
-    .skip(state.start)
-    .limit(loadPolicy)
+    .skip(pg.start)
+    .limit(pg.limit)
     .sort({ 'timestamp': 'desc' })
     .deepPopulate(['author'])
     .exec((err, posts) => {
@@ -59,7 +42,7 @@ module.exports.pagination = (req, res, next) => {
       const response = {};
 
       response.posts = posts;
-      if (state.page === state.pages) {
+      if (pg.page === pg.pages) {
         response.message = `That's all for today.`;
       }
       res.json(response);

@@ -16610,7 +16610,6 @@
 	var view = __webpack_require__(4);
 	var spin = __webpack_require__(129);
 	var jspin = __webpack_require__(130);
-	var url = view.templates.posts;
 
 	var Pagination = exports = module.exports = {
 	  page: null,
@@ -16620,10 +16619,7 @@
 	  activePage: $('body').data('page'),
 	  deactivate: false,
 	  init: function init() {
-	    var windowY = $(window).height();
-	    var documentY = $(document).height();
-	    var windowTop = $(window).scrollTop();
-	    var scrollBottom = documentY - (windowY + windowTop);
+	    var scrollBottom = $(document).height() - ($(window).height() + $(window).scrollTop());
 
 	    if (this.deactivate) {
 	      return;
@@ -16635,8 +16631,6 @@
 	      this.getParams();
 	    }
 	    if (scrollBottom === 0) {
-	      this.page += 1;
-	      this.spinner('start');
 	      this.request();
 	    }
 	  },
@@ -16644,8 +16638,7 @@
 	    switch (this.activePage) {
 	      case 'home':
 	        this.params = '/page';
-	        this.page = 1;
-	        this.template = url.index;
+	        this.template = view.templates.posts.index;
 	        break;
 	      case 'author':
 	        var _window$location$pathname$split = window.location.pathname.split('/'),
@@ -16655,10 +16648,11 @@
 	            username = _window$location$pathname$split2[2];
 
 	        this.params = '/' + author + '/' + username + '/page';
-	        this.page = 1;
-	        this.template = url.author;
+	        this.template = view.templates.posts.author;
 	        break;
 	    }
+	    this.page = 1;
+	    return this;
 	  },
 	  renderNext: function renderNext(data) {
 	    var _this = this;
@@ -16674,7 +16668,9 @@
 	  request: function request() {
 	    var _this2 = this;
 
-	    console.log(this.params + '/' + this.page);
+	    this.page += 1;
+	    this.spinner('start');
+
 	    $.ajax({
 	      url: this.params + '/' + this.page,
 	      dataType: 'json',
