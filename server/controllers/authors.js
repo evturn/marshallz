@@ -34,9 +34,7 @@ const state = {
           resolve(author.posts.length);
         });
       });
-
     }
-
   },
 };
 
