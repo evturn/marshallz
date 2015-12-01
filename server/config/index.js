@@ -1,33 +1,76 @@
 'use strict';
 const express = require('express');
 const db = require('./mongo');
-const logger = require('morgan');
+const scheduler = require('../lib/scheduler')();
+
+const app = exports = module.exports = express();
+
+/**
+ * App configuration.
+ *
+ */
+
+app.set('port', process.env.PORT || 3000);
+app.set('etag', false);
+app.set('view engine', 'hbs');
+app.set('views', 'views');
+
+/* View engine.
+ *
+ **/
+
 const hbs = require('./views');
 
-const scheduler = require('../lib/scheduler')();
+app.engine('hbs', hbs.engine);
+
+/**
+ * Middleware.
+ *
+ */
+
 const middleware = require('./middleware');
 const setAuthors = middleware.setAuthors;
 const activePage = middleware.activePage;
 
+app.use(setAuthors);
+app.use(activePage);
+
+/**
+ * Static serve.
+ *
+ */
+
 const assets = 'client/dist';
 const templates = 'views/partials';
 
-
-const app = exports = module.exports = express();
-
-app.set('port', process.env.PORT || 3000);
-app.engine('hbs', hbs.engine);
-app.set('view engine', 'hbs');
-app.set('views', 'views');
-app.set('etag', false);
-app.use(setAuthors);
-app.use(activePage);
+app.use('/', express.static(assets));
 app.use('/', express.static(templates));
 app.use('/author/:username/:page', express.static(assets));
 app.use('/author/:username/:page', express.static(templates));
-app.use('/', express.static(assets));
 app.use('/posts/:id', express.static(assets));
 app.use('/author/:username', express.static(assets));
+
+/**
+ * Logger.
+ *
+ */
+
+const logger = require('morgan');
+
 app.use(logger('dev'));
-require('../routes')(app);
+
+/**
+ * Router.
+ *
+ */
+
+const router = require('../routes');
+
+router(app);
+
+/**
+ * Bind to port.
+ *
+ */
+
 app.listen(app.get('port'), () => console.log(`Express listening on port ${app.get('port')}`));
