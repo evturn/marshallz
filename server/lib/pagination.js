@@ -23,11 +23,11 @@ const proto = {
     this.pages = Math.ceil(this.totalCount / this.limit);
     return this;
   },
-  hasEnded: function hasEnded(obj) {
+  hasEnded: function hasEnded(response) {
     if (this.page === this.pages) {
-      obj.message = this.message;
+      response.message = this.message;
     }
-    return obj;
+    return response;
   },
 };
 
