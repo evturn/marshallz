@@ -55,8 +55,7 @@ const Pagination = exports = module.exports = {
     console.log(`${this.params}/${this.page}`);
     $.ajax({
       url: `${this.params}/${this.page}`,
-      jsonp: 'callback',
-      dataType: 'jsonp',
+      dataType: 'json',
       success: (data) => {
         if (data.message) { this.deactivate = true; }
         this.renderNext(data);

@@ -3185,9 +3185,9 @@
 
 	var _handlebarsRuntime = __webpack_require__(7);
 
-	var _handlebarsRuntime2 = _interopRequireDefault(_handlebarsRuntime);
-
 	// Compiler imports
+
+	var _handlebarsRuntime2 = _interopRequireDefault(_handlebarsRuntime);
 
 	var _handlebarsCompilerAst = __webpack_require__(25);
 
@@ -3270,10 +3270,10 @@
 
 	var _handlebarsBase = __webpack_require__(8);
 
-	var base = _interopRequireWildcard(_handlebarsBase);
-
 	// Each of these augment the Handlebars object. No need to setup here.
 	// (This is done to easily share code between commonjs and browse envs)
+
+	var base = _interopRequireWildcard(_handlebarsBase);
 
 	var _handlebarsSafeString = __webpack_require__(22);
 
@@ -3293,9 +3293,10 @@
 
 	var _handlebarsNoConflict = __webpack_require__(24);
 
+	// For compatibility and usage outside of module systems, make the Handlebars object a namespace
+
 	var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
-	// For compatibility and usage outside of module systems, make the Handlebars object a namespace
 	function create() {
 	  var hb = new base.HandlebarsEnvironment();
 
@@ -3351,7 +3352,7 @@
 
 	var _logger2 = _interopRequireDefault(_logger);
 
-	var VERSION = '4.0.5';
+	var VERSION = '4.0.4';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 7;
 
@@ -3478,10 +3479,10 @@
 
 	var toString = Object.prototype.toString;
 
-	exports.toString = toString;
 	// Sourced from lodash
 	// https://github.com/bestiejs/lodash/blob/master/LICENSE.txt
 	/* eslint-disable func-style */
+	exports.toString = toString;
 	var isFunction = function isFunction(value) {
 	  return typeof value === 'function';
 	};
@@ -3501,8 +3502,8 @@
 	  return value && typeof value === 'object' ? toString.call(value) === '[object Array]' : false;
 	};
 
-	exports.isArray = isArray;
 	// Older IE versions do not directly support indexOf so we must implement our own, sadly.
+	exports.isArray = isArray;
 
 	function indexOf(array, value) {
 	  for (var i = 0, len = array.length; i < len; i++) {
@@ -4398,7 +4399,6 @@
 	    if (root.Handlebars === Handlebars) {
 	      root.Handlebars = $Handlebars;
 	    }
-	    return Handlebars;
 	  };
 	};
 
@@ -16677,8 +16677,7 @@
 	    console.log(this.params + '/' + this.page);
 	    $.ajax({
 	      url: this.params + '/' + this.page,
-	      jsonp: 'callback',
-	      dataType: 'jsonp',
+	      dataType: 'json',
 	      success: function success(data) {
 	        if (data.message) {
 	          _this2.deactivate = true;

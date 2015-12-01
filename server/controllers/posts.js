@@ -62,6 +62,6 @@ module.exports.pagination = (req, res, next) => {
       if (state.page === state.pages) {
         response.message = `That's all for today.`;
       }
-      res.jsonp(response);
+      res.json(response);
   });
 };
