@@ -41,10 +41,8 @@ module.exports.pagination = (req, res, next) => {
       if (err) { return (err); }
       const response = {};
 
+      pg.hasEnded(response);
       response.posts = posts;
-      if (pg.page === pg.pages) {
-        response.message = `That's all for today.`;
-      }
       res.json(response);
   });
 };

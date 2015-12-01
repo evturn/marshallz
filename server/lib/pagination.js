@@ -11,6 +11,7 @@ const proto = {
   limit: loadPolicy,
   page: null,
   pages: null,
+  message: `That's all for today.`,
   inate: function inate(page) {
     if (!page) {
       throw new Error('Current page parameter required');
@@ -21,7 +22,13 @@ const proto = {
     this.end = this.start + this.limit;
     this.pages = Math.ceil(this.totalCount / this.limit);
     return this;
-  }
+  },
+  hasEnded: function hasEnded(obj) {
+    if (this.page === this.pages) {
+      obj.message = this.message;
+    }
+    return obj;
+  },
 };
 
 exports = module.exports = function createState() {
