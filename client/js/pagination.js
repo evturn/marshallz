@@ -11,10 +11,7 @@ const Pagination = exports = module.exports = {
   activePage: $('body').data('page'),
   deactivate: false,
   init: function init() {
-    const windowY = $(window).height();
-    const documentY = $(document).height();
-    const windowTop = $(window).scrollTop();
-    const scrollBottom = documentY - (windowY + windowTop);
+    const scrollBottom = $(document).height() - ($(window).height() + $(window).scrollTop());
 
     if (this.deactivate) { return; }
     if (this.activePage === 'posts') { return; }
