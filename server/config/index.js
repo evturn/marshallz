@@ -11,9 +11,11 @@ const app = exports = module.exports = express();
  */
 
 app.set('port', process.env.PORT || 3000);
+app.set('x-powered-by', 'evturn.com');
 app.set('etag', false);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
+app.set('loadPolicy', 5);
 
 /* View engine.
  *

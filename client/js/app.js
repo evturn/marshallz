@@ -1,12 +1,13 @@
 const $ = require('jquery');
 const _ = require('underscore');
+const view = require('./view');
 const livestamp = require('livestamp');
 const pagination = require('./pagination');
 const nav = require('./nav');
-const view = require('view');
+
+view.init();
 
 $(document).on('ready', function() {
-  view.helpers();
   nav.init();
 });
 

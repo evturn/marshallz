@@ -1,11 +1,13 @@
 'use strict';
 const BlogPost = require('../models/blog-post');
 const Author = require('../models/author');
+const app = require('../config');
+const loadPolicy = app.get('loadPolicy');
 
 module.exports.index = (req, res, next) => {
   BlogPost
     .find({})
-    .limit(20)
+    .limit(loadPolicy)
     .sort({ 'timestamp': 'desc' })
     .deepPopulate(['author'])
     .exec((err, posts) => {
@@ -25,7 +27,6 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.pagination = (req, res, next) => {
-  const loadPolicy = 20;
   const page = req.params.page;
   const start = loadPolicy * page;
 
@@ -37,6 +38,6 @@ module.exports.pagination = (req, res, next) => {
     .deepPopulate(['author'])
     .exec((err, posts) => {
       if (err) { return (err); }
-      res.json({ posts: posts });
+      res.jsonp({ posts: posts });
   });
 };

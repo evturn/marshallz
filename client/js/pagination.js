@@ -1,10 +1,8 @@
-const Handlebars = require('handlebars');
-const view = require('view');
+const view = require('./view');
 const spin = require('spin');
 const jspin = require('jquery.spin');
 
 const Pagination = exports = module.exports = {
-  cache: [],
   page: null,
   params: null,
   template: null,
@@ -30,7 +28,7 @@ const Pagination = exports = module.exports = {
       case 'home':
         this.params = '/page';
         this.page = 1;
-        this.template = view.index;
+        this.template = 'posts-home.hbs';
         break;
       case 'author':
         [x, author, username] = window.location.pathname.split('/');
@@ -40,18 +38,8 @@ const Pagination = exports = module.exports = {
         break;
     }
   },
-  loadTemplate: function load(url) {
-    if (this.cache[url]) { return this.cache[url]; }
-
-    return new Promise((resolve, reject) => {
-      $.get(url, (contents) => {
-        this.cache[url] = Promise.resolve(Handlebars.compile(contents));
-        resolve(this.cache[url]);
-      });
-    });
-  },
   renderNext: function renderNext(data) {
-    this.loadTemplate(this.template)
+    view.loadTemplate(this.template)
 
       .then((template) => {
         this.$postsContainer.append(template(data));
@@ -64,8 +52,9 @@ const Pagination = exports = module.exports = {
   request: function request() {
     $.ajax({
       url: `${this.params}/${this.page}`,
+      jsonp: 'callback',
+      dataType: 'jsonp',
       success: (data) => {
-        console.log(data);
         this.renderNext(data);
       },
       error(err) {
@@ -73,17 +62,20 @@ const Pagination = exports = module.exports = {
       }
     });
   },
-  spinner: function spinner(arg='start') {
+  spinner: function spinner(arg) {
     const $container = $('.pagination');
     const $loader = $('.kurt-loader');
     const $spinner = $('.spinner');
 
-    if (arg === 'start') {
-      $loader.fadeTo(0, 0.3);
-      $container.spin({ top: '45%' });
-    } else if (arg === 'kill') {
-      $loader.fadeTo(0.3, 1);
-      $spinner.hide();
+    switch (arg) {
+      case 'start':
+        $loader.fadeTo(0, 0.3);
+        $container.spin({ top: '45%' });
+        break;
+      case 'kill':
+        $loader.fadeTo(0.3, 1);
+        $spinner.hide();
+        break;
     }
   },
 };

@@ -8,7 +8,7 @@ module.exports = {
   output: {
       path: 'client/dist/js/',
       filename: 'bundle.js',
-      publicPath: '/client/dist/js/'
+      publicPath: 'client/dist/js/'
   },
   module: {
     loaders: [
@@ -51,6 +51,5 @@ module.exports = {
       jQuery: 'jquery',
       $: 'jquery'
     })
-  ],
-  devtool: 'source-map'
+  ]
 };
