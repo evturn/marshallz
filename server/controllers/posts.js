@@ -26,18 +26,42 @@ module.exports.detail = (req, res, next) => {
     });
 };
 
+
+const state = {
+  totalCount: null,
+  page: null,
+  pages: null,
+  start: null,
+  end: null,
+  init: function() {
+    BlogPost.find({}, (err, posts) => {
+      this.totalCount = posts.length;
+    });
+  },
+};
+
+state.init();
+
 module.exports.pagination = (req, res, next) => {
-  const page = req.params.page;
-  const start = loadPolicy * page;
+  state.page = parseInt(req.params.page);
+  state.start = loadPolicy * state.page;
+  state.end = state.start + loadPolicy;
+  state.pages = Math.ceil(state.totalCount / loadPolicy);
 
   BlogPost
     .find({})
-    .skip(start)
+    .skip(state.start)
     .limit(loadPolicy)
     .sort({ 'timestamp': 'desc' })
     .deepPopulate(['author'])
     .exec((err, posts) => {
       if (err) { return (err); }
-      res.jsonp({ posts: posts });
+      const response = {};
+
+      response.posts = posts;
+      if (state.page === state.pages) {
+        response.message = `That's all for today.`;
+      }
+      res.jsonp(response);
   });
 };
