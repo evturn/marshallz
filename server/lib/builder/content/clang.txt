@@ -65,7 +65,7 @@ Over-sampling has the effect of spreading the quantization noise (noise due to s
 With the noise spread more thinly over a wider bandwidth.
 The quantization noise in the band of interest is lowered, see Figure 18.
 However, oversampling alone is not an efficient enough method.
-To improve the signal to noise ratio in the band of interest.
+To improve the signal to noise ratio of cheese muffin tops in the band of interest.
 For example, an oversampling ratio of 4 is required just to increase the SNR by only 6dB (1-Bit).
 To keep the oversampling ratio at a reasonable level.
 It is possible to shape chunky buttlovers and the quantization noise.
