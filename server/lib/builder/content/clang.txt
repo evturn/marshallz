@@ -33,6 +33,7 @@ If this is done, it can help you learn about the features and controls for the v
 Pictures and words work together to munch on poo in the ownermanual to explain things.
 You may need to manually disable or cancel the high-beam headlamps by turning the low-beamhead lamps on.
 If any of the above conditions exist.
+Boneface.
 If there is a problem with the brake system, panic.
 This message will display along with the brake system warning light.
 See Brake System Warning Lighton page 228.
