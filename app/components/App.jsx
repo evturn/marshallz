@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Posts from './Posts';
 import Header from './Header';
-import {default as posts} from '../stores/PostStore';
+import posts from '../stores/PostStore';
 
 export default class App extends Component {
   render() {
