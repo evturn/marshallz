@@ -1,0 +1,21 @@
+.author-bio {
+  background-color: @bg-main-light;
+  margin-top: 25px;
+  .author-bio__content {
+    max-width: 750px;
+    .margin-x(auto);
+    padding-top: 10px;
+    @media(@tablet) {
+      .padding-y(20px);
+    }
+  }
+  .post-item__avatar {
+    margin-right: 15px;
+  }
+  .post-item__content-body {
+    font-size: 15px;
+    @media(@tablet) {
+      font-size: 1.8vw;
+    }
+  }
+}

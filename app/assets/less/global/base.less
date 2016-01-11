@@ -1,0 +1,109 @@
+body {
+  font-family: @font-serif;
+  background:url('../../img/bg.jpg');
+  -webkit-font-smoothing: antialiased;
+}
+
+.blog-posts {
+  width: 100%;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+/* Base Styles
+-------------------------------------------------------- */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes bugfix {
+  from {padding:0;}
+  to {padding:0;}
+}
+
+/* Resets
+---------------------*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/* Headers
+---------------------*/
+h1, h2, h3, p {
+  // color: @tx-main;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ol, li {
+  list-style-type: none;
+}
+
+/* Paragraph
+---------------------*/
+p {
+  // color: @tx-main;
+}
+
+/* Links
+---------------------*/
+a {
+  // color: @tx-main;
+  .transition(0.3s);
+  &:hover {
+    // color: @color-link--hover;
+    text-decoration: none;
+  }
+  &:active,
+  &:focus {
+    text-decoration: none;
+    outline: none;
+  }
+  .no-touch &:hover {
+    text-decoration: none;
+    // color: @color-link--hover;
+  }
+}
+
+// Remove button focus on Chrome (blue border)
+button:focus {
+  outline: 0;
+}
+
+.placeholder(@color) {
+  input[type="text"],
+  input {
+    color: @color;
+  }
+  input::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    color: @color;
+    opacity:1;
+  }
+  input:-moz-placeholder,
+  textarea:-moz-placeholder {
+    color: @color;
+    opacity:1;
+  }
+  input::-moz-placeholder,
+  textarea::-moz-placeholder {
+    color: @color;
+    opacity:1;
+  }
+  input:-ms-input-placeholder,
+  textarea:-ms-input-placeholder {
+    color: @color;
+    opacity:1;
+  }
+}

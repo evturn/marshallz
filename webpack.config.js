@@ -24,11 +24,11 @@ const common = {
     loaders: [
       {
         test: /\.css$/,
-        loaders: ['style', 'css', 'post-css'],
+        loaders: ['style', 'css', 'postcss'],
         include: PATHS.app
       },{
         test: /\.less$/,
-        loaders: ['style', 'css', 'post-css', 'less'],
+        loaders: ['style', 'css', 'postcss', 'less'],
         include: PATHS.app
       },{
         test: /\.jsx?$/,
@@ -50,7 +50,7 @@ const common = {
     new HtmlwebpackPlugin({
       template: 'node_modules/html-webpack-template/index.html',
       title: 'Marshallz Blog',
-      appMountId: 'app'
+      appMountId: 'site-content'
     })
   ],
   postcss: function() {
