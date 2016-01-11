@@ -1,55 +1,81 @@
-'use strict';
-const webpack = require('webpack');
 const path = require('path');
+const HtmlwebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
 
-module.exports = {
-  context: __dirname,
-  entry: ['./client/js/app.js'],
+const TARGET = process.env.npm_lifecycle_event;
+const PATHS = {
+  app: path.join(__dirname, 'app'),
+  build: path.join(__dirname, 'build')
+};
+
+process.env.BABEL_ENV = TARGET;
+
+const common = {
+  entry: PATHS.app,
   output: {
-      path: 'client/dist/js/',
-      filename: 'bundle.js',
-      publicPath: 'client/dist/js/'
+    path: PATHS.build,
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   },
   module: {
     loaders: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader'
+        test: /\.css$/,
+        loaders: ['style', 'css', 'post-css'],
+        include: PATHS.app
       },{
-        test: /\.hbs$/,
-        loader:'handlebars-loader'
+        test: /\.less$/,
+        loaders: ['style', 'css', 'post-css', 'less'],
+        include: PATHS.app
+      },{
+        test: /\.jsx?$/,
+        loaders: ['babel?cacheDirectory'],
+        include: PATHS.app
+      },{
+        test: /\.(jpg|svg|png|jpg|gif|eot|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader'
+      },{
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
+      },{
+        test: /\.woff2(\?\S*)?$/,
+        loader: 'url-loader?limit=100000'
       }
     ]
   },
-  resolve: {
-    root: [
-      'node_modules',
-      'shared/web_modules',
-      'shared'
-    ],
-    moduleDirectories: [
-      'node_modules',
-      'shared/web_modules',
-      'shared'
-    ],
-    extension: [
-      '.js'
-    ],
-    alias: {
-      jquery: 'jquery',
-      underscore: 'underscore',
-      backbone: 'backbone',
-      Handlebars: 'handlebars'
-    }
-  },
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
-  },
   plugins: [
-    new webpack.NoErrorsPlugin(),
-    new webpack.ProvidePlugin({
-      jQuery: 'jquery',
-      $: 'jquery'
+    new HtmlwebpackPlugin({
+      template: 'node_modules/html-webpack-template/index.html',
+      title: 'Marshallz Blog',
+      appMountId: 'app'
     })
-  ]
+  ],
+  postcss: function() {
+    return [require('autoprefixer')];
+  }
 };
+
+if (TARGET === 'start' || !TARGET) {
+  module.exports = merge(common, {
+    devtool: 'eval-source-map',
+    devServer: {
+      historyApiFallback: true,
+      hot: true,
+      inline: true,
+      progress: true,
+      stats: 'errors-only',
+      host: process.env.HOST,
+      port: process.env.PORT
+    },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin()
+    ]
+  });
+}
+
+if (TARGET === 'build') {
+  module.exports = merge(common, {});
+}
