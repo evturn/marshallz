@@ -13,6 +13,7 @@ class Blog extends React.Component {
     this.blogPosts = props.blogPosts;
   }
   render() {
+
     return (
       <div>
         <div className={cx('blog-posts')}>{this.blogPosts.map((blogPost, i) =>
@@ -25,12 +26,16 @@ class Blog extends React.Component {
 
 Blog.propTypes = {
   blogPosts: PropTypes.array,
+  marshall: PropTypes.object,
+  clang: PropTypes.object,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
     blogPosts: state.blogPost.blogPosts,
+    marshall: state.bot.marshall,
+    clang: state.bot.clang
   };
 }
 

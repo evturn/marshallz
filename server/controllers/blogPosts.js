@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
-var _ = require('lodash');
-var BlogPost = require('../models/blogPost');
+'use strict';
+const mongoose = require('mongoose');
+const _ = require('lodash');
+const BlogPost = require('../models/blogPost');
 
 exports.all = function(req, res, next) {
   BlogPost

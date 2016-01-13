@@ -3,10 +3,11 @@ const Statement = require('./statement');
 const utils = require('./utils');
 const capitalize = utils.capitalize;
 
-class Author {
+class Bot {
   constructor(props) {
     this.name = props.name;
     this.username = props.username;
+    this.avatar = props.avatar;
     this.filepath = props.filepath;
     this.keys = props.keys;
     this.social = props.social;
@@ -14,6 +15,17 @@ class Author {
     this.keywords = props.keywords;
     this.post = props.post;
     this.postToTwitter = this.postToTwitter;
+    this.public = this.public;
+    this._id = props._id;
+  }
+  public() {
+    return {
+      name: this.name,
+      username: this.username,
+      avatar: this.avatar,
+      social: this.social,
+      _id: this._id
+    };
   }
   write() {
     return new Promise((resolve, reject) => {
@@ -46,4 +58,4 @@ class Author {
   }
 }
 
-module.exports = Author;
+module.exports = Bot;

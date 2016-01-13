@@ -1,11 +1,12 @@
-var express = require('express');
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var MongoStore =  require('connect-mongo')(session);
-var path = require('path');
-var secrets = require('./secrets');
-var flash = require('express-flash');
-var methodOverride = require('method-override');
+'use strict';
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const MongoStore =  require('connect-mongo')(session);
+const path = require('path');
+const secrets = require('./secrets');
+const flash = require('express-flash');
+const methodOverride = require('method-override');
 
 module.exports = function (app, passport) {
   app.set('port', (process.env.PORT || 3000));
@@ -17,7 +18,7 @@ module.exports = function (app, passport) {
   app.use(methodOverride());
   app.use(express.static(path.join(__dirname, '../..', 'public')));
   app.set('trust proxy', 'loopback');
-  var sess = {
+  const sess = {
     resave: true,
     saveUninitialized: false,
     secret: secrets.sessionSecret,
@@ -35,7 +36,7 @@ module.exports = function (app, passport) {
     )
   };
 
-  var node_env = process.env.NODE_ENV;
+  const node_env = process.env.NODE_ENV;
   console.log('Environment: ' + node_env);
   if(node_env === 'production') {
     sess.cookie.secure = true;

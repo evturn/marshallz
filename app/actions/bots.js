@@ -5,8 +5,8 @@ import * as types from 'constants';
 
 polyfill();
 
-let API_ENDPOINT = '/blogPost';
-if (__TEST__) { API_ENDPOINT = 'http://localhost:9876/blogPost'; }
+let API_ENDPOINT = '/bot';
+if (__TEST__) { API_ENDPOINT = 'http://localhost:9876/bot'; }
 
 const CORS_GET = {
   method: 'GET',
@@ -30,38 +30,37 @@ function createRequest(method, data) {
 }
 
 
-function getBlogPostsSuccess(blogPosts) {
-  console.log(blogPosts.response);
+function getBotsSuccess(bots) {
   return {
-    type: types.GET_BLOG_POSTS_SUCCESS,
-    blogPosts: blogPosts
+    type: types.GET_BOTS_SUCCESS,
+    blogPosts: bots
   };
 }
 
-function getBlogPostsError(error) {
+function getBotsError(error) {
   return {
-    type: types.GET_BLOG_POSTS_ERROR,
+    type: types.GET_BOTS_ERROR,
     message: error
   };
 }
 
-function getBlogPostsBegin() {
-  return { type: types.GET_BLOG_POSTS_BEGIN };
+function getBotsBegin() {
+  return { type: types.GET_BOTS_BEGIN };
 }
 
-export function getBlogPosts() {
+export function getBots() {
   return dispatch => {
-    dispatch(getBlogPostsBegin());
+    dispatch(getBotsBegin());
 
     return createRequest('get')
       .then(res => {
         return res.json();
       })
       .then(json => {
-        dispatch(getBlogPostsSuccess(json));
+        dispatch(getBotsSuccess(json));
       })
       .catch(err => {
-        dispatch(getBlogPostsError(err));
+        dispatch(getBotsError(err));
       });
   };
 }
