@@ -1,0 +1,17 @@
+@import 'mixins.scss';
+@import 'settings.scss';
+
+.blog-posts {
+  position: relative;
+  padding-top: 65px;
+  padding-bottom: 50px;
+  @include clearfix();
+  width: 100%;
+  text-align: center;
+  @media(min-width: $tablet) {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 25px;
+    max-width: 750px;
+  }
+}

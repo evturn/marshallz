@@ -1,15 +1,20 @@
 {
-  "presets": [
-    "es2015",
-    "react",
-    "es2015-node5"
-  ],
+  "stage": 0,
   "env": {
-    "start": {
-      "presets": [
-        "react-hmre"
-      ]
+    "development": {
+      "plugins": ["react-transform"],
+      "extra": {
+        "react-transform": {
+          "transforms": [{
+            "transform": "react-transform-hmr",
+            "imports": ["react"],
+            "locals": ["module"]
+          }, {
+            "transform": "react-transform-catch-errors",
+            "imports": ["react", "redbox-react"]
+          }]
+        }
+      }
     }
-  },
-  "plugins": ["transform-es2015-modules-commonjs"]
+  }
 }
