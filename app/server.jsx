@@ -66,13 +66,9 @@ export default function render(req, res) {
     } else if (renderProps) {
 
       fetchAll(apiResult => {
-        console.log(apiResult);
         const {blogPosts, marshall, clang} = apiResult;
         const store = configureStore({
-          bot: {
-            marshall,
-            clang
-          },
+          bot: {marshall, clang},
           blogPost: {blogPosts}
         });
         const initialState = store.getState();

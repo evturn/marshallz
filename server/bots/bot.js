@@ -1,6 +1,7 @@
 'use strict';
 const Statement = require('./statement');
 const request = require('request');
+const Cron = require('cron').CronJob;
 const utils = require('./utils');
 const random = utils.random;
 const capitalize = utils.capitalize;
@@ -19,8 +20,11 @@ class Bot {
     this.post = props.post;
     this.postToTwitter = this.postToTwitter;
     this.postToBlog = this.postToBlog;
+    this.dispatch = this.dispatch;
     this.public = this.public;
     this._id = props._id;
+
+    this.dispatch();
   }
   public() {
     return {
@@ -38,40 +42,43 @@ class Bot {
         .end()
         .runProcess((err, text) => {
           if (err) { console.log(err); }
-      
+
           resolve(text);
         });
     });
   }
+  dispatch() {
+    let jobs = {};
+
+    jobs.twitter = new Cron(this.jobs.twitter, () => this.postToTwitter(), null, true);
+    jobs.blog = new Cron(this.jobs.blog, () => this.postToBlog(), null, true);
+
+    return jobs;
+  }
   postToBlog() {
-    const BODY_LENGTH = 3;
-    let i = 0;
     let post = {};
-    let body = '';
-    
+    let string = '';
+
     this.write()
       .then(text => post.title = text)
       .then(() => {
         this.giphyApi()
-          .then(image => post.image = image)    
-      })
-      .then(() => {
-        while (i < BODY_LENGTH) {
-          this.write()
-            .then(text => {
-              body += text.endsWith('?') ? `${text} ` : `${text}. `;
-              ITERATION += 1;
-            });
-        }
-      })
-      .catch(err => console.log(err);
-    
-    post.slug = slugify(post.title);
-    post.body = body;
-    post.bot = this.public();
-    post.timestamp = Date.now();
-    
-    return post;
+          .then(image => post.image = image)
+          .then(() => this.write()
+            .then(text => string += text + '. '))
+              .then(() => this.write()
+                .then(text => string += text + '. '))
+                  .then(() => this.write()
+                    .then(text => string += text + '.'))
+                    .then(() => {
+                      post.body = string;
+                      post.slug = slugify(post.title);
+                      post.bot = this.public();
+                      post.timestamp = Date.now();
+
+                      return post;
+                    });
+        }).catch(err => console.log(err));
   }
   postToTwitter() {
     this.write().then(text => {
@@ -81,23 +88,24 @@ class Bot {
 
       this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
         if (error) { return error; }
-        
+        console.log(JSON.parse(response.body));
+        console.log('=====================================');
         return tweet;
       });
     })
-    .catch(err => console.log(err);
+    .catch(err => console.log(err));
   }
   giphyApi() {
     const params = `q=${random(this.keywords)}&api_key=${this.keys.giphy}`;
     const url = `http://api.giphy.com/v1/gifs/search?${params}`;
-    
+
     return new Promise((resolve, reject) => {
       request(url, (error, response, body) => {
         if (!error && response.statusCode === 200) {
           const parsed = JSON.parse(body);
           if (parsed.data.length) {
             const item = random(parsed.data);
-            
+
             resolve({image: item.images.original.url});
           }
         }

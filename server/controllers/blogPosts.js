@@ -10,7 +10,7 @@ exports.all = function(req, res, next) {
     .sort({ 'timestamp': 'desc' })
     .exec((err, blogPosts) => {
       if (err) { return (err); }
-      console.log(blogPosts);
+
       res.json(blogPosts);
     });
 };

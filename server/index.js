@@ -7,6 +7,7 @@ const secrets = require('./config/secrets');
 const webpack = require('webpack');
 const config = require('../webpack/webpack.config.dev.js');
 const app = express();
+const clang = require('./bots/clang');
 const compiler = webpack(config);
 
 mongoose.connect('mongodb://localhost/marshallz');
