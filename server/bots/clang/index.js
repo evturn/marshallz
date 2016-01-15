@@ -1,5 +1,5 @@
 'use strict';
-const Bot = require('./bot');
+const Bot = require('../bot');
 const Twitter = require('twitter');
 
 const Clang = new Bot({
@@ -13,7 +13,7 @@ const Clang = new Bot({
   keywords: [
     "binary", "mathematics", "programming", "programs", "robots", "bots", "bits", "vapor+wave"
   ],
-  filepath: "server/bots/clang.txt",
+  filepath: "server/bots/clang/content.txt",
   jobs:{
     blog: "00 15,45 * * * *",
     twitter: "00 00 00,03,06,09,12,15,21 * * *"
