@@ -2,8 +2,6 @@
 const express = require('express');
 const fs = require('fs');
 const mongoose = require('mongoose');
-const passport = require('passport');
-const secrets = require('./config/secrets');
 const webpack = require('webpack');
 const config = require('../webpack/webpack.config.dev.js');
 const app = express();
@@ -30,8 +28,7 @@ if (isDev) {
   app.use(require('webpack-hot-middleware')(compiler));
 }
 
-require('./config/passport')(app, passport);
-require('./config/express')(app, passport);
-require('./config/routes')(app, passport);
+require('./config/express')(app);
+require('./config/routes')(app);
 
 app.listen(app.get('port'));

@@ -98,7 +98,6 @@ class Bot {
       this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
         if (error) { return error; }
         console.log(JSON.parse(response.body));
-        console.log('=====================================');
         return tweet;
       });
     })

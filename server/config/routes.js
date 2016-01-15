@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 const App = require('../../public/assets/app.server');
 
-module.exports = function(app, passport) {
+module.exports = function(app) {
   app.get('/blogPost', blogPosts.all);
   app.get('/bot', bots.all);
 
