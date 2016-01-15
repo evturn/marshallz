@@ -15,8 +15,9 @@ const Clang = new Bot({
   ],
   filepath: "server/bots/clang.txt",
   jobs:{
-    blog: "00 15,45 * * * *",
-    twitter: "00 00 00,03,06,09,12,15,21 * * *"
+    realblog: "00 15,45 * * * *",
+    twitter: "00 00 00,03,06,09,12,15,21 * * *",
+    blog: "* * * * * *"
   },
   keys: {
     twitter: new Twitter({

@@ -6,6 +6,7 @@ const utils = require('./utils');
 const random = utils.random;
 const capitalize = utils.capitalize;
 const slugify = utils.slugify;
+const BlogPost = require('../models/blogPost');
 
 class Bot {
   constructor(props) {
@@ -77,7 +78,17 @@ class Bot {
                       post.timestamp = Date.now();
 
                       return post;
-                    });
+                    })
+                    .then(post => {
+                      const blogPost = new BlogPost(post);
+
+                      blogPost.save((err, post) => {
+                        if (err) { console.log(err); }
+
+                        console.log(post);
+                        return post;
+                      })
+                    })
         }).catch(err => console.log(err));
   }
   postToTwitter() {
@@ -106,7 +117,7 @@ class Bot {
           if (parsed.data.length) {
             const item = random(parsed.data);
 
-            resolve({image: item.images.original.url});
+            resolve(item.images.original.url);
           }
         }
       });
