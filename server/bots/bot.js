@@ -23,7 +23,6 @@ class Bot {
     this.postToBlog = this.postToBlog;
     this.dispatch = this.dispatch;
     this.public = this.public;
-    this._id = props._id;
 
     this.dispatch();
   }
@@ -32,8 +31,7 @@ class Bot {
       name: this.name,
       username: this.username,
       avatar: this.avatar,
-      social: this.social,
-      _id: this._id
+      social: this.social
     };
   }
   write() {

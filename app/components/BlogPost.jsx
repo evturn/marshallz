@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import classNames from 'classnames/bind';
 import styles from 'scss/components/_blog-post';
 import mAvatar from 'images/av-marshall.png';
@@ -9,7 +8,7 @@ const cx = classNames.bind(styles);
 const ico = classNames.bind(icons);
 
 
-class BlogPost extends React.Component {
+export default class BlogPost extends React.Component {
   constructor(props) {
     super(props);
 
@@ -20,10 +19,10 @@ class BlogPost extends React.Component {
       <div className={cx('post-item')}>
         <div className={cx('post-item__content')}>
           <div className={cx('post-item__header')}>
-            {this.attachBotAvatar()}
+            {this.renderAvatar()}
             <div className={cx('post-item__content-meta')}>
               <div className={cx('post-item__content-author')}>
-                <a href="marshallz.com">{this.props.username} </a>
+                <a href="marshallz.com">{this.props.bot.username} </a>
                 <span className={cx('post-item__author-tag')}>Author</span>
               </div>
               <div className={cx('post-item__content-timestamp')}>A few minutes ago</div>
@@ -36,32 +35,15 @@ class BlogPost extends React.Component {
           <div className={cx('post-item__content-body')}>{this.props.body}</div>
           <div className={cx('post-item__content-social')}>
             <div className={cx('post-item__content-author')}>
-              <a href="marshallz.com" target="_blank">{this.props.username} on <span className={ico('fa', 'fa-twitter')}></span></a>
+              <a href="marshallz.com" target="_blank">{this.props.bot.username} on <span className={ico('fa', 'fa-twitter')}></span></a>
             </div>
           </div>
         </div>
       </div>
     );
   }
-  attachBotAvatar() {
-    const {marshall, clang} = this.props;
-    const avatar = this.props.author === marshall._id ? mAvatar : cAvatar;
-    const bg = { backgroundImage: `url(${avatar})` };
-
-    return <a href="marshallz.com"><div className={cx('post-item__avatar')} style={bg}></div></a>;
+  renderAvatar() {
+    const src = this.props.bot.username === 'marshall' ? mAvatar : cAvatar
+    return <a href="marshallz.com"><img className={cx('post-item__avatar')} src={src} /></a>;
   }
 }
-
-BlogPost.propTypes = {
-  marshall: PropTypes.object,
-  clang: PropTypes.object,
-};
-
-function mapStateToProps(state) {
-  return {
-    marshall: state.bot.marshall,
-    clang: state.bot.clang
-  };
-}
-
-export default connect(mapStateToProps)(BlogPost);
