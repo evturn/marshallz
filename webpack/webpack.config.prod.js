@@ -129,11 +129,11 @@ module.exports = [
         new webpack.optimize.OccurenceOrderPlugin(),
         // extract inline css from modules into separate files
         new ExtractTextPlugin("styles/main.css"),
-        new webpack.optimize.UglifyJsPlugin({
-          compressor: {
-            warnings: false
-          }
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //   compressor: {
+        //     warnings: false
+        //   }
+        // }),
         new webpack.DefinePlugin({
           __TEST__: JSON.stringify(JSON.parse(process.env.TEST_ENV || 'false'))
         })
