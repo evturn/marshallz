@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import BlogPost from '../components/BlogPost';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
@@ -26,16 +26,12 @@ class Blog extends React.Component {
 
 Blog.propTypes = {
   blogPosts: PropTypes.array,
-  marshall: PropTypes.object,
-  clang: PropTypes.object,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    blogPosts: state.blogPost.blogPosts,
-    marshall: state.bot.marshall,
-    clang: state.bot.clang
+    blogPosts: state.blogPost.blogPosts
   };
 }
 

@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames/bind';
 import styles from 'scss/components/_blog-post';
 import mAvatar from 'images/av-marshall.png';
 import cAvatar from 'images/av-clang.png';
-import icons from 'scss/lib/font-awesome/font-awesome.scss';
 const cx = classNames.bind(styles);
-const ico = classNames.bind(icons);
-
 
 export default class BlogPost extends React.Component {
   constructor(props) {
@@ -22,7 +19,7 @@ export default class BlogPost extends React.Component {
             {this.renderAvatar()}
             <div className={cx('post-item__content-meta')}>
               <div className={cx('post-item__content-author')}>
-                <a href="marshallz.com">{this.props.bot.username} </a>
+                <a>{this.props.bot.username} </a>
                 <span className={cx('post-item__author-tag')}>Author</span>
               </div>
               <div className={cx('post-item__content-timestamp')}>A few minutes ago</div>
@@ -35,7 +32,7 @@ export default class BlogPost extends React.Component {
           <div className={cx('post-item__content-body')}>{this.props.body}</div>
           <div className={cx('post-item__content-social')}>
             <div className={cx('post-item__content-author')}>
-              <a href="marshallz.com" target="_blank">{this.props.bot.username} on <span className={ico('fa', 'fa-twitter')}></span></a>
+              <a href={this.props.bot.social.twitter} target="_blank">{this.props.bot.username} on Twitter</a>
             </div>
           </div>
         </div>

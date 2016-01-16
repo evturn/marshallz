@@ -25,16 +25,12 @@ export default class App extends Component {
 
 App.propTypes = {
   children: PropTypes.object,
-  blogPosts: PropTypes.array,
-  marshall: PropTypes.object,
-  clang: PropTypes.object,
+  blogPosts: PropTypes.array
 };
 
 function mapStateToProps(state) {
   return {
-    blogPosts: state.blogPost.blogPosts,
-    marshall: state.bot.marshall,
-    clang: state.bot.clang
+    blogPosts: state.blogPost.blogPosts
   };
 }
 

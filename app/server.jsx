@@ -8,6 +8,20 @@ import routes from 'routes.jsx';
 import configureStore from 'store/configureStore';
 import headconfig from 'elements/Header';
 
+
+const clientConfig = {
+  host: process.env.HOSTNAME || 'localhost',
+  port: process.env.PORT || '3000'
+};
+
+function fetchAll(callback) {
+  fetch(`http://${clientConfig.host}:${clientConfig.port}/blogPost`)
+    .then(res => res.json())
+    .then(json => callback(json))
+    .catch(err => console.log(err));
+}
+
+
 function renderFullPage(renderedContent, initialState, head={
   title: 'Marshallz Blog',
   meta: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
@@ -32,31 +46,6 @@ function renderFullPage(renderedContent, initialState, head={
   `;
 }
 
-const clientConfig = {
-  host: process.env.HOSTNAME || 'localhost',
-  port: process.env.PORT || '3000'
-};
-
-const p1 = fetch(`http://${clientConfig.host}:${clientConfig.port}/blogPost`)
-const p2 = fetch(`http://${clientConfig.host}:${clientConfig.port}/bot`)
-
-function fetchAll(callback) {
-  p1
-    .then(res => res.json())
-    .then(json1 => {
-      const blogPosts = json1;
-
-      return p2
-        .then(res => res.json())
-        .then(json2 => {
-          const [marshall, clang] = json2
-          return {blogPosts, marshall, clang};
-        });
-    })
-    .then(api => callback(api));
-}
-
-
 export default function render(req, res) {
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
@@ -66,10 +55,10 @@ export default function render(req, res) {
     } else if (renderProps) {
 
       fetchAll(apiResult => {
-        const {blogPosts, marshall, clang} = apiResult;
         const store = configureStore({
-          bot: {marshall, clang},
-          blogPost: {blogPosts}
+          blogPost: {
+            blogPosts: apiResult
+          }
         });
         const initialState = store.getState();
         const renderedContent = renderToString(

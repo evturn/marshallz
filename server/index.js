@@ -1,12 +1,18 @@
 'use strict';
 const express = require('express');
 const fs = require('fs');
+const bodyParser = require('body-parser');
+const path = require('path');
 const mongoose = require('mongoose');
 const webpack = require('webpack');
-const config = require('../webpack/webpack.config.dev.js');
-const app = express();
+const App = require('../public/assets/app.server');
+const blogPosts = require('./controllers/blogPosts');
+const bots = require('./controllers/bots');
 const marshall = require('./bots/marshall');
 const clang = require('./bots/clang');
+
+const app = express();
+const config = require('../webpack/webpack.config.dev.js');
 const compiler = webpack(config);
 
 mongoose.connect('mongodb://localhost/marshallz');
@@ -28,7 +34,17 @@ if (isDev) {
   app.use(require('webpack-hot-middleware')(compiler));
 }
 
-require('./config/express')(app);
-require('./config/routes')(app);
+app.set('port', (process.env.PORT || 3000));
+app.disable('x-powered-by');
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+const node_env = process.env.NODE_ENV;
+console.log('Environment: ' + node_env);
+
+app.get('/blogPost', blogPosts.all);
+
+app.get('*', function (req, res, next) {
+  App(req, res);
+});
 
 app.listen(app.get('port'));
