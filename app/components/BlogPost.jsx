@@ -23,7 +23,7 @@ export default class BlogPost extends React.Component {
                 <a>{this.props.bot.username} </a>
                 <span className={cx('post-item__author-tag')}>Author</span>
               </div>
-              <IntlProvider>
+              <IntlProvider locale="en">
                 <div className={cx('post-item__content-timestamp')}><FormattedRelative value={this.props.timestamp}/></div>
               </IntlProvider>
             </div>
