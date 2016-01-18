@@ -34,6 +34,30 @@ class Bot {
       social: this.social
     };
   }
+  dispatch() {
+    let jobs = {};
+
+    jobs.twitter = new Cron(this.jobs.twitter, () => this.generateTweet(), null, true);
+    jobs.blog = new Cron(this.jobs.blog, () => this.generateBlogPost(), null, true);
+
+    return jobs;
+  }
+  generateTweet() {
+    this.tweetRunner();
+  }
+  generateBlogPost() {
+    this.blogPostRunner(post => {
+      const blogPost = new BlogPost(post);
+
+      blogPost.save((err, post) => {
+        if (err) { console.log(err); }
+        console.log('=======NEW POST======');
+        console.log(post);
+        console.log('=======NEW POST======');
+        return post;
+      })
+    });
+  }
   blogPostRunner(cb) {
     const bot = this.public();
 
@@ -120,44 +144,6 @@ class Bot {
 
     const it = tweetGenerator();
     it.next();
-  }
-  generateTweet() {
-    this.tweetRunner();
-  }
-  generateBlogPost() {
-    this.blogPostRunner(post => {
-      const blogPost = new BlogPost(post);
-
-      blogPost.save((err, post) => {
-        if (err) { console.log(err); }
-        console.log('=======NEW POST======');
-        console.log(post);
-        console.log('=======NEW POST======');
-        return post;
-      })
-    });
-  }
-  dispatch() {
-    let jobs = {};
-
-    jobs.twitter = new Cron(this.jobs.twitter, () => this.generateTweet(), null, true);
-    jobs.blog = new Cron(this.jobs.blog, () => this.generateBlogPost(), null, true);
-
-    return jobs;
-  }
-  postToTwitter() {
-    this.write().then(text => {
-      if (text.length > 140) {
-        return this.postToTwitter();
-      }
-
-      this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
-        if (error) { return error; }
-        console.log(JSON.parse(response.body));
-        return tweet;
-      });
-    })
-    .catch(err => console.log(err));
   }
 }
 
