@@ -34,10 +34,10 @@ class Bot {
       social: this.social
     };
   }
-  runner(cb) {
+  blogPostRunner(cb) {
     const bot = this.public();
 
-    function *gen() {
+    function *blogPostGenerator() {
       const post = {};
       let text;
       try {
@@ -84,11 +84,48 @@ class Bot {
       });
     };
 
-    const it = gen();
+    const it = blogPostGenerator();
     it.next();
   }
-  generatePost() {
-    this.runner(post => {
+  tweetRunner() {
+    const write = () => {
+      this.content.runProcess(function(err, text) {
+        if (err) {
+          it.throw(err);
+        } else if (text.length > 140) {
+          write();
+        } else {
+          it.next(text);
+        }
+      });
+    };
+
+    const twitter = (text) => {
+      this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
+        if (error) { console.log(error); }
+
+        console.log(JSON.parse(response.body));
+        return tweet;
+      });
+    }
+
+    function *tweetGenerator() {
+      try {
+        const text = yield write();
+        twitter(text);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    const it = tweetGenerator();
+    it.next();
+  }
+  generateTweet() {
+    this.tweetRunner();
+  }
+  generateBlogPost() {
+    this.blogPostRunner(post => {
       const blogPost = new BlogPost(post);
 
       blogPost.save((err, post) => {
@@ -103,8 +140,8 @@ class Bot {
   dispatch() {
     let jobs = {};
 
-    jobs.twitter = new Cron(this.jobs.twitter, () => this.postToTwitter(), null, true);
-    jobs.blog = new Cron(this.jobs.blog, () => this.generatePost(), null, true);
+    jobs.twitter = new Cron(this.jobs.twitter, () => this.generateTweet(), null, true);
+    jobs.blog = new Cron(this.jobs.blog, () => this.generateBlogPost(), null, true);
 
     return jobs;
   }
