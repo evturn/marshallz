@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from 'scss/components/_blog-post';
 import mAvatar from 'images/av-marshall.png';
 import cAvatar from 'images/av-clang.png';
+import {IntlProvider, FormattedRelative} from 'react-intl';
 const cx = classNames.bind(styles);
 
 export default class BlogPost extends React.Component {
@@ -22,7 +23,9 @@ export default class BlogPost extends React.Component {
                 <a>{this.props.bot.username} </a>
                 <span className={cx('post-item__author-tag')}>Author</span>
               </div>
-              <div className={cx('post-item__content-timestamp')}>A few minutes ago</div>
+              <IntlProvider>
+                <div className={cx('post-item__content-timestamp')}><FormattedRelative value={this.props.timestamp}/></div>
+              </IntlProvider>
             </div>
           </div>
           <a href="marshallz.com">
