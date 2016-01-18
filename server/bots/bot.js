@@ -23,7 +23,7 @@ class Bot {
     this.postToBlog = this.postToBlog;
     this.dispatch = this.dispatch;
     this.public = this.public;
-
+    this.content = new Statement({files: this.filepath}).start(capitalize).end();
     this.dispatch();
   }
   public() {
@@ -34,60 +34,79 @@ class Bot {
       social: this.social
     };
   }
-  write() {
-    return new Promise((resolve, reject) => {
-      new Statement({files: this.filepath})
-        .start(capitalize)
-        .end()
-        .runProcess((err, text) => {
-          if (err) { console.log(err); }
+  runner(cb) {
+    const bot = this.public();
 
-          resolve(text);
-        });
+    function *gen() {
+      const post = {};
+      let text;
+      try {
+        text = yield write();
+        text += text = yield write();
+        text += text = yield write();
+        post.image = yield giphy();
+        post.title = yield write(false);
+        post.slug = slugify(post.title);
+        post.body = text
+        post.bot = bot;
+        post.timestamp = Date.now()
+
+        cb(post);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    const write = (punc) => {
+      const period = punc !== false ? '. ' : '';
+
+      this.content.runProcess(function(err, data) {
+        if (err) {
+          it.throw(err);
+        } else {
+          it.next(data + period);
+        }
+      });
+    };
+
+    const giphy = () => {
+      const url = `http://api.giphy.com/v1/gifs/search?q=${random(this.keywords)}&api_key=${this.keys.giphy}`;
+
+      request(url, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+          const parsed = JSON.parse(body);
+          if (parsed.data.length) {
+            const item = random(parsed.data);
+
+            it.next(item.images.original.url);
+          }
+        }
+      });
+    };
+
+    const it = gen();
+    it.next();
+  }
+  generatePost() {
+    this.runner(post => {
+      const blogPost = new BlogPost(post);
+
+      blogPost.save((err, post) => {
+        if (err) { console.log(err); }
+        console.log('=======NEW POST======');
+        console.log(post);
+        console.log('=======NEW POST======');
+        return post;
+      })
     });
   }
   dispatch() {
     let jobs = {};
 
     jobs.twitter = new Cron(this.jobs.twitter, () => this.postToTwitter(), null, true);
-    jobs.blog = new Cron(this.jobs.blog, () => this.postToBlog(), null, true);
+    jobs.blog = new Cron(this.jobs.blog, () => this.generatePost(), null, true);
 
     return jobs;
-  }
-  postToBlog() {
-    let post = {};
-    let string = '';
-
-    this.write()
-      .then(text => post.title = text)
-      .then(() => {
-        this.giphyApi()
-          .then(image => post.image = image)
-          .then(() => this.write()
-            .then(text => string += text + '. '))
-              .then(() => this.write()
-                .then(text => string += text + '. '))
-                  .then(() => this.write()
-                    .then(text => string += text + '.'))
-                    .then(() => {
-                      post.body = string;
-                      post.slug = slugify(post.title);
-                      post.bot = this.public();
-                      post.timestamp = Date.now();
-
-                      return post;
-                    })
-                    .then(post => {
-                      const blogPost = new BlogPost(post);
-
-                      blogPost.save((err, post) => {
-                        if (err) { console.log(err); }
-
-                        console.log(post);
-                        return post;
-                      })
-                    })
-        }).catch(err => console.log(err));
   }
   postToTwitter() {
     this.write().then(text => {
@@ -102,23 +121,6 @@ class Bot {
       });
     })
     .catch(err => console.log(err));
-  }
-  giphyApi() {
-    const params = `q=${random(this.keywords)}&api_key=${this.keys.giphy}`;
-    const url = `http://api.giphy.com/v1/gifs/search?${params}`;
-
-    return new Promise((resolve, reject) => {
-      request(url, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          const parsed = JSON.parse(body);
-          if (parsed.data.length) {
-            const item = random(parsed.data);
-
-            resolve(item.images.original.url);
-          }
-        }
-      });
-    });
   }
 }
 
