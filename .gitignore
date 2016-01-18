@@ -2,7 +2,6 @@ node_modules
 npm-debug.log
 .tmp
 .idea
-public
 Procfile
 karma.conf.js
 tests.webpack.js
