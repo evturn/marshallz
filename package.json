@@ -12,7 +12,8 @@
     "start": "NODE_ENV=production node server/index.js",
     "dev": "NODE_ENV=development node server/index.js",
     "build:webpack": "NODE_ENV=production webpack --progress --colors --config ./webpack/webpack.config.prod.js",
-    "build": "npm run clean && npm run build:webpack"
+    "build": "npm run clean && npm run build:webpack",
+    "prod": "NODE_ENV=production nohup node server/index.js &"
   },
   "keywords": [
     "marshallz"
