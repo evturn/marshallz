@@ -10,9 +10,7 @@ const Clang = new Bot({
     twitter: "https://twitter.com/__clang__"
   },
   _id: '563d8c95ade9d8510df8a25f',
-  keywords: [
-    "binary", "mathematics", "programming", "programs", "robots", "bots", "bits", "vapor+wave"
-  ],
+  keywords: "server/bots/clang/keywords.txt",
   filepath: "server/bots/clang/content.txt",
   jobs:{
     blog: "00 15,45 * * * *",

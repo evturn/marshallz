@@ -1,4 +1,5 @@
 'use strict';
+const fs = require('fs');
 const Statement = require('./statement');
 const request = require('request');
 const Cron = require('cron').CronJob;
@@ -94,17 +95,20 @@ class Bot {
     };
 
     const giphy = () => {
-      const url = `http://api.giphy.com/v1/gifs/search?q=${random(this.keywords)}&api_key=${this.keys.giphy}`;
+      fs.readFile(this.keywords, 'utf8', (err, data) => {
+        const query = random(data.split(/(?:\. |\n)/ig));
+        const url = `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${this.keys.giphy}`;
 
-      request(url, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          const parsed = JSON.parse(body);
-          if (parsed.data.length) {
-            const item = random(parsed.data);
+        request(url, (error, response, body) => {
+          if (!error && response.statusCode === 200) {
+            const parsed = JSON.parse(body);
+            if (parsed.data.length) {
+              const item = random(parsed.data);
 
-            it.next(item.images.original.url);
+              it.next(item.images.original.url);
+            }
           }
-        }
+        });
       });
     };
 
