@@ -106,7 +106,7 @@ module.exports =
 	    link: '<link rel="stylesheet" href="/assets/styles/main.css"/>'
 	  } : arguments[2];
 
-	  return '\n    <!doctype html>\n    <html lang="">\n    <head>\n      ' + head.title + '\n      ' + head.meta + '\n      ' + head.link + '\n    </head>\n    <body>\n\n      <div id="app">' + renderedContent + '</div>\n\n      <script> window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + '; </script>\n      <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>\n    </body>\n    </html>\n  ';
+	  return '\n    <!doctype html>\n    <html lang="">\n    <head>\n      ' + head.title + '\n      ' + head.meta + '\n      ' + head.link + '\n    </head>\n    <body>\n\n      <div id="app">' + renderedContent + '</div>\n\n      <script> window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + '; </script>\n      <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>\n      <script (function(i,s,o,g,r,a,m){i[\'GoogleAnalyticsObject\']=r;i[r]=i[r]||function(){\n        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n        })(window,document,\'script\',\'//www.google-analytics.com/analytics.js\',\'ga\');\n      </script>\n\nga(\'create\', \'UA-72542250-1\', \'auto\');\nga(\'send\', \'pageview\');\n    </body>\n    </html>\n  ';
 	}
 
 	function render(req, res) {

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import SiteHeader from 'containers/SiteHeader';
 import classNames from 'classnames/bind';
 import 'scss/main';
-import '../elements/google-analytics';
 import bg from 'images/bg.jpg';
 import styles from 'scss/layout/_page';
 
