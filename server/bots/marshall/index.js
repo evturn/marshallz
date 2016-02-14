@@ -5,7 +5,7 @@ const Twitter = require('twitter');
 const Marshall = new Bot({
   name: "Marshall",
   username: "marshall",
-  avatar: "images/av-marshall.png",
+  avatar: "av-marshall.png",
   social: {
     twitter: "https://twitter.com/marshallzBlog"
   },

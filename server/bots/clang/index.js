@@ -5,7 +5,7 @@ const Twitter = require('twitter');
 const Clang = new Bot({
   name: "__clang__",
   username: "clang",
-  avatar: "images/av-clang.png",
+  avatar: "av-clang.png",
   social: {
     twitter: "https://twitter.com/__clang__"
   },
