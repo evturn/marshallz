@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SiteHeader from 'components/SiteHeader';
 import classNames from 'classnames/bind';
-import 'scss/main';
-import bg from 'images/bg.jpg';
-import styles from 'scss/layout/_page';
+import 'assets/scss/main';
+import bg from 'assets/images/bg.jpg';
+import styles from 'assets/scss/layout/_page';
 
 const cx = classNames.bind(styles);
 

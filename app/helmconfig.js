@@ -1,7 +1,7 @@
-import chromecon from 'file!images/av-marshall.png';
-import applecon from 'file!images/av-bad.png';
-import mscon from 'file!images/av-clang.png';
-import favicon from 'file!images/favicon.png';
+import chromecon from 'file!assets/images/av-marshall.png';
+import applecon from 'file!assets/images/av-bad.png';
+import mscon from 'file!assets/images/av-clang.png';
+import favicon from 'file!assets/images/favicon.png';
 
 const config = {
   link: [

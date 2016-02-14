@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
-import styles from 'scss/layout/_header';
-import bg from 'images/headbg.jpg';
+import styles from 'assets/scss/layout/_header';
+import bg from 'assets/images/headbg.jpg';
 
 const cx = classNames.bind(styles);
 

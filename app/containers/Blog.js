@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Post from '../components/Post';
 import classNames from 'classnames/bind';
-import styles from 'scss/components/_blog-posts';
+import styles from 'assets/scss/components/_blog-posts';
 
 const cx = classNames.bind(styles);
 

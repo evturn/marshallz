@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import classNames from 'classnames/bind';
-import styles from 'scss/components/_blog-post';
-import mAvatar from 'images/av-marshall.png';
-import cAvatar from 'images/av-clang.png';
+import styles from 'assets/scss/components/_blog-post';
+import mAvatar from 'assets/images/av-marshall.png';
+import cAvatar from 'assets/images/av-clang.png';
 import { IntlProvider, FormattedRelative } from 'react-intl';
 const cx = classNames.bind(styles);
 
