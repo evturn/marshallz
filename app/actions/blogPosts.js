@@ -1,7 +1,6 @@
 import { polyfill } from 'es6-promise';
 import fetch from 'isomorphic-fetch';
 import md5 from 'spark-md5';
-import * as types from 'constants';
 
 polyfill();
 
@@ -33,20 +32,20 @@ function createRequest(method, data) {
 function getBlogPostsSuccess(blogPosts) {
   console.log(blogPosts.response);
   return {
-    type: types.GET_BLOG_POSTS_SUCCESS,
+    type: 'GET_BLOG_POSTS_SUCCESS',
     blogPosts: blogPosts
   };
 }
 
 function getBlogPostsError(error) {
   return {
-    type: types.GET_BLOG_POSTS_ERROR,
+    type: 'GET_BLOG_POSTS_ERROR',
     message: error
   };
 }
 
 function getBlogPostsBegin() {
-  return { type: types.GET_BLOG_POSTS_BEGIN };
+  return { type: 'GET_BLOG_POSTS_BEGIN' };
 }
 
 export function getBlogPosts() {
