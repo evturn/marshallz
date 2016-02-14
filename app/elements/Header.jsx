@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import Helmet from 'react-helmet';
 
 import config from 'helmconfig.js';
 
-class Header extends React.Component {
+class Header extends Component {
   render() {
     return (
       <Helmet
