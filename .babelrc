@@ -1,5 +1,6 @@
 {
   "stage": 0,
+  "optional": ["runtime"],
   "env": {
     "development": {
       "plugins": ["react-transform"],

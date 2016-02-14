@@ -1,3 +1,4 @@
+import 'babel-core/polyfill';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { RoutingContext, match } from 'react-router'

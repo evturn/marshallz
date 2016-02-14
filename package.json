@@ -34,6 +34,7 @@
     "babel-eslint": "4.1.7",
     "babel-loader": "^5.4.0",
     "babel-plugin-react-transform": "^1.1.1",
+    "babel-runtime": "5.8.20",
     "body-parser": "^1.14.2",
     "classnames": "^2.2.1",
     "cron": "^1.1.0",
