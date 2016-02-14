@@ -20,3 +20,14 @@ exports.all = function(req, res, next) {
       res.json(data);
     });
 };
+
+exports.one = function(req, res, next) {
+  const dbQuery = BlogPost.findOne({
+    'slug': req.params.slug
+  });
+
+  dbQuery.exec((err, result) => {
+    console.log('=======SERVER========')
+    res.json(result);
+  });
+};

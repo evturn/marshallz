@@ -5,6 +5,11 @@ const Server = require('../public/assets/app.server');
 const blogPosts = require('./controllers/blogPosts');
 const marshall = require('./bots/marshall');
 const clang = require('./bots/clang');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const config = require('../webpack/webpack.config.dev.js');
+const compiler = webpack(config);
 
 const app = express();
 
@@ -21,21 +26,19 @@ const ENV = process.env.NODE_ENV;
 const PORT = app.get('port');
 
 if (ENV === 'development') {
-  const webpack = require('webpack');
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const webpackHotMiddleware = require('webpack-hot-middleware');
-  const config = require('../webpack/webpack.config.dev.js');
-  const compiler = webpack(config);
-
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath
   }));
   app.use(webpackHotMiddleware(compiler));
+  console.log('Development mode');
+} else {
+  console.log('Production mode');
 }
 
 app.get('/blogPost', blogPosts.all);
+app.get('/api/post/:slug', blogPosts.one);
 
 app.get('*', (req, res, next) => Server(req, res));
 
-app.listen(PORT, () => console.log(`Running on ${PORT} in ${ENV.toUpperCase()}`));
+app.listen(PORT, () => console.log(`Running on ${PORT}`));

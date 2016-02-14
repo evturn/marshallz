@@ -81,20 +81,20 @@ module.exports = [
       ]
     },
     plugins: [
-        // Order the modules and chunks by occurrence.
-        // This saves space, because often referenced modules
-        // and chunks get smaller ids.
-        new webpack.optimize.OccurenceOrderPlugin(),
-        // extract inline css from modules into separate files
-        new ExtractTextPlugin("styles/main.css"),
-        new webpack.optimize.UglifyJsPlugin({
-          compressor: {
-            warnings: false
-          }
-        }),
-        new webpack.DefinePlugin({
-          __TEST__: JSON.stringify(JSON.parse(process.env.TEST_ENV || 'false'))
-        })
+      // Order the modules and chunks by occurrence.
+      // This saves space, because often referenced modules
+      // and chunks get smaller ids.
+      new webpack.optimize.OccurenceOrderPlugin(),
+      // extract inline css from modules into separate files
+      new ExtractTextPlugin("styles/main.css"),
+      new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+          warnings: false
+        }
+      }),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': '"production"'
+      }),
     ]
   }, {
     // The configuration for the server-side rendering
@@ -123,20 +123,20 @@ module.exports = [
       ]
     },
     plugins: [
-        // Order the modules and chunks by occurrence.
-        // This saves space, because often referenced modules
-        // and chunks get smaller ids.
-        new webpack.optimize.OccurenceOrderPlugin(),
-        // extract inline css from modules into separate files
-        new ExtractTextPlugin("styles/main.css"),
-        // new webpack.optimize.UglifyJsPlugin({
-        //   compressor: {
-        //     warnings: false
-        //   }
-        // }),
-        new webpack.DefinePlugin({
-          __TEST__: JSON.stringify(JSON.parse(process.env.TEST_ENV || 'false'))
-        })
+      // Order the modules and chunks by occurrence.
+      // This saves space, because often referenced modules
+      // and chunks get smaller ids.
+      new webpack.optimize.OccurenceOrderPlugin(),
+      // extract inline css from modules into separate files
+      new ExtractTextPlugin("styles/main.css"),
+      // new webpack.optimize.UglifyJsPlugin({
+      //   compressor: {
+      //     warnings: false
+      //   }
+      // }),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': '"production"'
+      })
     ]
   }
 ];

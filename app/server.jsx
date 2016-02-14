@@ -61,10 +61,13 @@ export default function render(req, res) {
       fetchInitialData(data => {
         const store = configureStore({
           blog: {
-            posts: data.posts
+            post: null,
+            posts: data.posts,
+            isFetching: false
           },
           bot: {
-            bots: data.bots
+            bots: data.bots,
+            isFetching: false
           }
         });
         const initialState = store.getState();

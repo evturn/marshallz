@@ -29,7 +29,7 @@ class Post extends Component {
             </div>
           </div>
 
-          <Link to="/">
+          <Link to={`/post/${this.props.slug}`}>
             <div className={cx('post-item__content-image')}  style={{ backgroundImage: `url(${this.props.image})` }}></div>
             <div className={cx('post-item__content-title')}>{this.props.title}</div>
           </Link>

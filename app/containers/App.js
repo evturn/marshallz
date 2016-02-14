@@ -29,13 +29,15 @@ class App extends Component {
 App.propTypes = {
   posts: PropTypes.array,
   bots: PropTypes.array,
+  isFetching: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
     posts: state.blog.posts,
-    bots: state.bot.bots
+    bots: state.bot.bots,
+    isFetching: state.blog.isFetching
   };
 }
 
