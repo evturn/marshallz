@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import SiteHeader from 'containers/SiteHeader';
+import SiteHeader from 'components/SiteHeader';
 import classNames from 'classnames/bind';
 import 'scss/main';
 import bg from 'images/bg.jpg';
@@ -8,7 +8,10 @@ import styles from 'scss/layout/_page';
 
 const cx = classNames.bind(styles);
 
-export default class App extends Component {
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div style={ {backgroundImage: `url(${bg})`} }>
@@ -24,13 +27,15 @@ export default class App extends Component {
 }
 
 App.propTypes = {
-  children: PropTypes.object,
-  blogPosts: PropTypes.array
+  posts: PropTypes.array,
+  bots: PropTypes.array,
+  dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    blogPosts: state.blogPost.blogPosts
+    posts: state.blog.posts,
+    bots: state.bot.bots
   };
 }
 

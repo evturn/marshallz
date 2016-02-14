@@ -1,16 +1,22 @@
-'use strict';
 const mongoose = require('mongoose');
-const _ = require('lodash');
 const BlogPost = require('../models/blogPost');
+const clang = require('../bots/clang');
+const marshall = require('../bots/marshall');
 
 exports.all = function(req, res, next) {
   BlogPost
     .find({})
     .limit(20)
     .sort({ 'timestamp': 'desc' })
-    .exec((err, blogPosts) => {
+    .exec((err, posts) => {
       if (err) { return (err); }
-
-      res.json(blogPosts);
+      const data = {
+        posts: posts,
+        bots: [
+          marshall.public(),
+          clang.public()
+        ]
+      };
+      res.json(data);
     });
 };

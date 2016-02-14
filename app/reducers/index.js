@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
-import blogPost from 'reducers/blogPost';
+import blog from 'reducers/blog';
+import bot from 'reducers/bot';
 import { routeReducer as routing } from 'redux-simple-router';
 
 const rootReducer = combineReducers({
-  blogPost,
+  blog,
+  bot,
   routing
 });
 

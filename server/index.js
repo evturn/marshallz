@@ -1,13 +1,10 @@
-'use strict';
 const express = require('express');
 const fs = require('fs');
-const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 const webpack = require('webpack');
 const App = require('../public/assets/app.server');
 const blogPosts = require('./controllers/blogPosts');
-const bots = require('./controllers/bots');
 const marshall = require('./bots/marshall');
 const clang = require('./bots/clang');
 

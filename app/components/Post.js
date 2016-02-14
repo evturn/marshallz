@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames/bind';
 import styles from 'scss/components/_blog-post';
 import mAvatar from 'images/av-marshall.png';
 import cAvatar from 'images/av-clang.png';
-import {IntlProvider, FormattedRelative} from 'react-intl';
+import { IntlProvider, FormattedRelative } from 'react-intl';
 const cx = classNames.bind(styles);
 
-export default class BlogPost extends React.Component {
+class Post extends Component {
   constructor(props) {
     super(props);
-
-    this.image = { backgroundImage: `url(${props.image})` };
   }
   render() {
     return (
@@ -29,7 +27,7 @@ export default class BlogPost extends React.Component {
             </div>
           </div>
           <a href="marshallz.com">
-            <div className={cx('post-item__content-image')}  style={this.image}></div>
+            <div className={cx('post-item__content-image')}  style={{ backgroundImage: `url(${this.props.image})` }}></div>
             <div className={cx('post-item__content-title')}>{this.props.title}</div>
           </a>
           <div className={cx('post-item__content-body')}>{this.props.body}</div>
@@ -47,3 +45,5 @@ export default class BlogPost extends React.Component {
     return <a href="marshallz.com"><img className={cx('post-item__avatar')} src={src} /></a>;
   }
 }
+
+export default Post;

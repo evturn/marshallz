@@ -8,14 +8,8 @@ import routes from 'routes.jsx';
 import configureStore from 'store/configureStore';
 import headconfig from 'elements/Header';
 
-
-const clientConfig = {
-  host: process.env.HOSTNAME || 'localhost',
-  port: process.env.PORT || '3000'
-};
-
-function fetchAll(callback) {
-  fetch(`http://${clientConfig.host}:${clientConfig.port}/blogPost`)
+function fetchInitialData(callback) {
+  fetch(`http://localhost:3000/blogPost`)
     .then(res => res.json())
     .then(json => callback(json))
     .catch(err => console.log(err));
@@ -29,7 +23,7 @@ function renderFullPage(renderedContent, initialState, head={
 }) {
   return `
     <!doctype html>
-    <html lang="">
+    <html lang="en">
     <head>
       ${head.title}
       ${head.meta}
@@ -45,27 +39,32 @@ function renderFullPage(renderedContent, initialState, head={
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-72542250-1', 'auto');
+        ga('send', 'pageview');
       </script>
 
-ga('create', 'UA-72542250-1', 'auto');
-ga('send', 'pageview');
     </body>
     </html>
   `;
 }
 
 export default function render(req, res) {
-  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+  const location = createLocation(req.url);
+  match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
 
-      fetchAll(apiResult => {
+      fetchInitialData(data => {
         const store = configureStore({
-          blogPost: {
-            blogPosts: apiResult
+          blog: {
+            posts: data.posts
+          },
+          bot: {
+            bots: data.bots
           }
         });
         const initialState = store.getState();
