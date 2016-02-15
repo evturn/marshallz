@@ -1,12 +1,8 @@
 import { combineReducers } from 'redux';
-import blog from 'reducers/blog';
-import bot from 'reducers/bot';
-import { routeReducer as routing } from 'redux-simple-router';
+import { routeReducer } from 'react-router-redux';
+import blog from './blog';
+import bot from './bot';
 
-const rootReducer = combineReducers({
-  blog,
-  bot,
-  routing
-});
+const rootReducer = combineReducers({ blog, bot, routing: routeReducer });
 
 export default rootReducer;

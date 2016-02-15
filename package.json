@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "async": "^1.5.2",
-    "autoprefixer-loader": "^3.1.0",
     "babel-core": "^5.8.34",
     "babel-eslint": "4.1.7",
     "babel-loader": "^5.4.0",
@@ -64,6 +63,7 @@
     "react-intl": "^2.0.0-beta-2",
     "react-redux": "^4.4.0",
     "react-router": "2.0.0-rc5",
+    "react-router-redux": "^3.0.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.2.0",
@@ -82,5 +82,8 @@
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
     "write-file-webpack-plugin": "^2.1.2"
+  },
+  "devDependencies": {
+    "extract-text-webpack-plugin": "^1.0.1"
   }
 }

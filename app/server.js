@@ -3,9 +3,9 @@ import { renderToString } from 'react-dom/server';
 import { RouterContext, match } from 'react-router'
 import { Provider } from 'react-redux';
 import fetch from 'isomorphic-fetch';
-import routes from 'routes.jsx';
-import configureStore from 'store/configureStore';
-import createLocation from 'history/lib/createLocation';
+import routes from './routes';
+import configureStore from './store/configureStore';
+
 import headconfig from 'elements/Header';
 
 function fetchInitialData(callback) {

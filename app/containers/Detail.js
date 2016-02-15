@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getBlogPost } from '../actions/blog'
 import Post from '../components/Post';
+import classNames from 'classnames/bind';
+import styles from 'assets/scss/components/_blog-posts';
+
+const cx = classNames.bind(styles);
 
 class Detail extends Component {
   constructor(props) {
@@ -17,7 +21,7 @@ class Detail extends Component {
     const content = post !== null ? <Post {...post} /> : <div />;
 
     return (
-      <div>
+      <div className={cx('blog-posts')}>
         {content}
       </div>
     )
