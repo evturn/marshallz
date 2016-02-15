@@ -63,6 +63,8 @@ export default function render(req, res) {
             isFetching: false
           },
           bot: {
+            author: null,
+            posts: null,
             bots: data.bots,
             isFetching: false
           }

@@ -27,7 +27,7 @@ function populateBotWithPosts(bot) {
       .sort({ 'timestamp': 'desc' })
       .exec((err, posts) => {
         if (err) { return (err); }
-        botObj.post = posts;
+        botObj.posts = posts;
 
         resolve(botObj);
       });
