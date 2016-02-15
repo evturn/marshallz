@@ -29,6 +29,7 @@ class Bot {
     return {
       name: this.name,
       username: this.username,
+      index: this.index,
       avatar: this.avatar,
       social: this.social
     };
