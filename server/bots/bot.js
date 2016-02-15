@@ -9,17 +9,18 @@ const capitalize = utils.capitalize;
 const slugify = utils.slugify;
 const BlogPost = require('../models/blogPost');
 
+function mergeProps(props) {
+  for (let prop in props) {
+    this[prop] = props[prop];
+  }
+
+};
+
+
 class Bot {
   constructor(props) {
-    this.name = props.name;
-    this.username = props.username;
-    this.avatar = props.avatar;
-    this.filepath = props.filepath;
-    this.keys = props.keys;
-    this.social = props.social;
-    this.jobs = props.jobs;
-    this.keywords = props.keywords;
-    this.post = props.post;
+    mergeProps.call(this, props);
+
     this.postToTwitter = this.postToTwitter;
     this.postToBlog = this.postToBlog;
     this.dispatch = this.dispatch;
@@ -38,9 +39,12 @@ class Bot {
   dispatch() {
     let jobs = {};
 
-    jobs.twitter = new Cron(this.jobs.twitter, () => this.generateTweet(), null, true);
-    jobs.blog = new Cron(this.jobs.blog, () => this.generateBlogPost(), null, true);
+    if (this.social) {
+      jobs.twitter = new Cron(this.jobs.twitter, () => this.generateTweet(), null, true);
+    }
 
+    jobs.blog = new Cron(this.jobs.blog, () => this.generateBlogPost(), null, true);
+    console.log(this);
     return jobs;
   }
   generateTweet() {
@@ -52,9 +56,9 @@ class Bot {
 
       blogPost.save((err, post) => {
         if (err) { console.log(err); }
-        console.log('=======NEW POST======');
+        console.log(`===Post created by ${this.name}======`);
         console.log(post);
-        console.log('=======NEW POST======');
+        console.log(`===Post created by ${this.name}======`);
         return post;
       })
     });
@@ -130,7 +134,9 @@ class Bot {
 
     const twitter = (text) => {
       this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
-        if (error) { console.log(error); }
+        if (error) {
+          console.log(error);
+        }
 
         console.log(JSON.parse(response.body));
         return tweet;

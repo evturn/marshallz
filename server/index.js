@@ -5,6 +5,7 @@ const Server = require('../public/assets/app.server');
 const blogPosts = require('./controllers/blogPosts');
 const marshall = require('./bots/marshall');
 const clang = require('./bots/clang');
+const borf = require('./bots/borf');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');

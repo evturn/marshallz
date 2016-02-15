@@ -35,13 +35,20 @@ class Post extends Component {
 
           <div className={cx('post-item__content-body')}>{this.props.body}</div>
           <div className={cx('post-item__content-social')}>
-            <div className={cx('post-item__content-author')}>
-              <Link to={{ pathname: this.props.bot.social.twitter }} target="_blank">{this.props.bot.username} on Twitter</Link>
-            </div>
+            {this.renderShareLinks()}
           </div>
         </div>
       </div>
     );
+  }
+  renderShareLinks() {
+    if (this.props.bot.social) {
+      return (
+        <div className={cx('post-item__content-author')}>
+          <Link to={{ pathname: this.props.bot.share.twitter }} target="_blank">{this.props.bot.username} on Twitter</Link>
+        </div>
+      );
+    }
   }
 }
 

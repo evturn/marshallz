@@ -3,18 +3,19 @@ const Bot = require('../bot');
 const Twitter = require('twitter');
 
 const Marshall = new Bot({
-  name: "Marshall",
-  username: "marshall",
-  avatar: "av-marshall.png",
-  social: {
-    twitter: "https://twitter.com/marshallzBlog"
-  },
-  _id: '563d8c95ade9d8510df8a25e',
-  keywords: "server/bots/marshall/keywords.txt",
-  filepath: "server/bots/marshall/content.txt",
+  name: 'Marshall',
+  username: 'marshall',
+  avatar: 'av-marshall.png',
+  index: 0,
+  keywords: 'server/bots/marshall/keywords.txt',
+  filepath: 'server/bots/marshall/content.txt',
   jobs: {
-    twitter: "00 00 01,04,07,10,13,16,22 * * *",
-    blog: "00 00,30 * * * *"
+    twitter: '00 00 01,04,07,10,13,16,22 * * *',
+    blog: '00 00,30 * * * *'
+  },
+  social: true,
+  share: {
+    twitter: 'https://twitter.com/marshallzBlog'
   },
   keys: {
     twitter: new Twitter({

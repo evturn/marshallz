@@ -3,18 +3,19 @@ const Bot = require('../bot');
 const Twitter = require('twitter');
 
 const Clang = new Bot({
-  name: "__clang__",
-  username: "clang",
-  avatar: "av-clang.png",
-  social: {
-    twitter: "https://twitter.com/__clang__"
-  },
-  _id: '563d8c95ade9d8510df8a25f',
-  keywords: "server/bots/clang/keywords.txt",
-  filepath: "server/bots/clang/content.txt",
+  name: '__clang__',
+  username: 'clang',
+  avatar: 'av-clang.png',
+  index: 1,
+  keywords: 'server/bots/clang/keywords.txt',
+  filepath: 'server/bots/clang/content.txt',
   jobs:{
-    blog: "00 15,45 * * * *",
-    twitter: "00 00 00,03,06,09,12,15,21 * * *"
+    blog: '00 15,45 * * * *',
+    twitter: '00 00 00,03,06,09,12,15,21 * * *'
+  },
+  social: true,
+  share: {
+    twitter: 'https://twitter.com/__clang__'
   },
   keys: {
     twitter: new Twitter({
