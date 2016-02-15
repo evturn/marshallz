@@ -31,6 +31,7 @@ if (ENV === 'development') {
     publicPath: config.output.publicPath
   }));
   app.use(webpackHotMiddleware(compiler));
+
   console.log('Development mode');
 } else {
   console.log('Production mode');

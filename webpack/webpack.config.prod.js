@@ -1,13 +1,14 @@
-var path = require("path");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var webpack = require("webpack");
-var assetsPath = path.join(__dirname, "..", "public", "assets");
-var publicPath = "assets/";
+const path = require("path");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require("webpack");
+const assetsPath = path.join(__dirname, "..", "public", "assets");
+const publicPath = "assets/";
 
 var commonLoaders = [
   {
     test: /\.js$|\.jsx$/,
-    loaders: ['babel'],
+    loader: 'babel',
+    exclude: /node_modules/,
     include: path.join(__dirname, "..",  "app")
   },{
     test: /\.json$/,
@@ -86,7 +87,7 @@ module.exports = [
       // and chunks get smaller ids.
       new webpack.optimize.OccurenceOrderPlugin(),
       // extract inline css from modules into separate files
-      new ExtractTextPlugin("styles/main.css"),
+      new ExtractTextPlugin("css/app.css"),
       new webpack.optimize.UglifyJsPlugin({
         compressor: {
           warnings: false
@@ -126,17 +127,13 @@ module.exports = [
       // Order the modules and chunks by occurrence.
       // This saves space, because often referenced modules
       // and chunks get smaller ids.
-      new webpack.optimize.OccurenceOrderPlugin(),
-      // extract inline css from modules into separate files
-      new ExtractTextPlugin("styles/main.css"),
-      // new webpack.optimize.UglifyJsPlugin({
-      //   compressor: {
-      //     warnings: false
-      //   }
-      // }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"'
-      })
+      }),
+      new webpack.optimize.OccurenceOrderPlugin(),
+      // extract inline css from modules into separate files
+      new ExtractTextPlugin('css/app.css'),
+      new webpack.optimize.UglifyJsPlugin({ minimize: true })
     ]
   }
 ];

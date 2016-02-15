@@ -14,7 +14,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div style={ {backgroundImage: `url(${bg})`} }>
+      <div style={{ backgroundImage: `url(${bg})` }}>
         <div className={cx('site-container')}>
           <SiteHeader />
           <div className={cx('site-content')}>

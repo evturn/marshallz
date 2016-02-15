@@ -1,54 +1,19 @@
-var path = require('path');
-var webpack = require('webpack');
-var assetsPath = path.join(__dirname, '..', 'public', 'assets');
-var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
+const path = require('path');
+const webpack = require('webpack');
+const assetsPath = path.join(__dirname, '..', 'public', 'assets');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
-var commonLoaders = [
-  {
-    /*
-     * TC39 categorises proposals for babel in 4 stages
-     * Read more http://babeljs.io/docs/usage/experimental/
-     */
-    test: /\.js$|\.jsx$/,
-    loaders: ['babel'],
-    include: path.join(__dirname, '..', 'app')
-  },
-  { test: /\.png$/, loader: 'url-loader' },
-  { test: /\.jpg$/, loader: 'file-loader' },
-  { test: /\.html$/, loader: 'html-loader' },
-  { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'},
-  { test: /\.woff2(\?\S*)?$/, loader: 'url-loader?limit=100000' }
-];
+const PORT = 3000;
 
 module.exports = {
-    // eval - Each module is executed with eval and //@ sourceURL.
-    devtool: 'eval',
-    // The configuration for the client
+    debug: true,
+    cache: true,
+    devtool: 'eval-source-map',
     name: 'browser',
-    /* The entry point of the bundle
-     * Entry points for multi page app could be more complex
-     * A good example of entry points would be:
-     * entry: {
-     *   pageA: "./pageA",
-     *   pageB: "./pageB",
-     *   pageC: "./pageC",
-     *   adminPageA: "./adminPageA",
-     *   adminPageB: "./adminPageB",
-     *   adminPageC: "./adminPageC"
-     * }
-     *
-     * We can then proceed to optimize what are the common chunks
-     * plugins: [
-     *  new CommonsChunkPlugin("admin-commons.js", ["adminPageA", "adminPageB"]),
-     *  new CommonsChunkPlugin("common.js", ["pageA", "pageB", "admin-commons.js"], 2),
-     *  new CommonsChunkPlugin("c-commons.js", ["pageC", "adminPageC"]);
-     * ]
-     */
     context: path.join(__dirname, '..', 'app'),
-    // Multiple entry with hot loader
-    // https://github.com/glenjamin/webpack-hot-middleware/blob/master/example/webpack.config.multientry.js
     entry: {
-      app: ['./client', hotMiddlewareScript]
+      app: ['./client', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true']
     },
     output: {
       // The output directory as absolute path
@@ -58,24 +23,47 @@ module.exports = {
       // The output path from the view of the Javascript
       publicPath: '/assets/'
     },
+    devServer: {
+      outputPath: path.join(__dirname, '..', 'public', 'assets'),
+      historyApiFallback: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      hot: true,
+      inline: true,
+      progress: true,
+      stats: 'errors-only',
+      port: PORT,
+      host: 'localhost'
+    },
     module: {
-      loaders: commonLoaders.concat([
+      loaders: [
+        {
+          test: /\.js$|\.jsx$/,
+          loader: 'babel',
+          exclude: /node_modules/,
+          include: path.join(__dirname, '..', 'app')
+        },
+        { test: /\.png$/, loader: 'url-loader' },
+        { test: /\.jpg$/, loader: 'file-loader' },
+        { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'},
+        { test: /\.woff2(\?\S*)?$/, loader: 'url-loader?limit=100000' },
         { test: /\.scss$/,
           loader: 'style!css?module&localIdentName=[local]__[hash:base64:5]' +
             '&sourceMap!autoprefixer-loader!sass?sourceMap&outputStyle=expanded' +
             '&includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '..', 'app', 'assets', 'scss'))
         }
-      ])
+      ]
     },
     resolve: {
       extensions: ['', '.js', '.jsx', '.scss'],
-      modulesDirectories: [
-        'app', 'node_modules'
-      ]
+      modulesDirectories: ['app', 'node_modules']
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
+      new WriteFilePlugin(),
+      new ExtractTextPlugin('css/app.css'),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"development"'
       }),

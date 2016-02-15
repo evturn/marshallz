@@ -27,7 +27,6 @@ exports.one = function(req, res, next) {
   });
 
   dbQuery.exec((err, result) => {
-    console.log('=======SERVER========')
     res.json(result);
   });
 };

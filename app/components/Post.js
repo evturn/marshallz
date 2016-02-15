@@ -10,13 +10,12 @@ class Post extends Component {
     super(props);
   }
   render() {
-
     return (
       <div className={cx('post-item')}>
         <div className={cx('post-item__content')}>
 
           <div className={cx('post-item__header')}>
-            <Link to="/"><img className={cx('post-item__avatar')} src={`${this.props.bot.avatar}`} /></Link>
+            <Link to={{ pathname: '/' }}><img className={cx('post-item__avatar')} src={`${this.props.bot.avatar}`} /></Link>
             <div className={cx('post-item__content-meta')}>
               <div className={cx('post-item__content-author')}>
                 <Link to="/">{this.props.bot.name} <span className={cx('post-item__author-tag')}>Author</span></Link>
@@ -29,7 +28,7 @@ class Post extends Component {
             </div>
           </div>
 
-          <Link to={`/post/${this.props.slug}`}>
+          <Link to={{ pathname: `/post/${this.props.slug}` }}>
             <div className={cx('post-item__content-image')}  style={{ backgroundImage: `url(${this.props.image})` }}></div>
             <div className={cx('post-item__content-title')}>{this.props.title}</div>
           </Link>
@@ -37,7 +36,7 @@ class Post extends Component {
           <div className={cx('post-item__content-body')}>{this.props.body}</div>
           <div className={cx('post-item__content-social')}>
             <div className={cx('post-item__content-author')}>
-              <Link to={this.props.bot.social.twitter} target="_blank">{this.props.bot.username} on Twitter</Link>
+              <Link to={{ pathname: this.props.bot.social.twitter }} target="_blank">{this.props.bot.username} on Twitter</Link>
             </div>
           </div>
         </div>

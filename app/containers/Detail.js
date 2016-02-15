@@ -14,14 +14,13 @@ class Detail extends Component {
   }
   render() {
     const { isFetching, post } = this.props;
+    const content = post !== null ? <Post {...post} /> : <div />;
 
-    if (post) {
-      console.log('GOT SOMETHING');
-      return <Post {...post} />
-    } else {
-      console.log('GOT NOTHING');
-      return <div />
-    }
+    return (
+      <div>
+        {content}
+      </div>
+    )
   }
 }
 

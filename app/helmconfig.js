@@ -12,7 +12,7 @@ const config = {
     { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=Droid+Serif:400,700', 'type': 'text/css' },
     { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800', 'type': 'text/css' },
     { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100', 'type': 'text/css' },
-    { 'rel': 'stylesheet', 'href': '/assets/styles/main.css' }
+    { 'rel': 'stylesheet', 'href': '/assets/css/app.css' }
   ],
   meta: [
     { 'charset': 'utf-8' },

@@ -1,11 +1,11 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { RoutingContext, match } from 'react-router'
-import createLocation from 'history/lib/createLocation';
-import fetch from 'isomorphic-fetch';
+import { RouterContext, match } from 'react-router'
 import { Provider } from 'react-redux';
+import fetch from 'isomorphic-fetch';
 import routes from 'routes.jsx';
 import configureStore from 'store/configureStore';
+import createLocation from 'history/lib/createLocation';
 import headconfig from 'elements/Header';
 
 function fetchInitialData(callback) {
@@ -15,11 +15,10 @@ function fetchInitialData(callback) {
     .catch(err => console.log(err));
 }
 
-
 function renderFullPage(renderedContent, initialState, head={
   title: 'Marshallz Blog',
   meta: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
-  link: '<link rel="stylesheet" href="/assets/styles/main.css"/>'
+  link: '<link rel="stylesheet" href="/assets/css/app.css"/>'
 }) {
   return `
     <!doctype html>
@@ -50,14 +49,12 @@ function renderFullPage(renderedContent, initialState, head={
 }
 
 export default function render(req, res) {
-  const location = createLocation(req.url);
-  match({ routes, location }, (error, redirectLocation, renderProps) => {
+  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-
       fetchInitialData(data => {
         const store = configureStore({
           blog: {
@@ -73,7 +70,7 @@ export default function render(req, res) {
         const initialState = store.getState();
         const renderedContent = renderToString(
           <Provider store={store}>
-            <RoutingContext {...renderProps} />
+            <RouterContext {...renderProps} />
           </Provider>);
         const renderedPage = renderFullPage(renderedContent, initialState, {
           title: headconfig.title,
