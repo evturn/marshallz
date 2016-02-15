@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const BlogPost = require('../models/blogPost');
-const clang = require('../bots/clang');
-const marshall = require('../bots/marshall');
-
-const bots = [clang, marshall];
+const bots = require('../bots');
 
 exports.all = function(req, res, next) {
   BlogPost
@@ -35,10 +32,9 @@ function populateBotWithPosts(bot) {
 }
 
 exports.populateEachBotWithPosts = function(req, res, next) {
-  const bot1 = populateBotWithPosts(marshall);
-  const bot2 = populateBotWithPosts(clang);
+  const populated = bots.map(bot => populateBotWithPosts(bot));
 
-  Promise.all([bot1, bot2]).then(v => {
+  Promise.all(populated).then(v => {
     res.locals.bots = v;
     next();
   });
