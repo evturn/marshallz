@@ -20,7 +20,6 @@ mongoose.connection.once('open', () => console.log('DB connected'));
 app.set('port', (process.env.PORT || 3000));
 app.disable('x-powered-by');
 app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use(express.static(path.join(__dirname, '..', 'app/assets')));
 
 const ENV = process.env.NODE_ENV;
 const PORT = app.get('port');

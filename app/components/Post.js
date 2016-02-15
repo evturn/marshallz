@@ -15,7 +15,7 @@ class Post extends Component {
         <div className={cx('post-item__content')}>
 
           <div className={cx('post-item__header')}>
-            <Link to={{ pathname: '/' }}><img className={cx('post-item__avatar')} src={`${this.props.bot.avatar}`} /></Link>
+            <Link to={{ pathname: '/' }}><img className={cx('post-item__avatar')} src={`/img/${this.props.bot.avatar}`} /></Link>
             <div className={cx('post-item__content-meta')}>
               <div className={cx('post-item__content-author')}>
                 <Link to="/">{this.props.bot.name} <span className={cx('post-item__author-tag')}>Author</span></Link>
