@@ -36,7 +36,7 @@ if (ENV === 'development') {
   console.log('Production mode');
 }
 
-app.get('/blogPost', blogPosts.all);
+app.get('/blogPost', blogPosts.all, blogPosts.populateEachBotWithPosts, blogPosts.send);
 app.get('/api/post/:slug', blogPosts.one);
 
 app.get('*', (req, res, next) => Server(req, res));
