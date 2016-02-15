@@ -5,12 +5,21 @@ import classNames from 'classnames/bind';
 import 'assets/scss/main';
 import bg from 'assets/images/bg.jpg';
 import styles from 'assets/scss/layout/_page';
+import createMemoryHistory from 'history/lib/createMemoryHistory';
 
 const cx = classNames.bind(styles);
 
 class App extends Component {
   constructor(props) {
     super(props);
+  }
+  componentDidMount() {
+    createMemoryHistory(this.props.location);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location !== this.props.location) {
+      createMemoryHistory(this.props.location);
+    }
   }
   render() {
     return (

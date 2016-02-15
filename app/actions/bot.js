@@ -17,7 +17,6 @@ const requestError = error => {
 };
 
 const authorSelected = data => {
-  console.log(data);
   return {
     type: 'AUTHOR_SELECTED',
     posts: data.posts,
