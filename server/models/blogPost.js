@@ -13,7 +13,8 @@ const blogPostSchema = new Schema({
     name:      {type: String},
     username:  {type: String},
     avatar:    {type: String},
-    social: {
+    social:    {type: Boolean},
+    share: {
       twitter: {type: String}
     }
   }

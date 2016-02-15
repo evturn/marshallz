@@ -10,7 +10,8 @@ const Borf = new Bot({
   filepath: 'server/bots/borf/content.txt',
   social: false,
   jobs:{
-    blog: '30 07,53 * * * *'
+    // blog: '30 07,53 * * * *'
+    blog: '* * * * * *'
   },
   keys: {
     giphy: process.env.GIPHY_DEV

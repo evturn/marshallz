@@ -16,7 +16,7 @@ exports.all = function(req, res, next) {
 
 function populateBotWithPosts(bot) {
   return new Promise((resolve, reject) => {
-    const botObj = bot.public();
+    const botObj = bot.props();
 
     BlogPost
       .find({'bot.username': botObj.username })

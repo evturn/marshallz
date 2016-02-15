@@ -67,26 +67,22 @@ constructor(args) {
     return total;
   }
   runProcess(callback) {
-    let readFiles = [];
+    const readFiles = this.files.map(file => this.readFile(file));
 
-    this.files.forEach((file) => {
-      readFiles.push(this.readFile(file));
-    });
+      async.parallel(readFiles, (err, retFiles) => {
+        let words, curWord;
 
-    async.parallel(readFiles, (err, retFiles) => {
-      let words, curWord;
+        this.parseFile(retFiles.toString());
+        curWord = this.startFn(this.bank);
+        this.sentence = curWord;
 
-      this.parseFile(retFiles.toString());
-      curWord = this.startFn(this.bank);
-      this.sentence = curWord;
+        while (this.bank[curWord] && !this.endFn()) {
+          curWord = utils.select(this.bank[curWord]);
+          this.sentence += ' ' + curWord;
+        }
 
-      while (this.bank[curWord] && !this.endFn()) {
-        curWord = utils.select(this.bank[curWord]);
-        this.sentence += ' ' + curWord;
-      }
-      callback(null, this.sentence.trim());
-    });
-    return this;
+        callback(null, this.sentence.trim());
+      });
   }
   parseFile(file) {
     file.split(/(?:\. |\n)/ig).forEach((lines) => {
