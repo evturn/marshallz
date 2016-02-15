@@ -13,20 +13,17 @@ function mergeProps(props) {
   for (let prop in props) {
     this[prop] = props[prop];
   }
-
 };
-
 
 class Bot {
   constructor(props) {
     mergeProps.call(this, props);
 
-    this.postToTwitter = this.postToTwitter;
     this.postToBlog = this.postToBlog;
-    this.dispatch = this.dispatch;
     this.public = this.public;
     this.content = new Statement({files: this.filepath}).start(capitalize).end();
-    this.dispatch();
+
+    this.init();
   }
   public() {
     return {
@@ -36,16 +33,13 @@ class Bot {
       social: this.social
     };
   }
-  dispatch() {
-    let jobs = {};
-
+  init() {
     if (this.social) {
-      jobs.twitter = new Cron(this.jobs.twitter, () => this.generateTweet(), null, true);
+      this.postToTwitter = this.postToTwitter;
+      new Cron(this.jobs.twitter, () => this.generateTweet(), null, true);
     }
 
-    jobs.blog = new Cron(this.jobs.blog, () => this.generateBlogPost(), null, true);
-    console.log(this);
-    return jobs;
+    new Cron(this.jobs.blog, () => this.generateBlogPost(), null, true);
   }
   generateTweet() {
     this.tweetRunner();
@@ -139,6 +133,8 @@ class Bot {
         }
 
         console.log(JSON.parse(response.body));
+        console.log(`===Tweet created by ${this.name}======`);
+
         return tweet;
       });
     }
