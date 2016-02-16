@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const utils = require('./utils');
+const select = utils.select;
 const normalize = utils.normalize;
 const injectNewlines = utils.injectNewlines;
 const capitalize = utils.capitalize;
@@ -26,16 +27,14 @@ class Statement {
       return new Promise((resolve, reject) => {
         fs.readFile(file, 'utf8', (err, data) => {
           if (err) {
-            console.log(err);
+            reject(err);
           }
 
-          this.createWordTree(data.toString());
-
-          let currentWord = capitalize(this.wordTree);
+          let currentWord = capitalize(this.createWordTree(data));
           this.sentence = currentWord;
 
           while (this.wordTree[currentWord] && !this.shouldStopWriting()) {
-            currentWord = utils.select(this.wordTree[currentWord]);
+            currentWord = select(this.wordTree[currentWord]);
             this.sentence += ' ' + currentWord;
           }
 
@@ -47,8 +46,8 @@ class Statement {
   shouldStopWriting() {
     return this.sentence.split(' ').length > this.wordCount - 2;
   }
-  createWordTree(file) {
-    injectNewlines(file).forEach(lines => {
+  createWordTree(data) {
+    injectNewlines(data.toString()).forEach(lines => {
       lines
         .split(' ')
         .filter(word => word.trim() !== '')
@@ -67,6 +66,8 @@ class Statement {
           }
         });
     });
+
+    return this.wordTree;
   }
   assureDataType(files) {
     if (typeof files === 'string') {
