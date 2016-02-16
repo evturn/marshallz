@@ -1,4 +1,4 @@
-import Server from '../../public/assets/app.server';
+import Server from '../../../public/assets/app.server';
 import blogPosts from '../controllers/blogPosts';
 
 export default function routes(app) {

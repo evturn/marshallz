@@ -1,30 +1,33 @@
 const path = require('path');
 const webpack = require('webpack');
-const assetsPath = path.join(__dirname, '..', 'public', 'assets');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 
 const PORT = 3000;
+const PATHS = {
+  app: path.join(__dirname, 'src', 'app'),
+  output: path.join(__dirname, 'public', 'assets'),
+  publicPath: '/assets/'
+};
+const EXTENSIONS = ['', '.js', '.jsx', '.scss'];
+const MODULES_DIRS = ['app', 'node_modules'];
 
 module.exports = {
     debug: true,
     cache: true,
     devtool: 'eval-source-map',
     name: 'browser',
-    context: path.join(__dirname, '..', 'app'),
+    context: PATHS.app,
     entry: {
       app: ['./client', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true']
     },
     output: {
-      // The output directory as absolute path
-      path: assetsPath,
-      // The filename of the entry chunk as relative path inside the output.path directory
-      filename: '[name].js',
-      // The output path from the view of the Javascript
-      publicPath: '/assets/'
+      path: PATHS.output,    // The output directory as absolute path
+      filename: '[name].js', // The filename of the entry chunk as relative path inside the output.path directory
+      publicPath: '/assets/' // The output path from the view of the Javascript
     },
     devServer: {
-      outputPath: path.join(__dirname, '..', 'public', 'assets'),
+      outputPath: PATHS.output,
       historyApiFallback: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -42,7 +45,7 @@ module.exports = {
           test: /\.js$|\.jsx$/,
           loader: 'babel',
           exclude: /node_modules/,
-          include: path.join(__dirname, '..', 'app')
+          include: PATHS.app
         },
         { test: /\.png$/, loader: 'url-loader' },
         { test: /\.jpg$/, loader: 'file-loader' },
@@ -51,13 +54,13 @@ module.exports = {
         { test: /\.scss$/,
           loader: 'style!css?module&localIdentName=[local]__[hash:base64:5]' +
             '&sourceMap!sass?sourceMap&outputStyle=expanded' +
-            '&includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '..', 'app', 'assets', 'scss'))
+            '&includePaths[]=' + encodeURIComponent(path.resolve(__dirname, 'src', 'app', 'assets', 'scss'))
         }
       ]
     },
     resolve: {
-      extensions: ['', '.js', '.jsx', '.scss'],
-      modulesDirectories: ['app', 'node_modules']
+      extensions: EXTENSIONS,
+      modulesDirectories: MODULES_DIRS
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),

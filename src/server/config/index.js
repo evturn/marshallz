@@ -2,19 +2,19 @@ import path from 'path';
 import bots from '../bots';
 import express from 'express';
 import mongoose from 'mongoose';
-import routes from './index.js';
+import routes from '../routes';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../../webpack/webpack.config.dev.js';
+import webpackConfig from '../../../webpack.config.dev.js';
 
 const ENV = process.env.NODE_ENV;
 const HOST = process.env.HOST || 'localhost';
 const DB = process.env.DB || 'marshallz';
 const PORT = process.env.PORT || 3000;
 const STATIC = {
-  public: path.join(__dirname, '..', '..', 'public'),
-  img: path.join(__dirname, '..', '..', 'public', 'img')
+  public: path.join(__dirname, '..', '..', '..', 'public'),
+  img: path.join(__dirname, '..', '..', '..', 'public', 'img')
 };
 
 const app = express();
@@ -41,6 +41,6 @@ if (ENV === 'development') {
 routes(app);
 
 app.listen(PORT, () => {
-  console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` ENV: ${process.env.NODE_ENV.toUpperCase()}`);
+  console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` NODE_ENV: ${ENV}`);
   console.log(`\x1b[44m%s\x1b[0m`, `💻`, ` PORT: ${PORT}`);
 });

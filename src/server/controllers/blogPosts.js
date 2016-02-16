@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const BlogPost = require('../models/blogPost');
-const bots = require('../bots');
+import mongoose from 'mongoose';
+import BlogPost from '../models/blogPost';
+import bots from '../bots';
 
 exports.all = function(req, res, next) {
   BlogPost
