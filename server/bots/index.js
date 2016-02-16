@@ -1,4 +1,3 @@
-import 'babel-core/polyfill'
 import marshall from './marshall';
 import clang from './clang';
 import borf from './borf';
