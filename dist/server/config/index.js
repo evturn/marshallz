@@ -39,9 +39,9 @@ var _webpackConfigDev2 = _interopRequireDefault(_webpackConfigDev);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ENV = process.env.NODE_ENV;
-var HOST = process.env.HOST || 'localhost';
+var HOST = process.env.HOST || '127.0.0.1';
 var DB = process.env.DB || 'marshallz';
-var PORT = process.env.PORT || 3000;
+var PORT = 3000;
 var STATIC = {
   public: _path2.default.join(__dirname, '..', '..', '..', 'public'),
   img: _path2.default.join(__dirname, '..', '..', '..', 'public', 'img')
