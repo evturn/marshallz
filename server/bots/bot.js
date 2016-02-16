@@ -1,14 +1,11 @@
-const fs = require('fs');
-const Statement = require('./statement');
-const request = require('request');
-const Cron = require('cron').CronJob;
-const utils = require('./utils');
-const random = utils.random;
-const capitalize = utils.capitalize;
-const slugify = utils.slugify;
-const BlogPost = require('../models/blogPost');
+import fs from 'fs';
+import SentenceGenerator from './sentence-generator';
+import request from 'request';
+import { CronJob as Cron } from 'cron';
+import { random, capitalize, slugify } from './utils';
+import BlogPost from '../models/blogPost';
 
-function Bot(props) {
+export default function Bot(props) {
   for (let prop in props) {
     this[prop] = props[prop];
   }
@@ -43,7 +40,7 @@ Bot.prototype.props = function() {
 };
 
 Bot.prototype.createSentence = function(characters) {
-  return new Statement({
+  return new SentenceGenerator({
     files: this.content,
     wordCount: characters
   }).init();
@@ -75,8 +72,8 @@ Bot.prototype.generateBlogPost = function() {
   let sentences = [];
   let count = 0;
 
-  while (count < 5) {
-    const task = count === 0 ? this.createImage() : this.createSentence(8);
+  while (count < 7) {
+    const task = count === 0 ? this.createImage() : this.createSentence(10);
 
     sentences.push(task);
     count += 1;
@@ -110,7 +107,7 @@ Bot.prototype.saveBlogPost = function(post) {
 };
 
 Bot.prototype.generateTweet = function() {
-  this.createSentence(10).then(text => {
+  this.createSentence(16).then(text => {
     console.log(this.keys.twitter);
     this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
       if (error) {
@@ -133,5 +130,3 @@ Bot.prototype.showSuccess = function(res) {
   console.log(res);
   console.log(`======${this.name} success=====`);
 };
-
-module.exports = Bot;

@@ -1,8 +1,7 @@
-'use strict';
-const Bot = require('../bot');
-const Twitter = require('twitter');
+import Bot from '../bot';
+import Twitter from 'twitter';
 
-const Marshall = new Bot({
+export default new Bot({
   name: 'Marshall',
   username: 'marshall',
   avatar: 'av-marshall.png',
@@ -13,7 +12,6 @@ const Marshall = new Bot({
     {
       type: 'blog',
       crontab: '00 00,30 * * * *'
-      // crontab: '* * * * * *'
     },{
       type: 'twitter',
       crontab: '00 00 01,04,07,10,13,16,22 * * *'
@@ -33,5 +31,3 @@ const Marshall = new Bot({
     giphy: process.env.GIPHY_DEV
   }
 });
-
-module.exports = Marshall;

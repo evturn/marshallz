@@ -1,12 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const utils = require('./utils');
-const select = utils.select;
-const normalize = utils.normalize;
-const injectNewlines = utils.injectNewlines;
-const capitalize = utils.capitalize;
+import fs from 'fs';
+import path from 'path';
+import { select, normalize, injectNewlines, capitalize } from './utils';
 
-class Statement {
+export default class SentenceGenerator {
   constructor(props) {
     this.files = this.assureDataType(props.files);
     this.wordCount = props.wordCount;
@@ -79,6 +75,3 @@ class Statement {
     }
   }
 }
-
-module.exports = Statement;
-

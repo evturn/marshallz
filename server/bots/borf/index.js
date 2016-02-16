@@ -1,7 +1,6 @@
-'use strict';
-const Bot = require('../bot');
+import Bot from '../bot';
 
-const Borf = new Bot({
+export default new Bot({
   name: 'b0rf',
   username: 'borf',
   avatar: 'av-borf.png',
@@ -13,12 +12,9 @@ const Borf = new Bot({
     {
       type: 'blog',
       crontab: '30 07,53 * * * *'
-      // crontab: '* * * * * *'
     }
   ],
   keys: {
     giphy: process.env.GIPHY_DEV
   }
 });
-
-module.exports = Borf;

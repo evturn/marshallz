@@ -1,7 +1,6 @@
-'use strict';
-const path = require('path');
+import path from 'path';
 
-module.exports.normalize = (word) => {
+export const normalize = (word) => {
   if (word === undefined) {
     return '';
   }
@@ -9,15 +8,15 @@ module.exports.normalize = (word) => {
   return word.replace(/\.$/ig, '');
 };
 
-module.exports.injectNewlines = (file) => {
+export const injectNewlines = (file) => {
   return file.split(/(?:\. |\n)/ig);
 };
 
-module.exports.random = (array) => {
+export const random = (array) => {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-module.exports.capitalize = (wordList) => {
+export const capitalize = (wordList) => {
   let tmpList = Object.keys(wordList).filter((word) => {
     return word[0] >= 'A' && word[0] <= 'Z';
   });
@@ -25,11 +24,11 @@ module.exports.capitalize = (wordList) => {
   return tmpList[~~(Math.random() * tmpList.length)];
 };
 
-module.exports.ofType = (file) => {
+export const ofType = (file) => {
   return file.indexOf('.' + path.sep) === 0 || file.indexOf(path.sep) === 0;
 };
 
-module.exports.select = (obj) => {
+export const select = (obj) => {
   let keys = Object.keys(obj);
   let sum = keys.reduce((p, c) => p + obj[c], 0);
 
@@ -47,11 +46,11 @@ module.exports.select = (obj) => {
   }
 };
 
-module.exports.confirmType = (file) => {
+export const confirmType = (file) => {
   return Object.prototype.toString.call(file).slice(8, -1).toLowerCase();
 };
 
-module.exports.slugify = (value) => {
+export const slugify = (value) => {
 
   const escapeForRegExp = (value) => {
     if (_.isUndefined(value)) {
