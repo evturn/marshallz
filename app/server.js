@@ -62,10 +62,10 @@ export default function render(req, res) {
             posts: data.posts,
             isFetching: false
           },
-          bot: {
+          author: {
             author: null,
             posts: null,
-            bots: data.bots,
+            authors: data.authors,
             isFetching: false
           }
         });

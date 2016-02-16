@@ -10,6 +10,7 @@ class Post extends Component {
     super(props);
   }
   render() {
+    console.log(this.props);
     const {
       timestamp, title, body,
       slug, image, author
@@ -49,7 +50,7 @@ class Post extends Component {
     );
   }
   renderShareLinks() {
-    const { share, username } = this.props.author;
+    const { username, share } = this.props.author;
 
     return (
       <div className={cx('post-item__content-author')}>

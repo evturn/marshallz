@@ -1,13 +1,13 @@
-function bot(state={
+function author(state={
   author: null,
   posts: null,
-  bots: [],
+  authors: null,
   populated: false
 }, action) {
   switch (action.type) {
-    case 'BOTS_POPULATED':
+    case 'AUTHORS_POPULATED':
       return Object.assign({}, state, {
-        bots: action.bots,
+        authors: action.authors,
         populated: true
       });
     case 'AUTHOR_SELECTED':
@@ -20,4 +20,4 @@ function bot(state={
   }
 }
 
-export default bot;
+export default author;

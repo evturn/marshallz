@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Post from '../components/Post';
 import classNames from 'classnames/bind';
 import styles from 'assets/scss/components/_blog-posts';
-import { navigateToAuthor } from '../actions/bot';
+import { navigateToAuthor } from '../actions/author';
 
 const cx = classNames.bind(styles);
 
@@ -12,9 +12,9 @@ class Author extends Component {
     super(props);
   }
   componentDidMount() {
-    const { params, bots, dispatch } = this.props;
+    const { params, authors, dispatch } = this.props;
 
-    navigateToAuthor(dispatch, params.username, bots);
+    navigateToAuthor(dispatch, params.username, authors);
   }
   render() {
     const { posts } = this.props;
@@ -23,7 +23,7 @@ class Author extends Component {
       return <div />;
     } else if (posts !== null){
       return (
-        <div className={cx('blog-posts')}>{this.props.posts.map((blogPost, i) =>
+        <div className={cx('blog-posts')}>{posts.map((blogPost, i) =>
           <Post key={i} {...blogPost} />
         )}</div>
       );
@@ -32,19 +32,17 @@ class Author extends Component {
 }
 
 Author.propTypes = {
+  authors: PropTypes.array,
   author: PropTypes.object,
   posts: PropTypes.array,
-  bots: PropTypes.array,
-  isFetching: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    author: state.bot.author,
-    posts: state.bot.posts,
-    bots: state.bot.bots,
-    isFetching: state.blog.isFetching
+    authors: state.author.authors,
+    author: state.author.author,
+    posts: state.author.posts
   };
 }
 

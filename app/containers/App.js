@@ -37,7 +37,7 @@ class App extends Component {
 
 App.propTypes = {
   posts: PropTypes.array,
-  bots: PropTypes.array,
+  authors: PropTypes.array,
   isFetching: PropTypes.bool,
   dispatch: PropTypes.func
 };
@@ -45,7 +45,7 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     posts: state.blog.posts,
-    bots: state.bot.bots,
+    authors: state.author.authors,
     isFetching: state.blog.isFetching
   };
 }

@@ -13,7 +13,10 @@ const blogPostSchema = new Schema({
     username:  {type: String},
     index:     {type: Number},
     avatar:    {type: String},
-    social:    {type: Boolean}
+    social:    {type: Boolean},
+    share: {
+      twitter: {type: String}
+    }
   }
 });
 

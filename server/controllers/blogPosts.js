@@ -35,7 +35,7 @@ exports.populateEachBotWithPosts = function(req, res, next) {
   const populated = bots.map(bot => populateBotWithPosts(bot));
 
   Promise.all(populated).then(v => {
-    res.locals.bots = v;
+    res.locals.authors = v;
     next();
   });
 };

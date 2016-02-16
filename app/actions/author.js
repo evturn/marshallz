@@ -2,10 +2,10 @@ import fetch from 'isomorphic-fetch';
 
 let API_ENDPOINT = '/blogPost';
 
-const botsPopulated = bots => {
+const authorsPopulated = authors => {
   return {
-    type: 'BOTS_POPULATED',
-    bots
+    type: 'AUTHORS_POPULATED',
+    authors
   };
 };
 
@@ -37,20 +37,20 @@ const createRequest = (method, data) => {
   });
 };
 
-export const navigateToAuthor = (dispatch, username, bots) => {
-  const [ author ] = bots.filter(bot => bot.username === username);
+export const navigateToAuthor = (dispatch, username, authors) => {
+  const [ author ] = authors.filter(author => author.username === username);
   const posts = author.posts;
 
   dispatch(authorSelected({ author, posts }));
 };
 
-export const fetchBots = () => {
+export const fetchAuthors = () => {
   return dispatch => {
     dispatch(requestPosts());
 
     return createRequest('get')
       .then(res => res.json())
-      .then(json => dispatch(botsPopulated(json.bot)))
+      .then(json => dispatch(authorsPopulated(json.author)))
       .catch(err => dispatch(requestError(err)));
   };
 }

@@ -6,7 +6,7 @@ import styles from 'assets/scss/components/_blog-posts';
 
 const cx = classNames.bind(styles);
 
-class Blog extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
   }
@@ -19,9 +19,9 @@ class Blog extends Component {
   }
 }
 
-Blog.propTypes = {
+Home.propTypes = {
   posts: PropTypes.array,
-  bots: PropTypes.array,
+  authors: PropTypes.array,
   isFetching: PropTypes.bool,
   dispatch: PropTypes.func
 };
@@ -29,9 +29,9 @@ Blog.propTypes = {
 function mapStateToProps(state) {
   return {
     posts: state.blog.posts,
-    bots: state.bot.bots,
+    authors: state.author.authors,
     isFetching: state.blog.isFetching
   };
 }
 
-export default connect(mapStateToProps)(Blog);
+export default connect(mapStateToProps)(Home);

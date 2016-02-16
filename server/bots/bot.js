@@ -37,7 +37,8 @@ Bot.prototype.props = function() {
     username: this.username,
     index: this.index,
     avatar: this.avatar,
-    social: this.social
+    social: this.social,
+    share: this.share
   };
 };
 
