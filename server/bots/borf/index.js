@@ -12,7 +12,8 @@ const Borf = new Bot({
   jobs: [
     {
       type: 'blog',
-      crontab: '* * * * * *'
+      crontab: '30 07,53 * * * *'
+      // crontab: '* * * * * *'
     }
   ],
   keys: {
@@ -20,6 +21,4 @@ const Borf = new Bot({
   }
 });
 
-module.exports = Borf;
-
-// '30 07,53 * * * *'
+module.exports = Borf.init();

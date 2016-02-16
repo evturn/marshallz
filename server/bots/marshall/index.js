@@ -8,11 +8,12 @@ const Marshall = new Bot({
   avatar: 'av-marshall.png',
   index: 0,
   keywords: 'server/bots/marshall/keywords.txt',
-  filepath: 'server/bots/marshall/content.txt',
+  content: 'server/bots/marshall/content.txt',
   jobs: [
     {
       type: 'blog',
       crontab: '00 00,30 * * * *'
+      // crontab: '* * * * * *'
     },{
       type: 'twitter',
       crontab: '00 00 01,04,07,10,13,16,22 * * *'
@@ -33,4 +34,4 @@ const Marshall = new Bot({
   }
 });
 
-module.exports = Marshall;
+module.exports = Marshall.init();

@@ -8,14 +8,16 @@ const Clang = new Bot({
   avatar: 'av-clang.png',
   index: 1,
   keywords: 'server/bots/clang/keywords.txt',
-  filepath: 'server/bots/clang/content.txt',
+  content: 'server/bots/clang/content.txt',
   jobs: [
     {
       type: 'blog',
       crontab: '00 15,45 * * * *'
+      // crontab: '* * * * * *'
     },{
       type: 'twitter',
-      crontab: '00 00 00,03,06,09,12,15,21 * * *'
+      crontab: '* * * * * *'
+      // crontab: '00 00 00,03,06,09,12,15,21 * * *'
     }
   ],
   social: true,
@@ -33,4 +35,4 @@ const Clang = new Bot({
   }
 });
 
-module.exports = Clang;
+module.exports = Clang.init();
