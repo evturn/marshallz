@@ -5,8 +5,8 @@ export default new Bot({
   username: 'borf',
   avatar: 'av-borf.png',
   index: 2,
-  keywords: 'server/bots/borf/keywords.txt',
-  content: 'server/bots/borf/content.txt',
+  keywords: 'src/server/bots/borf/keywords.txt',
+  content: 'src/server/bots/borf/content.txt',
   social: false,
   jobs: [
     {

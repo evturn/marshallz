@@ -6,8 +6,8 @@ export default new Bot({
   username: 'clang',
   avatar: 'av-clang.png',
   index: 1,
-  keywords: 'server/bots/clang/keywords.txt',
-  content: 'server/bots/clang/content.txt',
+  keywords: 'src/server/bots/clang/keywords.txt',
+  content: 'src/server/bots/clang/content.txt',
   jobs: [
     {
       type: 'blog',

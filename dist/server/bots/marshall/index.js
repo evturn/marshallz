@@ -19,8 +19,8 @@ exports.default = new _bot2.default({
   username: 'marshall',
   avatar: 'av-marshall.png',
   index: 0,
-  keywords: 'server/bots/marshall/keywords.txt',
-  content: 'server/bots/marshall/content.txt',
+  keywords: 'src/server/bots/marshall/keywords.txt',
+  content: 'src/server/bots/marshall/content.txt',
   jobs: [{
     type: 'blog',
     crontab: '00 00,30 * * * *'
