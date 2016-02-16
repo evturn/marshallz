@@ -9,9 +9,9 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../../../webpack.config.dev.js';
 
 const ENV = process.env.NODE_ENV;
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || '127.0.0.1';
 const DB = process.env.DB || 'marshallz';
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 const STATIC = {
   public: path.join(__dirname, '..', '..', '..', 'public'),
   img: path.join(__dirname, '..', '..', '..', 'public', 'img')
