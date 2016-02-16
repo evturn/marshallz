@@ -86,7 +86,6 @@
     "write-file-webpack-plugin": "^2.1.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.5.1",
     "extract-text-webpack-plugin": "^1.0.1"
   }
 }
