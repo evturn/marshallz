@@ -12,6 +12,8 @@ function Bot(props) {
   for (let prop in props) {
     this[prop] = props[prop];
   }
+
+  this.init();
 }
 
 Bot.prototype.init = function() {

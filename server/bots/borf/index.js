@@ -21,4 +21,4 @@ const Borf = new Bot({
   }
 });
 
-module.exports = Borf.init();
+module.exports = Borf;

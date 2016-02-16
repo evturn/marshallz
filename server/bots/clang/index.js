@@ -16,8 +16,8 @@ const Clang = new Bot({
       // crontab: '* * * * * *'
     },{
       type: 'twitter',
-      crontab: '* * * * * *'
-      // crontab: '00 00 00,03,06,09,12,15,21 * * *'
+      // crontab: '* * * * * *'
+      crontab: '00 00 00,03,06,09,12,15,21 * * *'
     }
   ],
   social: true,
@@ -35,4 +35,4 @@ const Clang = new Bot({
   }
 });
 
-module.exports = Clang.init();
+module.exports = Clang;

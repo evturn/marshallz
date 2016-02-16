@@ -34,4 +34,4 @@ const Marshall = new Bot({
   }
 });
 
-module.exports = Marshall.init();
+module.exports = Marshall;
