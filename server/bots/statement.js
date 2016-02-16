@@ -45,7 +45,35 @@ constructor(props) {
     }
     return total;
   }
+  init() {
+    const words = this.files.map(file => {
+      return new Promise((resolve, reject) => {
+        fs.readFile(file, 'utf8', (err, data) => {
+          if (err) {
+            console.log(err);
+          }
+          let words, currentWord;
 
+          this.createWordTree(data.toString());
+          currentWord = capitalize(this.bank);
+          this.sentence = currentWord;
+
+          while (this.bank[currentWord] && !this.shouldStopWriting()) {
+            currentWord = utils.select(this.bank[currentWord]);
+            this.sentence += ' ' + currentWord;
+          }
+
+          resolve(this.sentence.trim());
+        })
+      })
+    });
+
+    return Promise.all(words).then(v => {
+      const [sentence] = v
+
+      return sentence;
+    });
+  }
   runProcess(callback) {
     const readFiles = this.files.map(file => this.readFile(file));
 

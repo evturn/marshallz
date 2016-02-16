@@ -2,9 +2,11 @@
 const path = require('path');
 
 module.exports.normalize = (word) => {
-  if (word !== undefined) {
-    return word.replace(/\.$/ig, '');
+  if (word === undefined) {
+    return '';
   }
+
+  return word.replace(/\.$/ig, '');
 };
 
 module.exports.injectNewlines = (file) => {

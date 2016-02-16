@@ -43,20 +43,10 @@ Bot.prototype.props = function() {
 };
 
 Bot.prototype.createSentence = function(characters) {
-  const content = new Statement({
+  return new Statement({
     files: this.content,
     wordCount: characters
-  });
-
-  return new Promise((resolve, reject) => {
-    content.runProcess((err, data) => {
-      if (err) {
-        reject(this.showError(err));
-      } else {
-        resolve(data);
-      }
-    });
-  });
+  }).init();
 };
 
 Bot.prototype.createImage = function() {
@@ -86,7 +76,7 @@ Bot.prototype.generateBlogPost = function() {
   let count = 0;
 
   while (count < 5) {
-    const task = count === 0 ? this.createImage() : this.createSentence();
+    const task = count === 0 ? this.createImage() : this.createSentence(8);
 
     sentences.push(task);
     count += 1;
