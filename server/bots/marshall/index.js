@@ -9,10 +9,15 @@ const Marshall = new Bot({
   index: 0,
   keywords: 'server/bots/marshall/keywords.txt',
   filepath: 'server/bots/marshall/content.txt',
-  jobs: {
-    twitter: '00 00 01,04,07,10,13,16,22 * * *',
-    blog: '00 00,30 * * * *'
-  },
+  jobs: [
+    {
+      type: 'blog',
+      crontab: '00 00,30 * * * *'
+    },{
+      type: 'twitter',
+      crontab: '00 00 01,04,07,10,13,16,22 * * *'
+    }
+  ],
   social: true,
   share: {
     twitter: 'https://twitter.com/marshallzBlog'

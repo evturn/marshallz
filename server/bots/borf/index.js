@@ -7,15 +7,19 @@ const Borf = new Bot({
   avatar: 'av-borf.png',
   index: 2,
   keywords: 'server/bots/borf/keywords.txt',
-  filepath: 'server/bots/borf/content.txt',
+  content: 'server/bots/borf/content.txt',
   social: false,
-  jobs:{
-    // blog: '30 07,53 * * * *'
-    blog: '* * * * * *'
-  },
+  jobs: [
+    {
+      type: 'blog',
+      crontab: '* * * * * *'
+    }
+  ],
   keys: {
     giphy: process.env.GIPHY_DEV
   }
 });
 
 module.exports = Borf;
+
+// '30 07,53 * * * *'

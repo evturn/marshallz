@@ -1,8 +1,10 @@
-require("babel-polyfill");
+const Server = require('../public/assets/app.server');
+require('babel-core/register')({
+  only: /server/
+});
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const Server = require('../public/assets/app.server');
 const blogPosts = require('./controllers/blogPosts');
 const bots = require('./bots');
 const webpack = require('webpack');

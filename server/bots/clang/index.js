@@ -9,10 +9,15 @@ const Clang = new Bot({
   index: 1,
   keywords: 'server/bots/clang/keywords.txt',
   filepath: 'server/bots/clang/content.txt',
-  jobs:{
-    blog: '00 15,45 * * * *',
-    twitter: '00 00 00,03,06,09,12,15,21 * * *'
-  },
+  jobs: [
+    {
+      type: 'blog',
+      crontab: '00 15,45 * * * *'
+    },{
+      type: 'twitter',
+      crontab: '00 00 00,03,06,09,12,15,21 * * *'
+    }
+  ],
   social: true,
   share: {
     twitter: 'https://twitter.com/__clang__'

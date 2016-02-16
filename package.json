@@ -34,6 +34,7 @@
     "babel-loader": "^5.4.0",
     "babel-plugin-react-transform": "^1.1.1",
     "babel-polyfill": "^6.5.0",
+    "babel-register": "^6.5.2",
     "babel-runtime": "5.8.20",
     "classnames": "^2.2.1",
     "cron": "^1.1.0",
@@ -85,6 +86,7 @@
     "write-file-webpack-plugin": "^2.1.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.5.1",
     "extract-text-webpack-plugin": "^1.0.1"
   }
 }

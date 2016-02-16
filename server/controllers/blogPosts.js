@@ -14,19 +14,19 @@ exports.all = function(req, res, next) {
     });
 };
 
-function populateBotWithPosts(bot) {
+function populateBotWithPosts(author) {
   return new Promise((resolve, reject) => {
-    const botObj = bot.props();
+    const authorObject = author.props();
 
     BlogPost
-      .find({'bot.username': botObj.username })
+      .find({'author.username': authorObject.username })
       .limit(20)
       .sort({ 'timestamp': 'desc' })
       .exec((err, posts) => {
         if (err) { return (err); }
-        botObj.posts = posts;
+        authorObject.posts = posts;
 
-        resolve(botObj);
+        resolve(authorObject);
       });
   });
 }
@@ -53,22 +53,3 @@ exports.one = function(req, res, next) {
     res.json(result);
   });
 };
-
-// exports.bot = function(req, res, next) {
-//     BlogPost
-//     .find({'bot': { 'username': req.params.username }})
-//     .limit(20)
-//     .sort({ 'timestamp': 'desc' })
-//     .exec((err, posts) => {
-//       if (err) { return (err); }
-//       const data = {
-
-//         posts: posts,
-//         bots: [
-//           marshall.public(),
-//           clang.public()
-//         ]
-//       };
-//       res.json(data);
-//     });
-// };

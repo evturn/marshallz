@@ -7,16 +7,13 @@ const blogPostSchema = new Schema({
   body:        {type: String},
   slug:        {type: String},
   image:       {type: String},
-  author:      {type: String},
   timestamp:   {type: Date, default: Date.now},
-  bot: {
+  author: {
     name:      {type: String},
     username:  {type: String},
+    index:     {type: Number},
     avatar:    {type: String},
-    social:    {type: Boolean},
-    share: {
-      twitter: {type: String}
-    }
+    social:    {type: Boolean}
   }
 });
 

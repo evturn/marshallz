@@ -1,4 +1,3 @@
-'use strict';
 const fs = require('fs');
 const Statement = require('./statement');
 const request = require('request');
@@ -9,22 +8,21 @@ const capitalize = utils.capitalize;
 const slugify = utils.slugify;
 const BlogPost = require('../models/blogPost');
 
-function mergeProps(props) {
-  for (let prop in props) {
-    this[prop] = props[prop];
-  }
-};
-
-class Bot {
-  constructor(props) {
-    mergeProps.call(this, props);
-
-    this.postToBlog = this.postToBlog;
-    this.props = this.props;
-    this.content = new Statement({files: this.filepath}).start(capitalize).end();
-
-    this.init();
-  }
+const Bot = {
+  init() {
+    this.jobs.forEach(job => {
+      switch (job.type) {
+        case 'blog': {
+          new Cron(job.crontab, () => this.generateBlogPost(), null, true);
+          break;
+        }
+        case 'twitter': {
+          new Cron(job.crontab, () => this.generateTweet(), null, true);
+          break;
+        }
+      }
+    });
+  },
   props() {
     return {
       name: this.name,
@@ -33,55 +31,12 @@ class Bot {
       avatar: this.avatar,
       social: this.social
     };
-  }
-  init() {
-    if (this.social) {
-      this.postToTwitter = this.postToTwitter;
-      new Cron(this.jobs.twitter, () => this.generateTweet(), null, true);
-    }
-
-    new Cron(this.jobs.blog, () => this.generateBlogPost(), null, true);
-  }
-
-  saveBlogPost(post) {
-    const blogPost = new BlogPost(post);
-
-      blogPost.save((err, post) => {
-        if (err) {
-          this.showError(err);
-        }
-
-        this.showSuccess(post);
-      })
-  }
-  generateTweet() {
-    this.tweetRunner();
-  }
-  generateBlogPost() {
-    let count = 0;
-    let sentences = [];
-
-    while (count < 5) {
-      if (count !== 4) {
-        sentences.push(this.createSentence());
-      } else {
-        sentences.push(this.getImageUrl());
-      }
-
-      count += 1;
-    }
-
-    Promise.all(sentences)
-      .then(v => {
-        let [title, ...body] = v;
-
-        console.log(body);
-      })
-
-  }
+  },
   createSentence() {
+    const content = new Statement({ files: this.content }).start(capitalize).end()
+
     return new Promise((resolve, reject) => {
-      this.content.runProcess((err, data) => {
+      content.runProcess((err, data) => {
         if (err) {
           reject(this.showError(err));
         } else {
@@ -89,8 +44,8 @@ class Bot {
         }
       });
     });
-  }
-  getImageUrl() {
+  },
+  createImage() {
     return new Promise((resolve, reject) => {
       fs.readFile(this.keywords, 'utf8', (err, data) => {
         const query = random(data.split(/(?:\. |\n)/ig));
@@ -110,52 +65,71 @@ class Bot {
         });
       });
     });
-  }
-  tweetRunner() {
-    const write = () => {
-      this.content.runProcess(function(err, text) {
+  },
+  generateBlogPost() {
+    let sentences = [];
+    let count = 0;
+
+    while (count < 5) {
+      const task = count === 0 ? this.createImage() : this.createSentence();
+
+      sentences.push(task);
+      count += 1;
+    }
+
+    Promise.all(sentences)
+      .then(value => {
+        const [image, title, ...body] = value;
+        console.log(value);
+        this.saveBlogPost({
+          slug: slugify(title),
+          title: title,
+          body: body.join('. '),
+          author: this.props(),
+          image: image
+        });
+      })
+      .catch(err => this.showError(err));
+  },
+  saveBlogPost(post) {
+    const blogPost = new BlogPost(post);
+
+      blogPost.save((err, post) => {
         if (err) {
-          it.throw(err);
-        } else if (text.length > 140) {
-          write();
-        } else {
-          it.next(text);
-        }
-      });
-    };
-
-    const twitter = (text) => {
-      this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
-        if (error) {
-          this.showError(error);
+          this.showError(err);
         }
 
-        this.showSuccess(JSON.parse(response.body));
-      });
-    }
-
-    function *tweetGenerator() {
-      try {
-        const text = yield write();
-        twitter(text);
-      } catch (err) {
-        console.error(err);
+        this.showSuccess(post);
+      })
+  },
+  generateTweet(apiKeys) {
+    this.createSentence()
+    this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
+      if (error) {
+        this.showError(error);
       }
-    }
 
-    const it = tweetGenerator();
-    it.next();
-  }
+      this.showSuccess(JSON.parse(response.body));
+    });
+  },
   showError(err) {
     console.log(`======${this.name} error======`);
     console.log(err);
     console.log(`======${this.name} error======`);
-  }
+  },
   showSuccess(res) {
     console.log(`======${this.name} success=====`);
     console.log(res);
     console.log(`======${this.name} success=====`);
   }
-}
+};
 
-module.exports = Bot;
+module.exports = function botFactory(props) {
+  const bot = Object.assign(Bot, props, {
+    keys: {
+      giphy: process.env.GIPHY_DEV
+    }
+  });
+
+  bot.init();
+};
