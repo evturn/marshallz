@@ -18,7 +18,7 @@ class App extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.location !== this.props.location) {
-      createMemoryHistory(this.props.location);
+      createMemoryHistory(nextProps.location);
     }
   }
   render() {
