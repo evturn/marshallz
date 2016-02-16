@@ -1,5 +1,3 @@
-'use strict';
-const async = require('async');
 const fs = require('fs');
 const path = require('path');
 const utils = require('./utils');
@@ -8,58 +6,36 @@ const injectNewlines = utils.injectNewlines;
 const capitalize = utils.capitalize;
 
 class Statement {
-constructor(props) {
-    if (!props) {
-      props = {};
-    }
+  constructor(props) {
     this.files = this.assureDataType(props.files);
-    this.wordCount = props.wordCount
-    this.bank = {};
+    this.wordCount = props.wordCount;
+    this.wordTree = {};
     this.sentence = '';
   }
-  shouldStopWriting() {
-    return this.sentence.split(' ').length > this.wordCount - 2;
-  }
-  readFile(file) {
-    return (callback) => {
-      fs.readFile(file, 'utf8', (err, data) => {
-        if (err) {
-          if (err.code === 'ENOENT' && !utils.ofType(file)) {
-            return callback(null, file);
-          }
-
-          return callback(err);
-        }
-
-        process.nextTick(() => callback(null, data));
-      });
-    };
-  }
-  countTotal(word) {
-    let total = 0;
-
-    for (let prop in this.bank[word]) {
-      if (this.bank[word].hasOwnProperty(prop)) {
-        total += this.bank[word][prop];
-      }
-    }
-    return total;
-  }
   init() {
-    const words = this.files.map(file => {
+    const words = this.concatWordsToSentence();
+
+    return Promise.all(words).then(value => {
+      const [sentence] = value;
+
+      return sentence;
+    });
+  }
+  concatWordsToSentence() {
+    return this.files.map(file => {
       return new Promise((resolve, reject) => {
         fs.readFile(file, 'utf8', (err, data) => {
           if (err) {
             console.log(err);
           }
-          let words, currentWord;
 
           this.createWordTree(data.toString());
-          currentWord = capitalize(this.bank);
+
+          let currentWord = capitalize(this.wordTree);
           this.sentence = currentWord;
 
-          while (this.bank[currentWord] && !this.shouldStopWriting()) {
-            currentWord = utils.select(this.bank[currentWord]);
+          while (this.wordTree[currentWord] && !this.shouldStopWriting()) {
+            currentWord = utils.select(this.wordTree[currentWord]);
             this.sentence += ' ' + currentWord;
           }
 
@@ -67,30 +43,9 @@ constructor(props) {
         })
       })
     });
-
-    return Promise.all(words).then(v => {
-      const [sentence] = v
-
-      return sentence;
-    });
   }
-  runProcess(callback) {
-    const readFiles = this.files.map(file => this.readFile(file));
-
-      async.parallel(readFiles, (err, results) => {
-        let words, currentWord;
-
-        this.createWordTree(results.toString());
-        currentWord = capitalize(this.bank);
-        this.sentence = currentWord;
-
-        while (this.bank[currentWord] && !this.shouldStopWriting()) {
-          currentWord = utils.select(this.bank[currentWord]);
-          this.sentence += ' ' + currentWord;
-        }
-
-        callback(null, this.sentence.trim());
-      });
+  shouldStopWriting() {
+    return this.sentence.split(' ').length > this.wordCount - 2;
   }
   createWordTree(file) {
     injectNewlines(file).forEach(lines => {
@@ -101,14 +56,14 @@ constructor(props) {
           let current = normalize(words[i]);
           let next = normalize(words[i + 1]);
 
-          if (!this.bank[current]) {
-            this.bank[current] = {};
+          if (!this.wordTree[current]) {
+            this.wordTree[current] = {};
           }
 
-          if (!this.bank[current][next]) {
-            this.bank[current][next] = 1;
+          if (!this.wordTree[current][next]) {
+            this.wordTree[current][next] = 1;
           } else {
-            this.bank[current][next] += 1;
+            this.wordTree[current][next] += 1;
           }
         });
     });
