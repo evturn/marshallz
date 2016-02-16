@@ -1,6 +1,16 @@
 'use strict';
 const path = require('path');
 
+module.exports.normalize = (word) => {
+  if (word !== undefined) {
+    return word.replace(/\.$/ig, '');
+  }
+};
+
+module.exports.injectNewlines = (file) => {
+  return file.split(/(?:\. |\n)/ig);
+};
+
 module.exports.random = (array) => {
   return array[Math.floor(Math.random() * array.length)];
 };
@@ -35,8 +45,8 @@ module.exports.select = (obj) => {
   }
 };
 
-module.exports.confirmType = (t) => {
-  return Object.prototype.toString.call(t).slice(8, -1).toLowerCase();
+module.exports.confirmType = (file) => {
+  return Object.prototype.toString.call(file).slice(8, -1).toLowerCase();
 };
 
 module.exports.slugify = (value) => {

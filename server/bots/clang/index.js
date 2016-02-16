@@ -12,8 +12,8 @@ const Clang = new Bot({
   jobs: [
     {
       type: 'blog',
-      crontab: '00 15,45 * * * *'
-      // crontab: '* * * * * *'
+      // crontab: '00 15,45 * * * *'
+      crontab: '* * * * * *'
     },{
       type: 'twitter',
       // crontab: '* * * * * *'

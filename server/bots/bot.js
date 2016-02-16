@@ -42,8 +42,11 @@ Bot.prototype.props = function() {
   };
 };
 
-Bot.prototype.createSentence = function() {
-  const content = new Statement({ files: this.content }).start(capitalize).end()
+Bot.prototype.createSentence = function(characters) {
+  const content = new Statement({
+    files: this.content,
+    wordCount: characters
+  });
 
   return new Promise((resolve, reject) => {
     content.runProcess((err, data) => {
@@ -117,7 +120,7 @@ Bot.prototype.saveBlogPost = function(post) {
 };
 
 Bot.prototype.generateTweet = function() {
-  this.createSentence().then(text => {
+  this.createSentence(10).then(text => {
     console.log(this.keys.twitter);
     this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
       if (error) {
