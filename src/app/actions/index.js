@@ -73,7 +73,7 @@ const createRequest = (endpoint, dispatch) => {
         }
       }))
     })
-    .then(()      => createTimeout(transitionDoneAction, 1000, dispatch))
+    .then(()      => createTimeout(transitionDoneAction, 2000, dispatch))
     .catch(err    => dispatch(networkErrorAction(err)));
 };
 
