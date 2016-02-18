@@ -15,18 +15,14 @@ function fetchInitialData(callback) {
     .catch(err => console.log(err));
 }
 
-function renderFullPage(renderedContent, initialState, head={
-  title: 'Marshallz Blog',
-  meta: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
-  link: '<link rel="stylesheet" href="/assets/css/app.css"/>'
-}) {
+function renderFullPage(renderedContent, initialState) {
   return `
     <!doctype html>
     <html lang="en">
     <head>
-      ${head.title}
-      ${head.meta}
-      ${head.link}
+      ${headconfig.title}
+      ${headconfig.meta}
+      ${headconfig.link}
     </head>
     <body>
 
@@ -57,28 +53,30 @@ export default function render(req, res) {
     } else if (renderProps) {
       fetchInitialData(data => {
         const store = configureStore({
-          blog: {
-            post: null,
+          data: {
             posts: data.posts,
-            isFetching: false
-          },
-          author: {
-            author: null,
-            posts: null,
             authors: data.authors,
-            isFetching: false
+            isFetching: false,
+            done: false,
+            section: null,
+            detail: {
+              post: null,
+              author: null,
+            },
+            author: {
+              posts: null,
+              author: null
+            }
           }
-        });
+        })
         const initialState = store.getState();
-        const renderedContent = renderToString(
+        const virtualDOM = (
           <Provider store={store}>
             <RouterContext {...renderProps} />
-          </Provider>);
-        const renderedPage = renderFullPage(renderedContent, initialState, {
-          title: headconfig.title,
-          meta: headconfig.meta,
-          link: headconfig.link
-        });
+          </Provider>
+        );
+        const renderedPage = renderFullPage(renderToString(virtualDOM), initialState);
+
         res.status(200).send(renderedPage);
       });
     } else {

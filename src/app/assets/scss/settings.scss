@@ -3,6 +3,23 @@ $font-sans-serif:         'Monofett', sans-serif;
 $font-book:               'Roboto Slab', serif;
 $font-sans:               'Open Sans', sans;
 
+$mobile:                  'min-width: 320px';
+$break:                   'min-width: 600px';
+$tablet-portrait:         'min-width: 768px';
+$tablet:                  'min-width: 1024px';
+$desktop:                 'min-width: 1025px';
+$desktop-md:              'min-width: 1440px';
+$desktop-lg:              'min-width: 1920px';
+
+
+$tx-light:                #FEFEFE;
+$bg-light:                #FEFEFE;
+$tx-dark:                 #2C3235;
+$bg-dark:                 #2C3235;
+
+
+
+
 $font-family: $font-serif;
 
 $xs:                      400px;

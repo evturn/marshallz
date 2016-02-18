@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Post from '../components/Post';
+import Spinner from '../components/Spinner';
+import Posts from '../components/Posts';
 import classNames from 'classnames/bind';
 import styles from 'assets/scss/components/_blog-posts';
-import { navigateToAuthor } from '../actions/author';
+import { transitionToAuthor, unmount } from '../actions';
 
 const cx = classNames.bind(styles);
 
@@ -13,36 +14,43 @@ class Author extends Component {
   }
   componentDidMount() {
     const { params, authors, dispatch } = this.props;
+    const [ author ] = authors.filter(author => author.username === params.username);
 
-    navigateToAuthor(dispatch, params.username, authors);
+    transitionToAuthor(author, dispatch);
+  }
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+
+    unmount(dispatch);
   }
   render() {
-    const { posts } = this.props;
+    const { isFetching, posts, author, done } = this.props;
 
-    if (posts === undefined || posts === null) {
-      return <div />;
-    } else if (posts !== null){
-      return (
-        <div className={cx('blog-posts')}>{posts.map((blogPost, i) =>
-          <Post key={i} {...blogPost} />
-        )}</div>
-      );
+    if (posts !== null) {
+      console.log('AUTHOR POSTS: ', posts);
+      return <Posts posts={posts} />;
+    } else {
+      return <Spinner isFetching={isFetching} done={done} image={`/img/av-marshall.png`} />;
     }
   }
 }
 
 Author.propTypes = {
-  authors: PropTypes.array,
   author: PropTypes.object,
   posts: PropTypes.array,
+  authors: PropTypes.array,
+  isFetching: PropTypes.bool,
+  done: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    authors: state.author.authors,
-    author: state.author.author,
-    posts: state.author.posts
+    author: state.data.author.author,
+    posts: state.data.author.posts,
+    authors: state.data.authors,
+    isFetching: state.data.isFetching,
+    done: state.data.done
   };
 }
 

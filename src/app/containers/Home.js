@@ -1,20 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Post from '../components/Post';
-import classNames from 'classnames/bind';
-import styles from 'assets/scss/components/_blog-posts';
-
-const cx = classNames.bind(styles);
+import { transitionToHome, unmount } from '../actions';
+import Posts from '../components/Posts';
 
 class Home extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    const { dispatch } = this.props;
+    transitionToHome(dispatch);
+  }
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+
+    unmount(dispatch);
+  }
   render() {
     return (
-      <div className={cx('blog-posts')}>{this.props.posts.map((blogPost, i) =>
-        <Post key={i} {...blogPost} />
-      )}</div>
+      <Posts
+        posts={this.props.posts}
+        isFetching={this.props.isFetching}
+      />
     );
   }
 }
@@ -22,15 +29,21 @@ class Home extends Component {
 Home.propTypes = {
   posts: PropTypes.array,
   authors: PropTypes.array,
+  detail: PropTypes.object,
+  author: PropTypes.object,
   isFetching: PropTypes.bool,
+  done: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    posts: state.blog.posts,
-    authors: state.author.authors,
-    isFetching: state.blog.isFetching
+    detail: state.data.detail,
+    author: state.data.author,
+    posts: state.data.posts,
+    authors: state.data.authors,
+    isFetching: state.data.isFetching,
+    done: state.data.done
   };
 }
 

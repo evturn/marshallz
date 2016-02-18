@@ -50,6 +50,8 @@ exports.one = function(req, res, next) {
   });
 
   dbQuery.exec((err, result) => {
-    res.json(result);
+    res.locals.detail.post = result
+
+    res.json(res.locals);
   });
 };

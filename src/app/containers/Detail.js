@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getBlogPost } from '../actions/blog'
+import { transitionToDetail, unmount } from '../actions';
 import Post from '../components/Post';
+import Spinner from '../components/Spinner';
 import classNames from 'classnames/bind';
 import styles from 'assets/scss/components/_blog-posts';
 
@@ -14,30 +15,39 @@ class Detail extends Component {
   componentDidMount() {
     const { dispatch, params } = this.props;
 
-    dispatch(getBlogPost(params.slug, dispatch));
+    transitionToDetail(params.slug, dispatch);
+  }
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+
+    unmount(dispatch);
   }
   render() {
-    const { isFetching, post } = this.props;
-    const content = post !== null ? <Post {...post} /> : <div />;
+    const { isFetching, post, done } = this.props;
 
     return (
       <div className={cx('blog-posts')}>
-        {content}
+        <Spinner isFetching={isFetching} done={done} image={`/img/av-marshall.png`} />
+        {post === null ? null : <Post {...post} />}
       </div>
-    )
+    );
   }
 }
 
 Detail.propTypes = {
   post: PropTypes.object,
+  author: PropTypes.object,
   isFetching: PropTypes.bool,
+  done: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    post: state.blog.post,
-    isFetching: state.blog.isFetching
+    post: state.data.detail.post,
+    author: state.data.detail.author,
+    isFetching: state.data.isFetching,
+    done: state.data.done
   };
 }
 
