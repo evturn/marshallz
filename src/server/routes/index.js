@@ -1,9 +1,9 @@
 import Server from '../../../public/assets/app.server';
-import blogPosts from '../controllers/blogPosts';
+import { all, populateAuthors, detail, send } from '../controllers/blogPosts';
 
 export default function routes(app) {
-  app.get('/blogPost', blogPosts.all, blogPosts.populateEachBotWithPosts, blogPosts.send);
-  app.get('/api/post/:slug', blogPosts.one);
+  app.get('/blogPost', all, populateAuthors, send);
+  app.get('/api/post/:slug', detail);
 
   app.get('*', (req, res, next) => Server(req, res));
 

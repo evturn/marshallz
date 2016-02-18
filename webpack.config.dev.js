@@ -47,6 +47,7 @@ module.exports = {
           exclude: /node_modules/,
           include: PATHS.app
         },
+        { test: /\.json$/, loader: 'json-loader'},
         { test: /\.png$/, loader: 'url-loader' },
         { test: /\.jpg$/, loader: 'file-loader' },
         { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'},
