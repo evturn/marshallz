@@ -1,8 +1,7 @@
 import fs from 'fs';
-import SentenceGenerator from './sentence-generator';
+import SentenceGenerator from 'sentence-generator';
 import request from 'request';
 import { CronJob as Cron } from 'cron';
-import { random, capitalize, slugify } from './utils';
 import BlogPost from '../models/blogPost';
 
 export default function Bot(props) {
@@ -39,13 +38,6 @@ Bot.prototype.props = function() {
   };
 };
 
-Bot.prototype.createSentence = function(characters) {
-  return new SentenceGenerator({
-    files: this.content,
-    wordCount: characters
-  }).init();
-};
-
 Bot.prototype.createImage = function() {
   return new Promise((resolve, reject) => {
     fs.readFile(this.keywords, 'utf8', (err, data) => {
@@ -69,24 +61,31 @@ Bot.prototype.createImage = function() {
 };
 
 Bot.prototype.generateBlogPost = function() {
-  let sentences = [];
-  let count = 0;
+  let options = {
+    file: this.content,
+    count: 10
+  };
+  const createTitle = SentenceGenerator(options);
+  const title = createTitle();
 
-  while (count < 7) {
-    const task = count === 0 ? this.createImage() : this.createSentence(10);
+  options.punctuation = true;
 
-    sentences.push(task);
-    count += 1;
+  const createSentence = SentenceGenerator(options);
+  let sentences = createSentence();
+  let i = 0;
+
+  while (i < 6) {
+    sentences += ' ' + createSentence();
+    i += 1;
   }
 
-  Promise.all(sentences)
-    .then(value => {
-      const [image, title, ...body] = value;
+  this.createImage()
+    .then(image => {
 
       this.saveBlogPost({
         slug: slugify(title),
         title: title,
-        body: body.join('. '),
+        body: sentences,
         author: this.props(),
         image: image
       });
@@ -107,16 +106,20 @@ Bot.prototype.saveBlogPost = function(post) {
 };
 
 Bot.prototype.generateTweet = function() {
-  this.createSentence(16).then(text => {
-    console.log(this.keys.twitter);
-    this.keys.twitter.post('statuses/update', { status: text }, (error, tweet, response) => {
-      if (error) {
-        this.showError(error);
-      }
-
-      this.showSuccess(JSON.parse(response.body));
-    });
+  const createTweet = SentenceGenerator({
+    file: this.content,
+    count: 16
   });
+  const status = { status: createTweet() };
+  const callback = (error, tweet, response) => {
+    if (error) {
+      this.showError(error);
+    }
+
+    this.showSuccess(JSON.parse(response.body));
+  };
+
+  this.keys.twitter.post('statuses/update', status, callback);
 };
 
 Bot.prototype.showError = function(err) {
@@ -130,3 +133,13 @@ Bot.prototype.showSuccess = function(res) {
   console.log(res);
   console.log(`======${this.name} success=====`);
 };
+
+function slugify(value) {
+  value = value || '';
+
+  return value.trim().replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-').replace(/^-+|-+$/g,'').toLowerCase();
+}
+
+function random(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
