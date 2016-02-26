@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 import BlogPost from '../models/blogPost';
 import bots from '../bots';
 
-exports.all = function(req, res, next) {
+export const all = (req, res, next) => {
   BlogPost
     .find({})
-    .limit(20)
+    .limit(100)
     .sort({ 'timestamp': 'desc' })
     .exec((err, posts) => {
       if (err) { return (err); }
@@ -14,37 +14,33 @@ exports.all = function(req, res, next) {
     });
 };
 
-function populateBotWithPosts(author) {
-  return new Promise((resolve, reject) => {
-    const authorObject = author.props();
+export const populateAuthors = (req, res, next) => {
+  const populated = bots.map(author => {
+    return new Promise((resolve, reject) => {
+      const authorObject = author.props();
 
-    BlogPost
-      .find({'author.username': authorObject.username })
-      .limit(20)
-      .sort({ 'timestamp': 'desc' })
-      .exec((err, posts) => {
-        if (err) { return (err); }
-        authorObject.posts = posts;
+      BlogPost
+        .find({'author.username': authorObject.username })
+        .limit(100)
+        .sort({ 'timestamp': 'desc' })
+        .exec((err, posts) => {
+          if (err) {
+            return (err);
+          }
 
-        resolve(authorObject);
-      });
+          authorObject.posts = posts;
+          resolve(authorObject);
+        });
+    });
   });
-}
 
-exports.populateEachBotWithPosts = function(req, res, next) {
-  const populated = bots.map(bot => populateBotWithPosts(bot));
-
-  Promise.all(populated).then(v => {
-    res.locals.authors = v;
+  Promise.all(populated).then(data => {
+    res.locals.authors = data;
     next();
   });
 };
 
-exports.send = function(req, res, next) {
-  res.json(res.locals);
-};
-
-exports.one = function(req, res, next) {
+export const detail = (req, res, next) => {
   const dbQuery = BlogPost.findOne({
     'slug': req.params.slug
   });
@@ -52,4 +48,8 @@ exports.one = function(req, res, next) {
   dbQuery.exec((err, result) => {
     res.json(result);
   });
+};
+
+export const send = (req, res, next) => {
+  res.json(res.locals);
 };

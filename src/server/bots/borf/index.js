@@ -12,6 +12,7 @@ export default new Bot({
     {
       type: 'blog',
       crontab: '30 07,53 * * * *'
+      // crontab: '* * * * * *'
     }
   ],
   keys: {
