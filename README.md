@@ -14,5 +14,8 @@ Runs babel to compile node server for production
 ##### `npm run build`
 Runs both babel and webpack for production
 
+##### `npm run test`
+Runs the production build of the app
+
 ##### `npm run serve`
-Run the app in production
+Runs the production build of the app in the background with no hangup
