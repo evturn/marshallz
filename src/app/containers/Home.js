@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { transitionToHome, unmount } from '../actions';
-import Posts from '../components/Posts';
+import Posts from 'components/Posts';
+import { transitionToHome, unmount } from 'actions';
 
 class Home extends Component {
   constructor(props) {

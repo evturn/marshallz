@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import classNames from 'classnames/bind';
-import styles from 'assets/scss/components/_blog-post';
 import { IntlProvider, FormattedRelative } from 'react-intl';
-const cx = classNames.bind(styles);
+import classNames from 'classnames/bind';
+import css from 'less/components/blog-post.less';
+
+const cx = classNames.bind(css);
 
 class Post extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Post extends Component {
 
           <div className={cx('post-item__header')}>
             <Link to={{ pathname: `/author/${author.username}` }}>
-              <img className={cx('post-item__avatar')} src={`/img/${author.avatar}`} />
+              <img className={cx('post-item__avatar')} src={require(`images/${author.avatar}`)} />
             </Link>
             <div className={cx('post-item__content-meta')}>
               <div className={cx('post-item__content-author')}>

@@ -1,4 +1,2 @@
-require('babel-core/register')({
-  only: /server/
-});
-require('./config');
+require('babel-register')({});
+require('./routes');

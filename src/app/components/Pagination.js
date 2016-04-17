@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import Paginator from 'react-pagify';
-import Post from '../components/Post';
-import segmentize from 'segmentize';
-import range from 'lodash.range';
+import Post from 'components/Post';
 import classNames from 'classnames/bind';
-import styles from 'assets/scss/components/_blog-posts';
+import css from 'less/components/blog-posts.less';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(css);
 
 class Pagination extends Component {
   constructor(props) {

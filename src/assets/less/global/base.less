@@ -1,0 +1,79 @@
+@import url(https://fonts.googleapis.com/css?family=Monofett);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100);
+
+@import url('./mixins.less');
+
+.inner {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  max-width: 1200px;
+}
+
+.site-container {
+  .clearfix();
+  width: 100%;
+}
+.site-content {
+  .clearfix();
+  position: relative;
+}
+
+button:focus {
+  outline: 0;
+}
+body {
+  font-family: 'Droid Serif', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+}
+/* Base Styles
+-------------------------------------------------------- */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes bugfix {
+  from {padding:0;}
+  to {padding:0;}
+}
+
+/* Resets
+---------------------*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ol, li {
+  list-style-type: none;
+}
+
+/* Links
+---------------------*/
+a,
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+button:focus {
+  outline: 0;
+}

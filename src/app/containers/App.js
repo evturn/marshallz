@@ -1,13 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SiteHeader from 'components/SiteHeader';
-import classNames from 'classnames/bind';
-import 'assets/scss/main';
-import bg from 'assets/images/bg.jpg';
-import styles from 'assets/scss/layout/_page';
+import 'less/global/style.less';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
-
-const cx = classNames.bind(styles);
 
 class App extends Component {
   constructor(props) {
@@ -36,10 +31,10 @@ class App extends Component {
   }
   render() {
     return (
-      <div style={{ backgroundImage: `url(${bg})` }}>
-        <div className={cx('site-container')}>
+      <div style={{ backgroundImage: `url(${require('images/bg.jpg')})` }}>
+        <div className="site-container">
           <SiteHeader />
-          <div className={cx('site-content')}>
+          <div className="site-content">
             {this.props.children}
           </div>
         </div>

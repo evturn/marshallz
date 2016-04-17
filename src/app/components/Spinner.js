@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
-import styles from 'assets/scss/components/_spinner.scss';
+import css from 'less/components/spinner.less';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(css);
 
 class Spinner extends Component {
   constructor(props) {

@@ -1,6 +1,5 @@
+.DS_Store
 node_modules
 *.log
-.DS_Store
 *.hot-update.js
-dist
-public/assets
+lib

@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { transitionToDetail, unmount } from '../actions';
-import Post from '../components/Post';
-import Spinner from '../components/Spinner';
+import Post from 'components/Post';
+import Spinner from 'components/Spinner';
+import { transitionToDetail, unmount } from 'actions';
 import classNames from 'classnames/bind';
-import styles from 'assets/scss/components/_blog-posts';
+import css from 'less/components/blog-posts.less';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(css);
 
 class Detail extends Component {
   constructor(props) {

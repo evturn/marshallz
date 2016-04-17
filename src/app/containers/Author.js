@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Spinner from '../components/Spinner';
-import Posts from '../components/Posts';
+import Spinner from 'components/Spinner';
+import Posts from 'components/Posts';
+import { transitionToAuthor, unmount } from 'actions';
 import classNames from 'classnames/bind';
-import styles from 'assets/scss/components/_blog-posts';
-import { transitionToAuthor, unmount } from '../actions';
+import css from 'less/components/blog-posts.less';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(css);
 
 class Author extends Component {
   constructor(props) {

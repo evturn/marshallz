@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Post from '../components/Post';
-import Pagination from '../components/Pagination';
+import Post from 'components/Post';
 import classNames from 'classnames/bind';
-import styles from 'assets/scss/components/_blog-posts';
+import css from 'less/components/blog-posts.less';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(css);
 
 class Posts extends Component {
   constructor(props) {
@@ -15,9 +14,9 @@ class Posts extends Component {
     const { posts } = this.props;
 
     return (
-      <div className={cx('blog-posts')}>
-        <Pagination posts={posts} />
-      </div>
+      <div className={cx('blog-posts')}>{posts.map((post, i) =>
+        <Post key={i} {...post} />
+      )}</div>
     );
   }
 }
