@@ -25,12 +25,9 @@ export default webpack([
           test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           loader: 'url-loader'
         },{
-          test: /.*\.(gif|png|jpe?g|svg)$/i,
-          loaders: [
-            `file?hash=sha512&digest=hex&name=${PATHS.static.img}`,
-            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-          ],
-          exclude: /less/
+          test: /\.less$/,
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
+          include: /global/
         },{
           test: /\.less$/,
           loader: ExtractTextPlugin.extract(
@@ -43,7 +40,9 @@ export default webpack([
     },
     resolve: { extensions, modulesDirectories, alias },
     plugins: [
-      new CleanWebpackPlugin(['dist'], { root: path.join(__dirname, '..', '..') }),
+      new CleanWebpackPlugin(['dist'], {
+        root: path.join(__dirname, '..', '..')
+      }),
       new webpack.optimize.OccurenceOrderPlugin(),
       new ExtractTextPlugin(PATHS.static.css),
       new webpack.optimize.UglifyJsPlugin({
@@ -60,11 +59,12 @@ export default webpack([
     ]
   }, {
     name: 'server-side rendering',
+    devtool: 'source-map',
+    target: 'node',
     context: PATHS.root,
     entry: {
       ser: '../app/server'
     },
-    target: 'node',
     output: {
       path: PATHS.output,
       filename: PATHS.static.js,
@@ -74,15 +74,9 @@ export default webpack([
     module: {
       loaders: loaders.concat([
         {
-          test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          loader: 'url-loader'
-        },{
-          test: /.*\.(gif|png|jpe?g|svg)$/i,
-          loaders: [
-            `file?hash=sha512&digest=hex&name=${PATHS.static.img}`,
-            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-          ],
-          exclude: /less/
+          test: /\.less$/,
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
+          include: /global/
         },{
           test: /\.less$/,
           loader: ExtractTextPlugin.extract(

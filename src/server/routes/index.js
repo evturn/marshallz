@@ -8,6 +8,7 @@ import * as blog from './blogPosts';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from '../../webpack/dev.js';
 import Server from '../../../dist/js/ser';
 
 const app = express();
@@ -17,7 +18,7 @@ mongoose.connection.on('error', console.error.bind(console, 'connection error:')
 mongoose.connection.once('open', _ => console.log('DB connected'));
 
 if (process.env.NODE_ENV === 'development') {
-  const compiler = webpack(require('../../webpack/dev.js'));
+  const compiler = webpack(config);
 
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,

@@ -16,7 +16,8 @@ export default {
   entry: {
     app: [
       '../app/client',
-      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true']
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
+    ]
   },
   output: {
     path: PATHS.output,
@@ -37,8 +38,12 @@ export default {
   module: {
     loaders: loaders.concat([
       {
-        test: /\.(gif|png|jpe?g|svg|eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader'
+      },{
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
+        include: /global/
       },{
         test: /\.less$/,
         loader: 'style!css?module&localIdentName=[local]__[hash:base64:5]' +

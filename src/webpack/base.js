@@ -30,7 +30,7 @@ export const loaders = [
     test: /\.js$|\.jsx$/,
     loader: 'babel',
     exclude: /node_modules/,
-    include: PATHS.src
+    include: PATHS.app
   },{
     test: /\.css$/,
     loaders: ['style', 'css']
@@ -38,15 +38,21 @@ export const loaders = [
     test: /\.json$/,
     loader: 'json-loader'
   },{
+    test: /.*\.(png|jpe?g|svg)$/i,
+    loaders: [
+      `file?hash=sha512&digest=hex&name=${PATHS.static.img}`,
+      'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
+    ],
+    exclude: /less/
+  },{
+    test: /\.(gif|eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: 'url-loader'
+  },{
     test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'file-loader'
   },{
     test: /\.woff2(\?\S*)?$/,
     loader: 'url-loader?limit=100000'
-  },{
-    test: /\.less$/,
-    loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
-    include: /global/
   }
 ];
 
