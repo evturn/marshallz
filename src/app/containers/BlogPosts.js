@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { filterPosts } from 'actions';
-import Posts from 'components/Posts';
+import Post from 'components/Post';
 import Pagination from 'components/Pagination';
 import classNames from 'classnames/bind';
 import css from 'less/components/blog-posts.less';
@@ -27,8 +27,9 @@ class BlogPosts extends Component {
     const { showing, pagination, pathname } = this.props;
 
     return (
-      <div className={'something'}>
-        <Posts posts={showing} />
+      <div className={cx('posts')}>{showing.map((post, i) =>
+        <Post key={i} {...post} />
+      )}
         <Pagination pathname={pathname} {...pagination} />
       </div>
     );

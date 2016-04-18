@@ -16,7 +16,6 @@ export default (req, res) => {
       fetchLocals(res => configureStore({ blog: res.blog }))
       .then(store => {
         const initialState = store.getState();
-        console.log(initialState);
         const html = renderToString(
           <Provider store={store}>
             <RouterContext {...renderProps} />
