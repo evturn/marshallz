@@ -14,19 +14,19 @@ class Post extends Component {
     } = this.props;
 
     return (
-      <div className={cx('post-item')}>
-        <div className={cx('post-item__content')}>
+      <div className={cx('post')}>
+        <div className={cx('content')}>
 
-          <div className={cx('post-item__header')}>
+          <div className={cx('header')}>
             <Link to={{ pathname: `/author/${author.username}` }}>
-              <img className={cx('post-item__avatar')} src={require(`images/${author.avatar}`)} />
+              <img className={cx('avatar')} src={require(`images/${author.avatar}`)} />
             </Link>
-            <div className={cx('post-item__content-meta')}>
-              <div className={cx('post-item__content-author')}>
-                <Link to={{ pathname: `/author/${author.username}` }}>{author.name} <span className={cx('post-item__author-tag')}>Author</span></Link>
+            <div className={cx('meta')}>
+              <div className={cx('author')}>
+                <Link to={{ pathname: `/author/${author.username}` }}>{author.name} <span className={cx('tag')}>Author</span></Link>
               </div>
               <IntlProvider locale="en">
-                <div className={cx('post-item__content-timestamp')}>
+                <div className={cx('timestamp')}>
                   <FormattedRelative value={timestamp} />
                 </div>
               </IntlProvider>
@@ -34,12 +34,12 @@ class Post extends Component {
           </div>
 
           <Link to={{ pathname: `/post/${slug}` }}>
-            <div className={cx('post-item__content-image')}  style={{ backgroundImage: `url(${image})` }}></div>
-            <div className={cx('post-item__content-title')}>{title}</div>
+            <div className={cx('image')}  style={{ backgroundImage: `url(${image})` }}></div>
+            <div className={cx('title')}>{title}</div>
           </Link>
 
-          <div className={cx('post-item__content-body')}>{body}</div>
-          <div className={cx('post-item__content-social')}>
+          <div className={cx('body')}>{body}</div>
+          <div className={cx('social')}>
             {author.social ? this.renderShareLinks() : null}
           </div>
         </div>
@@ -50,7 +50,7 @@ class Post extends Component {
     const { username, share } = this.props.author;
 
     return (
-      <div className={cx('post-item__content-author')}>
+      <div className={cx('author')}>
         <Link to={{ pathname: share.twitter }} target="_blank">{`${username} on Twitter`}</Link>
       </div>
     );

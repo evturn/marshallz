@@ -1,7 +1,7 @@
 @import url('../variables.less');
 
-.post-item,
-.author-bio {
+.post,
+.bio {
   position: relative;
   display: block;
   padding: 10px 10px;
@@ -15,7 +15,7 @@
     padding-left: 15px;
   }
 
-  .post-item__content {
+  .content {
     .clearfix();
     padding-left: 15px;
     padding-right: 15px;
@@ -23,12 +23,12 @@
     background-color: @bg-main-light;
     .box-shadow(0px 4px 13px -2px rgba(0,0,0,0.4));
   }
-  .post-item__header {
+  .header {
     .clearfix();
     margin-top: 10px;
     margin-bottom: 10px;
   }
-  .post-item__avatar {
+  .avatar {
     float: left;
     width: 80px;
     height: 80px;
@@ -41,7 +41,7 @@
     background-size: 125%;
     border: 1px solid fade(@tx-grey-light, 75);
   }
-  .post-item__author-tag {
+  .tag {
     color: @tx-grey-dark;
     font-size: 13px;
     background-color: @tx-grey-light;
@@ -51,7 +51,7 @@
     letter-spacing: -0.5px;
     text-transform: uppercase;
   }
-  .post-item__content-meta {
+  .meta {
     float: right;
     font-size: 18px;
     line-height: 1.4;
@@ -59,14 +59,14 @@
     font-weight: 300;
     color: fade(@tx-grey-dark, 90);
   }
-  .post-item__content-timestamp {
+  .timestamp {
     padding-top: 5px;
     display: block;
     text-align: right;
     color: @tx-grey-dark;
     font-size: 15px;
   }
-  .post-item__content-author {
+  .author {
     display: block;
     text-align: right;
     a {
@@ -78,7 +78,7 @@
       }
     }
   }
-  .post-item__content-image {
+  .image {
     height: 200px;
     width: 100%;
     background-repeat: no-repeat;
@@ -90,7 +90,7 @@
       height: 330px;
     }
   }
-  .post-item__content-title {
+  .title {
     padding-top: 10px;
     padding-bottom: 10px;
     font-weight: 700;
@@ -104,7 +104,7 @@
       font-size: 3vw;
     }
   }
-  .post-item__content-body {
+  .body {
     text-align: left;
     margin-left: auto;
     margin-right: auto;
@@ -136,7 +136,7 @@
     vertical-align: middle;
     color: fade(@tx-grey-dark, 90);
   }
-  .post-item__content-social {
+  .social {
     margin-bottom: 10px;
     a {
       color: @tx-grey-dark;
@@ -150,10 +150,10 @@
   }
 }
 
-.author-bio {
+.bio {
   background-color: @bg-main-light;
   margin-top: 25px;
-  .author-bio__content {
+  .desc {
     max-width: 750px;
     margin-left: auto;
     margin-right: auto;
@@ -163,10 +163,10 @@
       padding-bottom: 20px;
     }
   }
-  .post-item__avatar {
+  .avatar {
     margin-right: 15px;
   }
-  .post-item__content-body {
+  .body {
     font-size: 15px;
     @media(min-width: @tablet) {
       font-size: 1.8vw;
