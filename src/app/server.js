@@ -13,27 +13,10 @@ export default (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      fetchLocals(res => {
-        return configureStore({
-          data: {
-            posts: res.posts,
-            authors: res.authors,
-            isFetching: false,
-            done: false,
-            section: null,
-            detail: {
-              post: null,
-              author: null,
-            },
-            author: {
-              posts: null,
-              author: null
-            }
-          }
-        });
-      })
+      fetchLocals(res => configureStore({ blog: res.blog }))
       .then(store => {
         const initialState = store.getState();
+        console.log(initialState);
         const html = renderToString(
           <Provider store={store}>
             <RouterContext {...renderProps} />

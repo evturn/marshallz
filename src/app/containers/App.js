@@ -28,22 +28,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  posts: PropTypes.array,
-  authors: PropTypes.array,
-  detail: PropTypes.object,
-  author: PropTypes.object,
-  isFetching: PropTypes.bool,
-  done: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
-export default connect(
-  state => ({
-    detail: state.data.detail,
-    author: state.data.author,
-    posts: state.data.posts,
-    authors: state.data.authors,
-    isFetching: state.data.isFetching,
-    done: state.data.done
-  })
-)(App);
+export default connect()(App);

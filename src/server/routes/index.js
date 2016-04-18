@@ -30,10 +30,10 @@ if (process.env.NODE_ENV === 'development') {
 app.disable('x-powered-by');
 app.use(express.static(path.join(__dirname, '..', '..', '..')));
 
-app.get('/blogPost',       blog.all, blog.populateAuthors, blog.send);
-app.get('/api/post/:slug', blog.detail);
+app.get('/api/locals',          blog.init, blog.findAllPosts, blog.filterPostsByUsername, blog.sendPayload);
+app.get('/api/post/:post', blog.findOnePost);
 
-app.get('*', (req, res, next) => Server(req, res));
+app.get('*', (req, res) => Server(req, res));
 
 app.listen(3000, _ => {
   console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` Running ${process.env.NODE_ENV}`);

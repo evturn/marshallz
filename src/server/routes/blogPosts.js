@@ -2,54 +2,92 @@ import mongoose from 'mongoose';
 import BlogPost from '../models/blogPost';
 import bots from '../bots';
 
-export const all = (req, res, next) => {
+export const init = (req, res, next) => {
+  res.locals.blog = {
+    section: 'blog',
+    filter: {
+      all: [],
+      author: {}
+    },
+    pagination: {
+      perPage: 2,
+      pages: 0,
+      total: 0
+    },
+    authors: [],
+    posts: [],
+    post: {}
+  };
+
+  next();
+};
+
+export const findAllPosts = (req, res, next) => {
   BlogPost
     .find({})
     .limit(100)
     .sort({ 'timestamp': 'desc' })
-    .exec((err, posts) => {
+    .exec((err, results) => {
       if (err) { return (err); }
-      res.locals.posts = posts;
+      const pages = Math.ceil(results.length / 2);
+
+      res.locals.blog.posts = results;
+      res.locals.blog.filter = {
+        all: results
+      };
+      res.locals.blog.showing = results;
+      res.locals.blog.pagination = {
+        perPage: 2,
+        total: results.length,
+        pages,
+        buttons: results.map((item, i) => i + 1).filter(i => i <= pages)
+      };
+
       next();
     });
 };
 
-export const populateAuthors = (req, res, next) => {
-  const populated = bots.map(author => {
-    return new Promise((resolve, reject) => {
-      const authorObject = author.props();
+export const filterPostsByUsername = (req, res, next) => {
+  const allPosts = res.locals.blog.filter.all;
+  let allUsers = res.locals.blog.authors;
+  let filteredByUsername = {};
 
-      BlogPost
-        .find({'author.username': authorObject.username })
-        .limit(100)
-        .sort({ 'timestamp': 'desc' })
-        .exec((err, posts) => {
-          if (err) {
-            return (err);
-          }
-
-          authorObject.posts = posts;
-          resolve(authorObject);
-        });
-    });
+  allPosts.map(post => {
+    filteredByUsername[post.author.username] = filteredByUsername[post.author.username] || [];
+    filteredByUsername[post.author.username].push(post);
   });
 
-  Promise.all(populated).then(data => {
-    res.locals.authors = data;
-    next();
+  const usersWithPosts = allUsers.filter(user => {
+    let hasPosts = false;
+
+    for (let usernameKey in filteredByUsername) {
+      if (user.username === usernameKey) {
+        hasPosts = true;
+      }
+    }
+
+    return hasPosts;
+  });
+
+  res.locals.blog.filter.author = filteredByUsername;
+  res.locals.blog.authors = usersWithPosts;
+  next();
+};
+
+export const findOnePost = (req, res, next) => {
+  res.locals.section = 'blog';
+
+  const q = BlogPost.findOne({
+    slug: req.params.slug
+  }).populate('author categories');
+
+  q.exec(function(err, result) {
+    res.locals.blog = { post: result };
+
+    res.json(res.locals);
   });
 };
 
-export const detail = (req, res, next) => {
-  const dbQuery = BlogPost.findOne({
-    'slug': req.params.slug
-  });
-
-  dbQuery.exec((err, result) => {
-    res.json(result);
-  });
-};
-
-export const send = (req, res, next) => {
+export const sendPayload = (req, res, next) => {
   res.json(res.locals);
 };

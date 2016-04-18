@@ -1,17 +1,22 @@
-export default function data(state={
-  posts: null,
-  authors: null,
-  isFetching: false,
-  done: false,
-  section: null,
-  detail: {
-    post: null,
-    author: null,
+export default function blog(state = {
+  section: '',
+  filter: {},
+  showing: [],
+  pagination: {
+    perPage: 2,
+    pages: 0,
+    total: 0,
+    first: 1,
+    last: 1,
+    buttons: []
   },
-  author: {
-    posts: null,
-    author: null
-  }
+  authors: [],
+  posts: [],
+  post: {},
+  isFetching: false,
+  isCompleted: false,
+  hasOne: false,
+  done: true
 }, action) {
   switch (action.type) {
     case 'FETCH_POST':

@@ -7,7 +7,7 @@ const fetchJSON = (url, cb) => {
     .catch(error => console.log(error));
 };
 
-export const fetchLocals = cb => fetchJSON('http://localhost:3000/blogPost', cb);
+export const fetchLocals = cb => fetchJSON('http://localhost:3000/api/locals', cb);
 
 export const createPage = (html, initialState) => {
   return `
