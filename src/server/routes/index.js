@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import bots from '../bots';
+import obs from '../bots/stream';
 import * as blog from './blogPosts';
 
 import webpack from 'webpack';

@@ -10,7 +10,7 @@ export const init = (req, res, next) => {
       author: {}
     },
     pagination: {
-      perPage: 2,
+      perPage: 20,
       pages: 0,
       total: 0
     },
@@ -37,7 +37,7 @@ export const findAllPosts = (req, res, next) => {
       };
       res.locals.blog.showing = results;
       res.locals.blog.pagination = {
-        perPage: 2,
+        perPage: 20,
         total: results.length,
         pages,
         buttons: results.map((item, i) => i + 1).filter(i => i <= pages)

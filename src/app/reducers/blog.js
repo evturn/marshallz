@@ -1,16 +1,4 @@
 export default function blog(state = {
-  section: '',
-  filter: {},
-  showing: [],
-  pagination: {
-    perPage: 2,
-    pages: 0,
-    total: 0,
-    first: 1,
-    last: 1,
-    buttons: []
-  },
-  posts: [],
   post: {},
   isFetching: false,
   isCompleted: false,

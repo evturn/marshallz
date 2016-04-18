@@ -123,13 +123,17 @@ Bot.prototype.generateTweet = function() {
 };
 
 Bot.prototype.showError = function(err) {
-  console.log(`======${this.name} error======`);
+  console.log(`\n\n\n======${this.name} error======`);
   console.log(err);
   console.log(`======${this.name} error======`);
 };
 
 Bot.prototype.showSuccess = function(res) {
-  console.log(`======${this.name} success=====`);
+  if (process.env.NODE_ENV !== 'development') {
+    return;
+  }
+
+  console.log(`\n\n\n======${this.name} success=====`);
   console.log(res);
   console.log(`======${this.name} success=====`);
 };
