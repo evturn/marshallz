@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 const actions = {
   fetchPost:          _ => ({ type: 'FETCH_POST' }),
   fetchSuccess: payload => ({ type: 'FETCH_SUCCESS', payload }),
-  fethError:    message => ({ type: 'FETCH_ERROR', message }),
+  fetchError:    message => ({ type: 'FETCH_ERROR', message }),
   filterPosts:  payload => ({ type: 'TRANSITION_INIT', payload })
 };
 

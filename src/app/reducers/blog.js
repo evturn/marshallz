@@ -15,16 +15,17 @@ export default function blog(state = {
   post: {},
   isFetching: false,
   isCompleted: false,
-  hasOne: false,
-  done: true
+  hasOne: false
 }, action) {
   switch (action.type) {
     case 'FETCH_POST':
       return Object.assign({}, state, {
+        hasOne: false,
         isFetching: true
       });
     case 'FETCH_SUCCESS': {
       return Object.assign({}, state, {
+        hasOne: true,
         isFetching: false,
         post: action.payload
       });

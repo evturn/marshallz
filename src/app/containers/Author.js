@@ -8,12 +8,10 @@ const cx = classNames.bind(css);
 
 class Author extends Component {
   render() {
-    const { isFetching, posts, author } = this.props;
-
+    const { posts, author } = this.props;
     return (
       <Posts posts={posts} />
     );
-
   }
 }
 

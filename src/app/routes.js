@@ -8,7 +8,7 @@ import Author from './containers/Author';
 export default (
   <Route component={App}>
     <Route path="/" component={Home} />
-    <Route path="post/:slug" component={Detail} />
+    <Route path="post/:post" component={Detail} />
     <Route path="author/:username" component={Author} />
   </Route>
 );
