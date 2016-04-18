@@ -14,47 +14,24 @@ export default function data(state={
   }
 }, action) {
   switch (action.type) {
-    case 'TRANSITION_INIT': {
-      const { payload } = action;
-
-      return Object.assign({}, state, {
-        done: false,
-        ...payload
-      });
-    }
-    case 'TRANSITION_UNMOUNT':
-      return Object.assign({}, state, {
-        isFetching: false,
-        done: false,
-        detail: {
-          post: null,
-          author: null
-        },
-        author: {
-          posts: null,
-          author: null
-        }
-      });
-    case 'NETWORK_REQUEST':
+    case 'FETCH_POST':
       return Object.assign({}, state, {
         isFetching: true
       });
-    case 'NETWORK_RESPONSE': {
-      const { payload } = action;
-
+    case 'FETCH_SUCCESS': {
       return Object.assign({}, state, {
         isFetching: false,
-        ...payload
+        post: action.payload
       });
     }
-    case 'TRANSITION_DONE':
-      return Object.assign({}, state, {
-        done: true
-      });
-    case 'NETWORK_ERROR':
+    case 'FETCH_ERROR':
       return Object.assign({}, state, {
         isFetching: false,
         message: action.message
+      });
+    case 'FILTER_POSTS':
+      return Object.assign({}, state, {
+        ...action.payload
       });
     default:
       return state;

@@ -1,43 +1,17 @@
 import fetch from 'isomorphic-fetch';
 
 const actions = {
-  transitionInitAction:  payload => ({ type: 'TRANSITION_INIT', payload }),
-  networkRequestAction:        _ => ({ type: 'NETWORK_REQUEST' }),
-  networkResponseAction: payload => ({ type: 'NETWORK_RESPONSE', payload }),
-  transitionUnmountAction:     _ => ({ type: 'TRANSITION_UNMOUNT' }),
-  networkErrorAction:    message => ({ type: 'NETWORK_ERROR', message })
+  fetchPost:          _ => ({ type: 'FETCH_POST' }),
+  fetchSuccess: payload => ({ type: 'FETCH_SUCCESS', payload }),
+  fethError:    message => ({ type: 'FETCH_ERROR', message })
+  filterPosts:  payload => ({ type: 'TRANSITION_INIT', payload })
 };
 
-export const transitionToDetail = (slug, dispatch) => {
-  dispatch(actions.transitionInitAction({ section: 'detail' }));
-  fetch(`/api/post/${slug}`, {
-      method: 'get',
-      credentials: 'same-origin',
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      }
-    })
+export const fetchPost = slug => dispatch => {
+  fetch(`/api/post/${slug}`)
     .then(res => res.json())
     .then(payload => {
-      dispatch(actions.networkResponseAction({ detail: { post: payload } }))
+      dispatch(actions.fetchSuccess({ detail: { post: payload } }))
     })
-    .catch(err => dispatch(actions.networkErrorAction(err)));
-};
-
-export const transitionToAuthor = (author, dispatch) => {
-  const { posts } = author;
-
-  dispatch(actions.transitionInitAction({
-    author: { author, posts },
-    section: 'author'
-  }));
-};
-
-export const transitionToHome = dispatch => {
-  dispatch(actions.transitionInitAction({ section: 'home' }));
-};
-
-export const unmount = dispatch => {
-  dispatch(actions.transitionUnmountAction());
+    .catch(err => dispatch(actions.fetchError(err)));
 };

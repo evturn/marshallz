@@ -5,9 +5,6 @@ import 'less/global/style.less';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     createMemoryHistory(this.props.location);
   }

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Posts from 'components/Posts';
-import { transitionToHome, unmount } from 'actions';
+import { transitionToHome } from 'actions';
 
 class Home extends Component {
   componentDidMount() {
@@ -9,17 +9,11 @@ class Home extends Component {
 
     dispatch(transitionToHome);
   }
-  componentWillUnmount() {
-    const { dispatch } = this.props;
-
-    unmount(dispatch);
-  }
   render() {
+    const { posts, isFetching } = this.props;
+
     return (
-      <Posts
-        posts={this.props.posts}
-        isFetching={this.props.isFetching}
-      />
+      <Posts posts={posts} isFetching={isFetching} />
     );
   }
 }
@@ -34,15 +28,13 @@ Home.propTypes = {
   dispatch: PropTypes.func
 };
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     detail: state.data.detail,
     author: state.data.author,
     posts: state.data.posts,
     authors: state.data.authors,
     isFetching: state.data.isFetching,
     done: state.data.done
-  };
-}
-
-export default connect(mapStateToProps)(Home);
+  })
+)(Home);
