@@ -4,12 +4,10 @@ import Posts from 'components/Posts';
 import { transitionToHome, unmount } from 'actions';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     const { dispatch } = this.props;
-    transitionToHome(dispatch);
+
+    dispatch(transitionToHome);
   }
   componentWillUnmount() {
     const { dispatch } = this.props;

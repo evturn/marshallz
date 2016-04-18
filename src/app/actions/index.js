@@ -1,63 +1,16 @@
 import fetch from 'isomorphic-fetch';
 
-const transitionInitAction = payload => {
-  console.log(payload);
-  return {
-    type: 'TRANSITION_INIT',
-    payload
-  };
+const actions = {
+  transitionInitAction:  payload => ({ type: 'TRANSITION_INIT', payload }),
+  networkRequestAction:        _ => ({ type: 'NETWORK_REQUEST' }),
+  networkResponseAction: payload => ({ type: 'NETWORK_RESPONSE', payload }),
+  transitionUnmountAction:     _ => ({ type: 'TRANSITION_UNMOUNT' }),
+  networkErrorAction:    message => ({ type: 'NETWORK_ERROR', message })
 };
 
-const networkRequestAction = () => {
-  console.log(`request action`);
-  return {
-    type: 'NETWORK_REQUEST'
-  };
-};
-
-const networkResponseAction = payload => {
-  console.log(payload);
-  return {
-    type: 'NETWORK_RESPONSE',
-    payload
-  };
-};
-
-const transitionDoneAction = () => {
-  return {
-    type: 'TRANSITION_DONE'
-  };
-};
-
-const transitionUnmountAction = () => {
-  return {
-    type: 'TRANSITION_UNMOUNT'
-  };
-};
-
-const networkErrorAction = message => {
-  return {
-    type: 'NETWORK_ERROR',
-    message
-  };
-};
-
-const request = (endpoint) => {
-  return ;
-};
-
-const createTimeout = (action, duration, dispatch) => {
-  return setTimeout(() => dispatch(action()), duration);
-};
-
-const createTransition = (payload, dispatch) => {
-  dispatch(transitionInitAction(payload));
-};
-
-const createRequest = (endpoint, dispatch) => {
-  dispatch(networkRequestAction());
-
-  fetch(endpoint, {
+export const transitionToDetail = (slug, dispatch) => {
+  dispatch(actions.transitionInitAction({ section: 'detail' }));
+  fetch(`/api/post/${slug}`, {
       method: 'get',
       credentials: 'same-origin',
       headers: {
@@ -65,39 +18,26 @@ const createRequest = (endpoint, dispatch) => {
           'Content-Type': 'application/json'
       }
     })
-    .then(res     => res.json())
+    .then(res => res.json())
     .then(payload => {
-      return dispatch(networkResponseAction({
-        detail: {
-          post: payload
-        }
-      }))
+      dispatch(actions.networkResponseAction({ detail: { post: payload } }))
     })
-    .then(()      => createTimeout(transitionDoneAction, 2000, dispatch))
-    .catch(err    => dispatch(networkErrorAction(err)));
-};
-
-export const transitionToDetail = (slug, dispatch) => {
-  createTransition({ section: 'detail' }, dispatch);
-  createRequest(`/api/post/${slug}`, dispatch);
+    .catch(err => dispatch(actions.networkErrorAction(err)));
 };
 
 export const transitionToAuthor = (author, dispatch) => {
-  const payload = {
-    author: {
-      author,
-      posts: author.posts
-    },
+  const { posts } = author;
+
+  dispatch(actions.transitionInitAction({
+    author: { author, posts },
     section: 'author'
-  };
-  createTransition(payload, dispatch);
-  createTimeout(transitionDoneAction, 1000, dispatch)
+  }));
 };
 
 export const transitionToHome = dispatch => {
-  dispatch(transitionInitAction({ section: 'home' }));
+  dispatch(actions.transitionInitAction({ section: 'home' }));
 };
 
 export const unmount = dispatch => {
-  dispatch(transitionUnmountAction());
+  dispatch(actions.transitionUnmountAction());
 };
