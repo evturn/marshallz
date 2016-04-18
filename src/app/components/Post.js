@@ -9,49 +9,57 @@ const cx = classNames.bind(css);
 class Post extends Component {
   render() {
     const {
-      timestamp, title, body,
-      slug, image, author
-    } = this.props;
+      timestamp, title, body, slug, image } = this.props;
+    const {
+      username, avatar, name, social, share } = this.props.author;
+
+    const authorAvatar = (
+      <Link to={{ pathname: `/author/${username}` }}>
+        <img className={cx('avatar')} src={require(`images/${avatar}`)} />
+      </Link>
+    );
+
+    const postDetails = (
+      <div className={cx('meta')}>
+        <div className={cx('author')}>
+          <Link to={{ pathname: `/author/${username}` }}>{name} <span className={cx('tag')}>Author</span></Link>
+        </div>
+        <IntlProvider locale="en">
+          <div className={cx('timestamp')}>
+            <FormattedRelative value={timestamp} />
+          </div>
+        </IntlProvider>
+      </div>
+    );
+
+    const postTitle = (
+      <Link to={{ pathname: `/post/${slug}` }}>
+        <div className={cx('title')}>{title}</div>
+      </Link>
+    );
+
+    const authorTwitter = (
+      <div className={cx('social')}>
+        {social ? (
+          <div className={cx('author')}>
+            <Link to={{ pathname: share.twitter }} target="_blank">{`${username} on Twitter`}</Link>
+          </div>
+        ) : null}
+      </div>
+    );
 
     return (
       <div className={cx('post')}>
         <div className={cx('content')}>
-
           <div className={cx('header')}>
-            <Link to={{ pathname: `/author/${author.username}` }}>
-              <img className={cx('avatar')} src={require(`images/${author.avatar}`)} />
-            </Link>
-            <div className={cx('meta')}>
-              <div className={cx('author')}>
-                <Link to={{ pathname: `/author/${author.username}` }}>{author.name} <span className={cx('tag')}>Author</span></Link>
-              </div>
-              <IntlProvider locale="en">
-                <div className={cx('timestamp')}>
-                  <FormattedRelative value={timestamp} />
-                </div>
-              </IntlProvider>
-            </div>
+            {authorAvatar}
+            {postDetails}
           </div>
-
-          <Link to={{ pathname: `/post/${slug}` }}>
-            <div className={cx('image')}  style={{ backgroundImage: `url(${image})` }}></div>
-            <div className={cx('title')}>{title}</div>
-          </Link>
-
+          {postTitle}
+          <div className={cx('image')}  style={{ backgroundImage: `url(${image})` }}></div>
           <div className={cx('body')}>{body}</div>
-          <div className={cx('social')}>
-            {author.social ? this.renderShareLinks() : null}
-          </div>
+          {authorTwitter}
         </div>
-      </div>
-    );
-  }
-  renderShareLinks() {
-    const { username, share } = this.props.author;
-
-    return (
-      <div className={cx('author')}>
-        <Link to={{ pathname: share.twitter }} target="_blank">{`${username} on Twitter`}</Link>
       </div>
     );
   }
