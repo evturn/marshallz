@@ -5,9 +5,6 @@ import css from 'less/components/header.less';
 const cx = classNames.bind(css);
 
 class SiteHeader extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <header style={{ backgroundImage: `url(${require('images/headbg.jpg')})` }} className={cx('site-header')}>

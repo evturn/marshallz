@@ -10,8 +10,8 @@ const actions = {
 export const fetchPost = slug => dispatch => {
   fetch(`/api/post/${slug}`)
     .then(res => res.json())
-    .then(payload => {
-      dispatch(actions.fetchSuccess({ detail: { post: payload } }))
+    .then(res => {
+      dispatch(actions.fetchSuccess(res.blog.post))
     })
     .catch(err => dispatch(actions.fetchError(err)));
 };

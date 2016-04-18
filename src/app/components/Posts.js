@@ -6,10 +6,6 @@ import css from 'less/components/blog-posts.less';
 const cx = classNames.bind(css);
 
 class Posts extends Component {
-  constructor(props) {
-    super(props);
-
-  }
   render() {
     const { posts } = this.props;
 

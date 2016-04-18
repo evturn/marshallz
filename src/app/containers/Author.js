@@ -9,9 +9,6 @@ import css from 'less/components/blog-posts.less';
 const cx = classNames.bind(css);
 
 class Author extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     const { params, authors, dispatch } = this.props;
     const [ author ] = authors.filter(author => author.username === params.username);
@@ -44,14 +41,12 @@ Author.propTypes = {
   dispatch: PropTypes.func
 };
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     author: state.data.author.author,
     posts: state.data.author.posts,
     authors: state.data.authors,
     isFetching: state.data.isFetching,
     done: state.data.done
-  };
-}
-
-export default connect(mapStateToProps)(Author);
+  })
+)(Author);

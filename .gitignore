@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
 *.log
+*.hot-update.json
 *.hot-update.js
 lib

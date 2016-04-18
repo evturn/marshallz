@@ -6,9 +6,6 @@ import css from 'less/components/spinner.less';
 const cx = classNames.bind(css);
 
 class Spinner extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { image, isFetching, done } = this.props;
     const animation = cx({
@@ -21,7 +18,7 @@ class Spinner extends Component {
       <div className={animation}>
         <div className={cx('animation')}></div>
         <div className={cx('logo')}>
-          <img className={cx('image')} src={image} />
+          <img className={cx('image')} src={require('images/av-marshall.png')} />
         </div>
       </div>
     );

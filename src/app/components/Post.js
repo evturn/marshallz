@@ -7,9 +7,6 @@ import css from 'less/components/blog-post.less';
 const cx = classNames.bind(css);
 
 class Post extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const {
       timestamp, title, body,
