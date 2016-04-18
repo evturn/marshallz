@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SiteHeader from 'components/SiteHeader';
-import 'less/global/style.less';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
+import 'less/global/style.less';
 
 class App extends Component {
   componentDidMount() {
