@@ -15,7 +15,7 @@ class Detail extends Component {
   }
   render() {
     const { hasOne, post} = this.props;
-    console.log(post);
+
     return (
       <div className={cx('blog-posts')}>
         {hasOne ? <Post {...post}/> : null}

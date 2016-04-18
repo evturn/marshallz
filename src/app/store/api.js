@@ -29,18 +29,6 @@ export const createPage = (html, initialState) => {
 
 export const scrollWindowTop = () => window.scrollTo(0, 0);
 
-export const xhrpost = (endpoint, data) => {
-  return fetch(endpoint, {
-    method: 'post',
-    credentials: 'same-origin',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
-};
-
 export const thunkmasterFlex = ({ dispatch, getState }) => {
   return next => action => {
     if (typeof action === 'function') {
