@@ -29,6 +29,14 @@ const createSlug = title => {
     .toLowerCase();
 }
 
+const getAuthorData = bot => ({
+  name: bot.name,
+  username: bot.username,
+  index: bot.index,
+  avatar: bot.avatar,
+  social: bot.social,
+  share: bot.share
+})
 
 const bots$ = Observable.from(bots);
 
@@ -36,6 +44,9 @@ function postToBlog(username) {
 
   const bot$ = bots$
     .filter(bot => bot.username === username);
+
+  const author$ = bot$
+    .map(getAuthorData)
 
   const title$ = bot$
     .map(createTitle)
@@ -50,11 +61,16 @@ function postToBlog(username) {
     .reduce((acc, item) => acc + item + ' ', '')
     .map(x => x.trim())
 
-  const copy$ = Observable.combineLatest(title$, slug$, body$)
+  const copy$ = Observable.combineLatest(
+      title$,
+      slug$,
+      body$,
+      author$
+    )
     .map(x => {
-      const [ title, slug, body ] = x
+      const [ title, slug, body, author ] = x
 
-      return { title, slug, body }
+      return { title, slug, body, author }
     })
     .subscribe(
       x => console.log('\n\n\n', x),
@@ -67,24 +83,6 @@ postToBlog('marshall')
 
 
 function generateBlogPost() {
-  let options = {
-    file: this.content,
-    count: 10
-  };
-  const createTitle = SentenceGenerator(options);
-  const title = createTitle();
-
-  options.punctuation = true;
-
-  const createSentence = SentenceGenerator(options);
-  let sentences = createSentence();
-  let i = 0;
-
-  while (i < 6) {
-    sentences += ' ' + createSentence();
-    i += 1;
-  }
-
   this.createImage()
     .then(image => {
 
