@@ -1,4 +1,4 @@
-import { Observable, Observer } from 'rx';
+import { Observable } from 'rx';
 import SentenceGenerator from 'sentence-generator';
 import fs from 'fs';
 import bots from './index';
@@ -10,36 +10,60 @@ const createTitle = bot => {
   return SentenceGenerator({
     file: bot.content,
     count: 10
-  })();
-};
+  })()
+}
 
 const createSentence = bot => {
   return SentenceGenerator({
     file: bot.content,
     count: 10,
     punctuation: true
-  })();
-};
+  })()
+}
 
-const bots$ = Observable.from(bots)
+const createSlug = title => {
+  return title
+    .trim()
+    .replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-')
+    .replace(/^-+|-+$/g,'')
+    .toLowerCase();
+}
 
-function main(username) {
+
+const bots$ = Observable.from(bots);
+
+function postToBlog(username) {
+
   const bot$ = bots$
     .filter(bot => bot.username === username);
 
-  const title$ = bot$.map(createTitle);
-  const sentences$ = bot$.map(createSentence).repeat(6);
-  const body$ = sentences$.reduce((acc, item) => acc + ' ' + item, '')
+  const title$ = bot$
+    .map(createTitle)
+    .share()
 
-  Observable.merge(title$, body$)
+  const slug$ = title$
+    .map(x => createSlug(x))
+
+  const body$ = bot$
+    .map(createSentence)
+    .repeat(6)
+    .reduce((acc, item) => acc + item + ' ', '')
+    .map(x => x.trim())
+
+  const copy$ = Observable.combineLatest(title$, slug$, body$)
+    .map(x => {
+      const [ title, slug, body ] = x
+
+      return { title, slug, body }
+    })
     .subscribe(
       x => console.log('\n\n\n', x),
       e => console.log('we errored', e.message),
       x => console.log('we complete.')
-    );
+    )
 }
 
-main('marshall');
+postToBlog('marshall')
 
 
 function generateBlogPost() {
