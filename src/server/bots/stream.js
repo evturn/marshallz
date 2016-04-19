@@ -17,25 +17,30 @@ const createSentence = bot => {
   return SentenceGenerator({
     file: bot.content,
     count: 10,
-    punctuation: false
+    punctuation: true
   })();
 };
 
-const obs$ = Observable.interval(3000);
+const bots$ = Observable.from(bots)
 
-const bots$ = Observable.from(bots);
+function main(username) {
+  const bot$ = bots$
+    .filter(bot => bot.username === username);
 
-const source$ = obs$
-  .do(x => console.log('Side effect'));
+  const title$ = bot$.map(createTitle);
+  const sentences$ = bot$.map(createSentence).repeat(6);
+  const body$ = sentences$.reduce((acc, item) => acc + ' ' + item, '')
 
-const published$ = source$
-    .flatMap(() => bots$.map(x => createSentence(x)));
+  Observable.merge(title$, body$)
+    .subscribe(
+      x => console.log('\n\n\n', x),
+      e => console.log('we errored', e.message),
+      x => console.log('we complete.')
+    );
+}
 
-published$.subscribe(
-  x => console.log('\n\n\n', x),
-  e => console.log('we errored', e.message),
-  x => console.log('we complete.')
-);
+main('marshall');
+
 
 function generateBlogPost() {
   let options = {
@@ -93,6 +98,7 @@ function createImage() {
           this.showError(error);
         } else if (!error && response.statusCode === 200) {
           const parsed = JSON.parse(body);
+
           if (parsed.data.length) {
             const item = random(parsed.data);
 
@@ -134,4 +140,4 @@ function showSuccess(res) {
   console.log(`\n\n\n======${this.name} success=====`);
 }
 
-export default obs$;
+export default bots$;
