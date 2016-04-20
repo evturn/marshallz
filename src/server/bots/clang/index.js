@@ -8,6 +8,10 @@ export default new Bot({
   index: 1,
   keywords: 'src/server/bots/clang/keywords.txt',
   content: 'src/server/bots/clang/content.txt',
+  social: true,
+  share: {
+    twitter: 'https://twitter.com/__clang__'
+  },
   jobs: [
     {
       type: 'blog',
@@ -17,10 +21,6 @@ export default new Bot({
       crontab: '00 00 00,03,06,09,12,15,21 * * *'
     }
   ],
-  social: true,
-  share: {
-    twitter: 'https://twitter.com/__clang__'
-  },
   keys: {
     twitter: new Twitter({
       consumer_key: process.env.CLANG_TWITTER_CONSUMER_KEY,
@@ -29,5 +29,15 @@ export default new Bot({
       access_token_secret: process.env.CLANG_TWITTER_TOKEN_SECRET
     }),
     giphy: process.env.GIPHY_DEV
+  },
+  authorData: function() {
+    return {
+      name: this.name,
+      username: this.username,
+      avatar: this.avatar,
+      index: this.index,
+      social: this.social,
+      share: this.share
+    }
   }
 });

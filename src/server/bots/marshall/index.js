@@ -6,6 +6,8 @@ export default new Bot({
   username: 'marshall',
   avatar: 'av-marshall.png',
   index: 0,
+  social: true,
+  share: { twitter: 'https://twitter.com/marshallzBlog' },
   keywords: 'src/server/bots/marshall/keywords.txt',
   content: 'src/server/bots/marshall/content.txt',
   jobs: [
@@ -17,10 +19,6 @@ export default new Bot({
       crontab: '00 00 01,04,07,10,13,16,22 * * *'
     }
   ],
-  social: true,
-  share: {
-    twitter: 'https://twitter.com/marshallzBlog'
-  },
   keys: {
     twitter: new Twitter({
       consumer_key: process.env.MARSHALLZ_TWITTER_CONSUMER_KEY,
@@ -29,5 +27,15 @@ export default new Bot({
       access_token_secret: process.env.MARSHALLZ_TWITTER_TOKEN_SECRET
     }),
     giphy: process.env.GIPHY_DEV
+  },
+  authorData: function() {
+    return {
+      name: this.name,
+      username: this.username,
+      avatar: this.avatar,
+      index: this.index,
+      social: this.social,
+      share: this.share
+    }
   }
 });

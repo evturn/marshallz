@@ -29,14 +29,23 @@ const createSlug = title => {
     .toLowerCase();
 }
 
-const getAuthorData = bot => ({
-  name: bot.name,
-  username: bot.username,
-  index: bot.index,
-  avatar: bot.avatar,
-  social: bot.social,
-  share: bot.share
-})
+const getAuthorData = bot => {
+  const props = bot.authorData()
+
+  return { ...props }
+}
+
+const saveNewPost = post => {
+  const blogPost = new BlogPost(post);
+
+    blogPost.save((err, post) => {
+      if (err) {
+        this.showError(err);
+      }
+
+      this.showSuccess(post);
+    })
+}
 
 const bots$ = Observable.from(bots);
 
@@ -53,7 +62,7 @@ function postToBlog(username) {
     .share()
 
   const slug$ = title$
-    .map(x => createSlug(x))
+    .map(createSlug)
 
   const body$ = bot$
     .map(createSentence)
