@@ -15,52 +15,57 @@ class Post extends Component {
 
     const authorAvatar = (
       <Link to={{ pathname: `/author/${username}` }}>
-        <img className={cx('avatar')} src={require(`images/${avatar}`)} />
-      </Link>
-    )
+        <img  src={require(`images/${avatar}`)} />
+      </Link>)
 
-    const postDetails = (
-      <div className={cx('meta')}>
-        <div className={cx('author')}>
-          <Link to={{ pathname: `/author/${username}` }}>{name} <span className={cx('tag')}>Author</span></Link>
+    const authorTag = <span className={cx('tag')}>Author</span>
+
+    const authorName = (
+      <span className={cx('name')}>
+        <Link to={{ pathname: `/author/${username}` }}>{name}</Link>
+      </span>)
+
+    const postTimestamp = (
+      <IntlProvider locale="en">
+        <div className={cx('date')}>
+          <FormattedRelative value={timestamp} />
         </div>
-        <IntlProvider locale="en">
-          <div className={cx('timestamp')}>
-            <FormattedRelative value={timestamp} />
-          </div>
-        </IntlProvider>
-      </div>
-    )
+      </IntlProvider>)
 
     const postTitle = (
-      <Link to={{ pathname: `/post/${slug}` }}>
-        <div className={cx('title')}>{title}</div>
+      <div className={cx('title')}>
+        <Link to={{ pathname: `/post/${slug}` }}>{title}</Link>
+      </div>)
+
+    const authorTwitter = social ? (
+      <Link className={cx('social')} to={{ pathname: share.twitter }} target="_blank">
+        <span className="fa fa-twitter" />
       </Link>
-    )
+    ) : null
 
-    const authorTwitter = (
-      <div className={cx('social')}>
-        {social ? (
-          <div className={cx('author')}>
-            <Link to={{ pathname: share.twitter }} target="_blank">{`${username} on Twitter`}</Link>
-          </div>
-        ) : null}
-      </div>
-    )
+    const postImage = image ? <div className={cx('bg')}  style={{ backgroundImage: `url(${image})` }}></div> : null
 
-    const postImage = image ? <div className={cx('image')}  style={{ backgroundImage: `url(${image})` }}></div> : null
+    const postBody = <div className={cx('body')}>{body}</div>
 
     return (
       <div className={cx('post')}>
         <div className={cx('content')}>
+
           <div className={cx('header')}>
-            {authorAvatar}
-            {postDetails}
+            <div className={cx('avatar')}>
+              {authorAvatar}
+            </div>
+            <div className={cx('info')}>
+              {authorName}
+              {authorTwitter}
+              {authorTag}
+              {postTimestamp}
+            </div>
           </div>
+
           {postTitle}
           {postImage}
-          <div className={cx('body')}>{body}</div>
-          {authorTwitter}
+          {postBody}
         </div>
       </div>
     )

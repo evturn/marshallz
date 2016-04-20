@@ -10,75 +10,76 @@
   padding-right: 25px;
   padding-left: 25px;
 
-  @media(min-width: @tablet) {
+  @media(@tablet) {
     padding-right: 15px;
     padding-left: 15px;
   }
 
   .content {
     .clearfix();
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 15px;
     border-radius: 3px;
-    background-color: @bg-main-light;
+    background-color: @bg-light;
     .box-shadow(0px 4px 13px -2px rgba(0,0,0,0.4));
   }
+
   .header {
-    .clearfix();
-    margin-top: 10px;
-    margin-bottom: 10px;
+    text-align: left;
   }
+
   .avatar {
-    float: left;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: block;
-    background-repeat: no-repeat;
-    background-position-x: 50%;
-    background-position-y: 50%;
-    background-size: 125%;
-    border: 1px solid fade(@tx-grey-light, 75);
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    margin-right: 10px;
+
+    img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-position-x: 50%;
+      background-position-y: 50%;
+      background-size: 125%;
+      border: 1px solid fade(@tx-grey, 75);
+    }
   }
-  .tag {
-    color: @tx-grey-dark;
-    font-size: 13px;
-    background-color: @tx-grey-light;
-    padding: 4px;
-    border-radius: 2px;
+
+  .tag,
+  .date {
+    display: inline-block;
+    font-size: 11px;
+    text-align: left;
     font-family: @font-sans;
     letter-spacing: -0.5px;
+    color: fade(@tx-dark, 44);
     text-transform: uppercase;
+    margin-right: 10px;
   }
-  .meta {
-    float: right;
-    font-size: 18px;
-    line-height: 1.4;
-    font-family: @font-book;
-    font-weight: 300;
-    color: fade(@tx-grey-dark, 90);
+
+  .info {
+    display: inline-block;
+    vertical-align: top;
   }
-  .timestamp {
-    padding-top: 5px;
+
+  .name {
     display: block;
-    text-align: right;
-    color: @tx-grey-dark;
-    font-size: 15px;
-  }
-  .author {
-    display: block;
-    text-align: right;
+    text-align: left;
+
     a {
+      .transition(0.2s);
+      color: @tx-secondary;
+
       &:hover {
-        color: fade(@tx-main-dark, 90);
+        color: fade(@tx-dark, 44);
       }
       .fa {
         color: @tx-post-social;
       }
     }
   }
-  .image {
+  .bg {
     height: 200px;
     width: 100%;
     background-repeat: no-repeat;
@@ -100,12 +101,15 @@
     font-size: 28px;
     line-height: 1.12;
     letter-spacing: -0.022em;
-    @media(min-width: @tablet) {
+    text-align: left;
+
+    @media(@tablet) {
       font-size: 3vw;
     }
   }
+
   .body {
-    text-align: left;
+    text-align: justify;
     margin-left: auto;
     margin-right: auto;
     padding-top: 20px;
@@ -117,61 +121,29 @@
     font-family: @font-book;
     font-weight: 300;
     font-style: normal;
-    color: @tx-main-dark;
+    color: @tx-dark;
 
-    @media(min-width: @tablet) {
+    @media(@tablet) {
       font-size: 2vw;
-      margin-left: 20px;
-      margin-right: 20px;
       line-height: 1.5em;
     }
   }
+
   a {
     text-decoration: none;
-    color: @tx-main-dark;
+    color: @tx-dark;
     &:hover {
-      color: fade(@tx-grey-dark, 90);
+      color: fade(@shade-dark, 90);
     }
   }
-  .fa-circle {
-    font-size: 4px;
-    vertical-align: middle;
-    color: fade(@tx-grey-dark, 90);
-  }
-  .social {
-    margin-bottom: 10px;
-    a {
-      color: @tx-grey-dark;
-      .fa {
-        color: @tx-post-social;
-      }
-      &:hover {
-        color: fade(@tx-grey-dark, 90);
-      }
-    }
-  }
-}
 
-.bio {
-  background-color: @bg-main-light;
-  margin-top: 25px;
-  .desc {
-    max-width: 750px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 10px;
-    @media(min-width: @tablet) {
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-  }
-  .avatar {
-    margin-right: 15px;
-  }
-  .body {
-    font-size: 15px;
-    @media(min-width: @tablet) {
-      font-size: 1.8vw;
+  .social {
+    display: inline-block;
+    text-align: left;
+    color: @shade-dark;
+
+    &:hover {
+      color: fade(@shade-dark, 90);
     }
   }
 }
