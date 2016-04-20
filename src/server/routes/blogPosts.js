@@ -47,6 +47,17 @@ export const findAllPosts = (req, res, next) => {
     })
 }
 
+export const populateAuthors = (req, res, next) => {
+  res.locals.blog.authors = bots.reduce((acc, bot) => {
+    const props = bot.authorData()
+
+    acc[props.username] = props
+    return acc
+  }, {})
+
+  next()
+}
+
 export const filterPostsByUsername = (req, res, next) => {
   const allPosts = res.locals.blog.filter.all
   let allUsers = res.locals.blog.authors
