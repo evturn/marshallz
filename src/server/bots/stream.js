@@ -25,7 +25,7 @@ const createSlug = title => {
     .trim()
     .replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-')
     .replace(/^-+|-+$/g,'')
-    .toLowerCase();
+    .toLowerCase()
 }
 
 const getAuthorData = bot => {
@@ -45,12 +45,11 @@ const scheduleJobs = bot => {
   new Cron(bot.jobs.blog, () => postToBlog(bot.username), null, true)
 }
 
-
 function postToBlog(username) {
   const bots$ = Observable.from(bots);
 
   const bot$ = bots$
-    .filter(bot => bot.username === username);
+    .filter(bot => bot.username === username)
 
   const author$ = bot$
     .map(getAuthorData)

@@ -22,4 +22,4 @@ const blogPost = new mongoose.Schema({
   }
 })
 
-export default mongoose.model('BlogPost', blogPost);
+export default mongoose.model('BlogPost', blogPost)
