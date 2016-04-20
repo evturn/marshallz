@@ -3,23 +3,14 @@ import path from 'path'
 import db from '../models/blogPost'
 import bots from '../bots/stream'
 import * as blog from './blogPosts'
+import devServer from './devServer'
 
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
-import config from '../../webpack/dev.js'
 import Server from '../../../dist/js/ser'
 
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
-  const compiler = webpack(config);
-
-  app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-  }))
-  app.use(webpackHotMiddleware(compiler))
+  devServer(app)
 }
 
 app.disable('x-powered-by')
