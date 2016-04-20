@@ -28,6 +28,10 @@ const createSlug = title => {
     .toLowerCase()
 }
 
+const selectRandomItem = arr => {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
 const getAuthorData = bot => {
   const props = bot.authorData()
 
@@ -35,9 +39,9 @@ const getAuthorData = bot => {
 }
 
 const savePost = data => {
-  const [ title, slug, body, author ] = data
-  const post = new BlogPost({ title, slug, body, author })
-
+  const [ title, slug, body, author, image ] = data
+  const post = new BlogPost({ title, slug, body, author, image })
+  console.log(post)
   return Observable.fromNodeCallback(post.save())
 }
 
@@ -45,11 +49,36 @@ const scheduleJobs = bot => {
   new Cron(bot.jobs.blog, () => postToBlog(bot.username), null, true)
 }
 
+const fetchImageFromApi = bot => {
+  const url = `http://api.giphy.com/v1/gifs/search?q=bananas&api_key=${bot.keys.giphy}`
+
+  return Observable.create(x => {
+    request(url, (error, response, body) => {
+      if (error) {
+        x.onError(error)
+      } else if (!error && response.statusCode === 200) {
+        const { data } = JSON.parse(body)
+
+        if (data.length) {
+          const { images: { original: { url }}} = selectRandomItem(data)
+
+          x.onNext(url)
+        }
+      }
+
+      x.onCompleted()
+    })
+  })
+}
+
 function postToBlog(username) {
   const bots$ = Observable.from(bots);
 
   const bot$ = bots$
     .filter(bot => bot.username === username)
+
+  const image$ = bot$
+    .flatMap(fetchImageFromApi)
 
   const author$ = bot$
     .map(getAuthorData)
@@ -71,7 +100,8 @@ function postToBlog(username) {
       title$,
       slug$,
       body$,
-      author$
+      author$,
+      image$
     )
     .map(savePost)
     .subscribe(
