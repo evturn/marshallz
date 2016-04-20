@@ -1,7 +1,9 @@
-import { Observable } from 'rx';
-import SentenceGenerator from 'sentence-generator';
-import bots from './index';
-import BlogPost from '../models/blogPost';
+import { Observable } from 'rx'
+import SentenceGenerator from 'sentence-generator'
+import bots from './index'
+import BlogPost from '../models/blogPost'
+import request from 'request'
+import { CronJob as Cron } from 'cron'
 
 const createTitle = bot => {
   return SentenceGenerator({
@@ -39,9 +41,13 @@ const savePost = data => {
   return Observable.fromNodeCallback(post.save())
 }
 
-const bots$ = Observable.from(bots);
+const scheduleJobs = bot => {
+  new Cron(bot.jobs.blog, () => postToBlog(bot.username), null, true)
+}
+
 
 function postToBlog(username) {
+  const bots$ = Observable.from(bots);
 
   const bot$ = bots$
     .filter(bot => bot.username === username);
@@ -76,39 +82,4 @@ function postToBlog(username) {
     )
 }
 
-postToBlog('marshall')
-
-// function createImage() {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(this.keywords, 'utf8', (err, data) => {
-//       const query = random(data.split(/(?:\. |\n)/ig));
-//       const url = `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${this.keys.giphy}`;
-
-//       request(url, (error, response, body) => {
-//         if (error) {
-//           this.showError(error);
-//         } else if (!error && response.statusCode === 200) {
-//           const parsed = JSON.parse(body);
-
-//           if (parsed.data.length) {
-//             const item = random(parsed.data);
-
-//             resolve(item.images.original.url);
-//           }
-//         }
-//       });
-//     });
-//   });
-// }
-
-// function random(array) {
-//   return array[Math.floor(Math.random() * array.length)];
-// }
-
-// function showError(err) {
-//   console.log(`\n\n\n======${this.name} error======`);
-//   console.log(err);
-//   console.log(`\n\n\n======${this.name} error======`);
-// }
-
-export default bots$;
+export default bots.forEach(scheduleJobs)

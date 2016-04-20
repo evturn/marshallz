@@ -9,15 +9,10 @@ export default {
   share: { twitter: 'https://twitter.com/marshallzBlog' },
   keywords: 'src/server/bots/marshall/keywords.txt',
   content: 'src/server/bots/marshall/content.txt',
-  jobs: [
-    {
-      type: 'blog',
-      crontab: '00 00,30 * * * *'
-    },{
-      type: 'twitter',
-      crontab: '00 00 01,04,07,10,13,16,22 * * *'
-    }
-  ],
+  jobs: {
+    blog: '00 00,30 * * * *',
+    twitter:'00 00 01,04,07,10,13,16,22 * * *'
+  },
   keys: {
     twitter: new Twitter({
       consumer_key: process.env.MARSHALLZ_TWITTER_CONSUMER_KEY,

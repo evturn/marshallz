@@ -1,5 +1,9 @@
 import mongoose from 'mongoose'
 
+mongoose.connect('mongodb://127.0.0.1/marshallz')
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
+mongoose.connection.once('open', _ => console.log('DB connected'))
+
 const blogPost = new mongoose.Schema({
   title:       {type: String},
   body:        {type: String},
