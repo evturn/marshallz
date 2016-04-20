@@ -1,7 +1,6 @@
-import Bot from '../bot';
 import Twitter from 'twitter';
 
-export default new Bot({
+export default {
   name: 'Marshall',
   username: 'marshall',
   avatar: 'av-marshall.png',
@@ -38,4 +37,4 @@ export default new Bot({
       share: this.share
     }
   }
-});
+}

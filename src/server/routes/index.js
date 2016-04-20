@@ -1,16 +1,15 @@
-import path from 'path';
-import express from 'express';
-import mongoose from 'mongoose';
+import path from 'path'
+import express from 'express'
+import mongoose from 'mongoose'
+import obs from '../bots/stream'
 
-import bots from '../bots';
-import obs from '../bots/stream';
-import * as blog from './blogPosts';
+import * as blog from './blogPosts'
 
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import config from '../../webpack/dev.js';
-import Server from '../../../dist/js/ser';
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import config from '../../webpack/dev.js'
+import Server from '../../../dist/js/ser'
 
 const app = express();
 
@@ -37,6 +36,6 @@ app.get('/api/post/:post',      blog.findOnePost);
 app.get('*', (req, res) => Server(req, res));
 
 app.listen(3000, _ => {
-  console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` Running ${process.env.NODE_ENV}`);
-  console.log(`\x1b[44m%s\x1b[0m`, `💻`, ` PORT: 3000`);
-});
+  console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` Running ${process.env.NODE_ENV}`)
+  console.log(`\x1b[44m%s\x1b[0m`, `💻`, ` PORT: 3000`)
+})

@@ -1,7 +1,6 @@
-import Bot from '../bot';
 import Twitter from 'twitter';
 
-export default new Bot({
+export default {
   name: '__clang__',
   username: 'clang',
   avatar: 'av-clang.png',
@@ -40,4 +39,4 @@ export default new Bot({
       share: this.share
     }
   }
-});
+}

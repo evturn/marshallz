@@ -1,6 +1,4 @@
-import Bot from '../bot';
-
-export default new Bot({
+export default {
   name: 'b0rf',
   username: 'borf',
   avatar: 'av-borf.png',
@@ -28,4 +26,4 @@ export default new Bot({
       share: this.share
     }
   }
-});
+}
