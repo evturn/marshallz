@@ -1,0 +1,45 @@
+@fa-font-path:        "../../fonts";
+@fa-font-size-base:   14px;
+@fa-line-height-base: 1;
+@fa-css-prefix:       fa;
+@fa-version:          "4.4.0";
+
+@fa-var-chevron-left: "\f053";
+@fa-var-chevron-right: "\f054";
+@fa-var-long-arrow-left: "\f177";
+@fa-var-bars: "\f0c9";
+@fa-var-twitter: "\f099";
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('@{fa-font-path}/fontawesome-webfont.eot?v=@{fa-version}');
+  src: url('@{fa-font-path}/fontawesome-webfont.eot?#iefix&v=@{fa-version}') format('embedded-opentype'),
+    url('@{fa-font-path}/fontawesome-webfont.woff2?v=@{fa-version}') format('woff2'),
+    url('@{fa-font-path}/fontawesome-webfont.woff?v=@{fa-version}') format('woff'),
+    url('@{fa-font-path}/fontawesome-webfont.ttf?v=@{fa-version}') format('truetype'),
+    url('@{fa-font-path}/fontawesome-webfont.svg?v=@{fa-version}#fontawesomeregular') format('svg');
+//  src: url('@{fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
+  font-weight: normal;
+  font-style: normal;
+}
+
+.@{fa-css-prefix} {
+  display: inline-block;
+  font: normal normal normal @fa-font-size-base/@fa-line-height-base FontAwesome; // shortening font declaration
+  font-size: inherit; // can't have font-size inherit on line above, so need to override
+  text-rendering: auto; // optimizelegibility throws things off #1094
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+
+.@{fa-css-prefix}-chevron-left:before { content: @fa-var-chevron-left; }
+
+.@{fa-css-prefix}-chevron-right:before { content: @fa-var-chevron-right; }
+
+.@{fa-css-prefix}-long-arrow-left:before { content: @fa-var-long-arrow-left; }
+
+.@{fa-css-prefix}-twitter:before { content: @fa-var-twitter; }
+
+.@{fa-css-prefix}-bars:before { content: @fa-var-bars; }

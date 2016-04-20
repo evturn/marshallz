@@ -1,19 +1,12 @@
 @import url('../variables.less');
 
-.post,
-.bio {
-  position: relative;
+.post {
   display: block;
+  position: relative;
   padding: 10px 10px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-right: 25px;
-  padding-left: 25px;
-
-  @media(@tablet) {
-    padding-right: 15px;
-    padding-left: 15px;
-  }
+  margin: 0 auto;
+  padding-right: 15px;
+  padding-left: 15px;
 
   .content {
     .clearfix();
@@ -48,23 +41,29 @@
 
   .tag,
   .date {
-    display: inline-block;
     font-size: 11px;
     text-align: left;
     font-family: @font-sans;
     letter-spacing: -0.5px;
     color: fade(@tx-dark, 44);
     text-transform: uppercase;
-    margin-right: 10px;
+  }
+
+  .tag {
+    display: inline-block;
+  }
+
+  .date {
+    display: inline-block;
   }
 
   .info {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: super;
   }
 
   .name {
-    display: block;
+    display: inline-block;
     text-align: left;
 
     a {
@@ -79,6 +78,27 @@
       }
     }
   }
+
+  .social {
+    display: inline-block;
+    text-align: left;
+    color: @tx-grey;;
+    .transition(0.2s);
+
+    &:hover {
+      color: fade(@shade-dark, 44);
+    }
+  }
+
+  .date:before,
+  .social:before, {
+    content: '•';
+    font-size: 11px;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: @tx-grey;
+  }
+
   .bg {
     height: 200px;
     width: 100%;
@@ -137,13 +157,4 @@
     }
   }
 
-  .social {
-    display: inline-block;
-    text-align: left;
-    color: @shade-dark;
-
-    &:hover {
-      color: fade(@shade-dark, 90);
-    }
-  }
 }

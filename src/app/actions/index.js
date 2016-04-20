@@ -31,7 +31,7 @@ export const filterPosts = props => dispatch => {
 };
 
 function setPagination(posts, currentPage) {
-  const perPage = 2;
+  const perPage = 20;
   const total = posts.length;
   const pages = Math.ceil(total / perPage);
   const previous = currentPage > 1 ? currentPage - 1 : false;

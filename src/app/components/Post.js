@@ -52,14 +52,23 @@ class Post extends Component {
         <div className={cx('content')}>
 
           <div className={cx('header')}>
+
             <div className={cx('avatar')}>
               {authorAvatar}
             </div>
+
             <div className={cx('info')}>
-              {authorName}
-              {authorTwitter}
-              {authorTag}
-              {postTimestamp}
+
+              <div className={cx('links')}>
+                {authorName}
+                {authorTwitter}
+              </div>
+
+              <div className={cx('meta')}>
+                {authorTag}
+                {postTimestamp}
+              </div>
+
             </div>
           </div>
 
