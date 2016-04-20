@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import { IntlProvider, FormattedRelative } from 'react-intl';
-import classNames from 'classnames/bind';
-import css from 'less/components/blog-post.less';
+import React, { Component } from 'react'
+import { Link } from 'react-router'
+import { IntlProvider, FormattedRelative } from 'react-intl'
+import classNames from 'classnames/bind'
+import css from 'less/components/blog-post.less'
 
-const cx = classNames.bind(css);
+const cx = classNames.bind(css)
 
 class Post extends Component {
   render() {
     const {
-      timestamp, title, body, slug, image } = this.props;
+      timestamp, title, body, slug, image } = this.props
     const {
-      username, avatar, name, social, share } = this.props.author;
+      username, avatar, name, social, share } = this.props.author
 
     const authorAvatar = (
       <Link to={{ pathname: `/author/${username}` }}>
         <img className={cx('avatar')} src={require(`images/${avatar}`)} />
       </Link>
-    );
+    )
 
     const postDetails = (
       <div className={cx('meta')}>
@@ -30,13 +30,13 @@ class Post extends Component {
           </div>
         </IntlProvider>
       </div>
-    );
+    )
 
     const postTitle = (
       <Link to={{ pathname: `/post/${slug}` }}>
         <div className={cx('title')}>{title}</div>
       </Link>
-    );
+    )
 
     const authorTwitter = (
       <div className={cx('social')}>
@@ -46,7 +46,9 @@ class Post extends Component {
           </div>
         ) : null}
       </div>
-    );
+    )
+
+    const postImage = image ? <div className={cx('image')}  style={{ backgroundImage: `url(${image})` }}></div> : null
 
     return (
       <div className={cx('post')}>
@@ -56,13 +58,13 @@ class Post extends Component {
             {postDetails}
           </div>
           {postTitle}
-          <div className={cx('image')}  style={{ backgroundImage: `url(${image})` }}></div>
+          {postImage}
           <div className={cx('body')}>{body}</div>
           {authorTwitter}
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Post;
+export default Post
