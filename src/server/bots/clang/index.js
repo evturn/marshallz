@@ -5,7 +5,6 @@ export default {
   username: 'clang',
   avatar: 'av-clang.png',
   index: 1,
-  keywords: 'src/server/bots/clang/keywords.txt',
   content: 'src/server/bots/clang/content.txt',
   social: true,
   share: {

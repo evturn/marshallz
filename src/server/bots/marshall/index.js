@@ -7,7 +7,6 @@ export default {
   index: 0,
   social: true,
   share: { twitter: 'https://twitter.com/marshallzBlog' },
-  keywords: 'src/server/bots/marshall/keywords.txt',
   content: 'src/server/bots/marshall/content.txt',
   jobs: {
     blog: '00 00,30 * * * *',

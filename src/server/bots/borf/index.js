@@ -3,7 +3,6 @@ export default {
   username: 'borf',
   avatar: 'av-borf.png',
   index: 2,
-  keywords: 'src/server/bots/borf/keywords.txt',
   content: 'src/server/bots/borf/content.txt',
   social: false,
   jobs: {
