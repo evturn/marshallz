@@ -1,18 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SiteHeader from 'components/SiteHeader';
-import createMemoryHistory from 'history/lib/createMemoryHistory';
 import 'less/global/style.less';
 
 class App extends Component {
-  componentDidMount() {
-    createMemoryHistory(this.props.location);
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.location !== this.props.location) {
-      createMemoryHistory(nextProps.location);
-    }
-  }
   render() {
     return (
       <div style={{ backgroundImage: `url(${require('images/bg.jpg')})` }}>
