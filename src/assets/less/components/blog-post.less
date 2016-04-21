@@ -71,18 +71,7 @@
   .name {
     display: inline-block;
     text-align: left;
-
-    a {
-      .transition(0.2s);
-      color: @tx-secondary;
-
-      &:hover {
-        color: fade(@tx-dark, 44);
-      }
-      .fa {
-        color: @tx-post-social;
-      }
-    }
+    .link-hover();
   }
 
   .social {

@@ -26,6 +26,20 @@
   height: auto;
 }
 
+.link-hover() {
+  a {
+    .transition(0.2s);
+    color: @tx-secondary;
+
+    &:hover {
+      color: fade(@tx-dark, 44);
+    }
+    .fa {
+      color: @tx-post-social;
+    }
+  }
+}
+
 @-webkit-keyframes enter {
   0% {
     opacity: 0;
