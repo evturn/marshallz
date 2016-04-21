@@ -34,9 +34,7 @@ class BlogPosts extends Component {
         )}
           <Pagination pathname={pathname} {...pagination} />
         </div>
-        <div className={cx('authors')}>
-          <SidePanel authors={authors} />
-        </div>
+        <SidePanel authors={authors} />
       </div>
     )
   }
