@@ -21,7 +21,6 @@ app.get(
   blog.init,
   blog.findAllPosts,
   blog.filterPostsByUsername,
-  blog.populateAuthors,
   blog.sendPayload
 )
 app.get(

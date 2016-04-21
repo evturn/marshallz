@@ -31,6 +31,7 @@ export const findAllPosts = (req, res, next) => {
       if (err) { return (err) }
       const pages = Math.ceil(results.length / 2)
 
+      res.locals.blog.authors = bots.map(x => x.authorData())
       res.locals.blog.posts = results
       res.locals.blog.filter = {
         all: results
@@ -47,6 +48,8 @@ export const findAllPosts = (req, res, next) => {
     })
 }
 
+// Not in use
+// Create an Object with bot names as keys
 export const populateAuthors = (req, res, next) => {
   res.locals.blog.authors = bots.reduce((acc, bot) => {
     const props = bot.authorData()
