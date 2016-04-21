@@ -38,7 +38,7 @@ export const findAllPosts = (req, res, next) => {
       }
       res.locals.blog.showing = results
       res.locals.blog.pagination = {
-        perPage: 20,
+        perPage: 10,
         total: results.length,
         pages,
         buttons: results.map((item, i) => i + 1).filter(i => i <= pages)

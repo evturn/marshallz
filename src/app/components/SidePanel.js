@@ -9,13 +9,15 @@ const cx = classNames.bind(css)
 const SidePanel = ({ authors }) => {
   return (
     <div className={cx('authors')}>
-      <ul>{authors.map((x, i) =>
-        <li key={i}>
-          <Link to={{ pathname: `/author/${x.username}` }}>
-            <img src={require(`images/${x.avatar}`)} />
-            <span className={cx('name')}>{x.name}</span>
-          </Link>
-        </li>
+      <ul>
+        <li className={cx('title')}>Contributors</li>
+        {authors.map((x, i) =>
+          <li key={i}>
+            <Link to={{ pathname: `/author/${x.username}` }}>
+              <img src={require(`images/${x.avatar}`)} />
+              <span className={cx('name')}>{x.name}</span>
+            </Link>
+          </li>
       )}</ul>
     </div>
   )

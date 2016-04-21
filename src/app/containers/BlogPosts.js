@@ -29,9 +29,8 @@ class BlogPosts extends Component {
 
     return (
       <div className={cx('root')}>
-        <div className={cx('posts')}>{showing.map((post, i) =>
-          <Post key={i} {...post} />
-        )}
+        <div className={cx('posts')}>
+          {showing.map((post, i) => <Post key={i} {...post} />)}
           <Pagination pathname={pathname} {...pagination} />
         </div>
         <SidePanel authors={authors} />
