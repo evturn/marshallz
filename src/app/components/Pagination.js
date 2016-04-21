@@ -10,7 +10,7 @@ class Pagination extends Component {
   render() {
     const {
       total, pages, next, previous, buttons,
-      currentPage, first, last, pathname} = this.props;
+      page, first, last, pathname} = this.props;
 
     const backArrow = <span className="fa fa-chevron-left" />;
     const forwardArrow = <span className="fa fa-chevron-right" />;
@@ -24,11 +24,11 @@ class Pagination extends Component {
       )}</li>
     );
 
-    const skipTo = buttons.map(page =>
-      <li key={page} className={cx('page')}>{page !== currentPage ? (
-        <Link to={{ pathname, query: {page} }}>{page}</Link>
+    const skipTo = buttons.map(x =>
+      <li key={x} className={cx('page')}>{x !== page ? (
+        <Link to={{ pathname, query: {page: x} }}>{x}</Link>
         ) : (
-        <a className={cx('off')}>{page}</a>
+        <a className={cx('off')}>{x}</a>
       )}</li>
     );
 
@@ -59,7 +59,7 @@ Pagination.propTypes = {
   buttons: PropTypes.array,
   first: PropTypes.number,
   last: PropTypes.number,
-  currentPage: PropTypes.number,
+  page: PropTypes.number,
   pathname: PropTypes.string,
   dispatch: PropTypes.func
 };
@@ -73,6 +73,6 @@ export default connect(
     last: state.blog.pagination.last,
     previous: state.blog.pagination.previous,
     next: state.blog.pagination.next,
-    currentPage: state.blog.pagination.currentPage
+    page: state.blog.pagination.page
   })
 )(Pagination);
