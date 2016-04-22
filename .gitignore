@@ -4,3 +4,4 @@ node_modules
 *.hot-update.json
 *.hot-update.js
 lib
+dist
