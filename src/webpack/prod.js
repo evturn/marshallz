@@ -40,7 +40,7 @@ export default webpack([
     },
     resolve: { extensions, modulesDirectories, alias },
     plugins: [
-      new CleanWebpackPlugin(['dist'], {
+      new CleanWebpackPlugin(['dist', 'lib'], {
         root: path.join(__dirname, '..', '..')
       }),
       new webpack.optimize.OccurenceOrderPlugin(),
