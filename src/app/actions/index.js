@@ -4,7 +4,8 @@ const actions = {
   fetchPost:          _ => ({ type: 'FETCH_POST' }),
   fetchSuccess: payload => ({ type: 'FETCH_SUCCESS', payload }),
   fetchError:   message => ({ type: 'FETCH_ERROR', message }),
-  filterPosts:  payload => ({ type: 'FILTER_POSTS', payload })
+  filterPosts:  payload => ({ type: 'FILTER_POSTS', payload }),
+  fixSidePanel: payload => ({ type: 'FIX_SIDE_PANEL', payload })
 };
 
 export const fetchPost = slug => dispatch => {
@@ -46,3 +47,12 @@ export const filterPosts = (
   })));
 }
 
+export const fixSidePanel = fixed => dispatch =>{
+  if (window.innerWidth < 1024) {
+    return;
+  } else if (window.scrollY > 118 && !fixed) {
+    dispatch(actions.fixSidePanel(true))
+  } else if (window.scrollY < 118 && fixed) {
+    dispatch(actions.fixSidePanel(false))
+  }
+}

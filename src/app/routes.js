@@ -1,8 +1,8 @@
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-import App from 'containers/App';
-import BlogPosts from 'containers/BlogPosts';
-import Detail from 'containers/Detail';
+import React from 'react'
+import { Route, IndexRoute } from 'react-router'
+import App from 'containers/App'
+import BlogPosts from 'containers/BlogPosts'
+import Detail from 'containers/Detail'
 
 export default (
   <Route path="/" component={App}>

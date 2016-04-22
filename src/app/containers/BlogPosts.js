@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { filterPosts } from 'actions'
+import { filterPosts, fixSidePanel } from 'actions'
 import Post from 'components/Post'
 import Pagination from 'components/Pagination'
 import SidePanel from 'components/SidePanel'
@@ -25,10 +25,12 @@ class BlogPosts extends Component {
     }
   }
   render() {
-    const { showing, pagination, pathname, authors } = this.props
+    const {
+      dispatch, showing, pagination,
+      pathname, authors, fixed } = this.props
 
     return (
-      <div className={cx('root')}>
+      <div onWheel={() => dispatch(fixSidePanel(fixed))} className={cx('root')}>
         <div className={cx('posts')}>
           {showing.map((post, i) => <Post key={i} {...post} />)}
           <Pagination pathname={pathname} {...pagination} />
@@ -46,6 +48,7 @@ BlogPosts.propTypes = {
   filter: PropTypes.object,
   params: PropTypes.object,
   query: PropTypes.object,
+  fixed: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
 }
 
@@ -58,6 +61,7 @@ export default connect(
     pathname: ownProps.location.pathname,
     pagination: state.blog.pagination,
     showing: state.blog.showing,
+    fixed: state.blog.fixed,
     filter: state.blog.filter
   })
 )(BlogPosts)

@@ -2,7 +2,8 @@ export default function blog(state = {
   post: {},
   isFetching: false,
   isCompleted: false,
-  hasOne: false
+  hasOne: false,
+  fixed: false,
 }, action) {
   switch (action.type) {
     case 'FETCH_POST':
@@ -25,6 +26,10 @@ export default function blog(state = {
     case 'FILTER_POSTS':
       return Object.assign({}, state, {
         ...action.payload
+      });
+    case 'FIX_SIDE_PANEL':
+      return Object.assign({}, state, {
+        fixed: action.payload
       });
     default:
       return state;
