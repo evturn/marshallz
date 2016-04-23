@@ -61,6 +61,7 @@
     "image-webpack-loader": "^1.7.0",
     "json-loader": "^0.5.4",
     "less-loader": "^2.2.3",
+    "node-notifier": "^4.5.0",
     "redux-devtools": "^3.2.0",
     "redux-logger": "^2.6.1",
     "style-loader": "^0.13.1",

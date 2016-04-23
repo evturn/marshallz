@@ -3,8 +3,7 @@ import path from 'path'
 import db from '../models/blogPost'
 import bots from '../bots/stream'
 import * as blog from './blogPosts'
-import devServer from './devServer'
-
+import devServer, { notifier } from './devServer'
 import Server from '../../../dist/js/ser'
 
 const app = express();
@@ -33,4 +32,5 @@ app.get('*', (req, res) => Server(req, res))
 app.listen(3000, _ => {
   console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` Running ${process.env.NODE_ENV}`)
   console.log(`\x1b[44m%s\x1b[0m`, `💻`, ` PORT: 3000`)
+  notifier()
 })

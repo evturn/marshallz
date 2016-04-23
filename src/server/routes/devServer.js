@@ -2,6 +2,8 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import config from '../../webpack/dev.js'
+import path from 'path'
+import nn from 'node-notifier'
 
 export default function devServer(app) {
   const compiler = webpack(config);
@@ -13,4 +15,14 @@ export default function devServer(app) {
   app.use(webpackHotMiddleware(compiler))
 
   return app;
+}
+
+export const notifier = _ => {
+  nn.notify({
+    title: `Marshallz Blog`,
+    message: `Server is listening`,
+    icon: path.join(__dirname, '../../assets/img/favicon.png') || false,
+    sound: 'Submarine' || false,
+    wait: false
+  })
 }
