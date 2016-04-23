@@ -29,8 +29,4 @@ app.get(
 
 app.get('*', (req, res) => Server(req, res))
 
-app.listen(3000, _ => {
-  console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` Running ${process.env.NODE_ENV}`)
-  console.log(`\x1b[44m%s\x1b[0m`, `💻`, ` PORT: 3000`)
-  notifier()
-})
+app.listen(3000, notifier)

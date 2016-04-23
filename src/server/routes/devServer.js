@@ -24,5 +24,8 @@ export const notifier = _ => {
     icon: path.join(__dirname, '../../assets/img/favicon.png') || false,
     sound: 'Submarine' || false,
     wait: false
+  }, (err, res) => {
+    console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` Running ${process.env.NODE_ENV}`)
+    console.log(`\x1b[44m%s\x1b[0m`, `💻`, ` PORT: 3000`)
   })
 }
