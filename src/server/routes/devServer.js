@@ -18,14 +18,19 @@ export default function devServer(app) {
 }
 
 export const notifier = _ => {
-  nn.notify({
-    title: `Marshallz Blog`,
-    message: `Server is listening`,
-    icon: path.join(__dirname, '../../assets/img/favicon.png') || false,
-    sound: 'Submarine' || false,
-    wait: false
-  }, (err, res) => {
+  if (process.env.NODE_ENV === 'development') {
+    nn.notify({
+      title: `Marshallz Blog`,
+      message: `Server is listening`,
+      icon: path.join(__dirname, '../../assets/img/favicon.png'),
+      sound: 'Submarine',
+      wait: false
+    }, (err, res) => {
+      console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` Running ${process.env.NODE_ENV}`)
+      console.log(`\x1b[44m%s\x1b[0m`, `💻`, ` PORT: 3000`)
+    })
+  } else {
     console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` Running ${process.env.NODE_ENV}`)
     console.log(`\x1b[44m%s\x1b[0m`, `💻`, ` PORT: 3000`)
-  })
+  }
 }
