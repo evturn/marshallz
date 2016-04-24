@@ -47,12 +47,36 @@ export const filterPosts = (
   })));
 }
 
-export const fixSidePanel = fixed => dispatch =>{
-  if (window.innerWidth < 1024) {
-    return;
-  } else if (window.scrollY > 118 && !fixed) {
-    dispatch(actions.fixSidePanel(true))
-  } else if (window.scrollY < 118 && fixed) {
-    dispatch(actions.fixSidePanel(false))
-  }
+let previous;
+let direction;
+let fixed;
+export const fixSidePanel = _ => dispatch => {
+  window.addEventListener('scroll', e => {
+    if (window.innerWidth < 1024) {
+      return;
+    }
+
+    const current = window.scrollY;
+
+    fixed = fixed === undefined ? false : fixed
+
+
+    if (previous) {
+      if (previous < current) {
+        direction = 'DOWN'
+      } else if (previous > current ) {
+        direction = 'UP'
+      }
+
+      if (current >= 155 && !fixed && direction === 'DOWN') {
+        dispatch(actions.fixSidePanel(true))
+        fixed = true
+      } else if (current < 155 && fixed && direction === 'UP') {
+        dispatch(actions.fixSidePanel(false))
+        fixed = false
+      }
+    }
+
+    previous = current;
+  })
 }

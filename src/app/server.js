@@ -14,15 +14,15 @@ export default (req, res) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
       fetchLocals(res => configureStore({ blog: res.blog }))
-      .then(store => {
-        const initialState = store.getState()
-        const html = renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>)
+        .then(store => {
+          const html = renderToString(
+            <Provider store={store}>
+              <RouterContext {...renderProps} />
+            </Provider>)
+          const initialState = store.getState()
 
-        res.status(200).send(createPage(html, initialState))
-      })
+          res.status(200).send(createPage(html, initialState))
+        })
     } else {
       res.status(404).send('Not found')
     }

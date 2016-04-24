@@ -10,7 +10,7 @@ class SidePanel extends Component {
   render() {
     const { authors, fixed } = this.props
     return (
-      <div className={cx('authors', { fixed })}>
+      <div className={cx('root', { fixed })}>
         <ul>
           <li className={cx('title')}>Contributors</li>
           {authors.map((x, i) =>
@@ -28,7 +28,8 @@ class SidePanel extends Component {
 
 SidePanel.propTypes = {
   fixed: PropTypes.bool,
-  authors: PropTypes.array
+  authors: PropTypes.array,
+  dispatch: PropTypes.func
 }
 
 export default connect(

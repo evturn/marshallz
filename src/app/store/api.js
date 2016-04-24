@@ -1,13 +1,11 @@
 import fetch from 'isomorphic-fetch';
 
-const fetchJSON = (url, cb) => {
-  return fetch(url)
+const fetchLocals = cb => {
+  return fetch('http://localhost:3000/api/locals')
     .then(res => res.json())
     .then(res => cb(res))
-    .catch(error => console.log(error));
-};
-
-export const fetchLocals = cb => fetchJSON('http://localhost:3000/api/locals', cb);
+    .catch(e => console.log(e))
+}
 
 export const createPage = (html, initialState) => {
   return `
@@ -24,17 +22,17 @@ export const createPage = (html, initialState) => {
       <script src="/dist/js/app.js"></script>
     </body>
     </html>
-  `;
-};
+  `
+}
 
-export const scrollWindowTop = () => window.scrollTo(0, 0);
+export const scrollWindowTop = _ => window.scrollTo(0, 0);
 
 export const thunkmasterFlex = ({ dispatch, getState }) => {
   return next => action => {
     if (typeof action === 'function') {
-      return action(dispatch, getState);
+      return action(dispatch, getState)
     }
 
-    return next(action);
-  };
-};
+    return next(action)
+  }
+}

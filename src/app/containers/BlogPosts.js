@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { filterPosts, fixSidePanel } from 'actions'
+import { filterPosts } from 'actions'
 import Post from 'components/Post'
 import Pagination from 'components/Pagination'
 import SidePanel from 'components/SidePanel'
@@ -30,7 +30,7 @@ class BlogPosts extends Component {
       pathname, authors, fixed } = this.props
 
     return (
-      <div onWheel={() => dispatch(fixSidePanel(fixed))} className={cx('root')}>
+      <div className={cx('root')}>
         <div className={cx('posts')}>
           {showing.map((post, i) => <Post key={i} {...post} />)}
           <Pagination pathname={pathname} {...pagination} />
