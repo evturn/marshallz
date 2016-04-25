@@ -18,7 +18,8 @@ class BlogPosts extends Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch, filter } = this.props
 
-    if (nextProps.params !== this.props.params || nextProps.query !== this.props.query) {
+    if (nextProps.params !== this.props.params
+      || nextProps.query !== this.props.query) {
       const { params, query } = nextProps
 
       dispatch(filterPosts({ params, query, filter }))
