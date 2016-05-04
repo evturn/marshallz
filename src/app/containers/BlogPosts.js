@@ -13,20 +13,15 @@ class BlogPosts extends Component {
   componentDidMount() {
     const { params, query, filter } = this.props
 
-    filterPosts({
-      params,
-      query,
-      filter
-    })(this.context.store)
+    filterPosts({ params, query, filter })(this.context.store)
   }
   componentWillReceiveProps(nextProps) {
-    const { dispatch, filter } = this.props
-
     if (nextProps.params !== this.props.params
       || nextProps.query !== this.props.query) {
       const { params, query } = nextProps
+      const { filter } = this.props
 
-      dispatch(filterPosts({ params, query, filter }))
+      filterPosts({ params, query, filter })(this.context.store)
     }
   }
   render() {

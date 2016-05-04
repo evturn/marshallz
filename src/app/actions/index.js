@@ -14,30 +14,42 @@ export const fetchPost = slug => dispatch => {
     .catch(err => dispatch(FETCH_ERROR(err)))
 }
 
-export const filterPosts = ({ params, query, filter }) => ({ dispatch, getState }) => {
-  const { author } = params
-  const posts = author ? filter.author[author] : filter.all
-  const page = query.page ? parseInt(query.page) : 1
-  const perPage = getState().blog.perPage
-  // const filter$ = Observable.from([{ posts, page }])
+export const filterPosts = ({ params, query, filter }) =>
+  ({ dispatch, getState }) => {
+    const perPage = getState().blog.perPage
+    const route$ = Observable.from([{ author: params.author, page: query.page }])
+    const posts$ = route$
+      .map(({ author }) => author ? filter.author[author] : filter.all)
 
-  const first = ((page - 1) * perPage) + 1
-  const last = page * perPage
-  const pages = Math.ceil(posts.length / perPage)
+    const page$ = route$
+      .map(({ page }) => page ? parseInt(page) : 1)
 
-  dispatch(FILTER_POSTS({
-    showing: posts.filter((x, i) => i >= first - 1 && i <= last - 1),
-    pagination: {
-      first,
-      last,
-      pages,
-      page,
-      previous: page > 1 ? page - 1 : false,
-      next: page < pages ? page + 1 : false,
-      total: posts.length,
-      buttons: posts.map((x, i) => i + 1).filter(i => i <= pages)
-    }
-  }))
+    const pages$ = posts$
+      .map(x => Math.ceil(x.length / perPage))
+
+    Observable.combineLatest(posts$, page$, pages$)
+      .map(([posts, page, pages]) => {
+        return {
+          posts,
+          perPage,
+          page,
+          pages,
+          first: ((page - 1) * perPage) + 1,
+          last: page * perPage,
+          total: posts.length,
+          previous: page > 1 ? page - 1 : false,
+          next: page < pages ? page + 1 : false,
+          buttons: posts.map((x, i) => i + 1).filter(i => i <= pages)
+        }
+      })
+      .map(x => {
+        const { posts, first, last } = x
+        return {
+          showing: posts.filter((x, i) => i >= first - 1 && i <= last - 1),
+          pagination: x
+        }
+      })
+      .subscribe(x => dispatch(FILTER_POSTS(x)))
 }
 
 let previous;
