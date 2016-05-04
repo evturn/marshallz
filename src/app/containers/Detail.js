@@ -16,7 +16,7 @@ class Detail extends Component {
     const { hasOne, post} = this.props
 
     return (
-      <div className={cx('blog-posts')}>
+      <div className={cx('posts')}>
         {hasOne ? <Post {...post}/> : null}
       </div>
     )

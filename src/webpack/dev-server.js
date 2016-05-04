@@ -24,7 +24,6 @@ export const notifier = _ => {
     nn.notify({
       title: `Marshallz Blog`,
       message: `Server is listening`,
-      icon: path.join(__dirname, '../../assets/img/favicon.png'),
       sound: 'Submarine',
       wait: false
     }, (err, res) => {

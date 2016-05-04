@@ -2,16 +2,18 @@ import path from 'path'
 import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 import precss from 'precss'
 import autoprefixer from 'autoprefixer'
 import {
-  PATHS, loaders, alias,
-  extensions, modulesDirectories } from './base'
+  PATHS, prodLoaders, extensions,
+  alias, modulesDirectories, PORT } from './base'
 
 export default webpack([
   {
     name: 'browser',
     devtool: 'source-map',
+    target: 'web',
     context: PATHS.root,
     entry: {
       app: '../app/client'
@@ -21,25 +23,7 @@ export default webpack([
       filename: PATHS.static.js,
       publicPath: PATHS.publicPath
     },
-    module: {
-      loaders: loaders.concat([
-        {
-          test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          loader: 'url-loader'
-        },{
-          test: /\.less$/,
-          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader'),
-          include: /global/
-        },{
-          test: /\.less$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader?module&localIdentName=[local]__[hash:base64:5]&importLoaders=1!postcss-loader' +
-            '!less?includePaths[]=' + encodeURIComponent(PATHS.less)),
-          exclude: /global/
-        }
-      ])
-    },
+    module: { loaders: prodLoaders },
     resolve: { extensions, modulesDirectories, alias },
     postcss: _ => [precss, autoprefixer],
     plugins: [
@@ -53,16 +37,22 @@ export default webpack([
           warnings: false
         }
       }),
+      new CopyWebpackPlugin([
+        {
+          from: path.join(__dirname, '..', 'assets', 'img', 'favicon.png'),
+          to: 'favicon.png'
+        }
+      ]),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"',
         __DEV__: false,
         __CLIENT__: true,
         __SERVER__: false,
-        __PORT__: process.env.PORT_MARSHALLZ
+        __PORT__: PORT
       })
     ]
   }, {
-    name: 'server-side rendering',
+    name: 'server-side-rendering',
     devtool: 'source-map',
     target: 'node',
     context: PATHS.root,
@@ -75,22 +65,7 @@ export default webpack([
       publicPath: PATHS.publicPath,
       libraryTarget: 'commonjs2'
     },
-    module: {
-      loaders: loaders.concat([
-        {
-          test: /\.less$/,
-          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader'),
-          include: /global/
-        },{
-          test: /\.less$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader?module&localIdentName=[local]__[hash:base64:5]&importLoaders=1!postcss-loader' +
-            '!less?includePaths[]=' + encodeURIComponent(PATHS.less)),
-          exclude: /global/
-        }
-      ])
-    },
+    module: { loaders: prodLoaders },
     resolve: { extensions, modulesDirectories, alias },
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
@@ -105,7 +80,7 @@ export default webpack([
         __DEV__: false,
         __CLIENT__: false,
         __SERVER__: true,
-        __PORT__: process.env.PORT_MARSHALLZ
+        __PORT__: PORT
       })
     ]
   }

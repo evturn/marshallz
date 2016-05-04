@@ -3,8 +3,8 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WriteFilePlugin from 'write-file-webpack-plugin';
 import {
-  PATHS, loaders, alias, plugin,
-  extensions, modulesDirectories } from './base';
+  PATHS, devLoaders, extensions,
+  alias, modulesDirectories, PORT } from './base';
 
 export default {
   debug: true,
@@ -32,27 +32,10 @@ export default {
     inline: true,
     progress: true,
     stats: 'errors-only',
-    port: process.env.PORT_MARSHALLZ || 3000,
+    port: PORT,
     host: 'localhost'
   },
-  module: {
-    loaders: loaders.concat([
-      {
-        test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader'
-      },{
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
-        include: /global/
-      },{
-        test: /\.less$/,
-        loader: 'style!css?module&localIdentName=[local]__[hash:base64:5]' +
-          '&sourceMap!less?sourceMap&outputStyle=expanded' +
-          '&includePaths[]=' + encodeURIComponent(PATHS.less),
-        exclude: /global/
-      }
-    ])
-  },
+  module: { loaders: devLoaders },
   resolve: { extensions, modulesDirectories, alias },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -64,7 +47,7 @@ export default {
        __DEV__: true,
       __CLIENT__: true,
       __SERVER__: false,
-      __PORT__: process.env.PORT_MARSHALLZ
+      __PORT__: PORT
     })
   ]
 };

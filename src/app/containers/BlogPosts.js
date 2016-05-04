@@ -15,6 +15,7 @@ class BlogPosts extends Component {
 
     filterPosts({ params, query, filter })(this.context.store)
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.params !== this.props.params
       || nextProps.query !== this.props.query) {
@@ -24,16 +25,15 @@ class BlogPosts extends Component {
       filterPosts({ params, query, filter })(this.context.store)
     }
   }
+
   render() {
-    const {
-      dispatch, showing, pagination,
-      pathname, authors, fixed } = this.props
+    const { showing, pagination, pathname, authors } = this.props
 
     return (
       <div className={cx('root')}>
         <div className={cx('posts')}>
-          {showing.map((post, i) => <Post key={i} {...post} />)}
-          <Pagination pathname={pathname} {...pagination} />
+          {showing.map((x, i) => <Post key={i} { ...x } />)}
+          <Pagination pathname={pathname} { ...pagination } />
         </div>
         <SidePanel authors={authors} />
       </div>
@@ -48,7 +48,6 @@ BlogPosts.propTypes = {
   filter: PropTypes.object,
   params: PropTypes.object,
   query: PropTypes.object,
-  fixed: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
 }
 
@@ -65,7 +64,6 @@ export default connect(
     pathname: ownProps.location.pathname,
     pagination: state.blog.pagination,
     showing: state.blog.showing,
-    fixed: state.blog.fixed,
     filter: state.blog.filter
   })
 )(BlogPosts)
