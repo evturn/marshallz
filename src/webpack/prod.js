@@ -1,10 +1,12 @@
-import path from 'path';
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import path from 'path'
+import webpack from 'webpack'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
+import precss from 'precss'
+import autoprefixer from 'autoprefixer'
 import {
   PATHS, loaders, alias,
-  extensions, modulesDirectories } from './base';
+  extensions, modulesDirectories } from './base'
 
 export default webpack([
   {
@@ -26,19 +28,20 @@ export default webpack([
           loader: 'url-loader'
         },{
           test: /\.less$/,
-          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader'),
           include: /global/
         },{
           test: /\.less$/,
           loader: ExtractTextPlugin.extract(
             'style-loader',
-            'css-loader?module&localIdentName=[local]__[hash:base64:5]' +
+            'css-loader?module&localIdentName=[local]__[hash:base64:5]&importLoaders=1!postcss-loader' +
             '!less?includePaths[]=' + encodeURIComponent(PATHS.less)),
           exclude: /global/
         }
       ])
     },
     resolve: { extensions, modulesDirectories, alias },
+    postcss: _ => [precss, autoprefixer],
     plugins: [
       new CleanWebpackPlugin(['dist', 'lib'], {
         root: path.join(__dirname, '..', '..')
@@ -54,7 +57,8 @@ export default webpack([
         'process.env.NODE_ENV': '"production"',
         __DEV__: false,
         __CLIENT__: true,
-        __SERVER__: false
+        __SERVER__: false,
+        __PORT__: process.env.PORT_MARSHALLZ
       })
     ]
   }, {
@@ -75,13 +79,13 @@ export default webpack([
       loaders: loaders.concat([
         {
           test: /\.less$/,
-          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader'),
           include: /global/
         },{
           test: /\.less$/,
           loader: ExtractTextPlugin.extract(
             'style-loader',
-            'css-loader?module&localIdentName=[local]__[hash:base64:5]' +
+            'css-loader?module&localIdentName=[local]__[hash:base64:5]&importLoaders=1!postcss-loader' +
             '!less?includePaths[]=' + encodeURIComponent(PATHS.less)),
           exclude: /global/
         }
@@ -91,22 +95,28 @@ export default webpack([
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
       new ExtractTextPlugin(PATHS.static.css),
+      new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+          warnings: false
+        }
+      }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"',
         __DEV__: false,
         __CLIENT__: false,
-        __SERVER__: true
+        __SERVER__: true,
+        __PORT__: process.env.PORT_MARSHALLZ
       })
     ]
   }
 ], (err, stats) => {
   if (err) {
-    const jsonStats = stats.toJson();
+    const jsonStats = stats.toJson()
 
     if (jsonStats.errors.length > 0) {
-      console.log(json.errors);
+      console.log(json.errors)
     }
   }
 
   console.log(stats.toString({ colors: true }))
-});
+})

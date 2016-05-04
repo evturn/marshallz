@@ -2,8 +2,8 @@ import express from 'express'
 import path from 'path'
 import db from '../models/blogPost'
 import bots from '../bots/stream'
-import * as blog from './blogPosts'
-import devServer, { notifier } from './devServer'
+import * as blog from './middleware'
+import devServer, { notifier } from '../../webpack/dev-server'
 import Server from '../../../dist/js/ser'
 
 const app = express();
@@ -29,4 +29,4 @@ app.get(
 
 app.get('*', (req, res) => Server(req, res))
 
-app.listen(3000, notifier)
+app.listen(process.env.PORT_MARSHALLZ, notifier)

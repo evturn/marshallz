@@ -9,7 +9,7 @@ export const PATHS = {
   static: {
     js: 'js/[name].js',
     css: 'css/app.css',
-    img: 'img/[hash].[ext]'
+    img: 'img/[name].[ext]'
   },
   root: __dirname
 };
@@ -29,11 +29,7 @@ export const loaders = [
   {
     test: /\.js$|\.jsx$/,
     loader: 'babel',
-    exclude: /node_modules/,
-    include: PATHS.app
-  },{
-    test: /\.css$/,
-    loaders: ['style', 'css']
+    exclude: /node_modules/
   },{
     test: /\.json$/,
     loader: 'json-loader'
@@ -57,4 +53,4 @@ export const loaders = [
 ];
 
 export const extensions = ['', '.js', '.jsx', '.less'];
-export const modulesDirectories = ['app', 'node_modules'];
+export const modulesDirectories = ['node_modules'];

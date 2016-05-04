@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import BlogPost from '../models/blogPost'
-import bots from '../bots'
+import BlogPost from '../../models/blogPost'
+import bots from '../../bots'
 
 export const init = (req, res, next) => {
   res.locals.blog = {

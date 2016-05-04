@@ -32,7 +32,7 @@ export default {
     inline: true,
     progress: true,
     stats: 'errors-only',
-    port: 3000,
+    port: process.env.PORT_MARSHALLZ || 3000,
     host: 'localhost'
   },
   module: {
@@ -63,7 +63,8 @@ export default {
       'process.env.NODE_ENV': '"development"',
        __DEV__: true,
       __CLIENT__: true,
-      __SERVER__: false
+      __SERVER__: false,
+      __PORT__: process.env.PORT_MARSHALLZ
     })
   ]
 };

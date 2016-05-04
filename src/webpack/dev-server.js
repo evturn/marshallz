@@ -1,20 +1,22 @@
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import config from '../../webpack/dev.js'
+import webpackConfig from './dev'
 import path from 'path'
 import nn from 'node-notifier'
 
-export default function devServer(app) {
-  const compiler = webpack(config);
-
-  app.use(webpackDevMiddleware(compiler, {
+export default app => {
+  const compiler = webpack(webpackConfig)
+  const devMiddleware = webpackDevMiddleware(compiler, {
     noInfo: true,
-    publicPath: config.output.publicPath
-  }))
-  app.use(webpackHotMiddleware(compiler))
+    publicPath: webpackConfig.output.publicPath
+  })
+  const hotMiddleware = webpackHotMiddleware(compiler)
 
-  return app;
+  app.use(devMiddleware)
+  app.use(hotMiddleware)
+
+  return app
 }
 
 export const notifier = _ => {
