@@ -1,28 +1,31 @@
 import fetch from 'isomorphic-fetch';
+import { Observable } from 'rx'
 
-const actions = {
-  fetchPost:          _ => ({ type: 'FETCH_POST' }),
-  fetchSuccess: payload => ({ type: 'FETCH_SUCCESS', payload }),
-  fetchError:   message => ({ type: 'FETCH_ERROR', message }),
-  filterPosts:  payload => ({ type: 'FILTER_POSTS', payload }),
-  fixSidePanel: payload => ({ type: 'FIX_SIDE_PANEL', payload })
-};
+const FETCH_POST     =       _ => ({ type: 'FETCH_POST' })
+const FETCH_SUCCESS  = payload => ({ type: 'FETCH_SUCCESS',  payload })
+const FETCH_ERROR    = message => ({ type: 'FETCH_ERROR',    message })
+const FILTER_POSTS   = payload => ({ type: 'FILTER_POSTS',   payload })
+const FIX_SIDE_PANEL = payload => ({ type: 'FIX_SIDE_PANEL', payload })
 
 export const fetchPost = slug => dispatch => {
   fetch(`/api/post/${slug}`)
     .then(res => res.json())
-    .then(res => dispatch(actions.fetchSuccess(res.blog.post)))
-    .catch(err => dispatch(actions.fetchError(err)))
+    .then(res => dispatch(FETCH_SUCCESS(res.blog.post)))
+    .catch(err => dispatch(FETCH_ERROR(err)))
 }
 
-const perPage = 10;
+export const filterPosts = ({ params, query, filter }) => ({ dispatch, getState }) => {
+  const { author } = params
+  const posts = author ? filter.author[author] : filter.all
+  const page = query.page ? parseInt(query.page) : 1
+  const perPage = getState().blog.perPage
+  // const filter$ = Observable.from([{ posts, page }])
 
-const setPagination = ({ posts, page }) => {
   const first = ((page - 1) * perPage) + 1
   const last = page * perPage
   const pages = Math.ceil(posts.length / perPage)
 
-  return {
+  dispatch(FILTER_POSTS({
     showing: posts.filter((x, i) => i >= first - 1 && i <= last - 1),
     pagination: {
       first,
@@ -34,17 +37,7 @@ const setPagination = ({ posts, page }) => {
       total: posts.length,
       buttons: posts.map((x, i) => i + 1).filter(i => i <= pages)
     }
-  }
-}
-
-export const filterPosts = (
-  { params: { author }, query: { page }, filter }
-) => dispatch => {
-
-  dispatch(actions.filterPosts(setPagination({
-    posts: author ? filter.author[author] : filter.all,
-    page: page ? parseInt(page) : 1
-  })));
+  }))
 }
 
 let previous;
@@ -69,10 +62,10 @@ export const fixSidePanel = _ => dispatch => {
       }
 
       if (current >= 155 && !fixed && direction === 'DOWN') {
-        dispatch(actions.fixSidePanel(true))
+        dispatch(FIX_SIDE_PANEL(true))
         fixed = true
       } else if (current < 155 && fixed && direction === 'UP') {
-        dispatch(actions.fixSidePanel(false))
+        dispatch(FIX_SIDE_PANEL(false))
         fixed = false
       }
     }

@@ -10,10 +10,14 @@ import css from 'less/components/blog-posts.less'
 const cx = classNames.bind(css)
 
 class BlogPosts extends Component {
-  componentWillMount() {
-    const { dispatch, params, query, filter } = this.props
+  componentDidMount() {
+    const { params, query, filter } = this.props
 
-    dispatch(filterPosts({ params, query, filter }))
+    filterPosts({
+      params,
+      query,
+      filter
+    })(this.context.store)
   }
   componentWillReceiveProps(nextProps) {
     const { dispatch, filter } = this.props
@@ -51,6 +55,10 @@ BlogPosts.propTypes = {
   query: PropTypes.object,
   fixed: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
+}
+
+BlogPosts.contextTypes = {
+  store: PropTypes.object
 }
 
 export default connect(

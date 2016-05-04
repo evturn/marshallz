@@ -1,5 +1,5 @@
-import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import path from 'path'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 export const PATHS = {
   app: path.join(__dirname, '..'),
@@ -12,7 +12,7 @@ export const PATHS = {
     img: 'img/[name].[ext]'
   },
   root: __dirname
-};
+}
 
 export const alias = {
   actions:       path.join(__dirname, '..', 'app',    'actions/'),
@@ -23,7 +23,7 @@ export const alias = {
   routes:        path.join(__dirname, '..', 'app',    'routes'),
   images:        path.join(__dirname, '..', 'assets', 'img/'),
   less:          path.join(__dirname, '..', 'assets', 'less/'),
-};
+}
 
 export const loaders = [
   {
@@ -50,7 +50,7 @@ export const loaders = [
     test: /\.woff2(\?\S*)?$/,
     loader: 'url-loader?limit=100000'
   }
-];
+]
 
-export const extensions = ['', '.js', '.jsx', '.less'];
-export const modulesDirectories = ['node_modules'];
+export const extensions = ['', '.js', '.jsx', '.less']
+export const modulesDirectories = ['node_modules']

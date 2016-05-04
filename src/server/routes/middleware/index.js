@@ -3,19 +3,18 @@ import BlogPost from '../../models/blogPost'
 import bots from '../../bots'
 
 export const init = (req, res, next) => {
-  res.locals.blog = {
+  res.locals = {
     section: 'blog',
     filter: {
       all: [],
       author: {}
     },
+    perPage: 10,
     pagination: {
-      perPage: 20,
       pages: 0,
       total: 0
     },
     authors: [],
-    posts: [],
     post: {}
   }
 
@@ -31,14 +30,11 @@ export const findAllPosts = (req, res, next) => {
       if (err) { return (err) }
       const pages = Math.ceil(results.length / 2)
 
-      res.locals.blog.authors = bots.map(x => x.authorData())
-      res.locals.blog.posts = results
-      res.locals.blog.filter = {
-        all: results
-      }
-      res.locals.blog.showing = results
-      res.locals.blog.pagination = {
-        perPage: 10,
+      res.locals.authors = bots.map(x => x.authorData())
+      res.locals.filter = { all: results }
+      res.locals.showing = results
+      res.locals.perPage = 10
+      res.locals.pagination = {
         total: results.length,
         pages,
         buttons: results.map((item, i) => i + 1).filter(i => i <= pages)
@@ -51,7 +47,7 @@ export const findAllPosts = (req, res, next) => {
 // Not in use
 // Create an Object with bot names as keys
 export const populateAuthors = (req, res, next) => {
-  res.locals.blog.authors = bots.reduce((acc, bot) => {
+  res.locals.authors = bots.reduce((acc, bot) => {
     const props = bot.authorData()
 
     acc[props.username] = props
@@ -62,8 +58,8 @@ export const populateAuthors = (req, res, next) => {
 }
 
 export const filterPostsByUsername = (req, res, next) => {
-  const allPosts = res.locals.blog.filter.all
-  let allUsers = res.locals.blog.authors
+  const allPosts = res.locals.filter.all
+  let allUsers = res.locals.authors
   let filteredByUsername = {}
 
   allPosts.map(post => {
@@ -83,8 +79,8 @@ export const filterPostsByUsername = (req, res, next) => {
     return hasPosts
   })
 
-  res.locals.blog.filter.author = filteredByUsername
-  res.locals.blog.authors = usersWithPosts
+  res.locals.filter.author = filteredByUsername
+  res.locals.authors = usersWithPosts
   next()
 }
 
@@ -98,7 +94,7 @@ export const findOnePost = (req, res, next) => {
   })
 
   q.exec(function(err, result) {
-    res.locals.blog = { post: result }
+    res.locals = { post: result }
 
     res.json(res.locals)
   })

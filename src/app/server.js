@@ -13,7 +13,7 @@ export default (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      fetchLocals(res => configureStore({ blog: res.blog }))
+      fetchLocals(res => configureStore({ blog: res }))
         .then(store => {
           const html = renderToString(
             <Provider store={store}>

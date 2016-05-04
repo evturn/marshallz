@@ -4,6 +4,7 @@ export default function blog(state = {
   isCompleted: false,
   hasOne: false,
   fixed: false,
+  perPage: 10
 }, action) {
   switch (action.type) {
     case 'FETCH_POST':
