@@ -85,16 +85,12 @@ export const filterPostsByUsername = (req, res, next) => {
 }
 
 export const findOnePost = (req, res, next) => {
-  res.locals.section = 'blog'
-
-  console.log(req.params)
-
   const q = BlogPost.findOne({
     slug: req.params.post
   })
 
-  q.exec(function(err, result) {
-    res.locals = { post: result }
+  q.exec((err, result) => {
+    res.locals.post = result
 
     res.json(res.locals)
   })

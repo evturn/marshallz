@@ -11,28 +11,24 @@ export default function blog(state = {
       return Object.assign({}, state, {
         hasOne: false,
         isFetching: true
-      });
+      })
     case 'FETCH_SUCCESS': {
       return Object.assign({}, state, {
         hasOne: true,
         isFetching: false,
         post: action.payload
-      });
+      })
     }
     case 'FETCH_ERROR':
       return Object.assign({}, state, {
         isFetching: false,
         message: action.message
-      });
+      })
     case 'FILTER_POSTS':
       return Object.assign({}, state, {
         ...action.payload
-      });
-    case 'FIX_SIDE_PANEL':
-      return Object.assign({}, state, {
-        fixed: action.payload
-      });
+      })
     default:
-      return state;
+      return state
   }
 }
