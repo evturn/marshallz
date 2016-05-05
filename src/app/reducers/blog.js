@@ -18,7 +18,7 @@ export default function blog(state = {
       return Object.assign({}, state, {
         hasOne: true,
         isFetching: false,
-        post: action.payload
+        ...action.payload
       })
     }
     case 'FETCH_ERROR':

@@ -9,7 +9,7 @@ import css from 'less/components/detail.less'
 const cx = classNames.bind(css)
 
 class Detail extends Component {
-  componentDidMount() {
+  componentWillMount() {
     fetchPost(this.props.params.post)(this.context.store)
   }
 
@@ -18,7 +18,7 @@ class Detail extends Component {
 
     return (
       <div className={cx('detail')}>
-        <Profile />
+        {hasOne ? <Profile />  : null}
         {hasOne ? <Post {...post}/> : null}
       </div>
     )
@@ -27,6 +27,7 @@ class Detail extends Component {
 
 Detail.propTypes = {
   hasOne: PropTypes.bool,
+  author: PropTypes.object,
   dispatch: PropTypes.func
 }
 
@@ -37,6 +38,7 @@ Detail.contextTypes = {
 export default connect(
   state => ({
     post: state.blog.post,
+    author: state.blog.author,
     hasOne: state.blog.hasOne
   })
 )(Detail)

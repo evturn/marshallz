@@ -11,8 +11,9 @@ export const fetchPost = slug =>
 ({ dispatch, getState }) => {
   DOM.ajax(`/api/post/${slug}`)
     .map(({ response }) => JSON.parse(response))
+    .map(({ post }) => ({ post, author: post.author }))
     .subscribe(
-      x   => dispatch(FETCH_SUCCESS(x.post)),
+      x   => dispatch(FETCH_SUCCESS(x)),
       err => dispatch(FETCH_ERROR(err))
     )
 }
