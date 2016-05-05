@@ -10,15 +10,28 @@ const DISPLAY_AUTHOR = payload => ({ type: 'DISPLAY_AUTHOR', payload })
 export const fetchPost = slug =>
 ({ dispatch, getState }) => {
   DOM.ajax(`/api/post/${slug}`)
-    .map(({ response }) => JSON.parse(response))
-    .map(({ post }) => ({ post, author: post.author }))
+    .map(parseJSON)
+    .map(getAuthorFromPost)
     .subscribe(
       x   => dispatch(FETCH_SUCCESS(x)),
       err => dispatch(FETCH_ERROR(err))
     )
+
+  function parseJSON({ response }) {
+    return JSON.parse(response)
+  }
+
+  function getAuthorFromPost({ post }) {
+    const authors = getState().blog.authors
+    const { author } = post
+    return {
+      author: authors.filter(({ username }) => author.username === username)[0],
+      post
+    }
+  }
 }
 
-export const filterPosts = ({ params, query, filter, authors }) =>
+export const filterPosts = ({ params, query }) =>
 ({ dispatch, getState }) => {
   const perPage = getState().blog.perPage
   const route$ = Observable.from([{ author: params.author, page: query.page }])
@@ -26,7 +39,7 @@ export const filterPosts = ({ params, query, filter, authors }) =>
   const posts$ = route$.map(getPostsByParam)
   const pages$ = posts$.map(getTotalPages)
 
-  const author$ = Observable.from(authors)
+  const author$ = Observable.from(getState().blog.authors)
     .filter(getAuthorByParam)
     .map(x => ({ author: x }))
     .subscribe(x => dispatch(DISPLAY_AUTHOR(x)))
@@ -41,6 +54,7 @@ export const filterPosts = ({ params, query, filter, authors }) =>
   }
 
   function getPostsByParam({ author }) {
+    const filter = getState().blog.filter
     return author ? filter.author[author] : filter.all
   }
 
