@@ -39,17 +39,10 @@ export const devLoaders = [
     test: /\.json$/,
     loader: 'json-loader'
   },{
-    test: /.*\.(png|jpe?g|svg)$/i,
-    loaders: [
-      `file?hash=sha512&digest=hex&name=${PATHS.static.img}`,
-      'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-    ],
-    exclude: /less/
-  },{
     test: /\.(gif|eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'url-loader'
   },{
-    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    test: /\.(png|jpe?g|svg|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'file-loader'
   },{
     test: /\.woff2(\?\S*)?$/,
@@ -76,17 +69,10 @@ export const prodLoaders = [
     test: /\.json$/,
     loader: 'json-loader'
   },{
-    test: /.*\.(png|jpe?g|svg)$/i,
-    loaders: [
-      `file?hash=sha512&digest=hex&name=${PATHS.static.img}`,
-      'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-    ],
-    exclude: /less/
-  },{
     test: /\.(gif|eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'url-loader'
   },{
-    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    test: /\.(png|jpe?g|svg|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'file-loader'
   },{
     test: /\.woff2(\?\S*)?$/,
