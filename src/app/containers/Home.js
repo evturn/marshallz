@@ -15,18 +15,13 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { params, location, filter } = this.props
-
-    filterPosts({ params, query: location.query, filter })(this.context.store)
+    filterPosts({ ...this.props })(this.context.store)
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params !== this.props.params
-      || nextProps.location.query !== this.props.location.query) {
-      const { params, location } = nextProps
-      const { filter } = this.props
-
-      filterPosts({ params, query: location.query, filter })(this.context.store)
+      || nextProps.query !== this.props.query) {
+      filterPosts({ ...nextProps })(this.context.store)
     }
   }
 

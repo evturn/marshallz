@@ -13,30 +13,37 @@ class Pagination extends Component {
       next, previous, buttons, page, first, last, total
     } = this.props.pagination
 
-    const goForward = next ?
-      <Link to={{ pathname, query: { page: next } }}>
-        <span className="fa fa-chevron-right" />
-      </Link> :
-      <span className={cx('fa fa-chevron-right', 'off')} />
+    const goForward = (
+      <li className={cx('btn')}>{next ? (
+        <Link to={{ pathname, query: { page: next } }}>
+          <span className="fa fa-chevron-right" />
+        </Link>
+      ) : (
+        <span className={cx('fa fa-chevron-right', 'off')} />
+      )}</li>)
 
     const skipTo = buttons.map(x =>
-      <li key={x} className={cx('btn')}>{x !== page ?
-        <Link to={{ pathname, query: {page: x} }}><span>{x}</span></Link> :
+      <li key={x} className={cx('btn')}>{x !== page ? (
+        <Link to={{ pathname, query: {page: x} }}><span>{x}</span></Link>
+      ) : (
         <span className={cx('off')}>{x}</span>
-      }</li>)
+      )}</li>)
 
-    const goBack = previous ?
-      <Link to={{ pathname, query: { page: previous } }}>
-        <span className="fa fa-chevron-left" />
-      </Link> :
-      <span className={cx('fa fa-chevron-left', 'off')} />
+    const goBack = (
+      <li className={cx('btn')}>{previous ? (
+        <Link to={{ pathname, query: { page: previous } }}>
+          <span className="fa fa-chevron-left" />
+        </Link>
+      ) : (
+        <span className={cx('fa fa-chevron-left', 'off')} />
+      )}</li>)
 
     return (
       <div className={cx('pagination')}>
         <ul className={cx('btns')}>
-          <li className={cx('btn')}>{goBack}</li>
+          {goBack}
           {skipTo}
-          <li className={cx('btn')}>{goForward}</li>
+          {goForward}
         </ul>
         {stats ? <div className={cx('results')}>{`Showing ${first} - ${last} of ${total} posts.`}</div> : null}
       </div>
