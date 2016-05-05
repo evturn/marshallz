@@ -9,7 +9,6 @@ const cx = classNames.bind(css)
 class Profile extends Component {
   render() {
     const { name, headshot, share, social } = this.props.author
-    const pathname = share.twitter
 
     return (
       <div className={cx('profile')}>
@@ -19,7 +18,7 @@ class Profile extends Component {
         <div className={cx('bio')}>
           <div className={cx('name')}>{name}</div>
           {social ? (
-            <Link className={cx('social')} to={{ pathname  }} target="_blank">
+            <Link className={cx('social')} to={{ pathname: share.twitter }} target="_blank">
               <span className="fa fa-twitter" />
             </Link>
           ) : null}
