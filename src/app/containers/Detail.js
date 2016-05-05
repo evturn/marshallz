@@ -20,7 +20,6 @@ class Detail extends Component {
       <div className={cx('detail')}>
         <Profile />
         {hasOne ? <Post {...post}/> : null}
-
       </div>
     )
   }

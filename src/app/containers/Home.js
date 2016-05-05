@@ -40,7 +40,6 @@ class Home extends Component {
 
 Home.propTypes = {
   authors: PropTypes.array,
-  author: PropTypes.object,
   filter: PropTypes.object,
   showing: PropTypes.array,
   params: PropTypes.object,
@@ -57,7 +56,6 @@ export default connect(
     authors: state.blog.authors,
     filter: state.blog.filter,
     showing: state.blog.showing,
-    author: state.blog.author,
     params: ownProps.params,
     query: ownProps.location.query,
     pathname: ownProps.location.pathname

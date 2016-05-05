@@ -35,8 +35,8 @@ export const filterPosts = ({ params, query, filter, authors }) =>
     .map(filterVisiblePosts)
     .subscribe(x => dispatch(FILTER_POSTS(x)))
 
-  function getAuthorByParam(x) {
-    return x.username === params.author
+  function getAuthorByParam({ username }) {
+    return username === params.author
   }
 
   function getPostsByParam({ author }) {
