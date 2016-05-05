@@ -1,6 +1,7 @@
 export default function blog(state = {
   post: {},
   isFetching: false,
+  isFiltering: false,
   isCompleted: false,
   hasOne: false,
   fixed: false,
@@ -25,6 +26,10 @@ export default function blog(state = {
         message: action.message
       })
     case 'FILTER_POSTS':
+      return Object.assign({}, state, {
+        ...action.payload
+      })
+    case 'IS_FILTERING':
       return Object.assign({}, state, {
         ...action.payload
       })
