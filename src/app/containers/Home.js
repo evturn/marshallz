@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { filterPosts } from 'actions'
 import Posts from 'components/Posts'
 import Pagination from 'components/Pagination'
-import SidePanel from 'components/SidePanel'
+import Authors from 'components/Authors'
 import classNames from 'classnames/bind'
 import css from 'less/components/home.less'
 
@@ -11,7 +11,10 @@ const cx = classNames.bind(css)
 
 class Home extends Component {
   getChildContext() {
-    return { params: this.props.params }
+    return {
+      params: this.props.params,
+      authors: this.props.authors
+    }
   }
 
   componentDidMount() {
@@ -26,21 +29,17 @@ class Home extends Component {
   }
 
   render() {
-    const { authors, showing, pathname, isFiltered } = this.props
+    const { authors, showing, pathname } = this.props
 
     return (
       <div className={cx('root')}>
-      {isFiltered ? (
-        <div>
-          {this.props.children}
-          <Pagination pathname={pathname} />
-          <div className={cx('main')}>
-            <Posts posts={showing} />
-            <SidePanel authors={authors} />
-          </div>
-          <Pagination pathname={pathname} stats={true} />
+        {this.props.children}
+        <Pagination pathname={pathname} />
+        <div className={cx('main')}>
+          <Posts posts={showing} />
+          <Authors authors={authors} />
         </div>
-      ) : null}
+        <Pagination pathname={pathname} stats={true} />
       </div>
     )
   }
@@ -52,8 +51,7 @@ Home.propTypes = {
   showing: PropTypes.array,
   params: PropTypes.object,
   query: PropTypes.object,
-  pathname: PropTypes.string,
-  isFiltered: PropTypes.bool
+  pathname: PropTypes.string
 }
 
 Home.contextTypes = {
@@ -61,14 +59,14 @@ Home.contextTypes = {
 }
 
 Home.childContextTypes = {
-  params: PropTypes.object
+  params: PropTypes.object,
+  authors: PropTypes.array
 }
 
 export default connect(
   (state, ownProps) => ({
     authors: state.blog.authors,
     filter: state.blog.filter,
-    isFiltered: state.blog.isFiltered,
     showing: state.blog.showing,
     params: ownProps.params,
     query: ownProps.location.query,

@@ -19,26 +19,16 @@ export const fetchPost = slug =>
 
 export const filterPosts = ({ params, query, filter }) =>
 ({ dispatch, getState }) => {
-  dispatch(IS_FILTERED({ isFiltered: false }))
   const perPage = getState().blog.perPage
   const route$ = Observable.from([{ author: params.author, page: query.page }])
-
-  const page$ = route$
-    .map(getCurrentPage)
-
-  const posts$ = route$
-    .map(getPostsByParam)
-
-  const pages$ = posts$
-    .map(getTotalPages)
+  const page$ = route$.map(getCurrentPage)
+  const posts$ = route$.map(getPostsByParam)
+  const pages$ = posts$.map(getTotalPages)
 
   Observable.combineLatest(posts$, page$, pages$)
     .map(createPagination)
     .map(filterVisiblePosts)
-    .subscribe(x => {
-      dispatch(FILTER_POSTS(x))
-      dispatch(IS_FILTERED({ isFiltered: true }))
-    })
+    .subscribe(x => dispatch(FILTER_POSTS(x)))
 
   function getPostsByParam({ author }) {
     return author ? filter.author[author] : filter.all

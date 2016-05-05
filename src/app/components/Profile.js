@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import classNames from 'classnames/bind'
@@ -6,37 +6,23 @@ import css from 'less/components/profile.less'
 
 const cx = classNames.bind(css)
 
-class Profile extends Component {
-  render() {
-    const { authors, params } = this.props
-    const [ author ] = authors.filter(x => x.username === params.author)
-    const { name, headshot, share, social } = author
+export default ({ authors, params }) => {
+  const [ author ] = authors.filter(x => x.username === params.author)
+  const { name, headshot, share, social } = author
 
-    return (
-      <div className={cx('profile')}>
-        <div className={cx('av')}>
-          <img src={`/dist/${headshot}`} />
-        </div>
-        <div className={cx('bio')}>
-          <div className={cx('name')}>{name}</div>
-          {social ? (
-            <Link className={cx('social')} to={{ pathname: share.twitter }} target="_blank">
-              <span className="fa fa-twitter" />
-            </Link>
-          ) : null}
-        </div>
+  return (
+    <div className={cx('profile')}>
+      <div className={cx('av')}>
+        <img src={`/dist/${headshot}`} />
       </div>
-    )
-  }
+      <div className={cx('bio')}>
+        <div className={cx('name')}>{name}</div>
+        {social ? (
+          <Link className={cx('social')} to={{ pathname: share.twitter }} target="_blank">
+            <span className="fa fa-twitter" />
+          </Link>
+        ) : null}
+      </div>
+    </div>
+  )
 }
-
-Profile.propTypes = {
-  authors: PropTypes.array,
-  params: PropTypes.object
-}
-
-export default connect(
-  state => ({
-    authors: state.blog.authors,
-  })
-)(Profile)
