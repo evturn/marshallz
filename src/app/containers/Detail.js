@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fetchPost } from 'actions'
 import Post from 'components/Post'
 import classNames from 'classnames/bind'
-import css from 'less/components/blog-posts.less'
+import css from 'less/components/home.less'
 
 const cx = classNames.bind(css)
 

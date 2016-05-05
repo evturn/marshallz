@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { IntlProvider, FormattedRelative } from 'react-intl'
 import classNames from 'classnames/bind'
-import css from 'less/components/blog-post.less'
+import css from 'less/components/post.less'
 
 const cx = classNames.bind(css)
 

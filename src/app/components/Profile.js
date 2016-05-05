@@ -8,13 +8,15 @@ const cx = classNames.bind(css)
 
 class Profile extends Component {
   render() {
-    const { authors, username } = this.props
-    const [ author ] = authors.filter(x => x.username === username)
+    const { authors, params } = this.props
+    const [ author ] = authors.filter(x => x.username === params.author)
     const { name, headshot, share, social } = author
-    const img = <img src={`/dist/${headshot}`} />
+
     return (
       <div className={cx('profile')}>
-        <div className={cx('av')}>{img}</div>
+        <div className={cx('av')}>
+          <img src={`/dist/${headshot}`} />
+        </div>
         <div className={cx('bio')}>
           <div className={cx('name')}>{name}</div>
           {social ? (
@@ -29,8 +31,8 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-  username: PropTypes.string,
-  authors: PropTypes.array
+  authors: PropTypes.array,
+  params: PropTypes.object
 }
 
 export default connect(
