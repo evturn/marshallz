@@ -6,79 +6,62 @@ import css from 'less/components/post.less'
 
 const cx = classNames.bind(css)
 
-class Post extends Component {
-  render() {
-    const {
-      timestamp, title, body, slug, image } = this.props
-    const {
-      username, avatar, name, social, share } = this.props.author
+export default props => {
+  const { timestamp, title, body, slug, image, author } = props
+  const { username, avatar, name, social, share } = author
 
-    const authorAvatar = (
-      <Link to={{ pathname: `/author/${username}` }}>
-        <img src={require(`images/${avatar}`)} />
-      </Link>)
+  const authorAvatar = (
+    <Link to={{ pathname: `/author/${username}` }}>
+      <img src={require(`images/${avatar}`)} />
+    </Link>)
 
-    const authorTag = <span className={cx('tag')}>Author</span>
+  const authorName = (
+    <span className={cx('name')}>
+      <Link to={{ pathname: `/author/${username}` }}>{name}</Link>
+    </span>)
 
-    const authorName = (
-      <span className={cx('name')}>
-        <Link to={{ pathname: `/author/${username}` }}>{name}</Link>
-      </span>)
+  const postTimestamp = (
+    <IntlProvider locale="en">
+      <div className={cx('date')}>
+        <FormattedRelative value={timestamp} />
+      </div>
+    </IntlProvider>)
 
-    const postTimestamp = (
-      <IntlProvider locale="en">
-        <div className={cx('date')}>
-          <FormattedRelative value={timestamp} />
-        </div>
-      </IntlProvider>)
+  const postTitle = (
+    <div className={cx('title')}>
+      <Link to={{ pathname: `/post/${slug}` }}>{title}</Link>
+    </div>)
 
-    const postTitle = (
-      <div className={cx('title')}>
-        <Link to={{ pathname: `/post/${slug}` }}>{title}</Link>
-      </div>)
+  const authorTwitter = social ? (
+    <Link className={cx('social')} to={{ pathname: share.twitter }} target="_blank">
+      <span className="fa fa-twitter" />
+    </Link>) : null
 
-    const authorTwitter = social ? (
-      <Link className={cx('social')} to={{ pathname: share.twitter }} target="_blank">
-        <span className="fa fa-twitter" />
-      </Link>
-    ) : null
+  const bgImg = { backgroundImage: `url(${image})` }
+  const postImage = <div className={cx('bg')}  style={bgImg}></div>
 
-    const postImage = image ? <div className={cx('bg')}  style={{ backgroundImage: `url(${image})` }}></div> : null
-
-    const postBody = <div className={cx('body')}>{body}</div>
-
-    return (
-      <div className={cx('post')}>
-        <div className={cx('content')}>
-
-          <div className={cx('header')}>
-
-            <div className={cx('avatar')}>
-              {authorAvatar}
+  return (
+    <div className={cx('post')}>
+      <div className={cx('content')}>
+        <div className={cx('header')}>
+          <div className={cx('avatar')}>
+            {authorAvatar}
+          </div>
+          <div className={cx('info')}>
+            <div className={cx('links')}>
+              {authorName}
+              {authorTwitter}
             </div>
-
-            <div className={cx('info')}>
-
-              <div className={cx('links')}>
-                {authorName}
-                {authorTwitter}
-              </div>
-
-              <div className={cx('meta')}>
-                {authorTag}
-                {postTimestamp}
-              </div>
-
+            <div className={cx('meta')}>
+              <span className={cx('tag')}>Author</span>
+              {postTimestamp}
             </div>
           </div>
-
-          {postTitle}
-          {postImage}
-          {postBody}
         </div>
+        {postTitle}
+        {image ? postImage : null}
+        <div className={cx('body')}>{body}</div>
       </div>
-    )
-  }
+    </div>
+  )
 }
-
-export default Post
