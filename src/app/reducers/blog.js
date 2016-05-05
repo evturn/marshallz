@@ -1,7 +1,7 @@
 export default function blog(state = {
   post: {},
   isFetching: false,
-  isFiltering: false,
+  isFiltered: false,
   isCompleted: false,
   hasOne: false,
   fixed: false,
@@ -29,7 +29,7 @@ export default function blog(state = {
       return Object.assign({}, state, {
         ...action.payload
       })
-    case 'IS_FILTERING':
+    case 'IS_FILTERED':
       return Object.assign({}, state, {
         ...action.payload
       })

@@ -2,10 +2,10 @@ import { Observable } from 'rx'
 import { DOM } from 'rx-dom'
 
 const FETCH_POST     =       _ => ({ type: 'FETCH_POST' })
-const FETCH_SUCCESS  = payload => ({ type: 'FETCH_SUCCESS',  payload })
-const FETCH_ERROR    = message => ({ type: 'FETCH_ERROR',    message })
-const FILTER_POSTS   = payload => ({ type: 'FILTER_POSTS',   payload })
-const IS_FILTERING   = payload => ({ type: 'IS_FILTERING',   payload })
+const FETCH_SUCCESS  = payload => ({ type: 'FETCH_SUCCESS', payload })
+const FETCH_ERROR    = message => ({ type: 'FETCH_ERROR',   message })
+const FILTER_POSTS   = payload => ({ type: 'FILTER_POSTS',  payload })
+const IS_FILTERED    = payload => ({ type: 'IS_FILTERED',   payload })
 
 export const fetchPost = slug =>
 ({ dispatch, getState }) => {
@@ -19,7 +19,7 @@ export const fetchPost = slug =>
 
 export const filterPosts = ({ params, query, filter }) =>
 ({ dispatch, getState }) => {
-  dispatch(IS_FILTERING({ isFiltering: true }))
+  dispatch(IS_FILTERED({ isFiltered: false }))
   const perPage = getState().blog.perPage
   const route$ = Observable.from([{ author: params.author, page: query.page }])
 
@@ -37,7 +37,7 @@ export const filterPosts = ({ params, query, filter }) =>
     .map(filterVisiblePosts)
     .subscribe(x => {
       dispatch(FILTER_POSTS(x))
-      dispatch(IS_FILTERING({ isFiltering: false }))
+      dispatch(IS_FILTERED({ isFiltered: true }))
     })
 
   function getPostsByParam({ author }) {
