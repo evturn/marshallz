@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchPost } from 'actions'
 import Post from 'components/Post'
+import Profile from 'components/Profile'
 import classNames from 'classnames/bind'
 import css from 'less/components/detail.less'
 
@@ -17,7 +18,9 @@ class Detail extends Component {
 
     return (
       <div className={cx('detail')}>
+        <Profile />
         {hasOne ? <Post {...post}/> : null}
+
       </div>
     )
   }

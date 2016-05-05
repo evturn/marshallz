@@ -1,5 +1,6 @@
 export default function blog(state = {
   post: {},
+  author: {},
   isFetching: false,
   isFiltered: false,
   isCompleted: false,
@@ -29,7 +30,7 @@ export default function blog(state = {
       return Object.assign({}, state, {
         ...action.payload
       })
-    case 'IS_FILTERED':
+    case 'DISPLAY_AUTHOR':
       return Object.assign({}, state, {
         ...action.payload
       })

@@ -2,10 +2,10 @@ import { Observable } from 'rx'
 import { DOM } from 'rx-dom'
 
 const FETCH_POST     =       _ => ({ type: 'FETCH_POST' })
-const FETCH_SUCCESS  = payload => ({ type: 'FETCH_SUCCESS', payload })
-const FETCH_ERROR    = message => ({ type: 'FETCH_ERROR',   message })
-const FILTER_POSTS   = payload => ({ type: 'FILTER_POSTS',  payload })
-const IS_FILTERED    = payload => ({ type: 'IS_FILTERED',   payload })
+const FETCH_SUCCESS  = payload => ({ type: 'FETCH_SUCCESS',  payload })
+const FETCH_ERROR    = message => ({ type: 'FETCH_ERROR',    message })
+const FILTER_POSTS   = payload => ({ type: 'FILTER_POSTS',   payload })
+const DISPLAY_AUTHOR = payload => ({ type: 'DISPLAY_AUTHOR', payload })
 
 export const fetchPost = slug =>
 ({ dispatch, getState }) => {
@@ -17,7 +17,7 @@ export const fetchPost = slug =>
     )
 }
 
-export const filterPosts = ({ params, query, filter }) =>
+export const filterPosts = ({ params, query, filter, authors }) =>
 ({ dispatch, getState }) => {
   const perPage = getState().blog.perPage
   const route$ = Observable.from([{ author: params.author, page: query.page }])
@@ -25,10 +25,19 @@ export const filterPosts = ({ params, query, filter }) =>
   const posts$ = route$.map(getPostsByParam)
   const pages$ = posts$.map(getTotalPages)
 
-  Observable.combineLatest(posts$, page$, pages$)
+  const author$ = Observable.from(authors)
+    .filter(getAuthorByParam)
+    .map(x => ({ author: x }))
+    .subscribe(x => dispatch(DISPLAY_AUTHOR(x)))
+
+  const pagination$ = Observable.combineLatest(posts$, page$, pages$)
     .map(createPagination)
     .map(filterVisiblePosts)
     .subscribe(x => dispatch(FILTER_POSTS(x)))
+
+  function getAuthorByParam(x) {
+    return x.username === params.author
+  }
 
   function getPostsByParam({ author }) {
     return author ? filter.author[author] : filter.all

@@ -10,13 +10,6 @@ import css from 'less/components/home.less'
 const cx = classNames.bind(css)
 
 class Home extends Component {
-  getChildContext() {
-    return {
-      params: this.props.params,
-      authors: this.props.authors
-    }
-  }
-
   componentWillMount() {
     filterPosts({ ...this.props })(this.context.store)
   }
@@ -47,6 +40,7 @@ class Home extends Component {
 
 Home.propTypes = {
   authors: PropTypes.array,
+  author: PropTypes.object,
   filter: PropTypes.object,
   showing: PropTypes.array,
   params: PropTypes.object,
@@ -58,16 +52,12 @@ Home.contextTypes = {
   store: PropTypes.object
 }
 
-Home.childContextTypes = {
-  params: PropTypes.object,
-  authors: PropTypes.array
-}
-
 export default connect(
   (state, ownProps) => ({
     authors: state.blog.authors,
     filter: state.blog.filter,
     showing: state.blog.showing,
+    author: state.blog.author,
     params: ownProps.params,
     query: ownProps.location.query,
     pathname: ownProps.location.pathname
