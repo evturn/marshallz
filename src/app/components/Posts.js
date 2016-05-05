@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Post from 'components/Post'
 import classNames from 'classnames/bind'
 import css from 'less/components/posts.less'

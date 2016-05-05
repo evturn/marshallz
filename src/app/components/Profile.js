@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames/bind'
 import css from 'less/components/profile.less'

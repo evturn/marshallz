@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames/bind'
-import css from 'less/components/side-panel.less'
+import css from 'less/components/authors.less'
 
 const cx = classNames.bind(css)
 
