@@ -5,7 +5,7 @@ import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from 'store'
 import routes from 'routes'
-import { scrollWindowTop } from 'store/api'
+import { scrollWindowTop, analytics } from 'store/api'
 
 const store = configureStore(window.__INITIAL_STATE__)
 const history = syncHistoryWithStore(browserHistory, store)
@@ -17,3 +17,5 @@ render(
     </Router>
   </Provider>, document.getElementById('root')
 )
+
+analytics()
