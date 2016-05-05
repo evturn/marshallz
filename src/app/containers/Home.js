@@ -17,7 +17,7 @@ class Home extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     filterPosts({ ...this.props })(this.context.store)
   }
 
