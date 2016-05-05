@@ -53,7 +53,6 @@ export default webpack([
     ]
   }, {
     name: 'server-side-rendering',
-    devtool: 'source-map',
     target: 'node',
     context: PATHS.root,
     entry: {
@@ -69,12 +68,11 @@ export default webpack([
     resolve: { extensions, modulesDirectories, alias },
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
-      new ExtractTextPlugin(PATHS.static.css),
+      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
-        compressor: {
-          warnings: false
-        }
+        compressor: { warnings: false }
       }),
+      new ExtractTextPlugin(PATHS.static.css),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"',
         __DEV__: false,
