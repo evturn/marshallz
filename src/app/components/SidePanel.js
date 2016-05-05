@@ -8,15 +8,15 @@ const cx = classNames.bind(css)
 
 class SidePanel extends Component {
   render() {
-    const { authors, fixed } = this.props
+    const { authors } = this.props
     return (
-      <div className={cx('root', { fixed })}>
+      <div className={cx('root')}>
         <ul>
           <li className={cx('title')}>Contributors</li>
           {authors.map((x, i) =>
             <li key={i}>
               <Link to={{ pathname: `/author/${x.username}` }}>
-                <img src={require(`images/${x.avatar}`)} />
+                <img src={require(`images/${x.headshot}`)} />
                 <span className={cx('name')}>{x.name}</span>
               </Link>
             </li>
@@ -27,14 +27,11 @@ class SidePanel extends Component {
 }
 
 SidePanel.propTypes = {
-  fixed: PropTypes.bool,
-  authors: PropTypes.array,
-  dispatch: PropTypes.func
+  authors: PropTypes.array
 }
 
 export default connect(
   state => ({
-    fixed: state.blog.fixed,
     authors: state.blog.authors
   })
 )(SidePanel)

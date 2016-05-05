@@ -8,7 +8,7 @@ const cx = classNames.bind(css)
 
 class Pagination extends Component {
   render() {
-    const { stats, pathname, isFiltered } = this.props
+    const { stats, pathname } = this.props
     const {
       next, previous, buttons, page, first, last, total
     } = this.props.pagination
@@ -40,13 +40,11 @@ class Pagination extends Component {
 
     return (
       <div className={cx('pagination')}>
-        {isFiltered ? (
-          <ul className={cx('btns')}>
-            {goBack}
-            {skipTo}
-            {goForward}
-          </ul>
-        ) : null}
+        <ul className={cx('btns')}>
+          {goBack}
+          {skipTo}
+          {goForward}
+        </ul>
         {stats ? <div className={cx('results')}>{`Showing ${first} - ${last} of ${total} posts.`}</div> : null}
       </div>
     )
@@ -56,13 +54,11 @@ class Pagination extends Component {
 Pagination.propTypes = {
   stats: PropTypes.bool,
   pagination: PropTypes.object,
-  pathname: PropTypes.string,
-  isFiltered: PropTypes.bool
+  pathname: PropTypes.string
 }
 
 export default connect(
   state => ({
-    pagination: state.blog.pagination,
-    isFiltered: state.blog.isFiltered
+    pagination: state.blog.pagination
   })
 )(Pagination)

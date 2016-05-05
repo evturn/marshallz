@@ -8,10 +8,10 @@ class SiteHeader extends Component {
   render() {
     return (
       <header className={cx('root')} style={{ backgroundImage: `url(${require('images/headbg.jpg')})` }} >
-        <nav className={cx('nav')}>
+        <div className={cx('nav')}>
           <h1 className={cx('title')}><a href="/">Marshallz Blog</a></h1>
-          <h3 className={cx('caption')}>Welcome! And more importantly, Welcome to Marshallz Blog!</h3>
-        </nav>
+          <div className={cx('caption')}>Welcome! And more importantly, Welcome to Marshallz Blog!</div>
+        </div>
       </header>
     )
   }

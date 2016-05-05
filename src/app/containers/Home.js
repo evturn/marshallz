@@ -26,17 +26,21 @@ class Home extends Component {
   }
 
   render() {
-    const { authors, showing, pathname } = this.props
+    const { authors, showing, pathname, isFiltered } = this.props
 
     return (
       <div className={cx('root')}>
-        {this.props.children}
-        <Pagination pathname={pathname} />
-        <div className={cx('main')}>
-          <Posts posts={showing} />
-          <SidePanel authors={authors} />
+      {isFiltered ? (
+        <div>
+          {this.props.children}
+          <Pagination pathname={pathname} />
+          <div className={cx('main')}>
+            <Posts posts={showing} />
+            <SidePanel authors={authors} />
+          </div>
+          <Pagination pathname={pathname} stats={true} />
         </div>
-        <Pagination pathname={pathname} stats={true} />
+      ) : null}
       </div>
     )
   }
@@ -48,7 +52,8 @@ Home.propTypes = {
   showing: PropTypes.array,
   params: PropTypes.object,
   query: PropTypes.object,
-  pathname: PropTypes.string
+  pathname: PropTypes.string,
+  isFiltered: PropTypes.bool
 }
 
 Home.contextTypes = {
@@ -63,6 +68,7 @@ export default connect(
   (state, ownProps) => ({
     authors: state.blog.authors,
     filter: state.blog.filter,
+    isFiltered: state.blog.isFiltered,
     showing: state.blog.showing,
     params: ownProps.params,
     query: ownProps.location.query,

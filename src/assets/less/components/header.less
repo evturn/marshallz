@@ -2,11 +2,10 @@
 
 .root {
   position: relative;
+  .clearfix();
   width: 100%;
   z-index: 101;
   background-size: cover;
-  .clearfix();
-  .box-shadow(0px 2px 7px -1px rgba(0,0,0,0.4));
 
   @media(@tablet) {
     height: 150px;
@@ -14,43 +13,43 @@
 
   .nav {
     position: relative;
+    .clearfix();
     padding-left: 15px;
     padding-right: 15px;
     color: @tx-dark;
     text-align: center;
-    .clearfix();
   }
   .title {
     font-family: @font-sans-serif;
     font-size: 10vw;
     margin-top: 0;
     margin-bottom: 0;
-    .transition(0.3s);
+    .transition(0.1s);
 
     @media(@tablet) {
       padding-bottom: 15px;
+      line-height: 100px;
     }
 
     @media(@desktop) {
-      padding-bottom: 0;
+      font-size: 135px;
     }
 
     a {
       text-decoration: none;
       color: @tx-dark;
-      .transition(0.5s);
+      .transition(0.1s);
     }
   }
   .caption {
     display: none;
-    font-family: @serif;
+    font-family: @font-serif;
     font-weight: 400;
-    font-size: 1.8vw;
-    line-height: 2vw;
+    font-size: 22px;
     color: @tx-light;
     text-transform: uppercase;
-    .transition(0.3s);
-    @media(min-width: @desktop) {
+    .transition(0.1s);
+    @media(@tablet) {
       display: block;
     }
   }
