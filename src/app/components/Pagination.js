@@ -1,78 +1,53 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import classNames from 'classnames/bind';
-import css from 'less/components/pagination.less';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
+import classNames from 'classnames/bind'
+import css from 'less/components/pagination.less'
 
-const cx = classNames.bind(css);
+const cx = classNames.bind(css)
 
 class Pagination extends Component {
   render() {
     const {
-      total, pages, next, previous, buttons,
-      page, first, last, pathname} = this.props;
-
-    const backArrow = <span className="fa fa-chevron-left" />;
-    const forwardArrow = <span className="fa fa-chevron-right" />;
-    const pageResults = `Showing ${first} - ${last} of ${total}`;
-
-    const back = (
-      <li className={cx('page')}>{previous ? (
-        <Link to={{ pathname, query: { page: previous } }}>{backArrow}</Link>
-        ) : (
-        <a className={cx('off')}>{backArrow}</a>
-      )}</li>
-    );
-
+      next, previous, buttons,
+      page, first, last, total } = this.props.pagination
+    const { stats, pathname } = this.props
+    const goForward = next ?
+      <Link to={{ pathname, query: { page: next } }}>
+        <span className="fa fa-chevron-right" />
+      </Link> :
+      <span className={cx('fa fa-chevron-right', 'off')} />
     const skipTo = buttons.map(x =>
-      <li key={x} className={cx('page')}>{x !== page ? (
-        <Link to={{ pathname, query: {page: x} }}>{x}</Link>
-        ) : (
-        <a className={cx('off')}>{x}</a>
-      )}</li>
-    );
-
-    const forward = (
-      <li className={cx('page')}>{next ? (
-        <Link to={{ pathname, query: { page: next } }}>{forwardArrow}</Link>
-        ) : (
-        <a className={cx('off')}>{forwardArrow}</a>
-      )}</li>
-    );
-
+      <li key={x} className={cx('btn')}>{x !== page ?
+        <Link to={{ pathname, query: {page: x} }}><span>{x}</span></Link> :
+        <span className={cx('off')}>{x}</span>
+      }</li>)
+    const goBack = previous ?
+      <Link to={{ pathname, query: { page: previous } }}>
+        <span className="fa fa-chevron-left" />
+      </Link> :
+      <span className={cx('fa fa-chevron-left', 'off')} />
     return (
       <div className={cx('pagination')}>
-        <div className={cx('page-results')}>{pageResults}</div>
-        <ul className={cx('pages')}>
-          {back}
+        <ul className={cx('btns')}>
+          <li className={cx('btn')}>{goBack}</li>
           {skipTo}
-          {forward}
+          <li className={cx('btn')}>{goForward}</li>
         </ul>
+        {stats ? <div className={cx('results')}>{`Showing ${first} - ${last} of ${total} posts.`}</div> : null}
       </div>
-    );
+    )
   }
 }
 
 Pagination.propTypes = {
-  total: PropTypes.number,
-  pages: PropTypes.number,
-  buttons: PropTypes.array,
-  first: PropTypes.number,
-  last: PropTypes.number,
-  page: PropTypes.number,
-  pathname: PropTypes.string,
-  dispatch: PropTypes.func
-};
+  stats: PropTypes.bool,
+  pagination: PropTypes.object,
+  pathname: PropTypes.string
+}
 
 export default connect(
   state => ({
-    total: state.blog.pagination.total,
-    pages: state.blog.pagination.pages,
-    buttons: state.blog.pagination.buttons,
-    first: state.blog.pagination.first,
-    last: state.blog.pagination.last,
-    previous: state.blog.pagination.previous,
-    next: state.blog.pagination.next,
-    page: state.blog.pagination.page
+    pagination: state.blog.pagination
   })
-)(Pagination);
+)(Pagination)

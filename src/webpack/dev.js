@@ -1,4 +1,3 @@
-import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WriteFilePlugin from 'write-file-webpack-plugin';

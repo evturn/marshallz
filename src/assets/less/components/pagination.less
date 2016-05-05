@@ -1,57 +1,64 @@
 @import url('../variables.less');
 
 .pagination {
-  .clearfix();
-  position: relative;
   display: block;
+  position: relative;
+  .clearfix();
+  padding-right: 15px;
+  padding-left: 15px;
   margin: 0 auto;
   width: 100%;
-  height: 150px;
   a {
     color: @tx-dark;
   }
 
-  .pages {
-    text-align: center;
-    margin: 0 auto;
+  .btns {
+    margin: 10px auto;
     width: 100%;
+    text-align: left;
   }
 
-  .page {
+  .results {
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    top: 0;
+    text-align: left;
+  }
+
+  .btn {
+    position: relative;
     display: inline-block;
     font-size: 26px;
     width: 50px;
     height: 50px;
-    line-height: 50px;
+    background-color: @bg-light;
+    margin-right: 1px;
+    border-radius: 3px;
+    text-align: center;
+    vertical-align: top;
     font-weight: 600;
-    font-family: @font-serif;
+    font-family: @font-book;
+
     a {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
       .transition(0.3);
       color: @tx-dark;
-
-      &:hover {
-        color: @tx-dark;
-      }
     }
 
-    a.off {
-      transition: initial;
-      color: @tx-color-grey;
-      font-weight: 400;
-      cursor: default;
-
-      &:hover {
-        color: @tx-color-grey;
-      }
+    span {
+      line-height: 50px;
+      font-size: 15px;
     }
   }
 }
 
-.page-results {
-  margin: 0 auto;
-  margin-bottom: 25px;
-  right: 0;
-  left: 0;
-  top: 0;
-  text-align: center;
+.off {
+  color: @tx-color-grey;
+  font-weight: 400;
+  cursor: default;
 }

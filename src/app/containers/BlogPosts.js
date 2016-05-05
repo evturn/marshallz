@@ -27,13 +27,16 @@ class BlogPosts extends Component {
   }
 
   render() {
-    const { showing, pagination, pathname, authors } = this.props
-
+    const { showing, pagination, pathname, authors, query } = this.props
+    const notFirstPage = query && query.page && query.page >= 2
+    const paginationTop = <Pagination pathname={pathname} />
+    const paginationBottom = <Pagination stats={true} pathname={pathname} />
     return (
       <div className={cx('root')}>
+        {notFirstPage ? paginationTop : null}
         <div className={cx('posts')}>
           {showing.map((x, i) => <Post key={i} { ...x } />)}
-          <Pagination pathname={pathname} { ...pagination } />
+          {paginationBottom}
         </div>
         <SidePanel authors={authors} />
       </div>
@@ -44,7 +47,6 @@ class BlogPosts extends Component {
 BlogPosts.propTypes = {
   authors: PropTypes.array,
   showing: PropTypes.array,
-  pagination: PropTypes.object,
   filter: PropTypes.object,
   params: PropTypes.object,
   query: PropTypes.object,
