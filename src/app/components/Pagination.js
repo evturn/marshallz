@@ -8,10 +8,10 @@ const cx = classNames.bind(css)
 
 class Pagination extends Component {
   render() {
-    const {
-      next, previous, buttons,
-      page, first, last, total } = this.props.pagination
     const { stats, pathname } = this.props
+    const {
+      next, previous, buttons, page, first, last, total
+    } = this.props.pagination
 
     const goForward = next ?
       <Link to={{ pathname, query: { page: next } }}>
