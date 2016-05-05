@@ -15,23 +15,33 @@
   .btns {
     margin: 10px auto;
     width: 100%;
-    text-align: left;
+    text-align: center;
+
+    @media(@tablet) {
+      text-align: left;
+    }
   }
 
   .results {
-    margin: 0 auto;
+    margin: 20px auto;
     right: 0;
     left: 0;
     top: 0;
-    text-align: left;
+    font-family: @font-book;
+
+    text-align: center;
+
+    @media(@tablet) {
+      text-align: left;
+    }
   }
 
   .btn {
     position: relative;
     display: inline-block;
     font-size: 26px;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background-color: @bg-light;
     margin-right: 1px;
     border-radius: 3px;
@@ -39,6 +49,11 @@
     vertical-align: top;
     font-weight: 600;
     font-family: @font-book;
+
+    @media(@tablet) {
+      width: 50px;
+      height: 50px;
+    }
 
     a {
       position: absolute;
@@ -51,8 +66,12 @@
     }
 
     span {
-      line-height: 50px;
+      line-height: 40px;
       font-size: 15px;
+
+      @media(@tablet) {
+        line-height: 50px;
+      }
     }
   }
 }

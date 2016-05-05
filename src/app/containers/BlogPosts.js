@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { filterPosts } from 'actions'
 import Post from 'components/Post'
 import Pagination from 'components/Pagination'
+import Profile from 'components/Profile'
 import SidePanel from 'components/SidePanel'
 import classNames from 'classnames/bind'
 import css from 'less/components/blog-posts.less'
@@ -27,16 +28,16 @@ class BlogPosts extends Component {
   }
 
   render() {
-    const { showing, pagination, pathname, authors, query } = this.props
-    const notFirstPage = query && query.page && query.page >= 2
-    const paginationTop = <Pagination pathname={pathname} />
-    const paginationBottom = <Pagination stats={true} pathname={pathname} />
+    const {
+      showing, pagination, pathname,
+      authors, query, params } = this.props
     return (
       <div className={cx('root')}>
-        {notFirstPage ? paginationTop : null}
+        {params.author ? <Profile username={params.author} /> : null}
+        <Pagination pathname={pathname} />
         <div className={cx('posts')}>
           {showing.map((x, i) => <Post key={i} { ...x } />)}
-          {paginationBottom}
+          <Pagination stats={true} pathname={pathname} />
         </div>
         <SidePanel authors={authors} />
       </div>

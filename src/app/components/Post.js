@@ -15,7 +15,7 @@ class Post extends Component {
 
     const authorAvatar = (
       <Link to={{ pathname: `/author/${username}` }}>
-        <img  src={require(`images/${avatar}`)} />
+        <img src={require(`images/${avatar}`)} />
       </Link>)
 
     const authorTag = <span className={cx('tag')}>Author</span>

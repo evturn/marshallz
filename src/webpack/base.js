@@ -43,7 +43,7 @@ export const devLoaders = [
     loader: 'url-loader'
   },{
     test: /\.(png|jpe?g|svg|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    loader: 'file-loader'
+    loader: 'file-loader?name=[name].[ext]'
   },{
     test: /\.woff2(\?\S*)?$/,
     loader: 'url-loader?limit=100000'
@@ -73,7 +73,7 @@ export const prodLoaders = [
     loader: 'url-loader'
   },{
     test: /\.(png|jpe?g|svg|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    loader: 'file-loader'
+    loader: 'file-loader?name=[name].[ext]'
   },{
     test: /\.woff2(\?\S*)?$/,
     loader: 'url-loader?limit=100000'

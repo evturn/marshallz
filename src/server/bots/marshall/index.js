@@ -4,6 +4,7 @@ export default {
   name: 'Marshall',
   username: 'marshall',
   avatar: 'av-marshall.png',
+  headshot: 'hs-marshall.png',
   index: 0,
   social: true,
   share: { twitter: 'https://twitter.com/marshallzBlog' },
@@ -28,7 +29,8 @@ export default {
       avatar: this.avatar,
       index: this.index,
       social: this.social,
-      share: this.share
+      share: this.share,
+      headshot: this.headshot
     }
   }
 }

@@ -2,6 +2,7 @@ export default {
   name: 'b0rf',
   username: 'borf',
   avatar: 'av-borf.png',
+  headshot: 'hs-borf.png',
   index: 2,
   content: 'src/server/bots/borf/content.txt',
   social: false,
@@ -18,7 +19,8 @@ export default {
       avatar: this.avatar,
       index: this.index,
       social: this.social,
-      share: this.share
+      share: this.share,
+      headshot: this.headshot
     }
   }
 }

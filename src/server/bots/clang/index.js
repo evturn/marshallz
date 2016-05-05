@@ -4,6 +4,7 @@ export default {
   name: '__clang__',
   username: 'clang',
   avatar: 'av-clang.png',
+  headshot: 'hs-clang.png',
   index: 1,
   content: 'src/server/bots/clang/content.txt',
   social: true,
@@ -30,7 +31,8 @@ export default {
       avatar: this.avatar,
       index: this.index,
       social: this.social,
-      share: this.share
+      share: this.share,
+      headshot: this.headshot
     }
   }
 }
