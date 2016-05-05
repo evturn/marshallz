@@ -33,7 +33,6 @@ export const fetchPost = slug =>
 
 export const filterPosts = ({ params, query }) =>
 ({ dispatch, getState }) => {
-  const perPage = getState().blog.perPage
   const route$ = Observable.from([{ author: params.author, page: query.page }])
   const page$ = route$.map(getCurrentPage)
   const posts$ = route$.map(getPostsByParam)
@@ -63,10 +62,12 @@ export const filterPosts = ({ params, query }) =>
   }
 
   function getTotalPages(posts) {
+  const perPage = getState().blog.perPage
    return Math.ceil(posts.length / perPage)
  }
 
   function createPagination([posts, page, pages]) {
+    const perPage = getState().blog.perPage
     return {
       posts,
       perPage,
