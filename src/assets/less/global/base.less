@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100);
-
+@import url('../variables.less');
 @import url('./mixins.less');
 
 .inner {
@@ -12,13 +12,21 @@
   max-width: 1200px;
 }
 
-.site-container {
+.site {
   .clearfix();
+  min-height: 100vh;
   width: 100%;
 }
-.site-content {
-  .clearfix();
+
+.content {
   position: relative;
+  .clearfix();
+  height: 100%;
+  padding-top: 15px;
+
+  @media(@tablet) {
+    padding-top: 25px;
+  }
 }
 
 button:focus {
@@ -36,7 +44,7 @@ a {
 -------------------------------------------------------- */
 html,
 body {
-  height: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   position: relative;

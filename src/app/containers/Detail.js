@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fetchPost } from 'actions'
 import Post from 'components/Post'
 import classNames from 'classnames/bind'
-import css from 'less/components/home.less'
+import css from 'less/components/detail.less'
 
 const cx = classNames.bind(css)
 
@@ -16,7 +16,7 @@ class Detail extends Component {
     const { hasOne, post} = this.props
 
     return (
-      <div className={cx('posts')}>
+      <div className={cx('detail')}>
         {hasOne ? <Post {...post}/> : null}
       </div>
     )

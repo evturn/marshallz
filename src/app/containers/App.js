@@ -6,16 +6,14 @@ import 'less/global/style.less';
 class App extends Component {
   render() {
     return (
-      <div style={{ backgroundImage: `url(${require('images/bg.jpg')})` }}>
-        <div className="site-container">
-          <Header />
-          <div className="site-content">
-            {this.props.children}
-          </div>
+      <div className="site" style={{ backgroundImage: `url(${require('images/bg.jpg')})` }}>
+        <Header />
+        <div className="content">
+          {this.props.children}
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default connect()(App);
+export default connect()(App)
