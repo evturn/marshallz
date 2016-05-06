@@ -1,11 +1,9 @@
 import { Observable } from 'rx'
 import { DOM } from 'rx-dom'
 
-const FETCH_POST     =       _ => ({ type: 'FETCH_POST' })
-const FETCH_SUCCESS  = payload => ({ type: 'FETCH_SUCCESS',  payload })
-const FETCH_ERROR    = message => ({ type: 'FETCH_ERROR',    message })
-const FILTER_POSTS   = payload => ({ type: 'FILTER_POSTS',   payload })
-const DISPLAY_AUTHOR = payload => ({ type: 'DISPLAY_AUTHOR', payload })
+const FILTER_POSTS   = payload => ({ type: 'FILTER_POSTS',  payload })
+const FETCH_SUCCESS  = payload => ({ type: 'FETCH_SUCCESS', payload })
+const FETCH_ERROR    = message => ({ type: 'FETCH_ERROR',   message })
 
 export const fetchPost = slug =>
 ({ dispatch, getState }) => {
@@ -54,7 +52,6 @@ export const filterPosts = ({ params, query }) =>
   .subscribe(x => dispatch(FILTER_POSTS(x)))
 
   function filterSelectedItems(x) {
-
     x.page = x.query.page ? parseInt(x.query.page) : 1
     x.posts = x.params.author ? x.filter.author[x.params.author] : x.items
     x.author = x.params.author ?
@@ -80,7 +77,7 @@ export const filterPosts = ({ params, query }) =>
     x.last = x.start + x.showing.length,
     x.previous = x.page > 1 ? x.page - 1 : false,
     x.next = x.page < x.pages.length ? x.page + 1 : false
-    x.total = x.showing.length
+    x.total = x.posts.length
     return x
   }
 
