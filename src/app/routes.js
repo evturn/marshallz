@@ -13,4 +13,4 @@ export default (
     </Route>
     <Route path="post/:post" component={Detail} />
   </Route>
-);
+)

@@ -19,7 +19,7 @@ class Detail extends Component {
     return (
       <div className={cx('detail')}>
         {hasOne ? <Profile />  : null}
-        {hasOne ? <Post {...post}/> : null}
+        {hasOne ? <Post {...post} /> : null}
       </div>
     )
   }
@@ -27,8 +27,7 @@ class Detail extends Component {
 
 Detail.propTypes = {
   hasOne: PropTypes.bool,
-  author: PropTypes.object,
-  dispatch: PropTypes.func
+  author: PropTypes.object
 }
 
 Detail.contextTypes = {

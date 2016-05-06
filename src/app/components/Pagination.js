@@ -10,7 +10,7 @@ class Pagination extends Component {
   render() {
     const { stats, pathname } = this.props
     const {
-      next, previous, buttons, page, first, last, total
+      next, previous, pages, page, first, last, total
     } = this.props.pagination
 
     const goForward = (
@@ -22,7 +22,7 @@ class Pagination extends Component {
         <span className={cx('fa fa-chevron-right', 'off')} />
       )}</li>)
 
-    const skipTo = buttons.map(x =>
+    const skipTo = pages.map(x =>
       <li key={x} className={cx('btn')}>{x !== page ? (
         <Link to={{ pathname, query: {page: x} }}><span>{x}</span></Link>
       ) : (

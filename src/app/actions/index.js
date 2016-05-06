@@ -11,6 +11,7 @@ export const fetchPost = slug =>
 ({ dispatch, getState }) => {
   DOM.ajax(`/api/post/${slug}`)
     .map(parseJSON)
+    .map(mergeAuthorsProp)
     .map(getAuthorFromPost)
     .subscribe(
       x   => dispatch(FETCH_SUCCESS(x)),
@@ -21,72 +22,69 @@ export const fetchPost = slug =>
     return JSON.parse(response)
   }
 
-  function getAuthorFromPost({ post }) {
-    const authors = getState().blog.authors
-    const { author } = post
+  function mergeAuthorsProp({ post }) {
     return {
-      author: authors.filter(({ username }) => author.username === username)[0],
+      authors: getState().blog.authors,
       post
     }
+  }
+
+  function getAuthorFromPost(x) {
+    x.author = x.authors
+      .filter(({ username }) => username === x.post.author.username)[0]
+    return x
   }
 }
 
 export const filterPosts = ({ params, query }) =>
 ({ dispatch, getState }) => {
-  const route$ = Observable.from([{ author: params.author, page: query.page }])
-  const page$ = route$.map(getCurrentPage)
-  const posts$ = route$.map(getPostsByParam)
-  const pages$ = posts$.map(getTotalPages)
+  const intent$ = Observable.from([{
+    params,
+    query,
+    perPage: getState().blog.pagination.perPage,
+    items: getState().blog.pagination.items,
+    filter: getState().blog.filter,
+    authors: getState().blog.authors
+  }])
+  .map(filterSelectedItems)
+  .map(createSegementation)
+  .map(getSegmentItems)
+  .map(getSegmentState)
+  .map(getUpdatedState)
+  .subscribe(x => dispatch(FILTER_POSTS(x)))
 
-  const author$ = Observable.from(getState().blog.authors)
-    .filter(getAuthorByParam)
-    .map(x => ({ author: x }))
-    .subscribe(x => dispatch(DISPLAY_AUTHOR(x)))
+  function filterSelectedItems(x) {
 
-  const pagination$ = Observable.combineLatest(posts$, page$, pages$)
-    .map(createPagination)
-    .map(filterVisiblePosts)
-    .subscribe(x => dispatch(FILTER_POSTS(x)))
-
-  function getAuthorByParam({ username }) {
-    return username === params.author
+    x.page = x.query.page ? parseInt(x.query.page) : 1
+    x.posts = x.params.author ? x.filter.author[x.params.author] : x.items
+    x.author = x.params.author ?
+      x.authors.filter(({ username }) => username === x.params.author)[0] : {}
+    return x
   }
 
-  function getPostsByParam({ author }) {
-    const filter = getState().blog.filter
-    return author ? filter.author[author] : filter.all
+  function createSegementation(x) {
+    x.start = ((x.page - 1) * x.perPage)
+    x.end = (x.page * x.perPage)
+    x.pages = x.posts.map((x, i) => i + 1)
+      .filter(i => i <= Math.ceil(x.posts.length / x.perPage))
+    return x
   }
 
-  function getCurrentPage({ page }) {
-    return page ? parseInt(page) : 1
+  function getSegmentItems(x) {
+    x.showing = x.posts.slice(x.start, x.end)
+    return x
   }
 
-  function getTotalPages(posts) {
-  const perPage = getState().blog.perPage
-   return Math.ceil(posts.length / perPage)
- }
-
-  function createPagination([posts, page, pages]) {
-    const perPage = getState().blog.perPage
-    return {
-      posts,
-      perPage,
-      page,
-      pages,
-      first: ((page - 1) * perPage) + 1,
-      last: page * perPage,
-      total: posts.length,
-      previous: page > 1 ? page - 1 : false,
-      next: page < pages ? page + 1 : false,
-      buttons: posts.map((x, i) => i + 1).filter(i => i <= pages)
-    }
+  function getSegmentState(x) {
+    x.first = x.start + 1,
+    x.last = x.start + x.showing.length,
+    x.previous = x.page > 1 ? x.page - 1 : false,
+    x.next = x.page < x.pages.length ? x.page + 1 : false
+    x.total = x.showing.length
+    return x
   }
 
-  function filterVisiblePosts(x) {
-    const { posts, first, last } = x
-    return {
-      showing: posts.filter((x, i) => i >= first - 1 && i <= last - 1),
-      pagination: x
-    }
+  function getUpdatedState({ author, showing, ...pagination }) {
+    return { author, showing, pagination }
   }
 }

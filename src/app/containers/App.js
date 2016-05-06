@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import Header from 'components/Header';
 import { filterPosts } from 'actions'
 import 'less/global/style.less';
 
 class App extends Component {
-  componentWilMount() {
+  componentWillMount() {
     filterPosts({ ...this.props })(this.context.store)
   }
 
@@ -15,6 +15,7 @@ class App extends Component {
       filterPosts({ ...nextProps })(this.context.store)
     }
   }
+
   render() {
     return (
       <div className="site" style={{ backgroundImage: `url(${require('images/bg.jpg')})` }}>
@@ -28,8 +29,11 @@ class App extends Component {
 }
 
 App.propTypes = {
+  authors: PropTypes.array,
+  showing: PropTypes.array,
+  query: PropTypes.object,
   params: PropTypes.object,
-  query: PropTypes.object
+  pathname: PropTypes.string
 }
 
 App.contextTypes = {
@@ -38,7 +42,10 @@ App.contextTypes = {
 
 export default connect(
   (state, ownProps) => ({
+    authors: state.blog.authors,
+    showing: state.blog.showing,
+    query: ownProps.location.query,
     params: ownProps.params,
-    query: ownProps.location.query
+    pathname: ownProps.location.pathname
   })
 )(App)

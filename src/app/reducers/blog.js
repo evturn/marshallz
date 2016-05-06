@@ -1,12 +1,14 @@
 export default function blog(state = {
   post: {},
   author: {},
+  authors: [],
+  filter: {},
+  showing: [],
+  pagination: {},
   isFetching: false,
   isFiltered: false,
   isCompleted: false,
   hasOne: false,
-  fixed: false,
-  perPage: 10
 }, action) {
   switch (action.type) {
     case 'FETCH_POST':

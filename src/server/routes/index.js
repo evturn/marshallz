@@ -15,17 +15,8 @@ if (process.env.NODE_ENV === 'development') {
 app.disable('x-powered-by')
 app.use(express.static(path.join(__dirname, '..', '..', '..')))
 
-app.get(
-  '/api/locals',
-  blog.init,
-  blog.findAllPosts,
-  blog.filterPostsByUsername,
-  blog.sendPayload
-)
-app.get(
-  '/api/post/:post',
-  blog.findOnePost
-)
+app.get('/api/locals',     blog.findAll)
+app.get('/api/post/:post', blog.findOne)
 
 app.get('*', (req, res) => Server(req, res))
 
