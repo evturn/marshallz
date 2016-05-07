@@ -2,37 +2,6 @@ import { Observable } from 'rx'
 import { DOM } from 'rx-dom'
 
 const FILTER_POSTS   = payload => ({ type: 'FILTER_POSTS',  payload })
-const FETCH_SUCCESS  = payload => ({ type: 'FETCH_SUCCESS', payload })
-const FETCH_ERROR    = message => ({ type: 'FETCH_ERROR',   message })
-
-export const fetchPost = slug =>
-({ dispatch, getState }) => {
-  DOM.ajax(`/api/post/${slug}`)
-    .map(parseJSON)
-    .map(mergeAuthorsProp)
-    .map(getAuthorFromPost)
-    .subscribe(
-      x   => dispatch(FETCH_SUCCESS(x)),
-      err => dispatch(FETCH_ERROR(err))
-    )
-
-  function parseJSON({ response }) {
-    return JSON.parse(response)
-  }
-
-  function mergeAuthorsProp({ post }) {
-    return {
-      authors: getState().blog.authors,
-      post
-    }
-  }
-
-  function getAuthorFromPost(x) {
-    x.author = x.authors
-      .filter(({ username }) => username === x.post.author.username)[0]
-    return x
-  }
-}
 
 export const filterPosts = ({ params, query }) =>
 ({ dispatch, getState }) => {
@@ -83,5 +52,37 @@ export const filterPosts = ({ params, query }) =>
 
   function getUpdatedState({ author, showing, ...pagination }) {
     return { author, showing, pagination }
+  }
+}
+
+const FETCH_SUCCESS  = payload => ({ type: 'FETCH_SUCCESS', payload })
+const FETCH_ERROR    = message => ({ type: 'FETCH_ERROR',   message })
+
+export const fetchPost = slug =>
+({ dispatch, getState }) => {
+  DOM.ajax(`/api/post/${slug}`)
+    .map(parseJSON)
+    .map(mergeAuthorsProp)
+    .map(getAuthorFromPost)
+    .subscribe(
+      x   => dispatch(FETCH_SUCCESS(x)),
+      err => dispatch(FETCH_ERROR(err))
+    )
+
+  function parseJSON({ response }) {
+    return JSON.parse(response)
+  }
+
+  function mergeAuthorsProp({ post }) {
+    return {
+      authors: getState().blog.authors,
+      post
+    }
+  }
+
+  function getAuthorFromPost(x) {
+    x.author = x.authors
+      .filter(({ username }) => username === x.post.author.username)[0]
+    return x
   }
 }
