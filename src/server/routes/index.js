@@ -1,7 +1,7 @@
 import express from 'express'
 import path from 'path'
 import db from '../models/blogPost'
-import bots from '../bots/stream'
+import streams from '../streams'
 import * as blog from './middleware'
 import devServer from '../../webpack/dev-server'
 import Server from '../../../dist/js/ser'
