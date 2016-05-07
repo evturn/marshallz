@@ -11,4 +11,4 @@ import { CronJob as Cron } from 'cron'
 //   }
 // }
 
-export default blogStream(bots[1])
+export default twitterStream(bots[1])

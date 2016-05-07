@@ -1,40 +1,35 @@
 import { Observable } from 'rx'
 import SentenceGenerator from 'sentence-generator'
-import request from 'request'
 
 export default bot => {
-  const bot$ = Observable.from([bot]);
-
-  const status$ = bot$
-    .map(createTwitterStatus)
-
-  const credentials$ = bot$
-    .map(x => x.keys.twitter)
-
-  const payload$ = Observable.combineLatest(
-      credentials$,
-      status$
-    )
-    .map(postStatusToTwitter)
+  Observable.from([bot])
+    .map(createPayload)
+    .flatMap(postStatusUpdate)
     .subscribe(
-      x => console.log('\n\n\n', x),
+      x => console.log('\n\n\n', x.text),
       e => console.log('we errored', e.message),
       x => console.log('we complete.')
     )
 }
 
-function postStatusToTwitter(payload) {
-  const [ credentials, status ] = payload
+function createPayload(x) {
+  return {
+    status: SentenceGenerator({ file: x.content, count: 16 })(),
+    credentials: x.keys.twitter
+  }
+}
 
-  console.log(status)
-
-  credentials.post('statuses/update', { status }, (error, tweet, response) => {
-    if (error) {
-      console.log(error)
-    }
-
-    console.log(JSON.parse(response.body))
+function postStatusUpdate({ credentials, status }) {
+  return Observable.create(x => {
+    credentials.post(
+      'statuses/update',
+      { status },
+      (error, tweet, response) => {
+        if (error) {
+          x.onError(error)
+        }
+        x.onNext(JSON.parse(response.body))
+      }
+    )
   })
-
-  return status;
 }
