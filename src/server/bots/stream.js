@@ -24,12 +24,10 @@ const createBlogPost = bot => {
     .reduce(reduceGeneratedStrings, '')
 
   Observable.combineLatest(title$, slug$, body$, author$, gif$)
-    .map(createNewPost)
     .flatMap(saveNewPost)
     .subscribe(
       x => console.log(`\n\n\n${x}\n\n\n${x.author.username} posted.`),
-      e => console.log('Errors, they happen.', e),
-      _ => console.log('We completed.')
+      e => console.log('Errors, they happen.', e)
     )
 }
 
@@ -90,13 +88,10 @@ function filterImageSrc(x) {
   return x.images.original.url
 }
 
-function createNewPost(x) {
-  const [ title, slug, body, author, image ] = x
-  return new BlogPost({ title, slug, body, author, image })
-}
-
 function saveNewPost(x) {
-  return Observable.fromPromise(x.save())
+  const [ title, slug, body, author, image ] = x
+  const newPost = new BlogPost({ title, slug, body, author, image })
+  return Observable.fromPromise(newPost.save())
 }
 
 export default createBlogPost(bots[1])
