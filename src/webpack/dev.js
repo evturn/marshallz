@@ -39,7 +39,7 @@ export default {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new WriteFilePlugin(),
+    new WriteFilePlugin({ log: false }),
     new ExtractTextPlugin(PATHS.static.css),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"development"',

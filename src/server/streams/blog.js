@@ -24,7 +24,7 @@ export default bot => {
   Observable.combineLatest(title$, slug$, body$, author$, gif$)
     .flatMap(saveNewPost)
     .subscribe(
-      x => console.log(`\n\n\n${x}\n\n\n${x.author.username} posted.`),
+      x => console.log(`\n\x1b[37m〰️〰️〰️〰️〰️〰️〰️ ${x.author.username} posted. 〰️〰️〰️〰️〰️〰️〰️️\n`),
       e => console.log('Errors, they happen.', e)
     )
 }

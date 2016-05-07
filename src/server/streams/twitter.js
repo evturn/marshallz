@@ -6,7 +6,7 @@ export default bot => {
     .map(createPayload)
     .flatMap(postStatusUpdate)
     .subscribe(
-      x => console.log('\n\n\n', x.text),
+      x => console.log(`\n\x1b[37m〰️〰️〰️〰️〰️〰️〰️ Someone tweeted '${x.text}' 〰️〰️〰️〰️〰️〰️〰️️\n`),
       e => console.log('we errored', e.message),
       x => console.log('we complete.')
     )
