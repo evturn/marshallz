@@ -1,2 +1,2 @@
-require('babel-register')({});
-require('./routes');
+require('babel-register')({})
+require('./routes')

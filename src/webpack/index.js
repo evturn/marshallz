@@ -1,2 +1,2 @@
-require('babel-register')({});
-require('./prod');
+require('babel-register')({})
+require('./prod')
