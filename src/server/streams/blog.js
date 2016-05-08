@@ -2,6 +2,7 @@ import { Observable } from 'rx'
 import SentenceGenerator from 'sentence-generator'
 import request from 'request'
 import BlogPost from '../models/blogPost'
+import { blog as log } from '../../webpack/dev-logger'
 
 export default bot => {
   const bot$ = Observable.from([bot])
@@ -23,10 +24,7 @@ export default bot => {
 
   Observable.combineLatest(title$, slug$, body$, author$, gif$)
     .flatMap(saveNewPost)
-    .subscribe(
-      x => console.log(`\n\x1b[37m〰️〰️〰️〰️〰️〰️〰️ ${x.author.username} posted. 〰️〰️〰️〰️〰️〰️〰️️\n`),
-      e => console.log('Errors, they happen.', e)
-    )
+    .subscribe(log.observer)
 }
 
 function pullContent(x) {

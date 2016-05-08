@@ -1,15 +1,12 @@
 import { Observable } from 'rx'
 import SentenceGenerator from 'sentence-generator'
+import { twitter as log } from '../../webpack/dev-logger'
 
 export default bot => {
   Observable.from([bot])
     .map(createPayload)
     .flatMap(postStatusUpdate)
-    .subscribe(
-      x => console.log(`\n\x1b[37m〰️〰️〰️〰️〰️〰️〰️ Someone tweeted '${x.text}' 〰️〰️〰️〰️〰️〰️〰️️\n`),
-      e => console.log('we errored', e.message),
-      x => console.log('we complete.')
-    )
+    .subscribe(log.twitter)
 }
 
 function createPayload(x) {
