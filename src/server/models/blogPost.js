@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
+import { db as log } from '../../webpack/dev-logger'
 
 mongoose.connect('mongodb://127.0.0.1/marshallz')
-mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
-mongoose.connection.once('open', _ => console.log('DB connected'))
+mongoose.connection.on('error', log.error)
+mongoose.connection.once('open', log.open)
 
 const blogPost = new mongoose.Schema({
   title:       {type: String},

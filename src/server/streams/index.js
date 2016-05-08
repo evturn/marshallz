@@ -22,7 +22,6 @@ function main() {
       return log.twitter(x)
     })
 
-
   Observable.merge(blog$, twitter$)
     .subscribe(log.observer)
 }
