@@ -6,7 +6,7 @@ import { blog as log } from '../../webpack/dev-logger'
 
 export default bot => {
   const bot$ = Observable.from([bot])
-  const author$ = bot$.map(x => x.authorData())
+  const author$ = bot$.map(x => x._public)
   const args$ = bot$.map(x => ({ file: x.content, count: 10 }))
   const title$ = args$.map(pullContent).share()
   const slug$ = title$.map(toSlug)

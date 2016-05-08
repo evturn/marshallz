@@ -13,7 +13,7 @@ export const findAll = (req, res, next) => {
       }
 
       const perPage = 10
-      const authors = bots.map(x => x.authorData())
+      const authors = bots.map(x => x._public)
 
       const pages = items
         .map((x, i) => i + 1)

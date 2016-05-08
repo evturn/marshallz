@@ -1,16 +1,18 @@
 import Twitter from 'twitter'
 
-export default {
+const _public = {
   name: '__clang__',
   username: 'clang',
   avatar: 'av-clang.png',
   headshot: 'hs-clang.png',
-  index: 1,
-  content: 'src/server/bots/clang/content.txt',
   social: true,
-  share: {
-    twitter: 'https://twitter.com/__clang__'
-  },
+  share: { twitter: 'https://twitter.com/__clang__' }
+}
+
+export default {
+  ..._public,
+  _public,
+  content: 'src/server/bots/clang/content.txt',
   jobs: {
     blog: '00 15,45 * * * *',
     twitter: '00 00 00,03,06,09,12,15,21 * * *'
@@ -23,16 +25,5 @@ export default {
       access_token_secret: process.env.CLANG_TWITTER_TOKEN_SECRET
     }),
     giphy: process.env.GIPHY_DEV
-  },
-  authorData: function() {
-    return {
-      name: this.name,
-      username: this.username,
-      avatar: this.avatar,
-      index: this.index,
-      social: this.social,
-      share: this.share,
-      headshot: this.headshot
-    }
   }
 }

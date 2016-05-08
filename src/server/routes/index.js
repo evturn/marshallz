@@ -9,7 +9,7 @@ import Server from '../../../dist/js/ser'
 
 const app = express();
 
-if (process.env.NODE_ENV === 'development') {
+if (__DEV__) {
   devServer(app)
 }
 

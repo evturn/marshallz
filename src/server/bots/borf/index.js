@@ -1,26 +1,28 @@
-export default {
+const _public = {
   name: 'b0rf',
   username: 'borf',
   avatar: 'av-borf.png',
   headshot: 'hs-borf.png',
-  index: 2,
-  content: 'src/server/bots/borf/content.txt',
   social: false,
-  jobs: {
-    blog: '30 07,53 * * * *'
-  },
-  keys: {
-    giphy: process.env.GIPHY_DEV
-  },
-  authorData: function() {
-    return {
-      name: this.name,
-      username: this.username,
-      avatar: this.avatar,
-      index: this.index,
-      social: this.social,
-      share: this.share,
-      headshot: this.headshot
-    }
-  }
+}
+
+export default {
+  ..._public,
+  _public,
+  content: 'src/server/bots/borf/content.txt',
+  jobs: { blog: '30 07,53 * * * *' },
+  keys: { giphy: process.env.GIPHY_DEV },
+  rss: [
+    'https://rss.sciencedaily.com/health_medicine/irritable_bowel_syndrome.xml',
+    'https://rss.sciencedaily.com/strange_offbeat.xml',
+    'https://rss.sciencedaily.com/mind_brain/ecstasy.xml',
+    'https://rss.sciencedaily.com/health_medicine/dietary_supplements.xml',
+    'https://rss.sciencedaily.com/matter_energy/electricity.xml',
+    'https://rss.sciencedaily.com/matter_energy/thermodynamics.xml',
+    'https://rss.sciencedaily.com/matter_energy/quantum_computing.xml',
+    'https://rss.sciencedaily.com/computers_math/virtual_reality.xml',
+    'https://rss.sciencedaily.com/computers_math/artificial_intelligence.xml',
+    'https://rss.sciencedaily.com/health_medicine/alternative_medicine.xml',
+    'https://rss.sciencedaily.com/health_medicine/vegetarian.xml'
+  ]
 }
