@@ -22,7 +22,7 @@ function generateSentence(initialValue) {
   return Observable.generate(
     initialValue,
     chainHasExhausted,
-    concatStrings,
+    iterateToNextChain(reduceNextValue, mergeStateAndPredictor),
     x => x.sentence
   )
 }
@@ -32,28 +32,41 @@ function getInitialState([dictionary, word]) {
     dictionary,
     word,
     sentence: word,
-    chainlink: dictionary[word]
+    hash: dictionary[word]
   }
 }
 
-function concatStrings({ dictionary, word, sentence, chainlink }) {
-  const keys = Object.keys(chainlink)
-  const sumOfLinksInChain = keys.reduce((acc, x) => acc + chainlink[x], 0)
-  const predicator = ~~(Math.random() * sumOfLinksInChain)
+function iterateToNextChain(reducer, accumulator) {
+  return state => {
+    const x = accumulator(state)
+    const { value } = x.keys.reduce(reducer, x.acc)
+    return value
+  }
+}
 
-  const x = keys.reduce((acc, x, i, src) => {
-    acc.count += chainlink[src[i]]
-    if (acc.count > predicator) {
-      acc.value = {
-        dictionary,
-        word: src[i],
-        sentence: `${sentence} ${src[i]}`,
-        chainlink: dictionary[src[i]]
-      }
+function mergeStateAndPredictor(state) {
+  const keys = Object.keys(state.hash)
+  return Object.assign({}, { keys }, {
+    acc: {
+      count: 0,
+      value: {},
+      predicator: ~~(Math.random() * keys.reduce((acc, x) => acc + state.hash[x], 0)),
+      ...state
     }
-    return acc
-  }, { count: 0, value: {} })
-  return x.value
+  })
+}
+
+function reduceNextValue(acc, x, i, src)  {
+  acc.count += acc.hash[src[i]]
+  if (acc.count > acc.predicator) {
+    acc.value = {
+      dictionary: acc.dictionary,
+      word: src[i],
+      sentence: `${acc.sentence} ${src[i]}`,
+      hash: acc.dictionary[src[i]]
+    }
+  }
+  return acc
 }
 
 function createDictionary(aggregator, transform) {
