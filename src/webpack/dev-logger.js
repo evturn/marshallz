@@ -33,6 +33,15 @@ export const twitter = {
   )
 }
 
+export const rss = {
+  observer: Observer.create(
+    x => console.log(to(`    🐓    `, `\n${x}\n`)),
+    e => console.log(er('RSS', e)),
+    _ => console.log(`RSS transform stream ended.`)
+  )
+}
+
+
 export const server = _ => {
   console.log(to(`    🌐    `, process.env.NODE_ENV.toUpperCase()))
   console.log(to(`    ️💻    `, process.env.PORT_MARSHALLZ))
@@ -53,5 +62,5 @@ function er(x, e) {
 }
 
 function to(x, z) {
-  return `${W}〰️〰️〰️〰️〰️〰️〰️${x}->  ${C} ${z}`
+  return `${W}〰️〰️〰️〰️〰️〰️〰️${x}->  ${C} ${z}${r}`
 }

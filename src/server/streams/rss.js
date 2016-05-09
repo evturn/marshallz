@@ -2,6 +2,7 @@ import request from 'request'
 import FeedParser from 'feedparser'
 import { Observable } from 'rx'
 import RxNode from 'rx-node'
+import borf from './borf'
 
 const fakeHeader = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36'
 
@@ -21,9 +22,16 @@ export default bot => {
       x.on('response', res => res.pipe(fp))
       return RxNode.fromTransformStream(fp)
     })
-    .reduce((acc, x) => `${acc + x.description}\n`, '')
+    .reduce((acc, x) => `${acc + x.summary}`, '')
+    .map(x => {
+
+      borf({
+        json: x,
+        count: 16
+      })
+    })
     .subscribe(
-      x => console.log(x),
+      x => console.log(`Not passing it back yet, so it's`, x),
       e => console.log(e),
       x => console.log('Bye.')
     )

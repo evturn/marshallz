@@ -13,22 +13,22 @@ function main() {
     rssStream(bots[2])
   }
 
-  const blog$ = bots$
-    .filter(x => x.jobs.blog)
-    .map(x => {
-      new Cron(x.jobs.blog, _ => blogStream(x), null, true)
-      return log.blog(x)
-    })
+  // const blog$ = bots$
+  //   .filter(x => x.jobs.blog)
+  //   .map(x => {
+  //     new Cron(x.jobs.blog, _ => blogStream(x), null, true)
+  //     return log.blog(x)
+  //   })
 
-  const twitter$ = bots$
-    .filter(x => x.jobs.twitter)
-    .map(x => {
-      new Cron(x.jobs.twitter, _ => twitterStream(x), null, true)
-      return log.twitter(x)
-    })
+  // const twitter$ = bots$
+  //   .filter(x => x.jobs.twitter)
+  //   .map(x => {
+  //     new Cron(x.jobs.twitter, _ => twitterStream(x), null, true)
+  //     return log.twitter(x)
+  //   })
 
-  Observable.merge(blog$, twitter$)
-    .subscribe(log.observer)
+  // Observable.merge(blog$, twitter$)
+  //   .subscribe(log.observer)
 }
 
 export default main()
