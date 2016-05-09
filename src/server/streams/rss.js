@@ -22,13 +22,11 @@ export default bot => {
       x.on('response', res => res.pipe(fp))
       return RxNode.fromTransformStream(fp)
     })
-    .reduce((acc, x) => `${acc + x.summary}`, '')
+    .map(x => x.description)
+    .filter(x => x !== null && x.length)
+    .reduce((acc, x) => `${acc + x} `, '')
     .map(x => {
-
-      borf({
-        json: x,
-        count: 16
-      })
+      borf(x)
     })
     .subscribe(
       x => console.log(`Not passing it back yet, so it's`, x),

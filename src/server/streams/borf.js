@@ -1,10 +1,23 @@
 import { Observable } from 'rx'
 import { rss as log } from '../../webpack/dev-logger'
 
+function createDictionary(x) {
+  return x
+    .split(' ')
+    .filter(isNotEmpty)
+    .reduce((acc, x, i, src) => {
+      const curr = norm(src[i])
+      const next = norm(src[i + 1])
+      if (!acc[curr]) { acc[curr] = {} }
+      acc[curr][next] = !acc[curr][next] ? 1 : acc[curr][next] + 1
+      return acc
+    }, {})
+}
+
 export default x => {
   const dictionary$ = Observable.of(x)
     .map(splitOnLineEndings)
-    .map(createDictionary(createHashMap, mapByConsequetiveOccurance))
+    .map(x => x.map(createDictionary))
     .flatMap(spreadAndMergeKeys)
 
   const initialWord$ = dictionary$
@@ -15,6 +28,7 @@ export default x => {
     .map(getInitialState)
     .flatMap(generateSentence)
     .debounce(1000)
+    .repeat(5)
     .subscribe(log.observer)
 }
 
@@ -69,27 +83,6 @@ function reduceNextString(acc, x, i, src)  {
   return acc
 }
 
-function createDictionary(aggregator, transform) {
-  return x => x.map(aggregator(transform))
-}
-
-function createHashMap(reducer) {
-  return string => {
-    return string
-    .split(' ')
-    .filter(isNotEmpty)
-    .reduce(reducer, {})
-  }
-}
-
-function mapByConsequetiveOccurance(acc, x, i, src) {
-  const curr = norm(src[i])
-  const next = norm(src[i + 1])
-  if (!acc[curr]) { acc[curr] = {} }
-  acc[curr][next] = !acc[curr][next] ? 1 : acc[curr][next] + 1
-  return acc
-}
-
 function enumPropsFromHash(hash) {
   const keys = Object.keys(hash)
   const predicator = ~~(Math.random() * keys.reduce((acc, x) => acc + hash[x], 0))
@@ -101,7 +94,7 @@ function chainHasExhausted(x) {
 }
 
 function splitOnLineEndings(x) {
-  return x.json.split(/(?:\. |\n)/ig)
+  return x.split(/(?:\. $|\n)/ig)
 }
 
 function spreadAndMergeKeys(x) {
@@ -118,7 +111,7 @@ function selectWordAtRandom(x) {
 }
 
 function norm(x) {
-  return x !== undefined ? x.replace(/\.$|\["'()]/ig, '') : ''
+  return x !== undefined ? x.replace(/\(|\)|\|\"|\'\.$/ig, '') : ''
 }
 
 function isNotEmpty(x) {
