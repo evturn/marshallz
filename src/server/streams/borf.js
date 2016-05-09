@@ -2,38 +2,43 @@ import { Observable } from 'rx'
 import { rss as log } from '../../webpack/dev-logger'
 
 export default x => {
-  const tree$ = Observable.of(x)
+  const dictionary$ = Observable.of(x)
     .map(splitOnLineEndings)
-    .map(x => {
-      return x.map(string => {
-        return string
-          .split(' ')
-          .filter(isNotEmpty)
-          .reduce(createHashMap, {})
-      })
-    })
+    .map(x => x.map(string => {
+      return string
+        .split(' ')
+        .filter(isNotEmpty)
+        .reduce(createHashMap, {})
+    }))
     .flatMap(spreadAndMergeKeys)
 
-  const initialWord$ = tree$
+  const initialWord$ = dictionary$
     .map(filterCapitalizedWords)
     .map(selectWordAtRandom)
 
-  Observable.combineLatest(tree$, initialWord$)
-    .flatMap(([tree, word]) => {
-      return Observable.generate(
-        { tree, word, sentence: word },
-        chainExhausted,
-        concatStrings,
-        x => x.sentence
-      )
-      .debounce(1000)
-    })
+  Observable.combineLatest(dictionary$, initialWord$)
+    .map(getInitialState)
+    .flatMap(generateSentence)
+    .debounce(1000)
     .subscribe(log.observer)
 }
 
+function generateSentence(initialValue) {
+  return Observable.generate(
+    initialValue,
+    chainHasExhausted,
+    concatStrings,
+    x => x.sentence
+  )
+}
+
+function getInitialState([dictionary, word]) {
+  return { dictionary, word, sentence: word }
+}
+
 function concatStrings(x) {
-  let { tree, word, sentence } = x
-  const chain = tree[word]
+  let { dictionary, word, sentence } = x
+  const chain = dictionary[word]
   const keys = Object.keys(chain)
   const sumOfLinksInChain = keys.reduce((acc, x) => acc + chain[x], 0)
   const predicator = ~~(Math.random() * sumOfLinksInChain)
@@ -42,7 +47,7 @@ function concatStrings(x) {
     this.count += chain[keys[i]]
     if (this.count > predicator) {
       x = {
-        tree,
+        dictionary,
         word: keys[i],
         sentence: `${sentence} ${keys[i]}`
       }
@@ -66,8 +71,8 @@ function createHashMap(acc, x, i, src) {
   return acc
 }
 
-function chainExhausted(x) {
-  return x.tree[x.word] && !(x.sentence.length > 120)
+function chainHasExhausted(x) {
+  return x.dictionary[x.word] && !(x.sentence.length > 120)
 }
 
 function splitOnLineEndings(x) {
@@ -88,7 +93,7 @@ function selectWordAtRandom(x) {
 }
 
 function norm(x) {
-  return x !== undefined ? x.replace(/\.$/ig, '') : ''
+  return x !== undefined ? x.replace(/\.$|\["'()]/ig, '') : ''
 }
 
 function isNotEmpty(x) {
