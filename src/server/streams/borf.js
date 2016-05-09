@@ -4,12 +4,7 @@ import { rss as log } from '../../webpack/dev-logger'
 export default x => {
   const dictionary$ = Observable.of(x)
     .map(splitOnLineEndings)
-    .map(x => x.map(string => {
-      return string
-        .split(' ')
-        .filter(isNotEmpty)
-        .reduce(createHashMap, {})
-    }))
+    .map(createDictionary(createHashMap, mapByConsequetiveOccurance))
     .flatMap(spreadAndMergeKeys)
 
   const initialWord$ = dictionary$
@@ -56,7 +51,20 @@ function concatStrings(x) {
   return x
 }
 
-function createHashMap(acc, x, i, src) {
+function createDictionary(aggregator, transform) {
+  return x => x.map(aggregator(transform))
+}
+
+function createHashMap(reducer) {
+  return string => {
+    return string
+    .split(' ')
+    .filter(isNotEmpty)
+    .reduce(reducer, {})
+  }
+}
+
+function mapByConsequetiveOccurance(acc, x, i, src) {
   const curr = norm(src[i])
   const next = norm(src[i + 1])
 
