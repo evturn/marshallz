@@ -22,12 +22,12 @@ function generateSentence(initialValue) {
   return Observable.generate(
     initialValue,
     chainHasExhausted,
-    iterateToNextChain(reduceNextValue, mergeStateAndPredictor),
+    iterateToNextChain(reduceNextString, mergeStateAndPredictor),
     x => x.sentence
   )
 }
 
-function getInitialState([dictionary, word]) {
+function getInitialState([ dictionary, word ]) {
   return {
     dictionary,
     word,
@@ -45,18 +45,18 @@ function iterateToNextChain(reducer, accumulator) {
 }
 
 function mergeStateAndPredictor(state) {
-  const keys = Object.keys(state.hash)
+  const { keys, predicator } = enumPropsFromHash(state.hash)
   return Object.assign({}, { keys }, {
     acc: {
       count: 0,
       value: {},
-      predicator: ~~(Math.random() * keys.reduce((acc, x) => acc + state.hash[x], 0)),
+      predicator,
       ...state
     }
   })
 }
 
-function reduceNextValue(acc, x, i, src)  {
+function reduceNextString(acc, x, i, src)  {
   acc.count += acc.hash[src[i]]
   if (acc.count > acc.predicator) {
     acc.value = {
@@ -88,6 +88,12 @@ function mapByConsequetiveOccurance(acc, x, i, src) {
   if (!acc[curr]) { acc[curr] = {} }
   acc[curr][next] = !acc[curr][next] ? 1 : acc[curr][next] + 1
   return acc
+}
+
+function enumPropsFromHash(hash) {
+  const keys = Object.keys(hash)
+  const predicator = ~~(Math.random() * keys.reduce((acc, x) => acc + hash[x], 0))
+  return { predicator, keys }
 }
 
 function chainHasExhausted(x) {
