@@ -28,22 +28,27 @@ function generateSentence(initialValue) {
 }
 
 function getInitialState([dictionary, word]) {
-  return { dictionary, word, sentence: word }
+  return {
+    dictionary,
+    word,
+    sentence: word,
+    chainlink: dictionary[word]
+  }
 }
 
-function concatStrings({ dictionary, word, sentence }) {
-  const chain = dictionary[word]
-  const keys = Object.keys(chain)
-  const sumOfLinksInChain = keys.reduce((acc, x) => acc + chain[x], 0)
+function concatStrings({ dictionary, word, sentence, chainlink }) {
+  const keys = Object.keys(chainlink)
+  const sumOfLinksInChain = keys.reduce((acc, x) => acc + chainlink[x], 0)
   const predicator = ~~(Math.random() * sumOfLinksInChain)
 
   const x = keys.reduce((acc, x, i, src) => {
-    acc.count += chain[src[i]]
+    acc.count += chainlink[src[i]]
     if (acc.count > predicator) {
       acc.value = {
         dictionary,
         word: src[i],
-        sentence: `${sentence} ${src[i]}`
+        sentence: `${sentence} ${src[i]}`,
+        chainlink: dictionary[src[i]]
       }
     }
     return acc
