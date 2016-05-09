@@ -31,24 +31,24 @@ function getInitialState([dictionary, word]) {
   return { dictionary, word, sentence: word }
 }
 
-function concatStrings(x) {
-  let { dictionary, word, sentence } = x
+function concatStrings({ dictionary, word, sentence }) {
   const chain = dictionary[word]
   const keys = Object.keys(chain)
   const sumOfLinksInChain = keys.reduce((acc, x) => acc + chain[x], 0)
   const predicator = ~~(Math.random() * sumOfLinksInChain)
 
-  keys.forEach(function(_, i) {
-    this.count += chain[keys[i]]
-    if (this.count > predicator) {
-      x = {
+  const x = keys.reduce((acc, x, i, src) => {
+    acc.count += chain[src[i]]
+    if (acc.count > predicator) {
+      acc.value = {
         dictionary,
-        word: keys[i],
-        sentence: `${sentence} ${keys[i]}`
+        word: src[i],
+        sentence: `${sentence} ${src[i]}`
       }
     }
-  }, { count: 0 })
-  return x
+    return acc
+  }, { count: 0, value: {} })
+  return x.value
 }
 
 function createDictionary(aggregator, transform) {
@@ -67,15 +67,8 @@ function createHashMap(reducer) {
 function mapByConsequetiveOccurance(acc, x, i, src) {
   const curr = norm(src[i])
   const next = norm(src[i + 1])
-
-  if (!acc[curr]) {
-    acc[curr] = {}
-  }
-  if (!acc[curr][next]) {
-    acc[curr][next] = 1
-  } else {
-    acc[curr][next] += 1
-  }
+  if (!acc[curr]) { acc[curr] = {} }
+  acc[curr][next] = !acc[curr][next] ? 1 : acc[curr][next] + 1
   return acc
 }
 
