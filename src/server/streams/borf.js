@@ -8,13 +8,20 @@ let i = 0
 const c = x => console.log(`Value:\n${x}\n \nType:\n${typeof x}\n \nIndex:\n${i += 1}\n\n`)
 
 export default x => {
-  const dictionary$ = Observable.from([x])
-    .map(x => x.title)
-    .reduce((acc, x) => {
-      c(x)
-      return `${acc + x} `
-    }, '')
-    .flatMap(spreadAndMergeKeys)
+  const res = JSON.stringify(x)
+  const data = JSON.parse(res)
+  let arr = []
+  const dictionary$ = Observable.of(data)
+    .map(x => {
+      x.map((x, i)=> {
+        const str = x.title.toString()
+        arr[i] =  ' \n' + str
+        return x
+      })
+
+      return arr
+    })
+    .map(createDictionary)
 
   const initialWord$ = dictionary$
     .map(filterCapitalizedWords)
@@ -27,8 +34,16 @@ export default x => {
 }
 
 function createDictionary(x) {
-  const dictionary =  x
+  const dictionary = x.toString()
+    .split(/(?:\. |\n)/ig)
+
+
+
+  dictionary.toString()
     .split(' ')
+    .map(x => {
+      return x
+    })
     .filter(isNotEmpty)
     .reduce((acc, x, i, src) => {
       const curr = norm(src[i])
@@ -38,7 +53,9 @@ function createDictionary(x) {
       return acc
     }, {})
 
-  return [ dictionary ]
+  const result = JSON.parse(JSON.stringify(dictionary))
+  console.log(result)
+  return result
 }
 
 function generateSentence(initialValue) {
