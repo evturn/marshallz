@@ -10,7 +10,7 @@ export default bot => {
   const url = bot.rss[Math.floor(Math.random() * bot.rss.length)]
   const fp = new FeedParser()
 
-  Observable.from([ request(url, { timeout: 10000, pool: false }) ])
+  return Observable.from([ request(url, { timeout: 10000, pool: false }) ])
     .map(x => {
       x.setMaxListeners(50)
       x.setHeader('user-agent', fakeHeader)
@@ -22,15 +22,4 @@ export default bot => {
       x.on('response', res => res.pipe(fp))
       return RxNode.fromTransformStream(fp)
     })
-    .map(x => x.description)
-    .filter(x => x !== null && x.length)
-    .reduce((acc, x) => `${acc + x} `, '')
-    .map(x => {
-      borf(x)
-    })
-    .subscribe(
-      x => console.log(`Not passing it back yet, so it's`, x),
-      e => console.log(e),
-      x => console.log('Bye.')
-    )
 }

@@ -2,16 +2,20 @@ import { Observable } from 'rx'
 import bots from '../bots'
 import blogStream from './blog'
 import twitterStream from './twitter'
-import rssStream from './rss'
+import rss$ from './rss'
 import { CronJob as Cron } from 'cron'
-import { cron as log } from '../../webpack/dev-logger'
+import { cron as cronlog, rss as rsslog } from '../../webpack/dev-logger'
+import borf$ from './borf'
 
 function main() {
   const bots$ = Observable.from(bots)
 
-  if (__DEV__) {
-    rssStream(bots[2])
-  }
+
+  rss$(bots[2])
+    .flatMap(borf$)
+    .subscribe(rsslog.observer)
+
+
 
   // const blog$ = bots$
   //   .filter(x => x.jobs.blog)

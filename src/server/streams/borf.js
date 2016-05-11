@@ -1,8 +1,33 @@
 import { Observable } from 'rx'
 import { rss as log } from '../../webpack/dev-logger'
 
+let j = 0
+const d = x => console.log(`============START=============\n\n\n${x}\n\n\n==============END=============\n\n${j += 1}\n\n`)
+
+let i = 0
+const c = x => console.log(`Value:\n${x}\n \nType:\n${typeof x}\n \nIndex:\n${i += 1}\n\n`)
+
+export default x => {
+  const dictionary$ = Observable.from([x])
+    .map(x => x.title)
+    .reduce((acc, x) => {
+      c(x)
+      return `${acc + x} `
+    }, '')
+    .flatMap(spreadAndMergeKeys)
+
+  const initialWord$ = dictionary$
+    .map(filterCapitalizedWords)
+    .map(selectWordAtRandom)
+
+  return Observable.combineLatest(dictionary$, initialWord$)
+    .map(getInitialState)
+    .flatMap(generateSentence)
+    .debounce(1000)
+}
+
 function createDictionary(x) {
-  return x
+  const dictionary =  x
     .split(' ')
     .filter(isNotEmpty)
     .reduce((acc, x, i, src) => {
@@ -12,24 +37,8 @@ function createDictionary(x) {
       acc[curr][next] = !acc[curr][next] ? 1 : acc[curr][next] + 1
       return acc
     }, {})
-}
 
-export default x => {
-  const dictionary$ = Observable.of(x)
-    .map(splitOnLineEndings)
-    .map(x => x.map(createDictionary))
-    .flatMap(spreadAndMergeKeys)
-
-  const initialWord$ = dictionary$
-    .map(filterCapitalizedWords)
-    .map(selectWordAtRandom)
-
-  Observable.combineLatest(dictionary$, initialWord$)
-    .map(getInitialState)
-    .flatMap(generateSentence)
-    .debounce(1000)
-    .repeat(5)
-    .subscribe(log.observer)
+  return [ dictionary ]
 }
 
 function generateSentence(initialValue) {
@@ -91,10 +100,6 @@ function enumPropsFromHash(hash) {
 
 function chainHasExhausted(x) {
   return x.dictionary[x.word] && !(x.sentence.length > 120)
-}
-
-function splitOnLineEndings(x) {
-  return x.split(/(?:\. $|\n)/ig)
 }
 
 function spreadAndMergeKeys(x) {
