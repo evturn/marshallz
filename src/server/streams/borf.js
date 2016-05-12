@@ -1,77 +1,122 @@
 import { Observable } from 'rx'
 import { rss as log } from '../../webpack/dev-logger'
 
-export default x => {
-  const tree$ = Observable.of(x)
-    .map(splitOnLineEndings)
-    .map(x => {
-      return x.map(string => {
-        return string
-          .split(' ')
-          .filter(isNotEmpty)
-          .reduce(createHashMap, {})
-      })
-    })
-    .flatMap(spreadAndMergeKeys)
+let j = 0
+const d = x => console.log(`============START=============\n\n\n${x}\n\n\n==============END=============\n\n${j += 1}\n\n`)
 
-  const initialWord$ = tree$
+let i = 0
+const c = x => console.log(`Value:\n${x}\n \nType:\n${typeof x}\n \nIndex:\n${i += 1}\n\n`)
+
+export default x => {
+  const res = JSON.stringify(x)
+  const data = JSON.parse(res)
+  let arr = []
+  const dictionary$ = Observable.of(data)
+    .map(x => {
+      x.map((x, i)=> {
+        const str = x.title.toString()
+        arr[i] =  ' \n' + str
+        return x
+      })
+
+      return arr
+    })
+    .map(createDictionary)
+
+  const initialWord$ = dictionary$
     .map(filterCapitalizedWords)
     .map(selectWordAtRandom)
 
-  Observable.combineLatest(tree$, initialWord$)
-    .flatMap(([tree, word]) => {
-      return Observable.generate(
-        { tree, word, sentence: word },
-        chainExhausted,
-        concatStrings,
-        x => x.sentence
-      )
-      .debounce(1000)
+  return Observable.combineLatest(dictionary$, initialWord$)
+    .map(getInitialState)
+    .flatMap(generateSentence)
+    .debounce(1000)
+}
+
+function createDictionary(x) {
+  const dictionary = x.toString()
+    .split(/(?:\. |\n)/ig)
+
+
+
+  dictionary.toString()
+    .split(' ')
+    .map(x => {
+      return x
     })
-    .subscribe(log.observer)
+    .filter(isNotEmpty)
+    .reduce((acc, x, i, src) => {
+      const curr = norm(src[i])
+      const next = norm(src[i + 1])
+      if (!acc[curr]) { acc[curr] = {} }
+      acc[curr][next] = !acc[curr][next] ? 1 : acc[curr][next] + 1
+      return acc
+    }, {})
+
+  const result = JSON.parse(JSON.stringify(dictionary))
+  console.log(result)
+  return result
 }
 
-function concatStrings(x) {
-  let { tree, word, sentence } = x
-  const chain = tree[word]
-  const keys = Object.keys(chain)
-  const sumOfLinksInChain = keys.reduce((acc, x) => acc + chain[x], 0)
-  const predicator = ~~(Math.random() * sumOfLinksInChain)
-
-  keys.forEach(function(_, i) {
-    this.count += chain[keys[i]]
-    if (this.count > predicator) {
-      x = {
-        tree,
-        word: keys[i],
-        sentence: `${sentence} ${keys[i]}`
-      }
-    }
-  }, { count: 0 })
-  return x
+function generateSentence(initialValue) {
+  return Observable.generate(
+    initialValue,
+    chainHasExhausted,
+    iterateToNextChain(reduceNextString, mergeStateAndPredictor),
+    x => x.sentence
+  )
 }
 
-function createHashMap(acc, x, i, src) {
-  const curr = norm(src[i])
-  const next = norm(src[i + 1])
-
-  if (!acc[curr]) {
-    acc[curr] = {}
+function getInitialState([ dictionary, word ]) {
+  return {
+    dictionary,
+    word,
+    sentence: word,
+    hash: dictionary[word]
   }
-  if (!acc[curr][next]) {
-    acc[curr][next] = 1
-  } else {
-    acc[curr][next] += 1
+}
+
+function iterateToNextChain(reducer, accumulator) {
+  return state => {
+    const x = accumulator(state)
+    const { value } = x.keys.reduce(reducer, x.acc)
+    return value
+  }
+}
+
+function mergeStateAndPredictor(state) {
+  const { keys, predicator } = enumPropsFromHash(state.hash)
+  return Object.assign({}, { keys }, {
+    acc: {
+      count: 0,
+      value: {},
+      predicator,
+      ...state
+    }
+  })
+}
+
+function reduceNextString(acc, x, i, src)  {
+  acc.count += acc.hash[src[i]]
+  if (acc.count > acc.predicator) {
+    acc.value = {
+      dictionary: acc.dictionary,
+      word: src[i],
+      sentence: `${acc.sentence} ${src[i]}`,
+      hash: acc.dictionary[src[i]]
+    }
   }
   return acc
 }
 
-function chainExhausted(x) {
-  return x.tree[x.word] && !(x.sentence.length > 120)
+function enumPropsFromHash(hash) {
+  const keys = Object.keys(hash)
+  const predicator = ~~(Math.random() * keys.reduce((acc, x) => acc + hash[x], 0))
+  return { predicator, keys }
 }
 
-function splitOnLineEndings(x) {
-  return x.json.split(/(?:\. |\n)/ig)
+function chainHasExhausted(x) {
+  return x.dictionary[x.word] && !(x.sentence.length > 120)
 }
 
 function spreadAndMergeKeys(x) {
@@ -88,7 +133,7 @@ function selectWordAtRandom(x) {
 }
 
 function norm(x) {
-  return x !== undefined ? x.replace(/\.$/ig, '') : ''
+  return x !== undefined ? x.replace(/\(|\)|\|\"|\'\.$/ig, '') : ''
 }
 
 function isNotEmpty(x) {
