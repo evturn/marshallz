@@ -11,17 +11,9 @@ function main() {
     .map(x => fs.readFileSync(x.content).toString())
     .flatMap(createDictionary)
 
-  const initialWord$ = dictionary$
-    .map(selectCapitalizedWord)
-
+  const initialWord$ = dictionary$.map(selectCapitalizedWord)
   const sentence$ = Observable.combineLatest(dictionary$, initialWord$)
-    .map(([ dictionary, initialWord ]) => {
-      return {
-        lookup: dictionary,
-        selection: initialWord,
-        state: initialWord
-      }
-    })
+    .map(getInitialState)
     .flatMap(x => Observable.generate(x, done, lookupAndConcat, x => x.state))
     .debounce(1000)
     .subscribe(log.observer)
@@ -29,11 +21,9 @@ function main() {
 
 function createDictionary(data) {
   let acc = {}
-  data
-    .split(/(?:\. |\n)/ig)
+  data.split(/(?:\. |\n)/ig)
     .forEach(line => {
-      line
-        .split(' ')
+      line.split(' ')
         .filter(word => word.trim() !== '')
         .map((x, i, arr) => {
           const curr = norm(arr[i])
@@ -51,6 +41,14 @@ function createDictionary(data) {
   return Observable.of(acc)
 }
 
+function getInitialState([ dictionary, initialWord ]) {
+  return {
+    lookup: dictionary,
+    selection: initialWord,
+    state: initialWord
+  }
+}
+
 function lookupAndConcat({ state, lookup, selection }) {
   let nextState;
   const term = lookup[selection]
@@ -64,7 +62,7 @@ function lookupAndConcat({ state, lookup, selection }) {
     this.count += term[keys[i]]
     if (this.count > predicator && !nextState) {
       nextState = {
-        lookup: lookup,
+        lookup,
         selection: keys[i],
         state: state + ' ' + keys[i]
       }
@@ -74,9 +72,7 @@ function lookupAndConcat({ state, lookup, selection }) {
 }
 
 function selectCapitalizedWord(x) {
-  const caps = Object.keys(x)
-    .filter(([ x ]) => x >= 'A' && x <= 'Z')
-
+  const caps = Object.keys(x).filter(([ x ]) => x >= 'A' && x <= 'Z')
   return caps[~~(Math.random() * caps.length)]
 }
 
