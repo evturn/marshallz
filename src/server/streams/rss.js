@@ -2,7 +2,6 @@ import request from 'request'
 import FeedParser from 'feedparser'
 import { Observable } from 'rx'
 import RxNode from 'rx-node'
-import borf from './borf'
 
 const fakeHeader = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36'
 
