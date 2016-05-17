@@ -52,14 +52,6 @@ function generateSentence([ dictionary, initialWord ]) {
   )
 }
 
-function getInitialState([ dictionary, initialWord ]) {
-  return {
-    lookup: dictionary,
-    selection: initialWord,
-    state: initialWord
-  }
-}
-
 function lookupAndConcat({ state, lookup, selection }) {
   const term = lookup[selection]
   const keys = Object.keys(term)
