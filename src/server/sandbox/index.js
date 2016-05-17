@@ -1,7 +1,19 @@
+import express from 'express'
 import { Observable } from 'rx'
 import bots from '../bots'
 import fs from 'fs'
+import path from 'path'
 import { rss as log } from '../../webpack/dev-logger'
+
+const app = express()
+app.use(express.static(__dirname + '/ui/dist'));
+
+
+app.get('*', (req, res, next) => {
+  res.send('index.html')
+})
+
+app.listen(3001)
 
 const main = bot$ => {
   const dictionary$ = bot$
