@@ -3,42 +3,53 @@ import bots from '../bots'
 import fs from 'fs'
 import { rss as log } from '../../webpack/dev-logger'
 
-const norm = x => x !== undefined ? x.replace(/\.$/ig, '') : '';
-const done = x => x.lookup[x.selection] && !(x.state.split(' ').length > 14)
-
-function main() {
-  const dictionary$ = Observable.of(bots[0])
-    .map(x => fs.readFileSync(x.content).toString())
+const main = bot$ => {
+  const dictionary$ = bot$
+    .map(x => fs.readFileSync(x.file).toString())
+    .map(x => x.split(/(?:\. |\n)/ig))
     .flatMap(createDictionary)
 
   const initialWord$ = dictionary$.map(selectCapitalizedWord)
   const sentence$ = Observable.combineLatest(dictionary$, initialWord$)
-    .map(getInitialState)
-    .flatMap(x => Observable.generate(x, done, lookupAndConcat, x => x.state))
+    .flatMap(generateSentence)
     .debounce(1000)
     .subscribe(log.observer)
 }
 
 function createDictionary(data) {
-  let acc = {}
-  data.split(/(?:\. |\n)/ig)
-    .forEach(line => {
-      line.split(' ')
-        .filter(word => word.trim() !== '')
-        .map((x, i, arr) => {
-          const curr = norm(arr[i])
-          const next = norm(arr[i + 1])
-          if (!acc[curr]) {
-            acc[curr] = {}
-          }
-          if (!acc[curr][next]) {
-            acc[curr][next] = 1
-          } else {
-            acc[curr][next] += 1
-          }
-        })
-    })
-  return Observable.of(acc)
+  const hashmap = data.reduce((acc, x) => {
+    x.split(' ')
+      .filter(word => word.trim() !== '')
+      .map((x, i, arr) => {
+        const curr = norm(arr[i])
+        const next = norm(arr[i + 1])
+        if (!acc[curr]) {
+          acc[curr] = {}
+        }
+        if (!acc[curr][next]) {
+          acc[curr][next] = 1
+        } else {
+          acc[curr][next] += 1
+        }
+      })
+
+      return acc
+  }, {})
+
+  return Observable.of(hashmap)
+}
+
+function generateSentence([ dictionary, initialWord ]) {
+  return Observable.generate(
+    {
+      lookup: dictionary,
+      selection: initialWord,
+      state: initialWord
+    },
+    x => x.lookup[x.selection] && !(x.state.split(' ').length > 14),
+    lookupAndConcat,
+    x => x.state
+  )
 }
 
 function getInitialState([ dictionary, initialWord ]) {
@@ -50,17 +61,19 @@ function getInitialState([ dictionary, initialWord ]) {
 }
 
 function lookupAndConcat({ state, lookup, selection }) {
-  let nextState;
   const term = lookup[selection]
   const keys = Object.keys(term)
   const sum = keys.reduce((acc, w) => acc + term[w], 0)
+
   if (!Number.isFinite(sum)) {
     throw new Error('All values in object must be a numeric value')
   }
-  const predicator = ~~(Math.random() * sum)
+
+  let nextState;
+
   keys.forEach(function(x, i) {
     this.count += term[keys[i]]
-    if (this.count > predicator && !nextState) {
+    if (!nextState && this.count > ~~(Math.random() * sum)) {
       nextState = {
         lookup,
         selection: keys[i],
@@ -68,6 +81,7 @@ function lookupAndConcat({ state, lookup, selection }) {
       }
     }
   }, { count: 0 })
+
   return nextState
 }
 
@@ -76,4 +90,8 @@ function selectCapitalizedWord(x) {
   return caps[~~(Math.random() * caps.length)]
 }
 
-export default main()
+function norm(x) {
+  return x !== undefined ? x.replace(/\.$/ig, '') : ''
+}
+
+export default main(Observable.of(bots[0]))

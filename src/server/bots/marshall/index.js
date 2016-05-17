@@ -12,7 +12,7 @@ const _public = {
 export default {
   ..._public,
   _public,
-  content: 'src/server/bots/marshall/content.txt',
+  file: 'src/server/bots/marshall/content.txt',
   jobs: {
     blog: '00 00,30 * * * *',
     twitter:'00 00 01,04,07,10,13,16,22 * * *'

@@ -11,7 +11,7 @@ export default bot => {
 
 function createPayload(x) {
   return {
-    status: SentenceGenerator({ file: x.content, count: 16 })(),
+    status: SentenceGenerator({ file: x.file, count: 16 })(),
     credentials: x.keys.twitter
   }
 }

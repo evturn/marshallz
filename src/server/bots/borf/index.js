@@ -9,11 +9,10 @@ const _public = {
 export default {
   ..._public,
   _public,
-  content: 'src/server/bots/borf/content.txt',
   jobs: { blog: '30 07,53 * * * *' },
   keys: { giphy: process.env.GIPHY_DEV },
+  file: 'src/server/bots/borf/content.txt',
   rss: [
-
     'http://www.people.com/web/people/rss/tvwatch/index.xml',
     'http://www.people.com/web/people/rss/topheadlines/index.xml',
     'https://rss.sciencedaily.com/health_medicine/irritable_bowel_syndrome.xml',
