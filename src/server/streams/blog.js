@@ -60,10 +60,6 @@ function encodeURL(x) {
   return x.split(' ').join('+')
 }
 
-function selectRandomItem(x) {
-  return x[Math.floor(Math.random() * x.length)]
-}
-
 function getGiphyURL(x) {
   const [ { keys }, query ] = x
   return `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${keys.giphy}`
@@ -72,9 +68,15 @@ function getGiphyURL(x) {
 function makeNetworkRequest(x) {
   return Observable.create(observer => {
     request(x, (error, response, body) => {
-      const { data } = JSON.parse(body)
-      if (data.length) {
-        observer.onNext(selectRandomItem(data))
+      if (error) {
+        observer.onError(error)
+      } else if (!error && response.statusCode === 200) {
+        if (body) {
+          const { data } = JSON.parse(body)
+          if (data.length) {
+            observer.onNext(data[Math.floor(Math.random() * data.length)])
+          }
+        }
       }
     })
   })
