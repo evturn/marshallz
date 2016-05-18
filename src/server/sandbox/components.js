@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { IntlProvider, FormattedRelative } from 'react-intl'
-import { selectOption } from './actions';
+import { selectOption, runBot } from './actions';
 import './ui/less/style.less'
 
 const Src = ({ selectOption, src}) => (
@@ -51,9 +51,9 @@ const Time = ({ date }) => (
   </IntlProvider>
 )
 
-const Run = ({ ready }) => (
+const Run = ({ ready, selected, runBot }) => (
   <div className="ctrls">
-    <div className={`btn ${ready ? 'ready' : 'disabled'}`}>
+    <div className={`btn ${ready ? 'ready' : 'disabled'}`} onClick={() => runBot(selected)}>
       <span>Run</span>
     </div>
     <div className="btn">
@@ -62,10 +62,10 @@ const Run = ({ ready }) => (
   </div>
 )
 
-const Output = ({ ready }) => (
+const Output = ({ ready, runBot, selected }) => (
   <div className="output">
     <div>Console</div>
-    <Run ready={ready} />
+    <Run ready={ready} selected={selected} runBot={runBot} />
     <div className="timeline">
 
       <div className="log">
@@ -95,7 +95,7 @@ const Output = ({ ready }) => (
   </div>
 )
 
-const Robo = ({ SB, selectOption }) => (
+const Robo = ({ SB, selectOption, runBot }) => (
   <div className="root">
     <div className="main">
       <div className="panel">
@@ -112,15 +112,16 @@ const Robo = ({ SB, selectOption }) => (
           {SB.selected && SB.selected.src ? <SrcSelection { ...SB.selected.src } /> : null}
         </div>
       </div>
-      <Output ready={SB.ready} />
+      <Output ready={SB.ready} selected={SB.selected} runBot={runBot} />
     </div>
   </div>
 )
 
-const mapStateToProps = ({ SB }) => ({ SB });
+const mapStateToProps = ({ SB }) => ({ SB })
 
 const mapDispatchToProps = (dispatch) => ({
-  selectOption: selection => dispatch(selectOption(selection))
+  selectOption: selection => dispatch(selectOption(selection)),
+  runBot: selected => dispatch(runBot(selected))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Robo)

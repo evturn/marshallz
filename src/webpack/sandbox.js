@@ -78,6 +78,11 @@ export default {
         from: path.join(__dirname, '..', 'assets', 'img', 'av-marshall.png'),
         to: 'av-marshall.png'
       },
-    ])
+    ]),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"test"',
+       __TEST__: true,
+       __DEV__: false
+    })
   ]
 }

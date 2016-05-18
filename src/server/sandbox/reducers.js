@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { RUN_WAITING, SELECT_OPTION } from './actions'
+import { RUN_BOT, SELECT_OPTION } from './actions'
 
 const SB = (state = {
   isLoading: false,
@@ -11,6 +11,12 @@ const SB = (state = {
   }
 }, action) => {
   switch (action.type) {
+
+    case RUN_BOT:
+      console.log(action.res)
+      return {
+        ...state
+      }
 
     case SELECT_OPTION: {
       const selected = {

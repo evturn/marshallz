@@ -1,90 +1,21 @@
-import { Observable } from 'rx'
-import bots from '../bots'
-import fs from 'fs'
-import { rss as log } from '../../webpack/dev-logger'
-import server from './server'
+import express from 'express'
+import path from 'path'
+import main from './generator'
+import devServer from '../../webpack/dev-server'
 
-const main = bot$ => {
-  const dictionary$ = bot$
-    .map(x => fs.readFileSync(x.file).toString())
-    .map(x => x.split(/(?:\. |\n)/ig))
-    .flatMap(createDictionary)
+const app = express()
 
-  const initialWord$ = dictionary$.map(selectCapitalizedWord)
-  const sentence$ = Observable.combineLatest(dictionary$, initialWord$)
-    .flatMap(generateSentence)
-    .debounce(1000)
-    .subscribe(log.observer)
-}
+devServer(app)
 
-function createDictionary(data) {
-  const hashmap = data.reduce((acc, x) => {
-    x.split(' ')
-      .filter(word => word.trim() !== '')
-      .map((x, i, arr) => {
-        const curr = norm(arr[i])
-        const next = norm(arr[i + 1])
-        if (!acc[curr]) {
-          acc[curr] = {}
-        }
-        if (!acc[curr][next]) {
-          acc[curr][next] = 1
-        } else {
-          acc[curr][next] += 1
-        }
-      })
+app.use(express.static(__dirname + '/ui/dist'));
 
-      return acc
-  }, {})
+app.post('/api', (req, res, next) => {
+  console.log(req.body)
+  res.json(main(req.body))
+})
 
-  return Observable.of(hashmap)
-}
+app.get('*', (req, res, next) => {
+  res.send('index.html')
+})
 
-function generateSentence([ dictionary, initialWord ]) {
-  return Observable.generate(
-    {
-      lookup: dictionary,
-      selection: initialWord,
-      state: initialWord
-    },
-    x => x.lookup[x.selection] && !(x.state.split(' ').length > 14),
-    lookupAndConcat,
-    x => x.state
-  )
-}
-
-function lookupAndConcat({ state, lookup, selection }) {
-  const term = lookup[selection]
-  const keys = Object.keys(term)
-  const sum = keys.reduce((acc, w) => acc + term[w], 0)
-
-  if (!Number.isFinite(sum)) {
-    throw new Error('All values in object must be a numeric value')
-  }
-
-  let nextState;
-
-  keys.forEach(function(x, i) {
-    this.count += term[keys[i]]
-    if (!nextState && this.count > ~~(Math.random() * sum)) {
-      nextState = {
-        lookup,
-        selection: keys[i],
-        state: state + ' ' + keys[i]
-      }
-    }
-  }, { count: 0 })
-
-  return nextState
-}
-
-function selectCapitalizedWord(x) {
-  const caps = Object.keys(x).filter(([ x ]) => x >= 'A' && x <= 'Z')
-  return caps[~~(Math.random() * caps.length)]
-}
-
-function norm(x) {
-  return x !== undefined ? x.replace(/\.$/ig, '') : ''
-}
-
-export default main(Observable.of(bots[0]))
+app.listen(3001, _ => console.log('Sandboxing'))
