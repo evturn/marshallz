@@ -4,7 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { reduxObservable } from 'redux-observable'
 import rootReducer from '../reducers';
-import logger from 'redux-logger'
+import createLogger from 'redux-logger'
 import bots from '../../bots/public'
 import Robo from '../components'
 
@@ -27,10 +27,13 @@ const initialState = {
   }
 }
 
+const logger = createLogger({
+  stateTransformer: state => ({ ...state.SB })
+})
 const store = createStore(
   rootReducer,
   initialState,
-  compose(applyMiddleware(logger(), reduxObservable()), window.devToolsExtension())
+  compose(applyMiddleware(reduxObservable(), logger), window.devToolsExtension())
 )
 
 render(

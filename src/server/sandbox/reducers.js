@@ -1,49 +1,33 @@
 import { combineReducers } from 'redux'
-import { FETCH_BOT_PENDING, FETCH_BOT_FULFILLED, FETCH_BOT_ABORTED,
-SELECT_BOT, SELECT_JOB, SELECT_SRC } from './actions'
+import { RUN_WAITING, SELECT_OPTION } from './actions'
 
 const SB = (state = {
-  isLoading: false
+  isLoading: false,
+  ready: false,
+  selected: {
+    bot: false,
+    job: false,
+    src: false
+  }
 }, action) => {
   switch (action.type) {
-    case FETCH_BOT_PENDING:
-      return { ...state, isLoading: true }
 
-    case FETCH_BOT_FULFILLED:
-      return { ...state, isLoading: false, ...action.payload }
-
-    case SELECT_BOT:
+    case RUN_WAITING:
       return {
         ...state,
-        isLoading: false,
-        selected: {
-          ...state.selected,
-          bot: action.payload
-        }
+        ready: false
       }
 
-    case SELECT_JOB:
+    case SELECT_OPTION: {
+
       return {
         ...state,
-        isLoading: false,
         selected: {
           ...state.selected,
-          job: action.payload
+          ...action.payload
         }
       }
-
-    case SELECT_SRC:
-      return {
-        ...state,
-        isLoading: false,
-        selected: {
-          ...state.selected,
-          src: action.payload
-        }
-      }
-
-    case FETCH_BOT_ABORTED:
-      return { ...state, isLoading: false }
+    }
 
     default:
       return state
