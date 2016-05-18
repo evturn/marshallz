@@ -81,6 +81,7 @@ header {
 .bots {
   display: inline-block;
   float: left;
+  margin-right: 40px;
 }
 
 .bot {
@@ -104,9 +105,41 @@ img {
   text-align: center;
   font-style: italic;
   font-size: 19px;
+  height: 190px;
 
   img {
     display: inline-block;
     width: 100px;
   }
+}
+
+.jobs {
+  display: inline-block;
+  float: left;
+
+  .selection {
+    span {
+      font-size: 100px;
+      line-height: 100px;
+      height: 100px;
+    }
+
+    div {
+      margin-top: 12px;
+    }
+  }
+}
+
+.job {
+  display: inline-block;
+  cursor: pointer;
+
+  span {
+    font-size: 60px;
+  }
+}
+
+.bots,
+.jobs {
+  min-width: 180px;
 }

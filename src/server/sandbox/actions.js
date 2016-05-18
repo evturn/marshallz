@@ -3,16 +3,27 @@ import * as Rx from 'rxjs'
 export const FETCH_BOT_PENDING = 'FETCH_BOT_PENDING'
 export const FETCH_BOT_FULFILLED = 'FETCH_BOT_FULFILLED'
 export const FETCH_BOT_ABORTED = 'FETCH_BOT_ABORTED'
-export const SELECT_BOT_FULFILLED = 'SELECT_BOT_FULFILLED'
-export const DESELECT_BOT = 'DESELECT_BOT'
+export const SELECT_BOT = 'SELECT_BOT'
+export const SELECT_JOB = 'SELECT_JOB'
 
 export const selectBot = bot => (
   (actions, store) =>
     Rx.Observable.of(bot)
       .map(x => {
-        return (x.username === store.getState().SB.selected.username) ?
-          { type: SELECT_BOT_FULFILLED, payload: false } :
-          { type: SELECT_BOT_FULFILLED, payload: x }
+        return (x.username === store.getState().SB.selected.bot.username) ?
+          { type: SELECT_BOT, payload: false } :
+          { type: SELECT_BOT, payload: x }
+      })
+      .startWith({ type: FETCH_BOT_PENDING })
+)
+
+export const selectJob = job => (
+  (actions, store) =>
+    Rx.Observable.of(job)
+      .map(x => {
+        return (x.name === store.getState().SB.selected.job.name) ?
+          { type: SELECT_JOB, payload: false } :
+          { type: SELECT_JOB, payload: x }
       })
       .startWith({ type: FETCH_BOT_PENDING })
 )

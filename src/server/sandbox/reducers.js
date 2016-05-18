@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux'
 import { FETCH_BOT_PENDING, FETCH_BOT_FULFILLED, FETCH_BOT_ABORTED,
-SELECT_BOT_FULFILLED, DESELECT_BOT } from './actions'
+SELECT_BOT, SELECT_JOB } from './actions'
 
 const SB = (state = {
-  isLoading: false,
-  selected: {}
+  isLoading: false
 }, action) => {
   switch (action.type) {
     case FETCH_BOT_PENDING:
@@ -13,20 +12,25 @@ const SB = (state = {
     case FETCH_BOT_FULFILLED:
       return { ...state, isLoading: false, ...action.payload }
 
-    case SELECT_BOT_FULFILLED:
+    case SELECT_BOT:
       return {
         ...state,
         isLoading: false,
-        selected: action.payload
+        selected: {
+          ...state.selected,
+          bot: action.payload
+        }
       }
 
-    case DESELECT_BOT:
+    case SELECT_JOB:
       return {
         ...state,
         isLoading: false,
-        selected: false
+        selected: {
+          ...state.selected,
+          job: action.payload
+        }
       }
-
 
     case FETCH_BOT_ABORTED:
       return { ...state, isLoading: false }

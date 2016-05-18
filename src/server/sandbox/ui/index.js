@@ -11,7 +11,19 @@ import Robo from '../components'
 const initialState = {
   SB: {
     bots,
-    selected: false
+    jobs: [
+      { name: 'Blog', icon: 'fa fa-file-text-o' },
+      { name: 'Twitter', icon: 'fa fa-hashtag' }
+    ],
+    content: [
+      {name: 'Archive', icon: 'fa fa-archive'},
+      {name: 'RSS', icon: 'fa fa-rss'}
+    ],
+    selected: {
+      bot: false,
+      job: false,
+      content: false
+    }
   }
 }
 
