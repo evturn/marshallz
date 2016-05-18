@@ -5,6 +5,7 @@ export const FETCH_BOT_FULFILLED = 'FETCH_BOT_FULFILLED'
 export const FETCH_BOT_ABORTED = 'FETCH_BOT_ABORTED'
 export const SELECT_BOT = 'SELECT_BOT'
 export const SELECT_JOB = 'SELECT_JOB'
+export const SELECT_SRC = 'SELECT_SRC'
 
 export const selectBot = bot => (
   (actions, store) =>
@@ -24,6 +25,17 @@ export const selectJob = job => (
         return (x.name === store.getState().SB.selected.job.name) ?
           { type: SELECT_JOB, payload: false } :
           { type: SELECT_JOB, payload: x }
+      })
+      .startWith({ type: FETCH_BOT_PENDING })
+)
+
+export const selectSrc = src => (
+  (actions, store) =>
+    Rx.Observable.of(src)
+      .map(x => {
+        return (x.name === store.getState().SB.selected.src.name) ?
+          { type: SELECT_SRC, payload: false } :
+          { type: SELECT_SRC, payload: x }
       })
       .startWith({ type: FETCH_BOT_PENDING })
 )

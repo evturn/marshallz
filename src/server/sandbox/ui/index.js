@@ -15,14 +15,14 @@ const initialState = {
       { name: 'Blog', icon: 'fa fa-file-text-o' },
       { name: 'Twitter', icon: 'fa fa-hashtag' }
     ],
-    content: [
+    srcs: [
       {name: 'Archive', icon: 'fa fa-archive'},
       {name: 'RSS', icon: 'fa fa-rss'}
     ],
     selected: {
       bot: false,
       job: false,
-      content: false
+      src: false
     }
   }
 }

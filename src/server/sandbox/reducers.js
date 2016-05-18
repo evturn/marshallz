@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { FETCH_BOT_PENDING, FETCH_BOT_FULFILLED, FETCH_BOT_ABORTED,
-SELECT_BOT, SELECT_JOB } from './actions'
+SELECT_BOT, SELECT_JOB, SELECT_SRC } from './actions'
 
 const SB = (state = {
   isLoading: false
@@ -29,6 +29,16 @@ const SB = (state = {
         selected: {
           ...state.selected,
           job: action.payload
+        }
+      }
+
+    case SELECT_SRC:
+      return {
+        ...state,
+        isLoading: false,
+        selected: {
+          ...state.selected,
+          src: action.payload
         }
       }
 

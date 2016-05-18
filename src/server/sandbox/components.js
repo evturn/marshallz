@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { selectBot, selectJob } from './actions';
+import { selectBot, selectJob, selectSrc } from './actions';
 import './ui/less/style.less'
+
+const Src = ({ selectSrc, src}) => (
+  <div className='src' onClick={() => selectSrc(src)}>
+    <span className={src.icon} />
+  </div>
+)
 
 const Job = ({ selectJob, job}) => (
   <div className='job' onClick={() => selectJob(job)}>
@@ -23,13 +29,20 @@ const JobSelection = ({ icon, name }) => (
   </div>
 )
 
+const SrcSelection = ({ icon, name }) => (
+  <div className="selection">
+    <span className={icon} />
+    <div>{name}</div>
+  </div>
+)
+
 const Bot = ({ selectBot, bot }) => (
   <div className='bot' onClick={() => selectBot(bot)}>
     <img src={bot.headshot} />
   </div>
 )
 
-const Robo = ({ SB, selectBot, selectJob }) => (
+const Robo = ({ SB, selectBot, selectJob, selectSrc }) => (
   <div className="root">
     <header>
       <div className="header">
@@ -48,6 +61,10 @@ const Robo = ({ SB, selectBot, selectJob }) => (
         {SB.jobs.map(x => <Job key={x.name} selectJob={selectJob} job={x} />)}
         {SB.selected && SB.selected.job ? <JobSelection { ...SB.selected.job } /> : null}
       </div>
+      <div className="srcs">
+        {SB.srcs.map(x => <Src key={x.name} selectSrc={selectSrc} src={x} />)}
+        {SB.selected && SB.selected.src ? <SrcSelection { ...SB.selected.src } /> : null}
+      </div>
     </div>
   </div>
 )
@@ -57,6 +74,7 @@ const mapStateToProps = ({ SB }) => ({ SB });
 const mapDispatchToProps = (dispatch) => ({
   selectBot: bot => dispatch(selectBot(bot)),
   selectJob: job => dispatch(selectJob(job)),
+  selectSrc: src => dispatch(selectSrc(src)),
   fetchBot: () => dispatch(fetchBot()),
   abortFetchBot: () => dispatch(abortFetchBot())
 })

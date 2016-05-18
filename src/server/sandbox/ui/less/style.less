@@ -42,7 +42,7 @@ header {
   letter-spacing: -2.5px;
   height: 100%;
   width: 125px;
-  float: left;
+  // float: left;
   border: 4px solid #000000;
   background-color: #000000;
   color: #ffffff;
@@ -81,7 +81,6 @@ header {
 .bots {
   display: inline-block;
   float: left;
-  margin-right: 40px;
 }
 
 .bot {
@@ -113,7 +112,8 @@ img {
   }
 }
 
-.jobs {
+.jobs,
+.srcs {
   display: inline-block;
   float: left;
 
@@ -130,6 +130,7 @@ img {
   }
 }
 
+.src,
 .job {
   display: inline-block;
   cursor: pointer;
@@ -140,6 +141,14 @@ img {
 }
 
 .bots,
-.jobs {
-  min-width: 180px;
+.jobs,
+.srcs {
+  width: 33.3333333333%;
+}
+
+.bot,
+.job,
+.src {
+  margin-left: 4px;
+  margin-right: 4px;
 }
