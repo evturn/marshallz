@@ -6,19 +6,20 @@ import { reduxObservable } from 'redux-observable'
 import rootReducer from '../reducers';
 import logger from 'redux-logger'
 import bots from '../../bots/public'
-// import { App, Bots, Bot } from '../components'
 import Robo from '../components'
 
-function configureStore(initialState) {
-  return createStore(rootReducer, initialState, compose(applyMiddleware(logger(), reduxObservable()), window.devToolsExtension()))
-}
-
-const store = configureStore({
-  bot: {
+const initialState = {
+  SB: {
     bots,
     selected: false
   }
-})
+}
+
+const store = createStore(
+  rootReducer,
+  initialState,
+  compose(applyMiddleware(logger(), reduxObservable()), window.devToolsExtension())
+)
 
 render(
 <Provider store={store}>

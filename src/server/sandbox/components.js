@@ -3,8 +3,15 @@ import { connect } from 'react-redux'
 import { selectBot, fetchBot, abortFetchBot } from './actions';
 import './ui/less/style.less'
 
-const Robo = ({ bot, selectBot, fetchBot, abortFetchBot }) => (
-  <div>
+const Bot = ({ selectBot, bot }) => (
+  <div className='bot' onClick={() => selectBot(bot)}>
+    <img src={bot.headshot} />
+    <div>{bot.displayName}</div>
+  </div>
+)
+
+const Robo = ({ SB, selectBot }) => (
+  <div className="root">
     <header>
       <div className="header">
         <div className="logo">
@@ -13,16 +20,11 @@ const Robo = ({ bot, selectBot, fetchBot, abortFetchBot }) => (
         </div>
       </div>
     </header>
-    <div>{bot.bots.map(x =>
-      <div key={x.name} onClick={() => selectBot(x)} className='bot'>
-        <img src={x.headshot} />
-        <div>{x.displayName}</div>
-      </div>)
-    }</div>
-    {bot.selected ? (
-      <div>
-        <div>{bot.selected.displayName}</div>
-        <img src={bot.selected.avatar} />
+    <div>{SB.bots.map(x => <Bot key={x.name} selectBot={selectBot} bot={x} />)}</div>
+    {SB.selected ? (
+      <div className="bot">
+        <div>{SB.selected.displayName}</div>
+        <img src={SB.selected.avatar} />
       </div>)
     : null}
   </div>
@@ -30,7 +32,7 @@ const Robo = ({ bot, selectBot, fetchBot, abortFetchBot }) => (
 
 
 
-const mapStateToProps = ({ bot }) => ({ bot });
+const mapStateToProps = ({ SB }) => ({ SB });
 
 const mapDispatchToProps = (dispatch) => ({
   selectBot: bot => dispatch(selectBot(bot)),
