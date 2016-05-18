@@ -176,10 +176,15 @@ img {
   background-color: @bg-monitor;
   color: @tx-monitor;
   height: 500px;
+
+  & > div:first-child {
+    margin-top: 20px;
+  }
 }
 
 .timeline {
-  margin-top: 40px;
+  margin-top: 50px;
+  overflow-y: scroll;
 }
 
 .log {
@@ -216,7 +221,7 @@ img {
 .ctrls {
   display: inline-block;
   position: absolute;
-  top: 5px;
+  top: 15px;
   left: 0;
   right: 0;
 }
@@ -226,16 +231,15 @@ img {
   cursor: pointer;
   font-size: 27px;
   font-family: sans-serif;
-  background-color: #000000;
-  border-top: 8px solid @red;
-  border-bottom: 8px solid @red;
-  padding-right: 2px;
   margin-left: 5px;
   margin-right: 5px;
 
    span {
+    border-top: 5px solid @red;
+    border-bottom: 5px solid @red;
     text-transform: uppercase;
     color: #ffffff;
+    padding-right: 2px;
     letter-spacing: -1.2px;
   }
 
