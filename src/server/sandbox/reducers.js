@@ -12,20 +12,18 @@ const SB = (state = {
 }, action) => {
   switch (action.type) {
 
-    case RUN_WAITING:
-      return {
-        ...state,
-        ready: false
-      }
-
     case SELECT_OPTION: {
+      const selected = {
+        ...state.selected,
+        ...action.payload
+      }
+      const { bot, job, src } = selected
+      const ready = bot && job && src
 
       return {
         ...state,
-        selected: {
-          ...state.selected,
-          ...action.payload
-        }
+        ready,
+        selected
       }
     }
 

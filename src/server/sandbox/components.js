@@ -51,9 +51,9 @@ const Time = ({ date }) => (
   </IntlProvider>
 )
 
-const Run = () => (
+const Run = ({ ready }) => (
   <div className="ctrls">
-    <div className="btn">
+    <div className={`btn ${ready ? 'ready' : 'disabled'}`}>
       <span>Run</span>
     </div>
     <div className="btn">
@@ -62,10 +62,10 @@ const Run = () => (
   </div>
 )
 
-const Output = () => (
+const Output = ({ ready }) => (
   <div className="output">
     <div>Console</div>
-    <Run />
+    <Run ready={ready} />
     <div className="timeline">
 
       <div className="log">
@@ -112,7 +112,7 @@ const Robo = ({ SB, selectOption }) => (
           {SB.selected && SB.selected.src ? <SrcSelection { ...SB.selected.src } /> : null}
         </div>
       </div>
-      <Output />
+      <Output ready={SB.ready} />
     </div>
   </div>
 )

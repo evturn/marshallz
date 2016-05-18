@@ -234,7 +234,17 @@ img {
   margin-left: 5px;
   margin-right: 5px;
 
+  &.disabled {
+    opacity: 0.4;
+
+    span {
+      border-top: 5px solid #cccccc;
+      border-bottom: 5px solid #cccccc;
+    }
+  }
+
    span {
+    opacity: 1;
     border-top: 5px solid @red;
     border-bottom: 5px solid @red;
     text-transform: uppercase;
