@@ -174,3 +174,34 @@ img {
   color: @tx-monitor;
   height: 500px;
 }
+
+.log {
+  padding: 5px 15px;
+
+  & > span {
+    display: inline-block;
+    width: 10%;
+    text-align: left;
+  }
+
+  .date {
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+  }
+
+  .name {
+    display: inline-block;
+    width: 30%;
+    text-align: left;
+  }
+
+  .result {
+    margin: 5px 0;
+    text-align: left;
+  }
+
+  &.error {
+    color: #FF7350;
+  }
+}

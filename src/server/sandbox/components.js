@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { IntlProvider, FormattedRelative } from 'react-intl'
 import { selectBot, selectJob, selectSrc } from './actions';
 import './ui/less/style.less'
 
@@ -53,11 +54,42 @@ const Bot = ({ selectBot, bot }) => (
   </div>
 )
 
+const Time = ({ date }) => (
+  <IntlProvider locale="en">
+    <div>
+      <FormattedRelative value={date} />
+    </div>
+  </IntlProvider>
+)
+
 const Output = () => (
   <div className="output">
     <div>Console</div>
     <div className="timeline">
 
+      <div className="log">
+        <span className="fa fa-check" />
+        <span className="fa fa-hashtag" />
+        <div className="name">Marshall</div>
+        <div className="date">
+          <Time date={Date.now()} />
+        </div>
+        <div className="result">
+          Message to be displayed from content
+        </div>
+      </div>
+
+      <div className="log error">
+        <span className="fa fa-close" />
+        <span className="fa fa-file-text-o" />
+        <div className="name">b0rf</div>
+        <div className="date">
+          <Time date={Date.now()} />
+        </div>
+        <div className="result">
+          Message to be displayed from content
+        </div>
+      </div>
     </div>
   </div>
 )
