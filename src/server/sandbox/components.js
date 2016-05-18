@@ -3,6 +3,17 @@ import { connect } from 'react-redux'
 import { selectBot, selectJob, selectSrc } from './actions';
 import './ui/less/style.less'
 
+const Header = _ => (
+  <header>
+    <div className="header">
+      <div className="logo">
+        <div className="top">Run</div>
+        <div className="bottom">Bot</div>
+      </div>
+    </div>
+  </header>
+)
+
 const Src = ({ selectSrc, src}) => (
   <div className='src' onClick={() => selectSrc(src)}>
     <span className={src.icon} />
@@ -42,29 +53,33 @@ const Bot = ({ selectBot, bot }) => (
   </div>
 )
 
+const Output = () => (
+  <div className="output">
+    <div>Console</div>
+    <div className="timeline">
+
+    </div>
+  </div>
+)
+
 const Robo = ({ SB, selectBot, selectJob, selectSrc }) => (
   <div className="root">
-    <header>
-      <div className="header">
-        <div className="logo">
-          <div className="top">Run</div>
-          <div className="bottom">Bot</div>
+    <div className="main">
+      <div className="panel">
+        <div className="bots">
+          {SB.bots.map(x => <Bot key={x.name} selectBot={selectBot} bot={x} />)}
+          {SB.selected && SB.selected.bot ? <BotSelection { ...SB.selected.bot } /> : null}
+        </div>
+        <div className="jobs">
+          {SB.jobs.map(x => <Job key={x.name} selectJob={selectJob} job={x} />)}
+          {SB.selected && SB.selected.job ? <JobSelection { ...SB.selected.job } /> : null}
+        </div>
+        <div className="srcs">
+          {SB.srcs.map(x => <Src key={x.name} selectSrc={selectSrc} src={x} />)}
+          {SB.selected && SB.selected.src ? <SrcSelection { ...SB.selected.src } /> : null}
         </div>
       </div>
-    </header>
-    <div className="main">
-      <div className="bots">
-        {SB.bots.map(x => <Bot key={x.name} selectBot={selectBot} bot={x} />)}
-        {SB.selected && SB.selected.bot ? <BotSelection { ...SB.selected.bot } /> : null}
-      </div>
-      <div className="jobs">
-        {SB.jobs.map(x => <Job key={x.name} selectJob={selectJob} job={x} />)}
-        {SB.selected && SB.selected.job ? <JobSelection { ...SB.selected.job } /> : null}
-      </div>
-      <div className="srcs">
-        {SB.srcs.map(x => <Src key={x.name} selectSrc={selectSrc} src={x} />)}
-        {SB.selected && SB.selected.src ? <SrcSelection { ...SB.selected.src } /> : null}
-      </div>
+      <Output />
     </div>
   </div>
 )

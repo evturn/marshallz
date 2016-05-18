@@ -1,11 +1,17 @@
 @less-path: '../../../../assets/less';
 @img-path: '../../../../assets/img';
 
+
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700);
+@import url('@{less-path}/global/reset.less');
 @import url('@{less-path}/global/fa.less');
 @import url('@{less-path}/variables.less');
 
-@font-imperial: 'URWImperialTOT-UltBolEN', serif;
-@red: #f70000;
+@font-imperial: 'URWImperialTOT-UltBolEN', Arial bold, serif;
+@font-ubuntu:   'Ubuntu Mono', serif;
+@red:           #f70000;
+@tx-monitor:    #00FF00;
+@bg-monitor:    #111111;
 
 body {
   background-color: #000000;
@@ -23,6 +29,7 @@ body {
 
 .root {
   position: relative;
+  .clearfix();
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
@@ -74,10 +81,6 @@ header {
   bottom: -6px;
 }
 
-.main {
-  margin-top: 20px;
-}
-
 .bots {
   display: inline-block;
   float: left;
@@ -100,7 +103,7 @@ img {
 
 .selection {
   padding-top: 30px;
-  font-family: @font-imperial;
+  font-family: @font-ubuntu;
   text-align: center;
   font-style: italic;
   font-size: 19px;
@@ -151,4 +154,23 @@ img {
 .src {
   margin-left: 4px;
   margin-right: 4px;
+}
+
+.main {
+  margin-top: 50px;
+}
+
+.panel {
+  .clearfix();
+  width: 70%;
+  float: left;
+}
+
+.output {
+  float: right;
+  width: 30%;
+  font-family: @font-ubuntu;
+  background-color: @bg-monitor;
+  color: @tx-monitor;
+  height: 500px;
 }
