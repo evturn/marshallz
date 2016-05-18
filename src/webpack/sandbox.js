@@ -13,6 +13,7 @@ export default {
     ]
   },
   context: __dirname,
+  devtool: 'sourcemaps',
   output: {
     path: outputPath,
     filename: 'ui.js',
@@ -67,6 +68,15 @@ export default {
       },{
         from: path.join(__dirname, '..', 'assets', 'img', 'hs-marshall.png'),
         to: 'hs-marshall.png'
+      },{
+        from: path.join(__dirname, '..', 'assets', 'img', 'av-borf.png'),
+        to: 'av-borf.png'
+      },{
+        from: path.join(__dirname, '..', 'assets', 'img', 'av-clang.png'),
+        to: 'av-clang.png'
+      },{
+        from: path.join(__dirname, '..', 'assets', 'img', 'av-marshall.png'),
+        to: 'av-marshall.png'
       },
     ])
   ]

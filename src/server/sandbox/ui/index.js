@@ -1,50 +1,28 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { render } from 'react-dom'
+import { createStore, applyMiddleware, compose } from 'redux'
+import { Provider } from 'react-redux'
+import { reduxObservable } from 'redux-observable'
+import rootReducer from '../reducers';
+import logger from 'redux-logger'
 import bots from '../../bots/public'
-import './less/style.less'
+// import { App, Bots, Bot } from '../components'
+import Robo from '../components'
 
-class Bot extends Component {
-  render() {
-    return (
-      <div className='bot'>
-        <img src={this.props.headshot} />
-        <div>{this.props.displayName}</div>
-      </div>
-    )
-  }
+function configureStore(initialState) {
+  return createStore(rootReducer, initialState, compose(applyMiddleware(logger(), reduxObservable()), window.devToolsExtension()))
 }
 
-class Bots extends Component {
-  render() {
-    return (
-      <div>
-        {this.props.bots.map(x => <Bot key={x.name} { ...x } />)}
-      </div>
-    )
+const store = configureStore({
+  bot: {
+    bots,
+    selected: false
   }
-}
-
-class App extends Component {
-  render() {
-    return (
-      <div className="root">
-        <header>
-          <div className="header">
-            <div className="logo">
-              <div className="top">Run</div>
-              <div className="bottom">Bot</div>
-            </div>
-          </div>
-        </header>
-        {this.props.children}
-      </div>
-    )
-  }
-}
+})
 
 render(
-  <App>
-    <Bots bots={bots} />
-  </App>,
+<Provider store={store}>
+  <Robo />
+</Provider>,
   document.getElementById('app')
 )
