@@ -1,7 +1,4 @@
 import * as Rx from 'rxjs'
-import * as DOM from 'rx-dom'
-
-console.log(DOM)
 
 export const RUN_BOT = 'RUN_BOT'
 export const SELECT_OPTION = 'SELECT_OPTION'
@@ -20,11 +17,14 @@ export const runBot = selected => (
   (actions, store) =>
     Rx.Observable.of(selected)
       .map(createRequestObject)
-      .flatMap(DOM.ajax)
       .map(x => {
-        console.log(x)
-        return ({ type: RUN_BOT, res: JSON.parse(x.response) })
+        return Rx.Observable.ajax(x)
+          .map(x => {
+            console.log(x)
+            return ({ type: RUN_BOT, res: JSON.parse(x.response) })
+          })
       })
+
 )
 
 function createRequestObject(x) {
