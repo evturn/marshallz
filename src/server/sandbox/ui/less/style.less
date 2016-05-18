@@ -158,21 +158,28 @@ img {
 
 .main {
   margin-top: 50px;
+  .clearfix();
 }
 
 .panel {
   .clearfix();
   width: 70%;
   float: left;
+  height: 280px;
 }
 
 .output {
+  position: relative;
   float: right;
   width: 30%;
   font-family: @font-ubuntu;
   background-color: @bg-monitor;
   color: @tx-monitor;
   height: 500px;
+}
+
+.timeline {
+  margin-top: 40px;
 }
 
 .log {
@@ -203,5 +210,40 @@ img {
 
   &.error {
     color: #FF7350;
+  }
+}
+
+.ctrls {
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+}
+
+.btn {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 27px;
+  font-family: sans-serif;
+  background-color: #000000;
+  border-top: 8px solid @red;
+  border-bottom: 8px solid @red;
+  padding-right: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+
+   span {
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: -1.2px;
+  }
+
+  &:first-child {
+    float: left;
+  }
+
+  &:nth-child(2) {
+    float: right;
   }
 }

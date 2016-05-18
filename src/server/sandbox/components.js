@@ -62,9 +62,21 @@ const Time = ({ date }) => (
   </IntlProvider>
 )
 
+const Run = () => (
+  <div className="ctrls">
+    <div className="btn">
+      <span>Run</span>
+    </div>
+    <div className="btn">
+      <span>Clr</span>
+    </div>
+  </div>
+)
+
 const Output = () => (
   <div className="output">
     <div>Console</div>
+    <Run />
     <div className="timeline">
 
       <div className="log">
