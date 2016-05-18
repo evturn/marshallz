@@ -43,6 +43,7 @@
     "rx": "^4.1.0",
     "rx-dom": "^7.0.3",
     "rx-node": "^1.0.2",
+    "rxjs": "^5.0.0-beta.7",
     "sentence-generator": "^0.1.2",
     "twitter": "^1.2.5",
     "webpack": "^1.13.0"

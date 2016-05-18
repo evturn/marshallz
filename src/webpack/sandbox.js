@@ -1,19 +1,33 @@
 import path from 'path'
 import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import {
-  extensions,
-  alias, modulesDirectories, PORT } from './base'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import { extensions, modulesDirectories } from './base'
 
-export default webpack({
+const outputPath = path.join(__dirname, '..', 'server', 'sandbox', 'ui', 'dist')
+
+export default {
   entry: {
-    ui: '../server/sandbox/ui'
+    ui: [
+      '../server/sandbox/ui',
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
+    ]
   },
   context: __dirname,
   output: {
-    path: path.join(__dirname, '..', 'server', 'sandbox', 'ui', 'dist'),
+    path: outputPath,
     filename: 'ui.js',
     publicPath: '/'
+  },
+  devServer: {
+    outputPath: outputPath,
+    historyApiFallback: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    hot: true,
+    inline: true,
+    progress: true,
+    stats: 'errors-only',
+    port: 3001,
+    host: 'localhost'
   },
   resolve: { extensions, modulesDirectories },
   module: {
@@ -28,17 +42,26 @@ export default webpack({
       },{
         test: /\.json$/,
         loader: 'json-loader'
+      },{
+        test: /\.(png|jpe?g|svg|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader?name=[name].[ext]'
       }
     ]
-  }
-}, (err, stats) => {
-  if (err) {
-    const jsonStats = stats.toJson()
-
-    if (jsonStats.errors.length > 0) {
-      console.log(json.errors)
-    }
-  }
-
-  console.log(stats.toString({ colors: true }))
-})
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, '..', 'assets', 'img', 'hs-borf.png'),
+        to: 'hs-borf.png'
+      },{
+        from: path.join(__dirname, '..', 'assets', 'img', 'hs-clang.png'),
+        to: 'hs-clang.png'
+      },{
+        from: path.join(__dirname, '..', 'assets', 'img', 'hs-marshall.png'),
+        to: 'hs-marshall.png'
+      },
+    ])
+  ]
+}

@@ -4,11 +4,13 @@ import bots from '../bots'
 import fs from 'fs'
 import path from 'path'
 import { rss as log } from '../../webpack/dev-logger'
+import devServer from '../../webpack/dev-server'
 
 const app = express()
+
+devServer(app)
+
 app.use(express.static(__dirname + '/ui/dist'));
-
-
 app.get('*', (req, res, next) => {
   res.send('index.html')
 })
