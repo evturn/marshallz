@@ -3,10 +3,16 @@ import { connect } from 'react-redux'
 import { selectBot, fetchBot, abortFetchBot } from './actions';
 import './ui/less/style.less'
 
+const BotSelection = ({ avatar, displayName }) => (
+  <div className="selection">
+    <img src={avatar} />
+    <div>{displayName}</div>
+  </div>
+)
+
 const Bot = ({ selectBot, bot }) => (
   <div className='bot' onClick={() => selectBot(bot)}>
     <img src={bot.headshot} />
-    <div>{bot.displayName}</div>
   </div>
 )
 
@@ -20,13 +26,12 @@ const Robo = ({ SB, selectBot }) => (
         </div>
       </div>
     </header>
-    <div>{SB.bots.map(x => <Bot key={x.name} selectBot={selectBot} bot={x} />)}</div>
-    {SB.selected ? (
-      <div className="bot">
-        <div>{SB.selected.displayName}</div>
-        <img src={SB.selected.avatar} />
-      </div>)
-    : null}
+    <div className="main">
+      <div className="bots">
+        {SB.bots.map(x => <Bot key={x.name} selectBot={selectBot} bot={x} />)}
+        {SB.selected ? <BotSelection { ...SB.selected } /> : null}
+      </div>
+    </div>
   </div>
 )
 

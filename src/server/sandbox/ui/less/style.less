@@ -74,16 +74,39 @@ header {
   bottom: -6px;
 }
 
+.main {
+  margin-top: 20px;
+}
+
+.bots {
+  display: inline-block;
+  float: left;
+}
+
 .bot {
   display: inline-block;
-  font-family: @font-imperial;
-  text-align: center;
-  font-style: italic;
-  font-size: 19px;
+  cursor: pointer;
+
+  img {
+    width: 60px;
+  }
 }
 
 img {
   display: block;
-  width: 100px;
+  width: 100%;
   height: auto;
+}
+
+.selection {
+  padding-top: 30px;
+  font-family: @font-imperial;
+  text-align: center;
+  font-style: italic;
+  font-size: 19px;
+
+  img {
+    display: inline-block;
+    width: 100px;
+  }
 }
