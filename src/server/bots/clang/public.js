@@ -1,5 +1,6 @@
 export default {
   name: '__clang__',
+  displayName: 'clang',
   username: 'clang',
   avatar: 'av-clang.png',
   headshot: 'hs-clang.png',

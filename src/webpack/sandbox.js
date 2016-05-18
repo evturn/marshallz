@@ -1,7 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import { extensions, modulesDirectories } from './base'
+import { extensions, modulesDirectories, alias } from './base'
 
 const outputPath = path.join(__dirname, '..', 'server', 'sandbox', 'ui', 'dist')
 
@@ -29,7 +29,7 @@ export default {
     port: 3001,
     host: 'localhost'
   },
-  resolve: { extensions, modulesDirectories },
+  resolve: { extensions, modulesDirectories, alias },
   module: {
     loaders: [
       {
@@ -43,8 +43,14 @@ export default {
         test: /\.json$/,
         loader: 'json-loader'
       },{
+        test: /\.(gif|eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader'
+      },{
         test: /\.(png|jpe?g|svg|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader?name=[name].[ext]'
+      },{
+        test: /\.woff2(\?\S*)?$/,
+        loader: 'url-loader?limit=100000'
       }
     ]
   },

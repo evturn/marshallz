@@ -7,9 +7,8 @@ class Bot extends Component {
   render() {
     return (
       <div className='bot'>
-        <div>{this.props.name}</div>
-        <img className="img" src={this.props.headshot} />
-        <div>Select</div>
+        <img src={this.props.headshot} />
+        <div>{this.props.displayName}</div>
       </div>
     )
   }
@@ -28,8 +27,15 @@ class Bots extends Component {
 class App extends Component {
   render() {
     return (
-      <div>
-        <div>Run</div>
+      <div className="root">
+        <header>
+          <div className="header">
+            <div className="logo">
+              <div className="top">Run</div>
+              <div className="bottom">Bot</div>
+            </div>
+          </div>
+        </header>
         {this.props.children}
       </div>
     )
