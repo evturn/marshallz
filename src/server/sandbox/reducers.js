@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { RUN_BOT, SELECT_OPTION } from './actions'
 
 const SB = (state = {
+  logs: [],
   isLoading: false,
   ready: false,
   selected: {
@@ -13,9 +14,10 @@ const SB = (state = {
   switch (action.type) {
 
     case RUN_BOT:
-      console.log(action.payload)
+      state.logs[state.logs.length] = action.payload
+
       return {
-        ...state
+        ...state,
       }
 
     case SELECT_OPTION: {

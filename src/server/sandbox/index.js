@@ -12,7 +12,16 @@ app.use(express.static(__dirname + '/ui/dist'));
 app.use(bodyParser.json())
 
 app.post('/api', (req, res, next) => {
-  main(req.body).subscribe(x => res.json({ sentence: x }))
+  const { bot, job, src } = req.body
+
+  main(req.body).subscribe(x => (
+    res.json({
+      name: bot.displayName,
+      job: job.icon,
+      date: Date.now(),
+      result: x
+    }))
+  )
 })
 
 app.get('*', (req, res, next) => {

@@ -62,40 +62,27 @@ const Run = ({ ready, selected, runBot }) => (
   </div>
 )
 
-const Output = ({ ready, runBot, selected }) => (
+const Output = ({ ready, runBot, selected, logs }) => (
   <div className="output">
     <div>Console</div>
     <Run ready={ready} selected={selected} runBot={runBot} />
     <div className="timeline">
-
-      <div className="log">
-        <span className="fa fa-check" />
-        <span className="fa fa-hashtag" />
-        <div className="name">Marshall</div>
-        <div className="date">
-          <Time date={Date.now()} />
+      {logs.map(x =>
+        <div key={x.date}className="log">
+          <span className="fa fa-check" />
+          <span className={x.job} />
+          <div className="name">{x.name}</div>
+          <div className="date">
+            <Time date={x.date} />
+          </div>
+          <div className="result">{x.result}</div>
         </div>
-        <div className="result">
-          Message to be displayed from content
-        </div>
-      </div>
-
-      <div className="log error">
-        <span className="fa fa-close" />
-        <span className="fa fa-file-text-o" />
-        <div className="name">b0rf</div>
-        <div className="date">
-          <Time date={Date.now()} />
-        </div>
-        <div className="result">
-          Message to be displayed from content
-        </div>
-      </div>
+      )}
     </div>
   </div>
 )
 
-const Robo = ({ SB, selectOption, runBot }) => (
+const Robo = ({ SB, selectOption, runBot, logs }) => (
   <div className="root">
     <div className="main">
       <div className="panel">
@@ -112,7 +99,7 @@ const Robo = ({ SB, selectOption, runBot }) => (
           {SB.selected && SB.selected.src ? <SrcSelection { ...SB.selected.src } /> : null}
         </div>
       </div>
-      <Output ready={SB.ready} selected={SB.selected} runBot={runBot} />
+      <Output ready={SB.ready} logs={SB.logs} selected={SB.selected} runBot={runBot} />
     </div>
   </div>
 )

@@ -23,7 +23,8 @@ const initialState = {
       bot: false,
       job: false,
       src: false
-    }
+    },
+    logs: []
   }
 }
 
