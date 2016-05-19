@@ -24,7 +24,8 @@ const initialState = {
       job: false,
       src: false
     },
-    logs: []
+    logs: [],
+    _logs: []
   }
 }
 

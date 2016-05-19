@@ -20,11 +20,10 @@ const SB = (state = {
       }
 
     case RUN_BOT:
-      state.logs[state.logs.length] = action.payload
-
-      return {
+      return Object.assign({}, state, {
         ...state,
-      }
+        logs: [ ...state.logs, action.payload ]
+      })
 
     case SELECT_OPTION: {
       const selected = {

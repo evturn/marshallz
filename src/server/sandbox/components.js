@@ -70,7 +70,7 @@ const Output = ({ ready, runBot, clearConsole, selected, logs }) => (
     </div>
     <div className="timeline">
       {logs.map(x =>
-        <div key={x.date}className="log">
+        <div key={x.date} className="log">
           <span className="fa fa-check" />
           <span className={x.job} />
           <div className="name">{x.name}</div>
