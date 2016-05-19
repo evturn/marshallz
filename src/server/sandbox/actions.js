@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch'
 
 export const RUN_BOT = 'RUN_BOT'
 export const SELECT_OPTION = 'SELECT_OPTION'
+export const CLEAR_CONSOLE = 'CLEAR_CONSOLE'
 
 export const selectOption = selection => (
   (actions, store) =>
@@ -19,6 +20,8 @@ export const runBot = selected => (
     Rx.Observable.fromPromise(makeRequest(selected))
       .map(x => ({ type: RUN_BOT, payload: x }))
 )
+
+export const clearConsole = _ => ({ type: CLEAR_CONSOLE })
 
 function makeRequest(x) {
   return fetch(`/api`, {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { IntlProvider, FormattedRelative } from 'react-intl'
-import { selectOption, runBot } from './actions';
+import { selectOption, runBot, clearConsole } from './actions';
 import './ui/less/style.less'
 
 const Src = ({ selectOption, src}) => (
@@ -51,22 +51,22 @@ const Time = ({ date }) => (
   </IntlProvider>
 )
 
-const Run = ({ ready, populated, selected, runBot }) => (
+const Run = ({ ready, populated, selected, runBot, clearConsole }) => (
   <div className="ctrls">
     <div className={`btn ${ready ? 'ready' : 'disabled'}`} onClick={() => runBot(selected)}>
       <span>Run</span>
     </div>
-    <div className={`btn ${populated ? 'ready' : 'disabled'}`}>
+    <div className={`btn ${populated ? 'ready' : 'disabled'}`} onClick={() => clearConsole()}>
       <span>Clr</span>
     </div>
   </div>
 )
 
-const Output = ({ ready, runBot, selected, logs }) => (
+const Output = ({ ready, runBot, clearConsole, selected, logs }) => (
   <div className="output">
     <div className="head">
       <div>Console</div>
-      <Run ready={ready} populated={logs.length} selected={selected} runBot={runBot} />
+      <Run ready={ready} populated={logs.length} selected={selected} runBot={runBot} clearConsole={clearConsole} />
     </div>
     <div className="timeline">
       {logs.map(x =>
@@ -84,7 +84,7 @@ const Output = ({ ready, runBot, selected, logs }) => (
   </div>
 )
 
-const Robo = ({ SB, selectOption, runBot, logs }) => (
+const Robo = ({ SB, selectOption, clearConsole, runBot, logs }) => (
   <div className="root">
     <div className="main">
       <div className="panel">
@@ -101,7 +101,7 @@ const Robo = ({ SB, selectOption, runBot, logs }) => (
           {SB.selected && SB.selected.src ? <SrcSelection { ...SB.selected.src } /> : null}
         </div>
       </div>
-      <Output ready={SB.ready} logs={SB.logs} selected={SB.selected} runBot={runBot} />
+      <Output ready={SB.ready} logs={SB.logs} selected={SB.selected} runBot={runBot} clearConsole={clearConsole}/>
     </div>
   </div>
 )
@@ -110,7 +110,8 @@ const mapStateToProps = ({ SB }) => ({ SB })
 
 const mapDispatchToProps = (dispatch) => ({
   selectOption: selection => dispatch(selectOption(selection)),
-  runBot: selected => dispatch(runBot(selected))
+  runBot: selected => dispatch(runBot(selected)),
+  clearConsole: _ => dispatch(clearConsole())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Robo)

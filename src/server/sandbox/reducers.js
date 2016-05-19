@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { RUN_BOT, SELECT_OPTION } from './actions'
+import { RUN_BOT, SELECT_OPTION, CLEAR_CONSOLE } from './actions'
 
 const SB = (state = {
   logs: [],
@@ -12,6 +12,12 @@ const SB = (state = {
   }
 }, action) => {
   switch (action.type) {
+
+    case CLEAR_CONSOLE:
+      return {
+        ...state,
+        logs: []
+      }
 
     case RUN_BOT:
       state.logs[state.logs.length] = action.payload
