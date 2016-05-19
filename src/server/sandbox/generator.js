@@ -11,10 +11,9 @@ export default selection => {
     .flatMap(createDictionary)
 
   const initialWord$ = dictionary$.map(selectCapitalizedWord)
-  const sentence$ = Observable.combineLatest(dictionary$, initialWord$)
+  return Observable.combineLatest(dictionary$, initialWord$)
     .flatMap(generateSentence)
     .debounce(1000)
-    .subscribe(log.observer)
 }
 
 function createDictionary(data) {

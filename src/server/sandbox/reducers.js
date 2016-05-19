@@ -13,7 +13,7 @@ const SB = (state = {
   switch (action.type) {
 
     case RUN_BOT:
-      console.log(action.res)
+      console.log(action.payload)
       return {
         ...state
       }

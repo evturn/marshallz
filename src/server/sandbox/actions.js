@@ -1,4 +1,5 @@
 import * as Rx from 'rxjs'
+import fetch from 'isomorphic-fetch'
 
 export const RUN_BOT = 'RUN_BOT'
 export const SELECT_OPTION = 'SELECT_OPTION'
@@ -15,27 +16,19 @@ export const selectOption = selection => (
 
 export const runBot = selected => (
   (actions, store) =>
-    Rx.Observable.of(selected)
-      .map(createRequestObject)
-      .map(x => {
-        return Rx.Observable.ajax(x)
-          .map(x => {
-            console.log(x)
-            return ({ type: RUN_BOT, res: JSON.parse(x.response) })
-          })
-      })
-
+    Rx.Observable.fromPromise(makeRequest(selected))
+      .map(x => ({ type: RUN_BOT, payload: x }))
 )
 
-function createRequestObject(x) {
-  return {
-    url: '/api',
-    method: 'POST',
-    withCredentials: true,
+function makeRequest(x) {
+  return fetch(`/api`, {
+    method: 'post',
+    body: JSON.stringify(x),
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(x)
-  }
+    }
+  })
+  .then(x => x.json())
+  .catch(e => console.log(e))
 }

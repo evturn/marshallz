@@ -59,6 +59,7 @@
     "babel-preset-evturn": "0.0.23",
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.7.2",
+    "body-parser": "^1.15.1",
     "clean-webpack-plugin": "^0.1.8",
     "copy-webpack-plugin": "^2.1.1",
     "css-loader": "^0.23.1",
