@@ -51,12 +51,12 @@ const Time = ({ date }) => (
   </IntlProvider>
 )
 
-const Run = ({ ready, selected, runBot }) => (
+const Run = ({ ready, populated, selected, runBot }) => (
   <div className="ctrls">
     <div className={`btn ${ready ? 'ready' : 'disabled'}`} onClick={() => runBot(selected)}>
       <span>Run</span>
     </div>
-    <div className="btn">
+    <div className={`btn ${populated ? 'ready' : 'disabled'}`}>
       <span>Clr</span>
     </div>
   </div>
@@ -66,7 +66,7 @@ const Output = ({ ready, runBot, selected, logs }) => (
   <div className="output">
     <div className="head">
       <div>Console</div>
-      <Run ready={ready} selected={selected} runBot={runBot} />
+      <Run ready={ready} populated={logs.length} selected={selected} runBot={runBot} />
     </div>
     <div className="timeline">
       {logs.map(x =>
