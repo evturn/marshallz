@@ -176,6 +176,17 @@ img {
   background-color: @bg-monitor;
   color: @tx-monitor;
   height: 500px;
+  overflow: scroll;
+}
+
+.head {
+  position: fixed;
+  width: 358px;
+  height: 50px;
+  background-color: #000000;
+  border-top: 1px solid @bg-monitor;
+  border-left: 1px solid @bg-monitor;
+  border-right: 1px solid @bg-monitor;
 
   & > div:first-child {
     margin-top: 20px;
@@ -183,8 +194,7 @@ img {
 }
 
 .timeline {
-  margin-top: 50px;
-  overflow-y: scroll;
+  margin-top: 60px;
 }
 
 .log {
@@ -209,7 +219,7 @@ img {
   }
 
   .result {
-    margin: 5px 0;
+    margin: 10px 0;
     text-align: left;
   }
 
@@ -221,7 +231,7 @@ img {
 .ctrls {
   display: inline-block;
   position: absolute;
-  top: 15px;
+  top: 10px;
   left: 0;
   right: 0;
 }

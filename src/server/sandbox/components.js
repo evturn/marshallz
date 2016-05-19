@@ -64,8 +64,10 @@ const Run = ({ ready, selected, runBot }) => (
 
 const Output = ({ ready, runBot, selected, logs }) => (
   <div className="output">
-    <div>Console</div>
-    <Run ready={ready} selected={selected} runBot={runBot} />
+    <div className="head">
+      <div>Console</div>
+      <Run ready={ready} selected={selected} runBot={runBot} />
+    </div>
     <div className="timeline">
       {logs.map(x =>
         <div key={x.date}className="log">
