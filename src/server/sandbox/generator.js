@@ -4,16 +4,19 @@ import fs from 'fs'
 import { rss as log } from '../../webpack/dev-logger'
 
 export default selection => {
-  const dictionary$ = Observable.from(bots)
-    .filter(x => x.username === selection.bot.username)
-    .map(x => fs.readFileSync(x.file).toString())
-    .map(x => x.split(/(?:\. |\n)/ig))
-    .flatMap(createDictionary)
+  return Observable.of(selection)
+    .flatMap(x => {
+      const dictionary$ = Observable.from(bots)
+        .filter(x => x.username === selection.bot.username)
+        .map(x => fs.readFileSync(x.file).toString())
+        .map(x => x.split(/(?:\. |\n)/ig))
+        .flatMap(createDictionary)
+      const initialWord$ = dictionary$.map(selectCapitalizedWord)
 
-  const initialWord$ = dictionary$.map(selectCapitalizedWord)
-  return Observable.combineLatest(dictionary$, initialWord$)
-    .flatMap(generateSentence)
-    .debounce(1000)
+      return Observable.combineLatest(dictionary$, initialWord$)
+        .flatMap(generateSentence)
+        .debounce(1000)
+    })
 }
 
 function createDictionary(data) {

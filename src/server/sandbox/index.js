@@ -14,14 +14,15 @@ app.use(bodyParser.json())
 app.post('/api', (req, res, next) => {
   const { bot, job, src } = req.body
 
-  main(req.body).subscribe(x => (
-    res.json({
-      name: bot.displayName,
-      job: job.icon,
-      date: Date.now(),
-      result: x
-    }))
-  )
+  main(req.body)
+    .subscribe(x => (
+      res.json({
+        name: bot.displayName,
+        job: job.icon,
+        date: Date.now(),
+        result: x
+      }))
+    )
 })
 
 app.get('*', (req, res, next) => {
