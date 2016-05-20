@@ -88,10 +88,6 @@ const Robo = ({ SB, selectOption, clearConsole, runBot, logs }) => (
   <div className="root">
     <div className="main">
       <div className="panel">
-        <div className="bots">
-          {SB.bots.map(x => <Bot key={x.name} selectOption={selectOption} bot={x} />)}
-          {SB.selected && SB.selected.bot ? <BotSelection { ...SB.selected.bot } /> : null}
-        </div>
         <div className="jobs">
           {SB.jobs.map(x => <Job key={x.name} selectOption={selectOption} job={x} />)}
           {SB.selected && SB.selected.job ? <JobSelection { ...SB.selected.job } /> : null}
@@ -99,6 +95,10 @@ const Robo = ({ SB, selectOption, clearConsole, runBot, logs }) => (
         <div className="srcs">
           {SB.srcs.map(x => <Src key={x.name} selectOption={selectOption} src={x} />)}
           {SB.selected && SB.selected.src ? <SrcSelection { ...SB.selected.src } /> : null}
+        </div>
+        <div className="bots">
+          {SB.bots.map(x => <Bot key={x.name} selectOption={selectOption} bot={x} />)}
+          {SB.selected && SB.selected.bot ? <BotSelection { ...SB.selected.bot } /> : null}
         </div>
       </div>
       <Output ready={SB.ready} logs={SB.logs} selected={SB.selected} runBot={runBot} clearConsole={clearConsole}/>
