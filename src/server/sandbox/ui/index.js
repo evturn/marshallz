@@ -39,8 +39,8 @@ const store = createStore(
 )
 
 render(
-<Provider store={store}>
-  <Robo />
-</Provider>,
+  <Provider store={store}>
+    <Robo />
+  </Provider>,
   document.getElementById('app')
 )

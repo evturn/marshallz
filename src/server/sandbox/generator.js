@@ -3,13 +3,18 @@ import bots from '../bots'
 import fs from 'fs'
 import { rss as log } from '../../webpack/dev-logger'
 
+const readFromArchive = selection => {
+  return Observable.from(bots)
+    .filter(bot => bot.username === selection.bot.username)
+    .map(x => fs.readFileSync(x.file).toString())
+    .map(x => x.split(/(?:\. |\n)/ig))
+}
+
+
 export default selection => {
   return Observable.of(selection)
-    .flatMap(x => {
-      const dictionary$ = Observable.from(bots)
-        .filter(x => x.username === selection.bot.username)
-        .map(x => fs.readFileSync(x.file).toString())
-        .map(x => x.split(/(?:\. |\n)/ig))
+    .flatMap(selection => {
+      const dictionary$ = readFromArchive(selection)
         .flatMap(createDictionary)
       const initialWord$ = dictionary$.map(selectCapitalizedWord)
 
