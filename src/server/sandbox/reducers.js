@@ -17,7 +17,8 @@ const SB = (state = {
     case CLEAR_CONSOLE:
       return {
         ...state,
-        logs: []
+        logs: [],
+        _logs: []
       }
 
     case RUN_BOT:
