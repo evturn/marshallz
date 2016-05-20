@@ -3,6 +3,7 @@ import { RUN_BOT, SELECT_OPTION, CLEAR_CONSOLE } from './actions'
 
 const SB = (state = {
   logs: [],
+  _logs: [],
   isLoading: false,
   ready: false,
   selected: {
@@ -22,7 +23,8 @@ const SB = (state = {
     case RUN_BOT:
       return Object.assign({}, state, {
         ...state,
-        logs: [ ...state.logs, action.payload ]
+        logs: action.payload.logs,
+        _logs: [ ...state._logs ].concat([ action.payload.log ])
       })
 
     case SELECT_OPTION: {

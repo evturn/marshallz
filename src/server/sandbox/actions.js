@@ -18,6 +18,11 @@ export const selectOption = selection => (
 export const runBot = selected => (
   (actions, store) =>
     Rx.Observable.fromPromise(makeRequest(selected))
+      .map(x => ({
+          logs: [ ...store.getState().SB._logs ].concat([x]).reverse(),
+          log: x
+        })
+      )
       .map(x => ({ type: RUN_BOT, payload: x }))
 )
 
