@@ -14,5 +14,12 @@ export default {
       access_token_secret: process.env.CLANG_TWITTER_TOKEN_SECRET
     }),
     giphy: process.env.GIPHY_DEV
-  }
+  },
+  rss: [
+    'http://www.people.com/web/people/rss/tvwatch/index.xml',
+    'http://www.people.com/web/people/rss/topheadlines/index.xml',
+    'https://rss.sciencedaily.com/health_medicine/irritable_bowel_syndrome.xml',
+    'https://rss.sciencedaily.com/strange_offbeat.xml',
+    'https://rss.nytimes.com/services/xml/rss/nyt/Science.xml'
+  ]
 }

@@ -1,6 +1,7 @@
 import { Observable } from 'rx'
 import bots from '../bots'
 import fs from 'fs'
+import RSS from '../streams/rss'
 import { rss as log } from '../../webpack/dev-logger'
 
 const readFromArchive = selection => {
@@ -10,12 +11,28 @@ const readFromArchive = selection => {
     .map(x => x.split(/(?:\. |\n)/ig))
 }
 
+const readFromRSSFeed = selection => {
+  return Observable.from(bots)
+    .filter(bot => bot.username === selection.bot.username)
+    .flatMap(RSS)
+    .map(x => x.description)
+    .map(x => x.split(/(?:\. |\n)/ig))
+}
 
 export default selection => {
   return Observable.of(selection)
     .flatMap(selection => {
-      const dictionary$ = readFromArchive(selection)
+      let readFromSrc
+
+      if (selection.src.name === 'Archive') {
+        readFromSrc = readFromArchive
+      } else if (selection.src.name === 'RSS') {
+        readFromSrc = readFromRSSFeed
+      }
+
+      const dictionary$ = readFromSrc(selection)
         .flatMap(createDictionary)
+
       const initialWord$ = dictionary$.map(selectCapitalizedWord)
 
       return Observable.combineLatest(dictionary$, initialWord$)
