@@ -49,16 +49,15 @@ function createDictionary(data) {
       sentence
         .split(' ')
         .filter(word => word.trim() !== '')
-        .map((_, i, arr) => buildHash(acc, arr[i], arr[i + 1]))
+        .map((_, i, arr) => {
+          return buildHash(acc, safeString(arr[i], arr[i + 1]))
+        })
 
         return acc
     }, {})
 }
 
-function buildHash(acc, curr, next) {
-  const wordA = norm(curr)
-  const wordB = norm(next)
-
+function buildHash(acc, { wordA, wordB }) {
   if (!acc[wordA]) {
     acc[wordA] = {}
   }
@@ -72,6 +71,12 @@ function buildHash(acc, curr, next) {
   return acc
 }
 
+function safeString(wordA, wordB) {
+  return {
+    wordA: wordA !== undefined ? wordA.replace(/\.$/ig, '') : '',
+    wordB: wordB !== undefined ? wordB.replace(/\.$/ig, '') : ''
+  }
+}
 
 function generateSentence([ dictionary, initialWord ]) {
   return Observable.generate(
@@ -114,8 +119,4 @@ function lookupAndConcat({ state, lookup, selection }) {
 function selectCapitalizedWord(x) {
   const caps = Object.keys(x).filter(([ x ]) => x >= 'A' && x <= 'Z')
   return caps[~~(Math.random() * caps.length)]
-}
-
-function norm(x) {
-  return x !== undefined ? x.replace(/\.$/ig, '') : ''
 }
