@@ -16,6 +16,7 @@ const readFromRSSFeed = selection => {
     .filter(bot => bot.username === selection.bot.username)
     .flatMap(RSS)
     .map(x => x.description)
+    .map(x => x !== null ? x : 'Trouble in the message centre.')
     .map(x => x.split(/(?:\. |\n)/ig))
 }
 
@@ -42,27 +43,35 @@ export default selection => {
 }
 
 function createDictionary(data) {
-  const hashmap = data.reduce((acc, x) => {
-    x.split(' ')
-      .filter(word => word.trim() !== '')
-      .map((x, i, arr) => {
-        const curr = norm(arr[i])
-        const next = norm(arr[i + 1])
-        if (!acc[curr]) {
-          acc[curr] = {}
-        }
-        if (!acc[curr][next]) {
-          acc[curr][next] = 1
-        } else {
-          acc[curr][next] += 1
-        }
-      })
+  return Observable.from(data)
+    .reduce((acc, sentence) => {
 
-      return acc
-  }, {})
+      sentence
+        .split(' ')
+        .filter(word => word.trim() !== '')
+        .map((_, i, arr) => buildHash(acc, arr[i], arr[i + 1]))
 
-  return Observable.of(hashmap)
+        return acc
+    }, {})
 }
+
+function buildHash(acc, curr, next) {
+  const wordA = norm(curr)
+  const wordB = norm(next)
+
+  if (!acc[wordA]) {
+    acc[wordA] = {}
+  }
+
+  if (!acc[wordA][wordB]) {
+    acc[wordA][wordB] = 1
+  } else {
+    acc[wordA][wordB] += 1
+  }
+
+  return acc
+}
+
 
 function generateSentence([ dictionary, initialWord ]) {
   return Observable.generate(

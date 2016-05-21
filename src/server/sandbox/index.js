@@ -21,8 +21,8 @@ app.post('/api', (req, res, next) => {
         job: job.icon,
         date: Date.now(),
         result: x
-      }))
-    )
+      })
+    ))
 })
 
 app.get('*', (req, res, next) => {

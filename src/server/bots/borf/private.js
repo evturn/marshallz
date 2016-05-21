@@ -5,8 +5,7 @@ export default {
   rss: [
     'https://rss.nytimes.com/services/xml/rss/nyt/WeekinReview.xml',
     'https://rss.sciencedaily.com/matter_energy/thermodynamics.xml',
-    'https://rss.sciencedaily.com/matter_energy/quantum_computing.xml',
     'https://rss.sciencedaily.com/computers_math/virtual_reality.xml',
-    'https://rss.sciencedaily.com/computers_math/artificial_intelligence.xml'
+    'https://rss.sciencedaily.com/matter_energy/electricity.xml'
   ]
 }

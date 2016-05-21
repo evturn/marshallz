@@ -19,7 +19,6 @@ export default {
     'https://rss.sciencedaily.com/health_medicine/vegetarian.xml',
     'https://rss.sciencedaily.com/mind_brain/ecstasy.xml',
     'https://rss.sciencedaily.com/health_medicine/dietary_supplements.xml',
-    'https://rss.sciencedaily.com/health_medicine/alternative_medicine.xml',
-    'https://rss.sciencedaily.com/matter_energy/electricity.xml'
+    'https://rss.sciencedaily.com/health_medicine/alternative_medicine.xml'
   ]
 }
