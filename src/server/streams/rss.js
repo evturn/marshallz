@@ -4,12 +4,11 @@ import { Observable } from 'rx'
 import RxNode from 'rx-node'
 
 const fakeHeader = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36'
+const fp = new FeedParser()
 
 export default bot => {
   const url = bot.rss[Math.floor(Math.random() * bot.rss.length)]
-  const fp = new FeedParser()
-
-  const request$ = Observable.from([ request(url, { timeout: 10000, pool: false }) ])
+  const request$ = Observable.of(request(url, { timeout: 10000, pool: false }))
     .map(x => {
       x.setMaxListeners(50)
       x.setHeader('user-agent', fakeHeader)
@@ -22,7 +21,8 @@ export default bot => {
       x.on('error', e => console.log(e, e.stack))
       x.on('response', res => res.pipe(fp))
       return RxNode.fromTransformStream(fp)
+        .reduce((acc, x) => acc + ' ' + x.description, '')
     })
 
-    return stream$
+  return stream$
 }

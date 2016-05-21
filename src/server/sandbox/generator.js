@@ -4,37 +4,40 @@ import fs from 'fs'
 import RSS from '../streams/rss'
 import { rss as log } from '../../webpack/dev-logger'
 
-const readFromArchive = selection => {
-  return Observable.from(bots)
-    .filter(bot => bot.username === selection.bot.username)
+const readFromArchive = bot$ => (
+  bot$
     .map(x => fs.readFileSync(x.file).toString())
     .map(x => x.split(/(?:\. |\n)/ig))
-}
+)
 
-const readFromRSSFeed = selection => {
-  return Observable.from(bots)
-    .filter(bot => bot.username === selection.bot.username)
+const readFromRSSFeed = bot$ => (
+  bot$
     .flatMap(RSS)
-    .map(x => x.description)
     .map(x => x !== null ? x : 'Trouble in the message centre.')
     .map(x => x.split(/(?:\. |\n)/ig))
+)
+
+const selectBot = selection => (
+  Observable.from(bots)
+    .filter(bot => bot.username === selection.bot.username)
+)
+
+const readFromSrc = selection => {
+  if (selection.src.name === 'Archive') {
+    return readFromArchive(selectBot(selection))
+  } else if (selection.src.name === 'RSS') {
+    return readFromRSSFeed(selectBot(selection))
+  }
 }
 
 export default selection => {
   return Observable.of(selection)
     .flatMap(selection => {
-      let readFromSrc
-
-      if (selection.src.name === 'Archive') {
-        readFromSrc = readFromArchive
-      } else if (selection.src.name === 'RSS') {
-        readFromSrc = readFromRSSFeed
-      }
-
       const dictionary$ = readFromSrc(selection)
         .flatMap(createDictionary)
 
-      const initialWord$ = dictionary$.map(selectCapitalizedWord)
+      const initialWord$ = dictionary$
+        .map(selectCapitalizedWord)
 
       return Observable.combineLatest(dictionary$, initialWord$)
         .flatMap(generateSentence)
@@ -43,15 +46,12 @@ export default selection => {
 }
 
 function createDictionary(data) {
+  console.log('CREATING A DICTIONARY')
   return Observable.from(data)
     .reduce((acc, sentence) => {
-
-      sentence
-        .split(' ')
+      sentence.split(' ')
         .filter(word => word.trim() !== '')
-        .map((_, i, arr) => {
-          return buildHash(acc, safeString(arr[i], arr[i + 1]))
-        })
+        .forEach((_, i, arr) => buildHash(acc, safeString(arr[i], arr[i + 1])))
 
         return acc
     }, {})
