@@ -8,7 +8,7 @@ class Pagination extends Component {
   render() {
     const { stats, pathname } = this.props
     const {
-      next, previous, pages, page, first, last, total
+      next, previous, pages, page, title,
     } = this.props.pagination
 
     const goForward = (
@@ -43,7 +43,7 @@ class Pagination extends Component {
           {skipTo}
           {goForward}
         </ul>
-        {stats ? <div className={css.results}>{`Showing ${first} - ${last} of ${total} posts.`}</div> : null}
+        {stats ? <div className={css.results}>{title}</div> : null}
       </div>
     )
   }

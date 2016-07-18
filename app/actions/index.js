@@ -1,63 +1,49 @@
 import 'whatwg-fetch'
 import { Observable } from 'rxjs'
 
+const createPagination = ({ items, page, perPage }) => {
+  const head = ((page - 1) * perPage)
+  const segment = items.slice(head, (page * perPage))
+
+  return {
+    items: segment,
+    pagination: {
+      page,
+      title: `Showing ${head + 1} - ${head + segment.length} of ${items.length} items`,
+      next: items.length > 2 && page < Math.ceil(items.length / perPage)
+        ? page + 1
+        : false,
+      previous: items.length > 2 && page > 1
+        ? page - 1
+        : false,
+      pages: items
+        .map((x, i) => i + 1)
+        .filter(i => i <= Math.ceil(items.length / perPage))
+    }
+  }
+}
+
 export const filterPosts = ({ params, query }) => (
-  (action, store ) => {
+  (action, store) => {
+    store.dispatch({ type: 'FETCH_POSTS' })
+
     return Observable.fromPromise(fetch(`/api/locals`).then(x => x.json()))
-      .flatMap(x => {
-        return Observable.from([{
-          params,
-          query,
-          ...x
-        }])
-        .map(filterSelectedItems)
-        .map(createSegementation)
-        .map(getSegmentItems)
-        .map(getSegmentState)
-        .map(getUpdatedState)
+      .flatMap(({ items, authors, byAuthor }) => {
+        return Observable.of({
+          page: query.page ? parseInt(query.page) : 1,
+          items: params.author ? byAuthor[params.author] : items,
+          perPage: 10,
+        })
+        .map(createPagination)
+        .map(x => ({
+          authors,
+          byAuthor,
+          showing: x.items,
+          pagination: x.pagination,
+          author: params.author ? authors.filter(y => y.username === params.author)[0] : {},
+        }))
       })
       .map(payload => ({ type: 'FILTER_POSTS',  payload }))
-
-    function filterSelectedItems(x) {
-      return {
-        ...x,
-        page: x.query.page
-          ? parseInt(x.query.page)
-          : 1,
-        posts: x.params.author
-          ? x.filter.author[x.params.author]
-          : x.pagination.items,
-        author: x.params.author
-          ? x.authors.filter(({ username }) => username === x.params.author)[0]
-          : {}
-      }
-    }
-
-    function createSegementation(x) {
-      x.start = ((x.page - 1) * x.pagination.perPage)
-      x.end = (x.page * x.pagination.perPage)
-      x.pages = x.posts.map((x, i) => i + 1)
-        .filter(i => i <= Math.ceil(x.posts.length / x.pagination.perPage))
-      return x
-    }
-
-    function getSegmentItems(x) {
-      x.showing = x.posts.slice(x.start, x.end)
-      return x
-    }
-
-    function getSegmentState(x) {
-      x.first = x.start + 1,
-      x.last = x.start + x.showing.length,
-      x.previous = x.page > 1 ? x.page - 1 : false,
-      x.next = x.page < x.pages.length ? x.page + 1 : false
-      x.total = x.posts.length
-      return x
-    }
-
-    function getUpdatedState({ author, showing, ...pagination }) {
-      return { author, showing, pagination, authors: pagination.authors }
-    }
   }
 )
 

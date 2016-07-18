@@ -9,7 +9,6 @@ import css from './styles.css'
 class Home extends Component {
   render() {
     const { authors, showing, pathname } = this.props
-    console.log(authors)
 
     return (
       <div className={css.root}>

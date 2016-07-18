@@ -26,7 +26,7 @@ class App extends Component {
       <div className={css.site}>
         <Header />
         <div className={css.content} style={{ backgroundImage: `url(${Background})` }}>
-          {this.props.children}
+          {this.props.loading ? '...loading' : this.props.children}
         </div>
       </div>
     )
@@ -50,7 +50,8 @@ const matchStateToProps = (state, ownProps) => ({
   showing: state.blog.showing,
   query: ownProps.location.query,
   params: ownProps.params,
-  pathname: ownProps.location.pathname
+  pathname: ownProps.location.pathname,
+  loading: state.blog.loading,
 })
 
 const matchPropsToDispatch = dispatch => ({

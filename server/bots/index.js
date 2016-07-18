@@ -1,5 +1,5 @@
-const marshall = require('./marshall')
-const clang = require('./clang')
-const borf = require('./borf')
+import marshall from './marshall'
+import clang from './clang'
+import borf from './borf'
 
-module.exports = [ marshall, clang, borf ]
+export default [ marshall, clang, borf ]
