@@ -1,0 +1,131 @@
+@import url(https://fonts.googleapis.com/css?family=Monofett);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100);
+
+.inner {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  max-width: 1200px;
+}
+
+.clearfix {
+  zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+
+.site {
+  min-height: 100vh;
+  width: 100%;
+  zoom: 1;
+}
+.site:before,
+.site:after {
+  content: " ";
+  display: table;
+}
+.site:after {
+  clear: both;
+}
+
+.content {
+  position: relative;
+  height: 100%;
+  padding-top: 15px;
+  zoom: 1;
+  background-repeat: repeat;
+}
+.content:before,
+.content:after {
+  content: " ";
+  display: table;
+}
+.content:after {
+  clear: both;
+}
+
+.tx-gray {
+  color: #C8C5C7;
+}
+.bg-gray {
+  background-color: #C8C5C7;
+}
+.tx-light {
+  color: #FEFEFE;
+}
+.bg-light {
+  background-color: #FEFEFE;
+}
+.tx-dark {
+ color: #2C3235;
+}
+.bg-dark {
+  background-color: #2C3235;
+}
+
+
+button:focus {
+  outline: 0;
+}
+
+body {
+  font-family: 'Droid Serif', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+}
+/* Base Styles
+-------------------------------------------------------- */
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes bugfix {
+  from {padding:0;}
+  to {padding:0;}
+}
+
+/* Resets
+---------------------*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ol, li {
+  list-style-type: none;
+}
+
+/* Links
+---------------------*/
+a,
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+button:focus {
+  outline: 0;
+}
