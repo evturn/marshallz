@@ -7,6 +7,7 @@ const logger = {
   error: err => {
     console.log(chalk.red(err))
   },
+
   appStarted: (port, tunnelStarted) => {
     console.log('Server started ' + chalk.green('🎅'))
     if (tunnelStarted) {
