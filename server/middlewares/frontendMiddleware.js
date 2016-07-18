@@ -1,9 +1,9 @@
-const express = require('express')
-const path = require('path')
-const compression = require('compression')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const webpack = require('webpack')
+import express from 'express'
+import path from 'path'
+import compression from 'compression'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import webpack from 'webpack'
 
 const devMiddleware = (app, options) => {
   const compiler = webpack(options)
@@ -31,7 +31,7 @@ const prodMiddleware = (app, options) => {
   app.get('*', (req, res) => res.sendFile(path.join(options.output.path, 'index.html')))
 }
 
-module.exports = options => {
+export default options => {
   const __DEV__ = process.env.NODE_ENV === 'development'
 
   const app = express()

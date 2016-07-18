@@ -1,5 +1,5 @@
-const chalk = require('chalk')
-const ip = require('ip')
+import chalk from 'chalk'
+import ip from 'ip'
 
 const divider = chalk.gray('\n-----------------------------------')
 
@@ -24,4 +24,4 @@ const logger = {
   },
 }
 
-module.exports = logger
+export default logger

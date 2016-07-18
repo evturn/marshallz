@@ -1,8 +1,8 @@
-const express = require('express')
-const logger = require('./logger')
-const db = require('./models/blogPost')
-const blog = require('./middlewares/backendMiddleware')
-const frontend = require('./middlewares/frontendMiddleware')
+import express from 'express'
+import logger from './logger'
+import db from './models/blogPost'
+import * as blog from './middlewares/backendMiddleware'
+import frontend from './middlewares/frontendMiddleware'
 
 const __DEV__ = process.env.NODE_ENV !== 'production'
 const app = express()

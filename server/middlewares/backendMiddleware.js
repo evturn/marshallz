@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
-const BlogPost = require('../models/blogPost')
-const bots = require('../bots')
+import mongoose from 'mongoose'
+import BlogPost from '../models/blogPost'
+import bots from '../bots'
 
 const findAll = (req, res, next) => {
   BlogPost
@@ -47,5 +47,7 @@ const findOne = (req, res, next) => {
   })
 }
 
-module.exports.findOne = findOne
-module.exports.findAll = findAll
+export {
+  findOne,
+  findAll,
+}
