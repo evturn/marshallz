@@ -1,22 +1,19 @@
 import { Author } from '../models'
 
 export default function byAuthor(req, res, next) {
-  const page = req.query.page || 0
   const limit = 5
-  const skip = limit * page
+  const skip = req.query.page ? ((limit * req.query.page) - limit) : 0
 
   Author
-    .findOne({ 'blog.username': req.params.author })
-    .select('name blog.username blog.avatar_img blog.profile_img twitter.url posts')
+    .findOne({ 'username': req.params.author })
+    .select('-twitter.keys -twitter.cronjob -blog.cronjob -content')
     .populate({
-      path: 'posts',
+      path: 'blog.posts',
       model: 'Post',
       options: {
         skip,
         limit,
       }
     })
-    .then(author => {
-      res.json(author)
-    })
+    .then(author => res.json(author))
 }

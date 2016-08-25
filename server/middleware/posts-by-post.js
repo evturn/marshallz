@@ -1,9 +1,8 @@
 import { Post } from '../models'
 
 export default function byDate(req, res, next) {
-  const page = req.params.page || 0
   const limit = 5
-  const skip = (limit * page) - limit
+  const skip = req.params.page ? ((limit * req.params.page) - limit) : 0
 
   Post
     .find()
@@ -14,10 +13,8 @@ export default function byDate(req, res, next) {
       path: 'author',
       model: 'Author',
       options: {
-        select: 'name blog.username blog.avatar_img blog.profile_img twitter.url posts',
+        select: '-twitter.keys -twitter.cronjob -blog.cronjob -content',
       }
     })
-    .then(posts => {
-      res.json(posts)
-    })
+    .then(posts => res.json(posts))
 }
