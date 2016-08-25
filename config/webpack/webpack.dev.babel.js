@@ -2,15 +2,12 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const cssnext = require('postcss-cssnext')
-const postcssFocus = require('postcss-focus')
-const postcssReporter = require('postcss-reporter')
+const configureWebpack = require('./webpack.base.babel')
 
-module.exports = require('./webpack.base.babel')({
+module.exports = configureWebpack({
   entry: [
-    'eventsource-polyfill',
     'webpack-hot-middleware/client',
-    path.join(process.cwd(), 'app/app.js'),
+    path.join(process.cwd(), 'app/index.js'),
   ],
 
   output: {
@@ -18,17 +15,11 @@ module.exports = require('./webpack.base.babel')({
     chunkFilename: '[name].chunk.js',
   },
 
-  cssLoaders: 'style-loader!css-loader?localIdentName=[local]__[path][name]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
+  babelQuery: {
+    presets: ['react-hmre'],
+  },
 
-  postcssPlugins: [
-    postcssFocus(),
-    cssnext({
-      browsers: ['last 2 versions', 'IE > 10'],
-    }),
-    postcssReporter({
-      clearMessages: true,
-    }),
-  ],
+  cssLoaders: 'style-loader!css-loader?localIdentName=[local]__[path][name]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -39,16 +30,11 @@ module.exports = require('./webpack.base.babel')({
     }),
     new webpack.DefinePlugin({
       __DEV__: true,
-      __SEED__: process.env.SEED,
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       }
     }),
   ],
-
-  babelQuery: {
-    presets: ['react-hmre'],
-  },
 
   devtool: 'inline-source-map',
 })
