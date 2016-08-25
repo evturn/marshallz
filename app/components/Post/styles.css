@@ -1,0 +1,156 @@
+.post {
+  display: block;
+  position: relative;
+  padding-bottom: 10px;
+  margin: 0 auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  max-width: 750px;
+}
+
+.content {
+  padding: 15px;
+  border-radius: 1px;
+  composes: bg-light from '../../containers/App/styles.css';
+  box-shadow: 0px 4px 13px -2px rgba(0,0,0,0.4);
+  zoom: 1;
+}
+.content:before,
+.content:after {
+  content: " ";
+  display: table;
+}
+.content:after {
+  clear: both;
+}
+
+.header {
+  text-align: left;
+}
+
+.avatar {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  margin-right: 10px;
+}
+
+.avatar img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  background-size: 125%;
+  border: 1px solid #ccc;
+}
+
+.tag,
+.date {
+  font-size: 11px;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: -0.5px;
+  composes: tx-gray from '../../containers/App/styles.css';
+  text-transform: uppercase;
+}
+
+.tag {
+  display: inline-block;
+}
+
+.date {
+  display: inline-block;
+}
+
+.info {
+  display: inline-block;
+  vertical-align: super;
+}
+
+.name {
+  display: inline-block;
+  text-align: left;
+}
+
+.social {
+  display: inline-block;
+  text-align: left;
+  color: #C8C5C7;
+  transition: 0.2s;
+}
+
+.date:before,
+.social:before, {
+  content: '•';
+  font-size: 11px;
+  margin-right: 5px;
+  margin-left: 5px;
+  color: #C8C5C7;
+}
+
+.bg {
+  height: 200px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.8);
+  font-size: 28px;
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  text-align: left;
+}
+
+.body {
+  text-align: justify;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 300;
+  letter-spacing: -0.004em;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 300;
+  font-style: normal;
+  composes: tx-dark from '../../containers/App/styles.css';
+}
+
+.post a {
+  text-decoration: none;
+  color: #2C3235;
+}
+
+@media(min-width: 1024px) {
+  .post {
+    margin: 0 0 0 auto;
+    max-width: inherit;
+  }
+  .content {
+    box-shadow: none;
+  }
+  .bg {
+    height: 330px;
+  }
+  .title {
+    font-size: 3vw;
+  }
+  .body {
+    font-size: 18px;
+    line-height: 1.5em;
+  }
+}

@@ -1,0 +1,90 @@
+.pagination {
+  display: block;
+  position: relative;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 0 auto;
+  width: 100%;
+  zoom: 1;
+}
+.pagination:before,
+.pagination:after {
+  content: " ";
+  display: table;
+}
+.pagination:after {
+  clear: both;
+}
+
+.pagination a {
+  color: #2C3235;
+}
+
+.btns {
+  margin: 10px auto;
+  width: 100%;
+  text-align: center;
+}
+
+.results {
+  margin: 20px auto;
+  right: 0;
+  left: 0;
+  top: 0;
+  font-family: 'Roboto Slab', serif;
+  text-align: center;
+}
+
+.btn {
+  position: relative;
+  display: inline-block;
+  font-size: 26px;
+  width: 40px;
+  height: 40px;
+  composes: bg-light from '../../containers/App/styles.css';
+  margin-right: 1px;
+  border-radius: 3px;
+  text-align: center;
+  vertical-align: top;
+  font-weight: 600;
+  font-family: 'Roboto Slab', serif;
+}
+
+
+.btn a {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transition: 0.3;
+  color: #2C3235;
+}
+
+.btn span {
+  line-height: 40px;
+  font-size: 15px;
+
+}
+
+.off {
+  composes: tx-gray from '../../containers/App/styles.css';
+  font-weight: 400;
+  cursor: default;
+}
+
+@media(min-width: 1024px) {
+  .btns {
+    text-align: left;
+  }
+  .btn {
+    width: 50px;
+    height: 50px;
+  }
+  .btn span {
+    line-height: 50px;
+  }
+  .results {
+    text-align: left;
+  }
+}
