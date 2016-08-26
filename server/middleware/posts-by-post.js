@@ -1,6 +1,6 @@
 import { Post } from '../models'
 
-export default function byDate(req, res, next) {
+export default function byPost(req, res, next) {
   const limit = 5
   const skip = req.params.page ? ((limit * req.params.page) - limit) : 0
 
@@ -16,5 +16,7 @@ export default function byDate(req, res, next) {
         select: '-twitter.keys -twitter.cronjob -blog.cronjob -content',
       }
     })
-    .then(posts => res.json(posts))
+    .then(posts => {
+      return res.json(posts)
+    })
 }

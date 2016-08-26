@@ -3,7 +3,7 @@ import Routes from './routes'
 
 const Root = props => (
   <div>
-    {Routes}
+    <Routes />
   </div>
 )
 
