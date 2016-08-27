@@ -22,27 +22,12 @@
 .post {
   display: block;
   position: relative;
-  padding-bottom: 10px;
-  margin: 0 auto;
-  padding-right: 15px;
-  padding-left: 15px;
-  max-width: 750px;
-}
-
-.content {
+  margin: 0 auto 40px;
   padding: 15px;
+  max-width: 750px;
   border-radius: 1px;
   composes: bg-light from '../../containers/App/styles.css';
   box-shadow: 0px 4px 13px -2px rgba(0,0,0,0.4);
-  zoom: 1;
-}
-.content:before,
-.content:after {
-  content: " ";
-  display: table;
-}
-.content:after {
-  clear: both;
 }
 
 .header {
@@ -54,6 +39,7 @@
   position: relative;
   text-align: left;
   margin-right: 10px;
+  vertical-align: top;
 }
 
 .avatar img {
@@ -80,26 +66,33 @@
 
 .tag {
   display: inline-block;
+  background-color: #E8E4E7;
+  color: #515151;
+  padding-right: 5px;
+  padding-left: 5px;
+  border-radius: 3px;
+  margin-right: 5px;
 }
 
 .date {
-  display: inline-block;
+  display: block;
 }
 
 .info {
   display: inline-block;
-  vertical-align: super;
 }
 
 .name {
   display: inline-block;
   text-align: left;
+  margin-right: 10px;
 }
 
 .social {
   display: inline-block;
   text-align: left;
   color: #C8C5C7;
+  margin-right: 5px;
   transition: 0.2s;
 }
 
@@ -157,10 +150,6 @@
 }
 
 @media(min-width: 1024px) {
-  .post {
-    margin: 0 0 0 auto;
-    max-width: inherit;
-  }
   .content {
     box-shadow: none;
   }
