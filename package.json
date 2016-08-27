@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "Welcome! And more importantly, Welcome to Marshallz Blog",
   "scripts": {
-    "start": "NODE_ENV=development babel-node server",
+    "start": "NODE_ENV=development webpack-dashboard -- babel-node server",
     "build": "NODE_ENV=production webpack --config config/webpack/webpack.prod.babel.js",
     "seed": "babel-node config/scripts/seed.js"
   },
@@ -100,6 +100,7 @@
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "^2.1.0-beta.15",
+    "webpack-dashboard": "^0.1.8",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
   }

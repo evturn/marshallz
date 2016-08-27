@@ -5,6 +5,7 @@ import webpack from 'webpack'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackConfig from '../../config/webpack/webpack.dev.babel.js'
+import DashboardPlugin from 'webpack-dashboard/plugin'
 
 const compiler = webpack(webpackConfig)
 const buildDir = webpackConfig.output.path
@@ -21,6 +22,7 @@ export default __DEV__ ? devMiddleware : prodMiddleware
 export { sendPage }
 
 function devMiddleware() {
+  compiler.apply(new DashboardPlugin())
   return [
     webpackDev,
     webpackHot,
