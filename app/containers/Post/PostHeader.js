@@ -8,13 +8,13 @@ export default props => {
     <div className={css.header}>
       <A
         className={css.avatar}
-        pathname={`/authors/${props.author.username}`}>
+        pathname={props.author.blog.url}>
         <img src={props.author.avatar_img} />
       </A>
 
       <div className={css.info}>
         <span className={css.name}>
-          <A pathname={`/authors/${props.author.username}` }>
+          <A pathname={props.author.blog.url}>
             {props.author.name}
           </A>
         </span>

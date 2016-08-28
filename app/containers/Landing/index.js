@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import request from '../../utils/request'
 import withFetch from '../Fetch'
 import Post from '../Post'
 import A from '../../components/A'
@@ -29,9 +28,9 @@ const SidePanel = ({ authors }) => {
     <div className={css.root}>
       <ul>
         <li className={css.title}>Writers</li>
-        {authors.map((x, i) =>(
-          <li key={i}>
-            <A pathname={`/author/${x.username}`}>
+        {authors.map(x =>(
+          <li key={x._id}>
+            <A pathname={x.blog.url}>
               <img src={x.profile_img} />
               <span className={css.name}>{x.name}</span>
             </A>

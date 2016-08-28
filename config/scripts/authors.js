@@ -12,7 +12,7 @@ export default [
       '571c0c81f2b687c0342203e8'
     ],
     blog: {
-      url: 'http://marshallz.com/authors/marshall',
+      url: '/authors/marshall',
       cronjob: '00 00 01,06,11,17,22 * * *',
     },
     twitter: {
@@ -37,7 +37,7 @@ export default [
       '571780d485781e1d2e1a70fc'
     ],
     blog: {
-      url: 'http://marshallz.com/authors/clang',
+      url: '/authors/clang',
       cronjob: '00 00 00,09,14,20,23 * * *',
     },
     twitter: {
@@ -62,7 +62,7 @@ export default [
       '57177f1285781e1d2e1a70fb'
     ],
     blog: {
-      url: 'http://marshallz.com/authors/b0rf',
+      url: '/authors/b0rf',
       cronjob: '00 00 02,08,18 * * *',
     }
   }
