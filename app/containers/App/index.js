@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from '../../components/Header'
 
 import request from '../../utils/request'
-import Posts from '../Posts'
+import Post from '../Post'
 
 import Background from './bg.jpg'
 import 'sanitize.css/sanitize.css'
@@ -38,7 +38,9 @@ export default class App extends Component {
           className={css.content}
           style={{ backgroundImage: `url(${Background})` }}>
           {this.state.posts
-            ? <Posts posts={this.state.posts} />
+            ? <div className={css.posts}>
+                {this.state.posts.map(x => <Post key={x._id} { ...x } />)}
+              </div>
             : null
           }
           {this.props.children}

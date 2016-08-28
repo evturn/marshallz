@@ -3,15 +3,7 @@ import PostHeader from './PostHeader'
 import A from '../../components/A'
 import css from './styles.css'
 
-export default ({ posts }) => {
-  return (
-    <div className={css.posts}>
-      {posts.map(x => <Post key={x._id} { ...x } />)}
-    </div>
-  )
-}
-
-function Post(props) {
+export default props => {
   return (
     <div className={css.post}>
 
