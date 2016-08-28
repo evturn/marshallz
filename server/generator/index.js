@@ -1,26 +1,38 @@
 import request from 'request'
 import { Author } from '../models'
-import sentenceGenerator from './sg'
+import blog from './blog'
 
-function readStream(content) {
-  const result = sentenceGenerator(content)
-  console.log(result)
+export default action => {
+  const requestFn = fetchData(readStream(action))
+  const getData = findAuthor(requestFn)
+  const result = getData(action)
 }
 
-function fetchRemoteContent(url, fn) {
-  const req = request.get(url)
-  req.on('error', err => console.log(err, '☠️'))
-  req.on('response', res => {
+function fetchData(readFn) {
+  return author => {
     let content = ''
-    res.on('data', data => content += data.toString('utf8'))
-    req.on('end', _ => fn(content))
-  })
+    const req = request.get(author.content)
+    req.on('error', err => console.log(err, '☠️'))
+    req.on('response', res => {
+      res.on('data', data => content += data.toString('utf8'))
+      req.on('end', _ => {
+        readFn(author, content)
+      })
+    })
+  }
 }
 
-export default _ => {
-  Author
-    .findOne({ name: 'Marshall' })
+function findAuthor(requestFn) {
+  return action => {
+    Author
+    .findById(action._id)
     .exec()
-    .then(author => author.content)
-    .then(url => fetchRemoteContent(url, readStream))
+    .then(requestFn)
+  }
+}
+
+function readStream(action) {
+  return (author, content) => {
+    return blog(author, content)
+  }
 }

@@ -24,6 +24,11 @@ app.get('*',
   sendPage
 )
 
-generator()
+const action = {
+  type: 'blog',
+  _id: '57bd35cf84cf8c87e3a01f61',
+}
+
+generator(action)
 
 app.listen(3000, _ => console.log('Listening 🌐'))
