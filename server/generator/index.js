@@ -16,15 +16,19 @@ function readRemoteContent(author) {
 
 function mapWordsByWeight(str) {
   return str
-    .split(/(?:\. |\n)/ig)
-    .map(sentence => {
-      return sentence
+    .split(/(?:\.|\?|\n)/ig)
+    .map(x => {
+      return x
         .split(' ')
-        .filter(word => word.trim() !== '')
+        .filter(x => x.trim() !== '')
         .map(x => x.replace(/\.$/ig, ''))
-        .map((x, i, arr) => ({ curr: x, next: arr[i + 1] }))
+    })
+    .filter(x => x.length)
+    .reduce((acc, line) => {
+      line
+        .map((x, i) => ({ curr: x, next: line[i + 1] }))
         .filter(x => x.next)
-        .reduce((acc, x) => {
+        .map(x => {
           if (!acc[x.curr]) {
             acc[x.curr] = {}
           }
@@ -33,9 +37,10 @@ function mapWordsByWeight(str) {
           } else {
             acc[x.curr][x.next] += 1
           }
-          return acc
-        }, {})
-    })
+        })
+      return acc
+    }, {})
+
 }
 
 function getStartingPoint(tree) {
