@@ -17,6 +17,9 @@ export default function byPost(req, res, next) {
       }
     })
     .then(posts => {
-      return res.json(posts)
+      return res.json({
+        posts,
+        authors: req.marshallz.authors,
+      })
     })
 }

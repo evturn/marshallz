@@ -3,27 +3,6 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100);
 
-.posts {
-  position: relative;
-  width: 100%;
-  zoom: 1;
-}
-.posts:before,
-.posts:after {
-  content: " ";
-  display: table;
-}
-.posts:after {
-  clear: both;
-}
-
-@media(min-width: 1024px) {
-  .posts {
-    float: left;
-    width: 70%;
-  }
-}
-
 .inner {
   margin-left: auto;
   margin-right: auto;

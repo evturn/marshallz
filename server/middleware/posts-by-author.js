@@ -15,5 +15,11 @@ export default function byAuthor(req, res, next) {
         limit,
       }
     })
-    .then(author => res.json(author))
+    .then(posts => {
+      console.log(posts)
+      return res.json({
+        posts,
+        authors: req.marshallz.authors,
+      })
+    })
 }
