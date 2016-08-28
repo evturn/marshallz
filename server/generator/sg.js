@@ -1,8 +1,25 @@
 export default function sentenceGenerator(content) {
   const linesArr = eachLineToArrayOfWords(content)
   const tree = mapWordsByAppearance(linesArr)
-  return createSentence(tree, linesArr)
+  return blog(tree, linesArr)
 }
+
+function blog(tree, linesArr) {
+  function write(acc) {
+    acc.push(createSentence(tree, linesArr))
+    if (acc.length < 4) {
+      write(acc)
+    }
+
+    return acc.join('. ')
+  }
+
+  return {
+    title: createSentence(tree, linesArr),
+    body: write([]),
+  }
+}
+
 
 function eachLineToArrayOfWords(str) {
   return str
