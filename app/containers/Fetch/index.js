@@ -9,11 +9,14 @@ export default function withFetch(WrappedComponent) {
       this.state = {
         posts: [],
         authors: [],
+        author: {},
       }
     }
 
     componentDidMount() {
-      this.fetch('/api')
+      const { location: { pathname, query } } = this.props
+      const url = `/api${pathname}${query.page ? `?page=${query.page}` : ''}`
+      this.fetch(url)
     }
 
     fetch(url) {
@@ -22,10 +25,7 @@ export default function withFetch(WrappedComponent) {
     }
 
     fetchSuccess(data) {
-      this.setState({
-        posts: data.posts,
-        authors: data.authors,
-      })
+      this.setState(data)
     }
 
     render() {

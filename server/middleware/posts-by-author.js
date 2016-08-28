@@ -1,4 +1,4 @@
-import { Author } from '../models'
+import { Author, Post } from '../models'
 
 export default function byAuthor(req, res, next) {
   const limit = 5
@@ -6,20 +6,27 @@ export default function byAuthor(req, res, next) {
 
   Author
     .findOne({ 'username': req.params.author })
-    .select('-twitter.keys -twitter.cronjob -blog.cronjob -content')
-    .populate({
-      path: 'posts',
-      model: 'Post',
-      options: {
-        skip,
-        limit,
-      }
-    })
-    .then(posts => {
-      console.log(posts)
-      return res.json({
-        posts,
-        authors: req.marshallz.authors,
-      })
+    .select('-twitter.keys -twitter.cronjob -blog.cronjob -content -posts')
+    .exec()
+    .then(author => {
+      return Post
+        .find({ author: author._id })
+        .sort('-createdAt')
+        .limit(limit)
+        .skip(skip)
+        .populate({
+          path: 'author',
+          model: 'Author',
+          options: {
+            select: '-twitter.keys -twitter.cronjob -blog.cronjob -content -posts',
+          }
+        })
+        .then(posts => {
+          return res.json({
+            posts,
+            author,
+            authors: req.marshallz.authors,
+          })
+        })
     })
 }

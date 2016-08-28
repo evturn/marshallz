@@ -1,0 +1,48 @@
+.profile {
+  padding: 15px;
+  display: block;
+  position: relative;
+  margin: 0 auto 40px;
+  max-width: 750px;
+  composes: bg-light from '../../containers/App/styles.css';
+}
+
+.social {
+  color: #00ab6b;
+}
+
+.social span {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  font-size: 20px;
+}
+
+.name {
+  font-family: 'Roboto Slab', serif;
+}
+
+.bio {
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.av {
+  display: inline-block;
+  position: relative;
+  height: 75px;
+  width: 75px;
+  border-radius: 10px;
+  vertical-align: top;
+  overflow: hidden;
+}
+.av img {
+  position: absolute;
+  top: -35px;
+  right: 0;
+  left: -25px;
+  bottom: 0;
+  height: auto;
+  width: 160%;
+}

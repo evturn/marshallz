@@ -1,10 +1,14 @@
 import React from 'react'
-import Routes from './routes'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import App from '../App'
+import Landing from '../Landing'
+import PostsByAuthor from '../PostsByAuthor'
 
-const Root = props => (
-  <div>
-    <Routes />
-  </div>
+export default _ => (
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+      <IndexRoute component={Landing} />
+      <Route path="authors/:author" component={PostsByAuthor} />
+    </Route>
+  </Router>
 )
-
-export default Root
