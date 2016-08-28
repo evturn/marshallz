@@ -1,6 +1,7 @@
 import request from 'request'
 import { Author } from '../models'
 import blog from './blog'
+import twitter from './twitter'
 
 export default action => {
   const requestFn = fetchData(readStream(action))
@@ -33,6 +34,11 @@ function findAuthor(requestFn) {
 
 function readStream(action) {
   return content => {
-    return blog(action._id, content)
+    switch (action.type) {
+      case 'blog':
+        return blog(action._id, content)
+      case 'twitter':
+        return twitter(action._id, content)
+    }
   }
 }

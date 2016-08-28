@@ -25,8 +25,8 @@ app.get('*',
 )
 
 const action = {
-  type: 'blog',
-  _id: '57bd35cf84cf8c87e3a01f61',
+  type: 'twitter',
+  _id: '57bd35cf84cf8c87e3a01f63',
 }
 
 generator(action)
