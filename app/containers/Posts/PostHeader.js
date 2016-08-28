@@ -9,7 +9,7 @@ export default props => {
       <A
         className={css.avatar}
         pathname={`/authors/${props.author.username}`}>
-        <img src={props.author.blog.avatar_img} />
+        <img src={props.author.avatar_img} />
       </A>
 
       <div className={css.info}>

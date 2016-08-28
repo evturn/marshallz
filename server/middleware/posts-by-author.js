@@ -8,7 +8,7 @@ export default function byAuthor(req, res, next) {
     .findOne({ 'username': req.params.author })
     .select('-twitter.keys -twitter.cronjob -blog.cronjob -content')
     .populate({
-      path: 'blog.posts',
+      path: 'posts',
       model: 'Post',
       options: {
         skip,

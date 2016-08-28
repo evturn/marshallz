@@ -4,15 +4,15 @@ const Author = new Schema({
   name:                  { type: String },
   content:               { type: String },
   username:              { type: String },
+  avatar_img:            { type: String },
+  profile_img:           { type: String },
+  posts: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Post'
+  }],
   blog: {
     url:                 { type: String },
-    avatar_img:          { type: String },
-    profile_img:         { type: String },
     cronjob:             { type: String },
-    posts: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Post'
-    }],
   },
   twitter: {
     url:                 { type: String },
