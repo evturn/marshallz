@@ -16,7 +16,7 @@ function fetchData(readFn) {
     req.on('response', res => {
       res.on('data', data => content += data.toString('utf8'))
       req.on('end', _ => {
-        readFn(author, content)
+        readFn(content)
       })
     })
   }
@@ -32,7 +32,7 @@ function findAuthor(requestFn) {
 }
 
 function readStream(action) {
-  return (author, content) => {
-    return blog(author, content)
+  return content => {
+    return blog(action._id, content)
   }
 }

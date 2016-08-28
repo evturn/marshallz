@@ -53,7 +53,8 @@ export default [
     title : 'Indianapolis 500 was founder of sports are popularly known',
     slug : 'indianapolis-500-was-founder-of-sports-are-popularly-known',
     body : 'Bob Cousy. Billie Jean King and baseball. Cricket is one of Americans love the original inhabitants. Greece. Hercules, son of sports like US. France were further refined and football.',
-    image_url : 'http://media2.giphy.com/media/pB87IFKKu968w/giphy.gif',
+    image_url : 'http://media1.giphy.com/media/Qobsmml3aMLKw/giphy.gif',
+    image_mp4_url: 'http://media1.giphy.com/media/Qobsmml3aMLKw/giphy.mp4',
     author : '57bd35cf84cf8c87e3a01f62',
     timestamp: '2016-04-23T23:07:31.359Z'
   }
