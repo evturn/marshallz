@@ -12,6 +12,11 @@
   clear: both;
 }
 
+.landing {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 @media(min-width: 1024px) {
   .posts {
     float: left;

@@ -14,7 +14,6 @@
   clear: both;
 }
 
-
 .nav {
   position: relative;
   padding-left: 15px;
@@ -35,7 +34,7 @@
 .title {
   font-family: 'Monofett', sans-serif;
   font-size: 10vw;
-  margin-top: 0;
+  margin-top: -10px;
   margin-bottom: 0;
   transition: 0.1s;
 
@@ -49,9 +48,9 @@
 
 .caption {
   display: none;
-  font-family: 'Monofett', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 13px;
   color: #FEFEFE;
   text-transform: uppercase;
   transition: 0.1s;
@@ -63,10 +62,12 @@
   }
   .root .caption {
     display: block;
+    color: #2C3235;
   }
   .root .title {
     padding-bottom: 15px;
+    margin-top: 0;
     line-height: 100px;
-    font-size: 135px;
+    font-size: 129px;
   }
 }

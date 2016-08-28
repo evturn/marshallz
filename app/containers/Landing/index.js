@@ -7,7 +7,7 @@ import css from './styles.css'
 class Landing extends Component {
   render() {
     return (
-      <div>
+      <div className={css.landing}>
         <Posts posts={this.props.posts} />
         <SidePanel authors={this.props.authors} />
       </div>
