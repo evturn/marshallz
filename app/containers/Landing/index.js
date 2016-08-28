@@ -1,39 +1,16 @@
 import React, { Component } from 'react'
 import request from '../../utils/request'
+import withFetch from '../Fetch'
 import Post from '../Post'
 import A from '../../components/A'
 import css from './styles.css'
 
-export default class Landing extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      posts: [],
-      authors: [],
-    }
-  }
-
-  componentDidMount() {
-    this.fetch('/api')
-  }
-
-  fetch(url) {
-    request(url)
-      .then(::this.fetchSuccess)
-  }
-
-  fetchSuccess(data) {
-    this.setState({
-      posts: data.posts,
-      authors: data.authors,
-    })
-  }
+class Landing extends Component {
   render() {
     return (
       <div>
-        <Posts posts={this.state.posts} />
-        <SidePanel authors={this.state.authors} />
+        <Posts posts={this.props.posts} />
+        <SidePanel authors={this.props.authors} />
       </div>
     )
   }
@@ -65,3 +42,4 @@ const SidePanel = ({ authors }) => {
   )
 }
 
+export default withFetch(Landing)
