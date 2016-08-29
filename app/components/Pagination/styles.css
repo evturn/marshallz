@@ -20,18 +20,23 @@
   color: #2C3235;
 }
 
+.back:before {
+  content: "Back︎";
+}
+
+.next:before {
+  content: "︎Next";
+}
+
+.off {
+  composes: tx-gray from '../../containers/App/styles.css';
+  font-weight: 400;
+  cursor: default;
+}
+
 .btns {
   margin: 10px auto;
   width: 100%;
-  text-align: center;
-}
-
-.results {
-  margin: 20px auto;
-  right: 0;
-  left: 0;
-  top: 0;
-  font-family: 'Roboto Slab', serif;
   text-align: center;
 }
 
@@ -39,15 +44,15 @@
   position: relative;
   display: inline-block;
   font-size: 26px;
-  width: 40px;
+  width: 120px;
   height: 40px;
   composes: bg-light from '../../containers/App/styles.css';
-  margin-right: 1px;
+  margin-right: 10px;
   border-radius: 3px;
   text-align: center;
   vertical-align: top;
   font-weight: 600;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Open Sans';
 }
 
 
@@ -61,30 +66,23 @@
   color: #2C3235;
 }
 
+.btn a:hover {
+  color: #637077;
+  transition: ease 0.3s all;
+}
+
+.btn a:focus {
+  color: #2C3235;
+}
+
 .btn span {
   line-height: 40px;
   font-size: 15px;
-
 }
 
-.off {
-  composes: tx-gray from '../../containers/App/styles.css';
-  font-weight: 400;
-  cursor: default;
-}
 
 @media(min-width: 1024px) {
-  .btns {
-    text-align: left;
-  }
   .btn {
-    width: 50px;
-    height: 50px;
-  }
-  .btn span {
-    line-height: 50px;
-  }
-  .results {
-    text-align: left;
+    margin-right: 50px;
   }
 }

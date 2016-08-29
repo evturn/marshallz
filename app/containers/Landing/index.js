@@ -37,7 +37,9 @@ const SidePanel = ({ authors }) => {
         <li className={css.title}>Writers</li>
         {authors.map(x =>(
           <li key={x._id}>
-            <A pathname={x.blog.url}>
+            <A
+              className={css.sidelink}
+              pathname={x.blog.url}>
               <img src={x.profile_img} />
               <span className={css.name}>{x.name}</span>
             </A>

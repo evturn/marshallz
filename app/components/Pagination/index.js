@@ -11,13 +11,13 @@ export default props => {
           direction={back}
           pathname={props.pathname}
           query={{ page: back }}
-          icon={'fa fa-chevron-left'}
+          icon={css.back}
         />
         <PageButton
           direction={next}
           pathname={props.pathname}
           query={{ page: next }}
-          icon={'fa fa-chevron-right'}
+          icon={css.next}
         />
       </ul>
     </div>
@@ -31,9 +31,9 @@ const PageButton = props => {
         ? <A
             pathname={props.pathname}
             query={props.query}>
-            <span className={props.icon}>SHITE!</span>
+            <span className={props.icon} />
           </A>
-        : <span className={css.off} />
+        : <span className={`${props.icon} ${css.off}`} />
       }
     </li>
   )
