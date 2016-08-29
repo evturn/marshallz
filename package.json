@@ -25,7 +25,6 @@
   "babel": {
     "presets": [
       "es2015",
-      "es2015-webpack",
       "react",
       "stage-0"
     ],
@@ -97,7 +96,7 @@
     "rimraf": "^2.5.4",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
-    "webpack": "^2.1.0-beta.15",
+    "webpack": "2.1.0-beta.15",
     "webpack-dashboard": "^0.1.8",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
