@@ -31,7 +31,6 @@ export default function withFetch(WrappedComponent) {
     }
 
     fetchSuccess(data) {
-      console.log(data)
       this.setState(data)
     }
 

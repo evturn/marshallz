@@ -50,9 +50,6 @@ module.exports = opts => ({
 
   plugins: opts.plugins.concat([
     new webpack.optimize.CommonsChunkPlugin('common.js'),
-    new webpack.ProvidePlugin({
-      fetch: 'exports?self.fetch!whatwg-fetch',
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
