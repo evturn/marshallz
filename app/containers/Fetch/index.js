@@ -10,26 +10,39 @@ export default function withFetch(WrappedComponent) {
         posts: [],
         authors: [],
         author: {},
+        meta: {},
       }
     }
 
     componentDidMount() {
       const { location: { pathname, query } } = this.props
-      const url = `/api${pathname}${query.page ? `?page=${query.page}` : ''}`
-      this.fetch(url)
+      this.fetch(pathname, query)
     }
 
-    fetch(url) {
+    componentWillReceiveProps(nextProps) {
+      const { location: { pathname, query } } = nextProps
+      this.fetch(pathname, query)
+    }
+
+    fetch(pathname, query) {
+      const url = `/api${pathname}${query.page ? `?page=${query.page}` : ''}`
       request(url)
         .then(::this.fetchSuccess)
     }
 
     fetchSuccess(data) {
+      console.log(data)
       this.setState(data)
     }
 
     render() {
-      return <WrappedComponent {...this.state} />
+      return (
+        <WrappedComponent
+          {...this.state}
+          pathname={this.props.location.pathname}
+          query={this.props.location.query}
+        />
+      )
     }
 
     static displayName = `Fetch(${WrappedComponent.displayName})`

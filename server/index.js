@@ -11,7 +11,7 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(configStatic())
 
-app.get('/api/:page?',
+app.get('/api?',
   authorData,
   byPost
 )

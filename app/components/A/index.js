@@ -3,7 +3,6 @@ import { Link } from 'react-router'
 
 export default props => {
   const { pathname, query, ...rest } = props
-
   return (
     <Link
       {...rest}

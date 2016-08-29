@@ -15,6 +15,17 @@
 .landing {
   max-width: 1200px;
   margin: 0 auto;
+  zoom: 1;
+}
+
+.landing:before,
+.landing:after {
+  content: " ";
+  display: table;
+}
+
+.landing:after {
+  clear: both;
 }
 
 @media(min-width: 1024px) {

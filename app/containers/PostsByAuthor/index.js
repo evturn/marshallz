@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import withFetch from '../Fetch'
 import Post from '../Post'
 import A from '../../components/A'
+import Pagination from '../../components/Pagination'
 import css from './styles.css'
 
 class PostsByAuthor extends Component {
@@ -10,6 +11,10 @@ class PostsByAuthor extends Component {
       <div>
         <AuthorPageHeader author={this.props.author} />
         <AuthorPosts posts={this.props.posts} />
+        <Pagination
+          pathname={this.props.pathname}
+          meta={this.props.meta}
+        />
       </div>
     )
   }
