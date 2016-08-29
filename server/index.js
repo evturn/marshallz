@@ -24,11 +24,6 @@ app.get('*',
   sendPage
 )
 
-const action = {
-  type: 'twitter',
-  _id: '57bd35cf84cf8c87e3a01f63',
-}
-
-generator(action)
+generator()
 
 app.listen(3000, _ => console.log('Listening 🌐'))

@@ -1,44 +1,41 @@
-import request from 'request'
+import { CronJob } from 'cron'
 import { Author } from '../models'
-import blog from './blog'
-import twitter from './twitter'
+import dispatch from './dispatch'
 
-export default action => {
-  const requestFn = fetchData(readStream(action))
-  const getData = findAuthor(requestFn)
-  const result = getData(action)
-}
-
-function fetchData(readFn) {
-  return author => {
-    let content = ''
-    const req = request.get(author.content)
-    req.on('error', err => console.log(err, '☠️'))
-    req.on('response', res => {
-      res.on('data', data => content += data.toString('utf8'))
-      req.on('end', _ => {
-        readFn(content)
-      })
-    })
-  }
-}
-
-function findAuthor(requestFn) {
-  return action => {
-    Author
-    .findById(action._id)
+export default function startCronJobs() {
+  Author
+    .find()
+    .select('blog.cronjob twitter.cronjob')
     .exec()
-    .then(requestFn)
+    .then(createActions)
+    .then(dispatchJobs)
+}
+
+function createBlogAction(author) {
+  return {
+    action: _ => dispatch({ type: 'blog', _id: author._id }),
+    cronjob: author.blog.cronjob,
   }
 }
 
-function readStream(action) {
-  return content => {
-    switch (action.type) {
-      case 'blog':
-        return blog(action._id, content)
-      case 'twitter':
-        return twitter(action._id, content)
-    }
+function createTwitterAction(author) {
+  return {
+    action: _ => dispatch({ type: 'twitter', _id: author._id }),
+    cronjob: author.twitter.cronjob,
   }
 }
+
+function createActions(authors) {
+  return authors.reduce((acc, x) => {
+    acc.push(createBlogAction(x))
+    if (x.twitter.cronjob) {
+      acc.push(createTwitterAction(x))
+    }
+    return acc
+  }, [])
+}
+
+function dispatchJobs(jobs) {
+  return jobs.map(x => new CronJob(x.cronjob, x.action, null, true))
+}
+

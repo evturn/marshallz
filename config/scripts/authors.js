@@ -17,7 +17,7 @@ export default [
     },
     twitter: {
       url: 'https://twitter.com/marshallzBlog',
-      cronjob: '00 00 08,16 * * *',
+      cronjob: '00 00 08,22 * * *',
       keys: {
         consumer_key: process.env.MARSHALLZ_TWITTER_CONSUMER_KEY,
         consumer_secret: process.env.MARSHALLZ_TWITTER_CONSUMER_SECRET,
@@ -42,7 +42,7 @@ export default [
     },
     twitter: {
       url: 'https://twitter.com/__clang__',
-      cronjob: '00 00 02,12 * * *',
+      cronjob: '00 00 04,00 * * *',
       keys: {
         consumer_key: process.env.CLANG_TWITTER_CONSUMER_KEY,
         consumer_secret: process.env.CLANG_TWITTER_CONSUMER_SECRET,

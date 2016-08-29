@@ -54,7 +54,7 @@ function callTwitterAPI(req, body) {
       if (err) {
         reject(err)
       } else {
-        resolve(JSON.parse(res.body))
+        resolve()
       }
     })
   })
