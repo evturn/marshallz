@@ -10,7 +10,7 @@
     "seed": "babel-node config/scripts/seed.js",
     "server": "NODE_ENV=development babel-node server",
     "prod": "NODE_ENV=production babel-node lib",
-    "nohup" "NODE_ENV=production nohup babel-node lib &"
+    "nohup": "NODE_ENV=production nohup babel-node lib &"
   },
   "repository": {
     "type": "git",
