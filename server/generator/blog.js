@@ -65,11 +65,17 @@ function callGihpyAPI(title) {
       if (err) {
         reject(err)
       } else {
-        const { data } = JSON.parse(body)
-        resolve({
-          image_url: data.image_url,
-          image_mp4_url: data.image_mp4_url
-        })
+        try {
+          const json = JSON.parse(body)
+          if (json) {
+            const { image_url, image_mp4_url } = json.data
+            resolve({ image_url, image_mp4_url })
+          } else {
+            resolve()
+          }
+        } catch (e) {
+          reject(e)
+        }
       }
     })
   })
