@@ -14,11 +14,12 @@ export default class Img extends Component {
   }
 
   componentWillMount() {
+    this.image.addEventListener('load', this.renderImage)
     this.image.src = this.state.src
   }
 
-  componentDidMount() {
-    this.image.addEventListener('load', this.renderImage)
+  componentWillUnmount() {
+    this.image.removeEventListener('load', this.renderImage)
   }
 
   renderImage() {
