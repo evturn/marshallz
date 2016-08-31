@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
-import request from '../../utils/request'
+import fetch from 'isomorphic-fetch'
+import LoadingIndicator from '../../components/LoadingIndicator'
 
 export default function withFetch(WrappedComponent) {
   return class Fetch extends Component {
     constructor(props) {
       super(props)
 
+      this.fetch = ::this.fetch
+      this.fetchSuccess = ::this.fetchSuccess
+      this.fetchError = ::this.fetchError
       this.state = {
+        loading: false,
+        error: null,
         posts: [],
         authors: [],
         author: {},
@@ -21,26 +27,40 @@ export default function withFetch(WrappedComponent) {
 
     componentWillReceiveProps(nextProps) {
       const { location: { pathname, query } } = nextProps
-      this.fetch(pathname, query)
+      if (this.props.pathname !== pathname || this.props.query !== query) {
+        this.fetch(pathname, query)
+      }
+
     }
 
     fetch(pathname, query) {
+      this.setState({ loading: true })
       const url = `/api${pathname}${query.page ? `?page=${query.page}` : ''}`
-      request(url)
-        .then(::this.fetchSuccess)
+      return fetch(url)
+        .then(x => x.json())
+        .then(this.fetchSuccess)
+        .catch(this.fetchError)
     }
 
     fetchSuccess(data) {
-      this.setState(data)
+      this.setState({ ...data, loading: false })
+    }
+
+    fetchError(e) {
+      this.setState({ error: e, loading: false })
     }
 
     render() {
+      console.log(this.state.loading)
       return (
-        <WrappedComponent
-          {...this.state}
-          pathname={this.props.location.pathname}
-          query={this.props.location.query}
-        />
+        !this.state.loading
+          ? <WrappedComponent
+              {...this.state}
+              pathname={this.props.location.pathname}
+              query={this.props.location.query}
+            />
+          : <LoadingIndicator />
+
       )
     }
 

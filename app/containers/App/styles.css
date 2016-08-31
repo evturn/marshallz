@@ -1,7 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Monofett);
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
-@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100);
 
 .inner {
   margin-left: auto;
@@ -38,7 +37,7 @@
 
 .content {
   position: relative;
-  height: 100%;
+  min-height: 100vh;
   padding-top: 15px;
   padding-bottom: 30px;
   zoom: 1;

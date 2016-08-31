@@ -51,6 +51,7 @@
   padding-left: 5px;
   border-radius: 3px;
   margin-right: 5px;
+  vertical-align: text-top;
 }
 
 .date {
@@ -65,6 +66,7 @@
   display: inline-block;
   text-align: left;
   margin-right: 10px;
+  font-family: 'Open Sans', sans;
 }
 
 .social {
@@ -117,7 +119,7 @@
   line-height: 1.5;
   font-weight: 300;
   letter-spacing: -0.004em;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Open Sans', sans;
   font-weight: 300;
   font-style: normal;
   composes: tx-dark from '../../containers/App/styles.css';
