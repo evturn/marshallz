@@ -27,10 +27,10 @@ export default function withFetch(WrappedComponent) {
 
     componentWillReceiveProps(nextProps) {
       const { location: { pathname, query } } = nextProps
-      if (this.props.pathname !== pathname || this.props.query !== query) {
+      if (this.props.location.pathname !== pathname
+        || this.props.location.query !== query) {
         this.fetch(pathname, query)
       }
-
     }
 
     fetch(pathname, query) {
@@ -51,7 +51,6 @@ export default function withFetch(WrappedComponent) {
     }
 
     render() {
-      console.log(this.state.loading)
       return (
         !this.state.loading
           ? <WrappedComponent

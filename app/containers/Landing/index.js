@@ -3,6 +3,7 @@ import withFetch from '../Fetch'
 import Post from '../Post'
 import A from '../../components/A'
 import Pagination from '../../components/Pagination'
+import Img from '../../components/Img'
 import css from './styles.css'
 
 class Landing extends Component {
@@ -24,8 +25,14 @@ class Landing extends Component {
 
 const Posts = ({ posts }) => (
   <div className={css.posts}>
-    {posts.map(x => {
-      return <Post key={x._id} { ...x } />
+    {posts.map((x, i) => {
+      return (
+        <Post
+          { ...x }
+          key={x._id}
+          index={i}
+        />
+      )
     })}
   </div>
 )
@@ -36,11 +43,15 @@ const SidePanel = ({ authors }) => {
       <ul>
         <li className={css.title}>Writers</li>
         {authors.map(x =>(
-          <li key={x._id}>
+          <li
+            key={x._id}
+            className={css.li}>
             <A
               className={css.sidelink}
               pathname={x.blog.url}>
-              <img src={x.profile_img} />
+              <Img
+                className={css.hg}
+                src={x.profile_img} />
               <span className={css.name}>{x.name}</span>
             </A>
           </li>

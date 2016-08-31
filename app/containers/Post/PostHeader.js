@@ -1,6 +1,7 @@
 import React from 'react'
 import Timestamp from '../../components/Timestamp'
 import A from '../../components/A'
+import Img from '../../components/Img'
 import css from './styles.css'
 
 export default props => {
@@ -9,7 +10,10 @@ export default props => {
       <A
         className={css.avatar}
         pathname={props.author.blog.url}>
-        <img src={props.author.avatar_img} />
+        <Img
+          className={css.img}
+          src={props.author.avatar_img}
+        />
       </A>
 
       <div className={css.info}>

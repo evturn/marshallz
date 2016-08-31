@@ -21,9 +21,10 @@
   vertical-align: top;
 }
 
-.avatar img {
+.img {
   width: 45px;
   height: 45px;
+  position: relative;
   border-radius: 50%;
   overflow: hidden;
   background-repeat: no-repeat;

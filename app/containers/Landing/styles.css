@@ -29,6 +29,11 @@
 }
 
 .sidelink {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 2.5px;
+  bottom: 0;
   color: #2C3235;
 }
 
@@ -62,25 +67,39 @@
   width: 60px;
   height: 60px;
   border-radius: 10%;
+
 }
 
-.root li {
+.li {
   position: relative;
+  height: 65px;
+  padding-top: 5px;
   margin-bottom: 5px;
+  box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.09)
 }
 
-.root .title {
-  font-family: 'Roboto Slab', serif;
+
+.title {
+  font-family: 'Open Sans', sans;
   color: #2C3235;
   font-size: 16px;
+  margin-bottom: 15px;
 }
 
+.hg {
+  position: relative;
+  height: 59px;
+  width: 60px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
 
-
-.root .name {
+.name {
   position: absolute;
   margin-left: 10px;
   top: 15px;
+  display: inline-block;
   font-size: 15px;
 }
 

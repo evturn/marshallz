@@ -10,6 +10,10 @@ class PostsByAuthor extends Component {
     return (
       <div>
         <AuthorPageHeader author={this.props.author} />
+        <Pagination
+          pathname={this.props.pathname}
+          meta={this.props.meta}
+        />
         <AuthorPosts posts={this.props.posts} />
         <Pagination
           pathname={this.props.pathname}

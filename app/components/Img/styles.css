@@ -1,0 +1,19 @@
+@keyframes wave {
+    0%{
+        background-position: -330px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+
+.waves {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: wave;
+  animation-timing-function: linear;
+  background: #F6F7F8;
+  background: linear-gradient(to right, #EEEEEE 8%, #DDDDDD 18%, #EEEEEE 33%);
+  background-size: 800px 104px;
+}
