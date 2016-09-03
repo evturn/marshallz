@@ -2,7 +2,7 @@ import { CronJob } from 'cron'
 import { Author } from '../models'
 import dispatch from './dispatch'
 
-export default function startCronJobs() {
+function startCronJobs() {
   Author
     .find()
     .select('blog.cronjob twitter.cronjob')
@@ -39,3 +39,4 @@ function dispatchJobs(jobs) {
   return jobs.map(x => new CronJob(x.cronjob, x.action, null, true))
 }
 
+export default startCronJobs()
