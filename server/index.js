@@ -24,6 +24,4 @@ app.get('*',
   sendPage
 )
 
-generator()
-
 app.listen(3000, _ => console.log('Listening 🌐'))
