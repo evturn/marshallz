@@ -1,68 +1,59 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 import LoadingIndicator from '../../components/LoadingIndicator'
+import * as Actions from '../actions'
 
 export default function withFetch(WrappedComponent) {
-  return class Fetch extends Component {
+  class Fetch extends Component {
     constructor(props) {
       super(props)
-
       this.fetch = ::this.fetch
-      this.fetchSuccess = ::this.fetchSuccess
-      this.fetchError = ::this.fetchError
-      this.state = {
-        loading: false,
-        error: null,
-        posts: [],
-        authors: [],
-        author: {},
-        meta: {},
-      }
     }
 
     componentDidMount() {
-      const { location: { pathname, query } } = this.props
-      this.fetch(pathname, query)
+      this.fetch(this.props.pathname, this.props.query)
     }
 
     componentWillReceiveProps(nextProps) {
-      const { location: { pathname, query } } = nextProps
-      if (this.props.location.pathname !== pathname
-        || this.props.location.query !== query) {
-        this.fetch(pathname, query)
+      if (this.props.pathname !== nextProps.pathname
+        || this.props.query !== nextProps.query) {
+        this.fetch(nextProps.pathname, nextProps.query)
       }
     }
 
     fetch(pathname, query) {
-      this.setState({ loading: true })
       const url = `/api${pathname}${query.page ? `?page=${query.page}` : ''}`
-      return fetch(url)
-        .then(x => x.json())
-        .then(this.fetchSuccess)
-        .catch(this.fetchError)
-    }
-
-    fetchSuccess(data) {
-      this.setState({ ...data, loading: false })
-    }
-
-    fetchError(e) {
-      this.setState({ error: e, loading: false })
+      this.props.fetchData(url)
     }
 
     render() {
       return (
-        !this.state.loading
+        !this.props.loading
           ? <WrappedComponent
-              {...this.state}
-              pathname={this.props.location.pathname}
-              query={this.props.location.query}
+              {...this.props}
+              pathname={this.props.pathname}
+              query={this.props.query}
             />
           : <LoadingIndicator />
-
       )
     }
 
     static displayName = `Fetch(${WrappedComponent.displayName})`
   }
+
+  return connect(
+    (state, ownProps) => ({
+      pathname: ownProps.location.pathname,
+      query: ownProps.location.query,
+      loading: state.global.loading,
+      error: state.global.error,
+      posts: state.global.posts,
+      authors: state.global.authors,
+      author: state.global.author,
+      meta: state.global.meta,
+    }),
+    dispatch => ({
+      fetchData: url => dispatch(Actions.fetchData(url))
+    }))(Fetch)
 }
