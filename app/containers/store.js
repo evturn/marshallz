@@ -6,10 +6,10 @@ import logger from 'redux-logger'
 import rootReducer from './reducers'
 import rootEpic from './epics'
 
-export default function configureStore() {
+export default function configureStore(initialState={}) {
   const store = createStore(
     rootReducer,
-    {},
+    initialState,
     compose(
       applyMiddleware(
         createEpicMiddleware(rootEpic),
