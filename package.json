@@ -8,6 +8,7 @@
     "build:webpack": "NODE_ENV=production webpack --config config/webpack/webpack.prod.babel.js",
     "build:server": "NODE_ENV=production babel server -d lib",
     "seed": "babel-node config/scripts/seed.js",
+    "fetch": "node config/build.js",
     "server": "NODE_ENV=development babel-node server",
     "prod": "NODE_ENV=production babel-node lib",
     "nohup": "NODE_ENV=production nohup babel-node lib &"

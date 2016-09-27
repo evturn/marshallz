@@ -12,7 +12,7 @@ export default props => {
         pathname={props.author.blog.url}>
         <Img
           className={css.img}
-          src={props.author.avatar_img}
+          src={require(`images/${props.author.avatar_img}`)}
         />
       </A>
 

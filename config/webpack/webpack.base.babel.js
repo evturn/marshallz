@@ -54,6 +54,9 @@ module.exports = opts => ({
     modules:      ['app', 'node_modules'],
     extensions:   ['', '.js', '.jsx', '.react.js'],
     packageMains: ['jsnext:main', 'main'],
+    alias: {
+      images:  path.resolve(process.cwd(), 'assets', 'images')
+    }
   },
 
   postcss: _ => [

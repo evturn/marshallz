@@ -5,11 +5,12 @@ const request = require('request')
 const mkdirp = require('mkdirp')
 const rimraf = require('rimraf')
 const { Observable } = require('rxjs')
-const { api } = require('cloudinary')
 const { assets, dirs } = require('./manifest.json')
 
-Observable.create(callCloudinaryAPI())
-  .flatMap(parseData)
+dirs.remove.map(rimraf.sync)
+dirs.make.map(x => mkdirp(x))
+
+Observable.from(assets)
   .map(createPaths)
   .flatMap(fetchAssets())
   .subscribe(
@@ -17,42 +18,11 @@ Observable.create(callCloudinaryAPI())
     e => console.log(c.bgRed(e))
   )
 
-function callCloudinaryAPI() {
-  dirs.remove.map(rimraf.sync)
-  dirs.make.map(x => mkdirp(x))
-  return observer => {
-    api.resources_by_tag(
-      'evturn',
-      res => observer.next(res.resources), {
-      max_results: 500,
-      tags: true
-    })
-  }
-}
-
-function parseData(data) {
-  const dropboxData$ = Observable.from(assets)
-  const cloudinaryData$ = Observable.from(data)
-    .map(x => ({
-      file: removeFileNameHash(x.public_id),
-      url: x.url,
-      format: x.format,
-    }))
-
-  return Observable.concat(cloudinaryData$, dropboxData$)
-}
-
 function createPaths(data) {
   return {
     dest: path.resolve(process.cwd(), dirs.output) + `/${data.file}.${data.format}`,
     url: data.url
   }
-}
-
-function removeFileNameHash(fileName) {
-  return fileName
-    .replace(/evturn/, '/images')
-    .replace(/_.*$/, '')
 }
 
 function fetchAssets() {

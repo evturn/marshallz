@@ -1,46 +1,35 @@
 {
   "assets": [{
-      "format": "css",
-      "file": "/css/style",
-      "url": "https://www.dropbox.com/s/aguggq8ibm14wzq/style.css?dl=1"
+      "format": "png",
+      "file": "images/01-avatar",
+      "url": "https://www.dropbox.com/s/ap6u79gnmhute65/01-avatar.png?dl=1"
+    },{
+      "format": "png",
+      "file": "images/01-profile",
+      "url": "https://www.dropbox.com/s/ba08xxtrcfw00zl/01-profile.png?dl=1"
+    },{
+      "format": "png",
+      "file": "images/02-avatar",
+      "url": "https://www.dropbox.com/s/himxgnruanfmy05/02-avatar.png?dl=1"
+    },{
+      "format": "png",
+      "file": "images/02-profile",
+      "url": "https://www.dropbox.com/s/kd4uqzx36f6wbps/02-profile.png?dl=1"
   },{
-      "format": "eot",
-      "file": "/fonts/evcon",
-      "url": "https://www.dropbox.com/s/g6ujzcwe7g77ugg/evcon.eot?dl=1"
-    },{
-      "format": "ttf",
-      "file": "/fonts/evcon",
-      "url": "https://www.dropbox.com/s/a23saekguuea2fh/evcon.ttf?dl=1"
-    },{
-      "format": "woff",
-      "file": "/fonts/evcon",
-      "url": "https://www.dropbox.com/s/st9vxh4q90ua3fr/evcon.woff?dl=1"
-    },{
-      "format": "svg",
-      "file": "/fonts/evcon",
-      "url": "https://www.dropbox.com/s/1ybuej4yqc5se1o/evcon.svg?dl=1"
-    },{
-      "format": "svg",
-      "file": "/fonts/devicon",
-      "url": "https://www.dropbox.com/s/ojes4forhanajgh/devicon.svg?dl=1"
-    },{
-      "format": "eot",
-      "file": "/fonts/devicon",
-      "url": "https://www.dropbox.com/s/nkft6svavxf8gdr/devicon.eot?dl=1"
-    },{
-      "format": "woff",
-      "file": "/fonts/devicon",
-      "url": "https://www.dropbox.com/s/m88uozpxdgufg5d/devicon.woff?dl=1"
+      "format": "png",
+      "file": "images/03-avatar",
+      "url": "https://www.dropbox.com/s/jdf2nqhatokuibf/03-avatar.png?dl=1"
+  },{
+      "format": "png",
+      "file": "images/03-profile",
+      "url": "https://www.dropbox.com/s/q9vkq7yzrthwywj/03-profile.png?dl=1"
   }],
   "dirs": {
     "output": "assets",
     "remove": [ "assets" ],
     "make": [
       "assets",
-      "assets/fonts",
-      "assets/css",
-      "assets/images/site",
-      "assets/images/work"
+      "assets/images"
     ]
   }
 }

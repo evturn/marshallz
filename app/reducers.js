@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import appReducer from './App/reducer'
+import appReducer from './containers/App/reducer'
 
 export default combineReducers({
   global: appReducer,

@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
-import withFetch from '../Fetch'
+import { connect } from 'react-redux'
 import Post from '../Post'
 import A from '../../components/A'
 import Pagination from '../../components/Pagination'
 import Img from '../../components/Img'
+import * as Actions from './actions'
 import css from './styles.css'
 
 class Landing extends Component {
+  componentWillMount() {
+    this.props.fetchData({
+      query: this.props.query,
+      pathname: this.props.pathname,
+    })
+  }
+
   render() {
     return (
       <div>
@@ -51,7 +59,7 @@ const SidePanel = ({ authors }) => {
               pathname={x.blog.url}>
               <Img
                 className={css.hg}
-                src={x.profile_img} />
+                src={require(`images/${x.profile_img}`)} />
               <span className={css.name}>{x.name}</span>
             </A>
           </li>
@@ -61,4 +69,16 @@ const SidePanel = ({ authors }) => {
   )
 }
 
-export default withFetch(Landing)
+export default connect(
+  (state, ownProps) => ({
+    pathname: ownProps.location.pathname,
+    query: ownProps.location.query,
+    loading: state.global.loading,
+    error: state.global.error,
+    posts: state.global.posts,
+    authors: state.global.authors,
+    author: state.global.author,
+    meta: state.global.meta,
+  }),
+  Actions
+)(Landing)

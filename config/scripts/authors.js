@@ -4,8 +4,8 @@ export default [
     name: 'Marshall',
     username: 'marshall',
     content: 'https://www.dropbox.com/s/9dbi8uj4femused/01-content.txt?dl=1',
-    avatar_img: 'https://www.dropbox.com/s/ap6u79gnmhute65/01-avatar.png?dl=1',
-    profile_img: 'https://www.dropbox.com/s/ba08xxtrcfw00zl/01-profile.png?dl=1',
+    avatar_img: '01-avatar.png',
+    profile_img: '01-profile.png',
     posts: [
       '571c28a0474ad33e380c90f9',
       '57171ae0b7ea5c07222205ae',
@@ -30,8 +30,8 @@ export default [
     name: 'Clang',
     username: 'clang',
     content: 'https://www.dropbox.com/s/95amdskrmtpgxk6/02-content.txt?dl=1',
-    avatar_img: 'https://www.dropbox.com/s/himxgnruanfmy05/02-avatar.png?dl=1',
-    profile_img: 'https://www.dropbox.com/s/kd4uqzx36f6wbps/02-profile.png?dl=1',
+    avatar_img: '02-avatar.png',
+    profile_img: '02-profile.png',
     posts: [
       '571711d7e85951a92053ef65',
       '571780d485781e1d2e1a70fc'
@@ -55,8 +55,8 @@ export default [
     name: 'b0rf',
     username: 'b0rf',
     content: 'https://www.dropbox.com/s/q7r4q8f0kbzwnn2/03-content.txt?dl=1',
-    avatar_img: 'https://www.dropbox.com/s/jdf2nqhatokuibf/03-avatar.png?dl=1',
-    profile_img: 'https://www.dropbox.com/s/q9vkq7yzrthwywj/03-profile.png?dl=1',
+    avatar_img: '03-avatar.png',
+    profile_img: '03-profile.png',
     posts: [
       '571c0033d8983faf3122c6d6',
       '57177f1285781e1d2e1a70fb'

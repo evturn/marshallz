@@ -16,7 +16,7 @@ class Navigation extends Component {
         <div
           className={css.content}
           style={{ backgroundImage: `url(${Background})` }}>
-          <Match pattern="/" component={Landing} />
+          <Match pattern="/" exactly component={Landing} />
           <Match pattern="authors/:author" component={PostsByAuthor} />
         </div>
       </div>
