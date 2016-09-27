@@ -7,16 +7,14 @@ import css from './styles.css'
 class ByAuthor extends Component {
   render() {
     return (
-      <div>
+      <div className={css.posts}>
         <AuthorPageHeader author={this.props.author} />
-        <div className={css.posts}>
-          {this.props.posts.map((x, i) =>
-            <Post
-              { ...x }
-              key={i}
-            />
-          )}
-        </div>
+        {this.props.posts.map((x, i) =>
+          <Post
+            { ...x }
+            key={i}
+          />
+        )}
       </div>
     )
   }
