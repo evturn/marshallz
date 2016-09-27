@@ -25,7 +25,6 @@ export default props => {
       />
 
       <div className={css.body}>{props.body}</div>
-
     </div>
   )
 }

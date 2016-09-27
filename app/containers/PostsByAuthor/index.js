@@ -2,32 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from '../Post'
 import A from '../../components/A'
-import Pagination from '../../components/Pagination'
 import * as Actions from './actions'
 import css from './styles.css'
 
 class PostsByAuthor extends Component {
-  componentWillMount() {
-    this.props.fetchByAuthor({
-      query: this.props.query,
-      params: this.props.params,
-      pathname: this.props.pathname,
-    })
-  }
-
   render() {
     return (
       <div>
         <AuthorPageHeader author={this.props.author} />
-        <Pagination
-          pathname={this.props.pathname}
-          meta={this.props.meta}
-        />
-        <AuthorPosts posts={this.props.posts} />
-        <Pagination
-          pathname={this.props.pathname}
-          meta={this.props.meta}
-        />
+        <div className={css.posts}>
+          {this.props.posts.map(x =>
+            <Post key={x._id} { ...x } />
+          )}
+        </div>
       </div>
     )
   }
@@ -56,14 +43,6 @@ const AuthorPageHeader = ({ author }) => {
     </div>
   )
 }
-
-const AuthorPosts = ({ posts }) => (
-  <div className={css.posts}>
-    {posts.map(x => {
-      return <Post key={x._id} { ...x } />
-    })}
-  </div>
-)
 
 export default connect(
   (state, ownProps) => ({
