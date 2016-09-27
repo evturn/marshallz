@@ -2,8 +2,8 @@ import { Author } from '../models'
 import Generator from './sg'
 import Twitter from 'twitter'
 
-export default async function twitter(_id, content) {
-  const generator = Generator(content)
+export default async function twitter(_id, data) {
+  const generator = Generator(data)
   const body = createStatus(generator)
   try {
     const author = await findAuthor(_id)

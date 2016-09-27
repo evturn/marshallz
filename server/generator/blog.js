@@ -2,8 +2,8 @@ import { Author, Post } from '../models'
 import request from 'request'
 import Generator from './sg'
 
-export default async function blog(_id, content) {
-  const generator = Generator(content)
+export default async function blog(_id, data) {
+  const generator = Generator(data)
   const blogPostText = createTextData(generator)
   try {
     const blogPostMedia = await callGihpyAPI(blogPostText.title)

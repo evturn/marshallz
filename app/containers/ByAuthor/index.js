@@ -8,7 +8,10 @@ class ByAuthor extends Component {
   render() {
     return (
       <div className={css.posts}>
-        <AuthorPageHeader author={this.props.author} />
+        <AuthorPageHeader
+          author={this.props.author}
+          src={require(`images/${this.props.author.profile_img}`)}
+        />
         {this.props.posts.map((x, i) =>
           <Post
             { ...x }
@@ -20,14 +23,14 @@ class ByAuthor extends Component {
   }
 }
 
-const AuthorPageHeader = ({ author }) => {
+const AuthorPageHeader = ({ author, src }) => {
   if (!author.profile_img) {
     return null
   }
   return (
     <div className={css.profile}>
       <div className={css.av}>
-        <img src={require(`images/${author.profile_img}`)} />
+        <img src={src} />
       </div>
       <div className={css.bio}>
         <div className={css.name}>{author.name}</div>

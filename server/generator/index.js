@@ -1,26 +1,39 @@
+import fs from 'fs'
 import { CronJob } from 'cron'
 import { Author } from '../models'
-import dispatch from './dispatch'
+import blog from './blog'
+import twitter from './twitter'
 
 function startCronJobs() {
   Author
     .find()
-    .select('blog.cronjob twitter.cronjob')
+    .select('blog.cronjob twitter.cronjob content')
     .exec()
     .then(createActions)
     .then(dispatchJobs)
 }
 
+function dispatch(action) {
+  fs.readFile(action.content, (err, data) => {
+    switch (action.type) {
+      case 'blog':
+        return blog(action._id, data.toString())
+      case 'twitter':
+        return twitter(action._id, data.toString())
+    }
+  })
+}
+
 function createBlogAction(author) {
   return {
-    action: _ => dispatch({ type: 'blog', _id: author._id }),
+    action: _ => dispatch({ type: 'blog', _id: author._id, content: `assets/${author.content}` }),
     cronjob: author.blog.cronjob,
   }
 }
 
 function createTwitterAction(author) {
   return {
-    action: _ => dispatch({ type: 'twitter', _id: author._id }),
+    action: _ => dispatch({ type: 'twitter', _id: author._id, content: `assets/${author.content}` }),
     cronjob: author.twitter.cronjob,
   }
 }

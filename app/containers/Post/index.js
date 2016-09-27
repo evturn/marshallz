@@ -9,7 +9,7 @@ export default props => {
     <div className={css.post}>
 
       <div className={css.header}>
-        <AuthorAvatar  url={props.author.blog.url} image={props.author.avatar_img} />
+        <AuthorAvatar  url={props.author.blog.url} src={require(`images/${props.author.avatar_img}`)} />
 
         <div className={css.info}>
           <AuthorName url={props.author.blog.url} name={props.author.name}  />
@@ -34,13 +34,13 @@ export default props => {
   )
 }
 
-const AuthorAvatar = ({ url, image })=> (
+const AuthorAvatar = ({ url, src })=> (
   <A
     className={css.avatar}
     pathname={url}>
     <Img
       className={css.img}
-      src={require(`images/${image}`)}
+      src={src}
     />
   </A>
 )

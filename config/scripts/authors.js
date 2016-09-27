@@ -3,7 +3,7 @@ export default [
     _id: '57bd35cf84cf8c87e3a01f61',
     name: 'Marshall',
     username: 'marshall',
-    content: 'https://www.dropbox.com/s/9dbi8uj4femused/01-content.txt?dl=1',
+    content: 'content/01.txt',
     avatar_img: '01-avatar.png',
     profile_img: '01-profile.png',
     posts: [
@@ -29,7 +29,7 @@ export default [
     _id: '57bd35cf84cf8c87e3a01f63',
     name: 'Clang',
     username: 'clang',
-    content: 'https://www.dropbox.com/s/95amdskrmtpgxk6/02-content.txt?dl=1',
+    content: 'content/02.txt',
     avatar_img: '02-avatar.png',
     profile_img: '02-profile.png',
     posts: [
@@ -54,7 +54,7 @@ export default [
     _id: '57bd35cf84cf8c87e3a01f62',
     name: 'b0rf',
     username: 'b0rf',
-    content: 'https://www.dropbox.com/s/q7r4q8f0kbzwnn2/03-content.txt?dl=1',
+    content: 'content/03.txt',
     avatar_img: '03-avatar.png',
     profile_img: '03-profile.png',
     posts: [
