@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Match from 'react-router/Match'
 import Header from '../../components/Header'
-import Landing from '../Landing'
-import PostsByAuthor from '../PostsByAuthor'
+import ByDate from '../ByDate'
+import ByAuthor from '../ByAuthor'
+import SidePanel from '../../components/SidePanel'
 import Pagination from '../../components/Pagination'
 import * as Actions from './actions'
 import Background from './bg.jpg'
@@ -12,7 +13,6 @@ import css from './styles.css'
 class Navigation extends Component {
   constructor(props) {
     super(props)
-
     this.fetch = ::this.fetch
   }
 
@@ -36,18 +36,19 @@ class Navigation extends Component {
 
   render() {
     return (
-      <div className={css.site}>
+      <div
+        className={css.site}
+        style={{ backgroundImage: `url(${Background})` }}>
         <Header />
-        <div
-          className={css.content}
-          style={{ backgroundImage: `url(${Background})` }}>
-          <Match pattern="/" exactly component={Landing} />
-          <Match pattern="authors/:author" component={PostsByAuthor} />
-          <Pagination
-            pathname={this.props.pathname}
-            meta={this.props.meta}
-          />
+        <div className={css.content}>
+          <Match pattern="/" exactly component={ByDate} posts={this.props.posts} />
+          <Match pattern="authors/:author" component={ByAuthor} />
+          <SidePanel authors={this.props.authors} />
         </div>
+        <Pagination
+          pathname={this.props.pathname}
+          meta={this.props.meta}
+        />
       </div>
     )
   }

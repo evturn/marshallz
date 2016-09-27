@@ -1,8 +1,8 @@
-
 .site {
   min-height: 100vh;
   width: 100%;
   zoom: 1;
+  background-repeat: repeat;
 }
 .site:before,
 .site:after {
@@ -16,6 +16,8 @@
 .content {
   position: relative;
   min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
   padding-top: 15px;
   padding-bottom: 30px;
   zoom: 1;
