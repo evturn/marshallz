@@ -43,8 +43,8 @@ class Navigation extends Component {
         <Header />
         <div className={css.content}>
           <Match pattern="/" exactly component={ByDate} />
-          <Match pattern="authors/:author" component={ByAuthor} />
-          <Match pattern="post/:slug" exactly component={BySlug} />
+          <Match pattern="/authors/:author" component={ByAuthor} />
+          <Match pattern="/post" component={BySlug} />
           <SidePanel authors={this.props.authors} />
         </div>
         <Pagination

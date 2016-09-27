@@ -5,6 +5,10 @@ import Img from '../../components/Img'
 import css from './styles.css'
 
 export default props => {
+  if (!props.author) {
+    return null
+  }
+
   return (
     <div className={css.post}>
 

@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import configStatic, { sendPage } from './middleware/config-static'
+import configStatic from './middleware/config-static'
 import authorData from './middleware/author-data'
 import postsByAuthor from './middleware/by-author'
 import postsByDate from './middleware/by-date'
