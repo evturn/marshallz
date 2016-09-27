@@ -20,7 +20,7 @@ export default props => {
       </div>
 
       <div className={css.title}>
-        <A pathname={`/post/${props.slug}` }>{props.title}</A>
+        <A pathname={`/post/${props.slug}`}>{props.title}</A>
       </div>
 
       <Img

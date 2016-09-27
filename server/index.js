@@ -2,8 +2,9 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import configStatic, { sendPage } from './middleware/config-static'
 import authorData from './middleware/author-data'
-import byAuthor from './middleware/posts-by-author'
-import byPost from './middleware/posts-by-post'
+import postsByAuthor from './middleware/by-author'
+import postsByDate from './middleware/by-date'
+import postBySlug from './middleware/by-slug'
 import generator from './generator'
 
 const app = express()
@@ -13,11 +14,17 @@ const sendFile = configStatic(app)
 
 app.get('/api?',
   authorData,
-  byPost
+  postsByDate
 )
+
 app.get('/api/authors/:author?',
   authorData,
-  byAuthor
+  postsByAuthor
+)
+
+app.get('/api/post/:slug',
+  authorData,
+  postBySlug
 )
 
 app.get('*', sendFile)

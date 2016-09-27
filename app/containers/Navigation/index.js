@@ -4,6 +4,7 @@ import Match from 'react-router/Match'
 import Header from '../../components/Header'
 import ByDate from '../ByDate'
 import ByAuthor from '../ByAuthor'
+import BySlug from '../BySlug'
 import SidePanel from '../../components/SidePanel'
 import Pagination from '../../components/Pagination'
 import * as Actions from './actions'
@@ -41,8 +42,9 @@ class Navigation extends Component {
         style={{ backgroundImage: `url(${Background})` }}>
         <Header />
         <div className={css.content}>
-          <Match pattern="/" exactly component={ByDate} posts={this.props.posts} />
+          <Match pattern="/" exactly component={ByDate} />
           <Match pattern="authors/:author" component={ByAuthor} />
+          <Match pattern="post/:slug" exactly component={BySlug} />
           <SidePanel authors={this.props.authors} />
         </div>
         <Pagination
@@ -63,6 +65,7 @@ export default connect(
       loading: state.global.loading,
       error: state.global.error,
       posts: state.global.posts,
+      post: state.global.post,
       authors: state.global.authors,
       author: state.global.author,
       meta: state.global.meta,

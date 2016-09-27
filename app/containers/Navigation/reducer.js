@@ -14,12 +14,6 @@ export default (state={
         loading: true,
       })
 
-    case 'FETCH_BY_AUTHOR':
-      return Object.assign({}, state, {
-        url: action.payload.url,
-        loading: true,
-      })
-
     case 'FETCH_SUCCESS':
       return Object.assign({}, state, {
         ...action.payload,

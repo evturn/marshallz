@@ -1,0 +1,20 @@
+.root {
+  position: relative;
+  width: 100%;
+  zoom: 1;
+}
+.root:before,
+.root:after {
+  content: " ";
+  display: table;
+}
+.root:after {
+  clear: both;
+}
+
+@media(min-width: 1024px) {
+  .root {
+    float: left;
+    width: 70%;
+  }
+}
