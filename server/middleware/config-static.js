@@ -1,46 +1,44 @@
 import express from 'express'
+import fs from 'fs'
 import path from 'path'
 import compression from 'compression'
 import webpack from 'webpack'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackConfig from '../../config/webpack/webpack.dev.babel.js'
 import DashboardPlugin from 'webpack-dashboard/plugin'
+import webpackConfig from '../../config/webpack/webpack.dev.babel.js'
+import writeConfigLog from '../../config/log'
 
-const compiler = webpack(webpackConfig)
-const buildDir = webpackConfig.output.path
-const webpackDev = webpackDevMiddleware(compiler, {
-  publicPath: webpackConfig.output.publicPath,
-  noInfo: true,
-  silent: true ,
-})
-const webpackHot = webpackHotMiddleware(compiler)
-const fs = webpackDev.fileSystem
-const __DEV__ = process.env.NODE_ENV === 'development'
-
-export default __DEV__ ? devMiddleware : prodMiddleware
-export { sendPage }
-
-function devMiddleware() {
-  compiler.apply(new DashboardPlugin())
-  return [
-    webpackDev,
-    webpackHot,
-  ]
-}
-
-function prodMiddleware() {
-  return [
-    compression(),
-    express.static(buildDir),
-  ]
-}
-
-function sendPage(req, res, next) {
-  if (__DEV__) {
-    const file = fs.readFileSync(path.join(compiler.outputPath, 'index.html'))
-    res.send(file.toString())
+export default app => {
+  if (process.env.NODE_ENV === 'development') {
+    return devMiddleware(app)
   } else {
-    res.sendFile(path.join(buildDir, 'index.html'))
+    return prodMiddleware(app)
   }
+}
+
+function devMiddleware(app) {
+  const compiler = webpack(webpackConfig)
+  compiler.apply(new DashboardPlugin())
+
+  const middleware = webpackDevMiddleware(compiler, {
+    noInfo: true,
+    silent: true,
+    publicPath: '/',
+    stats: 'errors-only',
+  })
+
+  app.use(middleware)
+  app.use(webpackHotMiddleware(compiler))
+  app.use(express.static(path.join(process.cwd(), '/')))
+  writeConfigLog(compiler)
+
+  const file = fs.readFileSync(path.join(process.cwd(), 'build', 'index.html'))
+  return (req, res, next) => res.send(file.toString())
+}
+
+function prodMiddleware(app) {
+  app.use(compression())
+  app.use(express.static(path.join(process.cwd(), '/')))
+  return (req, res, next) => res.sendFile(path.join(webpackConfig.output.path, 'index.html'))
 }

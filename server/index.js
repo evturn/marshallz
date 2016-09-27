@@ -9,7 +9,7 @@ import generator from './generator'
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(configStatic())
+const sendFile = configStatic(app)
 
 app.get('/api?',
   authorData,
@@ -20,8 +20,6 @@ app.get('/api/authors/:author?',
   byAuthor
 )
 
-app.get('*',
-  sendPage
-)
+app.get('*', sendFile)
 
 app.listen(3000, _ => console.log('Listening 🌐'))

@@ -8,6 +8,8 @@ const postcssReporter = require('postcss-reporter')
 module.exports = opts => ({
   entry: opts.entry,
 
+  plugins: opts.plugins,
+
   output: Object.assign({
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/',
@@ -47,16 +49,6 @@ module.exports = opts => ({
       loader: 'url-loader?limit=10000',
     }],
   },
-
-  plugins: opts.plugins.concat([
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
-    }),
-  ]),
-
 
   resolve: {
     modules:      ['app', 'node_modules'],
