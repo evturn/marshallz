@@ -32,7 +32,7 @@
 }
 
 .off {
-  composes: tx-gray from '../../containers/App/styles.css';
+  composes: tx-gray from '../../containers/App/style.css';
   font-weight: 400;
   cursor: default;
 }
@@ -49,7 +49,7 @@
   font-size: 26px;
   width: 120px;
   height: 40px;
-  composes: bg-light from '../../containers/App/styles.css';
+  composes: bg-light from '../../containers/App/style.css';
   margin-right: 10px;
   border-radius: 3px;
   text-align: center;

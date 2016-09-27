@@ -1,20 +1,18 @@
-import React, { Component } from 'react'
-import Header from '../../components/Header'
-import Background from './bg.jpg'
+import React from 'react'
+import { Provider } from 'react-redux'
+import { BrowserRouter, Match } from 'react-router'
+import Navigation from '../Navigation'
+import configureStore from '../store'
 import 'sanitize.css/sanitize.css'
-import css from './styles.css'
 
-export default class App extends Component {
-  render() {
-    return (
-      <div className={css.site}>
-        <Header />
-        <div
-          className={css.content}
-          style={{ backgroundImage: `url(${Background})` }}>
-          {this.props.children}
-        </div>
-      </div>
-    )
-  }
-}
+const store = configureStore()
+
+const App = _ => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Match pattern="*" component={Navigation} />
+    </BrowserRouter>
+  </Provider>
+)
+
+export default App

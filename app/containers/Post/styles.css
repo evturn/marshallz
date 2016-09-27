@@ -5,7 +5,7 @@
   padding: 15px;
   max-width: 750px;
   border-radius: 1px;
-  composes: bg-light from '../../containers/App/styles.css';
+  composes: bg-light from '../App/style.css';
   box-shadow: 0px 1px 2px -2px rgba(0,0,0,0.4);
 }
 
@@ -40,7 +40,7 @@
   text-align: left;
   font-family: 'Open Sans', sans-serif;
   letter-spacing: -0.5px;
-  composes: tx-gray from '../../containers/App/styles.css';
+  composes: tx-gray from '../App/style.css';
   text-transform: uppercase;
 }
 
@@ -123,7 +123,7 @@
   font-family: 'Open Sans', sans;
   font-weight: 300;
   font-style: normal;
-  composes: tx-dark from '../../containers/App/styles.css';
+  composes: tx-dark from '../App/style.css';
 }
 
 .post a {
