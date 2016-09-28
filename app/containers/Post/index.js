@@ -12,7 +12,7 @@ import css from './styles.css'
       <div className={css.post}>
         <div className={css.header}>
 
-          <AuthorAvatar  url={this.props.author.blog.url} src={this.props.author.avatar_img} />
+          <AuthorAvatar url={this.props.author.blog.url} src={require(`images/${this.props.author.avatar_img}`)} />
 
           <div className={css.info}>
             <AuthorName url={this.props.author.blog.url} name={this.props.author.name}  />
@@ -26,11 +26,12 @@ import css from './styles.css'
           <A pathname={`/post/${this.props.slug}`}>{this.props.title}</A>
         </div>
 
-        <Img
-          className={css.bg}
-          index={this.props.index}
-          url={this.props.image_url}
-        />
+        <div className={css.media}>
+          <Img
+            className={css.img}
+            src={this.props.image_url} />
+        </div>
+
 
         <div className={css.body}>{this.props.body}</div>
       </div>
@@ -44,7 +45,7 @@ const AuthorAvatar = ({ url, src })=> (
     pathname={url}>
     <Img
       className={css.img}
-      src={require(`images/${src}`)}
+      src={src}
     />
   </A>
 )

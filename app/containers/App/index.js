@@ -10,7 +10,15 @@ const store = configureStore()
 const App = _ => (
   <Provider store={store}>
     <BrowserRouter>
-      <Match pattern="*" component={Navigation} />
+      <Match pattern="*" render={props => {
+        const { pathname, query } = props.location
+        return (
+          <Navigation
+            {...props}
+            url={`${pathname}${query && query.page ? `?page=${query.page}` : ''}`}
+          />
+        )
+      }} />
     </BrowserRouter>
   </Provider>
 )

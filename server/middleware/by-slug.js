@@ -11,7 +11,7 @@ export default function bySlug(req, res, next) {
       }
     })
     .then(post => res.json({
-      post,
+      posts: [ post ],
       author: post.author,
       authors: req.marshallz.authors,
     }))

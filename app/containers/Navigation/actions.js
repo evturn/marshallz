@@ -1,6 +1,10 @@
-export const fetchData = url => {
-  return {
-    type: 'FETCH',
-    payload: { url },
-  }
-}
+
+export const fetchInitialData = _ => ({
+  type: 'FETCH_INITIAL_DATA'
+})
+
+export const fetchData = url => ({
+  type: 'FETCH',
+  payload: { url }
+})
+

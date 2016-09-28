@@ -4,7 +4,6 @@ import Match from 'react-router/Match'
 import Header from '../../components/Header'
 import ByDate from '../ByDate'
 import ByAuthor from '../ByAuthor'
-import BySlug from '../BySlug'
 import SidePanel from '../../components/SidePanel'
 import Pagination from '../../components/Pagination'
 import * as Actions from './actions'
@@ -12,25 +11,12 @@ import Background from './bg.jpg'
 import css from './styles.css'
 
 class Navigation extends Component {
-  constructor(props) {
-    super(props)
-    this.fetch = ::this.fetch
-  }
-
   componentWillMount() {
-    const { pathname, query } = this.props
-    this.props.fetchData(pathname, query)
+    this.props.fetchData(this.props.url)
   }
-
   componentWillReceiveProps(nextProps) {
-    const { pathname, query } = nextProps
-    this.fetch(pathname, query)
-  }
-
-  fetch(pathname, query) {
-    const url = `/api${pathname}${query && query.page ? `?page=${query.page}` : ''}`
-    if (this.props.url !== url) {
-      this.props.fetchData(url)
+    if (this.props.url !== nextProps.url) {
+      this.props.fetchData(nextProps.url)
     }
   }
 
@@ -43,15 +29,12 @@ class Navigation extends Component {
         <div className={css.content}>
           <Match pattern="/" exactly component={ByDate} />
           <Match pattern="/authors/:author" component={ByAuthor} />
-          <Match pattern="/post" component={BySlug} />
+          <Match pattern="/post/:slug" component={ByAuthor} />
           <SidePanel authors={this.props.authors} />
         </div>
 
-        {this.props.meta
-          ? <Pagination
-              pathname={this.props.pathname}
-              meta={this.props.meta}
-            />
+        {this.props.pagination
+          ? <Pagination pathname={this.props.pathname} meta={this.props.meta} />
           : null
         }
       </div>
@@ -62,13 +45,13 @@ class Navigation extends Component {
 export default connect(
   (state, ownProps) => {
     return {
-      url: state.global.url,
+      url: ownProps.url,
       pathname: ownProps.location.pathname,
       query: ownProps.location.query,
+      pagination: !state.routing.params || !state.routing.params.slug,
       loading: state.global.loading,
       error: state.global.error,
       posts: state.global.posts,
-      post: state.global.post,
       authors: state.global.authors,
       author: state.global.author,
       meta: state.global.meta,

@@ -3,9 +3,18 @@ import { connect } from 'react-redux'
 import Post from '../Post'
 import LoadingIndicator from '../../components/LoadingIndicator'
 import A from '../../components/A'
+import * as Actions from './actions'
 import css from './styles.css'
 
 class ByAuthor extends Component {
+  componentWillMount() {
+    this.props.setLocationParams(this.props.params)
+  }
+
+  componentWillUnmount() {
+    this.props.unsetLocationParams()
+  }
+
   render() {
     return (
       <div className={css.posts}>
@@ -58,5 +67,6 @@ export default connect(
   state => ({
     author: state.global.author,
     posts: state.global.posts,
-  })
+  }),
+  Actions
 )(ByAuthor)
