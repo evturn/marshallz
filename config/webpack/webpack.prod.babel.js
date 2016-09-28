@@ -19,6 +19,12 @@ module.exports = configureWebpack({
   ),
 
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      children: true,
+      minChunks: 2,
+      async: true,
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(true),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
@@ -39,6 +45,9 @@ module.exports = configureWebpack({
       },
     }),
     new ExtractTextPlugin('[name].[contenthash].css'),
-    new webpack.DefinePlugin({ __DEV__: false }),
+    new webpack.DefinePlugin({
+      __DEV__: false,
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
   ],
 })

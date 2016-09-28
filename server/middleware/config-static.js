@@ -38,7 +38,11 @@ function devMiddleware(app) {
 }
 
 function prodMiddleware(app) {
+  const publicPath = '/'
+  const outputPath = path.resolve(process.cwd(), 'build')
+
   app.use(compression())
-  app.use(express.static(path.join(process.cwd(), '/')))
-  return (req, res, next) => res.sendFile(path.join(webpackConfig.output.path, 'index.html'))
+  app.use(publicPath, express.static(outputPath))
+
+  return (req, res, next) => res.sendFile(path.resolve(outputPath, 'index.html'))
 }
