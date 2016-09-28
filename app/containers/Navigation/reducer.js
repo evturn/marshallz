@@ -16,14 +16,17 @@ export default (state={
 
     case 'FETCH_SUCCESS':
       return Object.assign({}, state, {
-        ...action.payload,
-        loading: false
+        authors: action.payload.authors,
+        post: action.payload.post,
+        posts: action.payload.posts,
+        meta: action.payload.meta,
+        loading: false,
       })
 
     case 'FETCH_ERROR':
       return Object.assign({}, state, {
-        error: payload.error,
-        loading: false
+        error: action.payload.error,
+        loading: false,
       })
 
     default:

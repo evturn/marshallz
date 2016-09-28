@@ -10,5 +10,9 @@ export default function bySlug(req, res, next) {
         select: '-twitter.keys -twitter.cronjob -blog.cronjob -content',
       }
     })
-    .then(post => res.json({ post, authors: req.marshallz.authors }))
+    .then(post => res.json({
+      post,
+      author: post.author,
+      authors: req.marshallz.authors,
+    }))
 }

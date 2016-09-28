@@ -1,41 +1,41 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Timestamp from '../../components/Timestamp'
+
 import A from '../../components/A'
 import Img from '../../components/Img'
 import css from './styles.css'
 
-export default props => {
-  if (!props.author) {
-    return null
-  }
+ class Post extends Component {
+  render() {
+    return (
+      <div className={css.post}>
+        <div className={css.header}>
 
-  return (
-    <div className={css.post}>
+          <AuthorAvatar  url={this.props.author.blog.url} src={this.props.author.avatar_img} />
 
-      <div className={css.header}>
-        <AuthorAvatar  url={props.author.blog.url} src={require(`images/${props.author.avatar_img}`)} />
-
-        <div className={css.info}>
-          <AuthorName url={props.author.blog.url} name={props.author.name}  />
-          <AuthorSocial twitter={props.author.twitter} />
-          <span className={css.tag}>Author</span>
-          <Timestamp className={css.date} value={props.createdAt} />
+          <div className={css.info}>
+            <AuthorName url={this.props.author.blog.url} name={this.props.author.name}  />
+            <AuthorSocial twitter={this.props.author.twitter} />
+            <span className={css.tag}>Author</span>
+            <Timestamp className={css.date} value={this.props.createdAt} />
+          </div>
         </div>
+
+        <div className={css.title}>
+          <A pathname={`/post/${this.props.slug}`}>{this.props.title}</A>
+        </div>
+
+        <Img
+          className={css.bg}
+          index={this.props.index}
+          url={this.props.image_url}
+        />
+
+        <div className={css.body}>{this.props.body}</div>
       </div>
-
-      <div className={css.title}>
-        <A pathname={`/post/${props.slug}`}>{props.title}</A>
-      </div>
-
-      <Img
-        className={css.bg}
-        index={props.index}
-        url={props.image_url}
-      />
-
-      <div className={css.body}>{props.body}</div>
-    </div>
-  )
+    )
+  }
 }
 
 const AuthorAvatar = ({ url, src })=> (
@@ -44,7 +44,7 @@ const AuthorAvatar = ({ url, src })=> (
     pathname={url}>
     <Img
       className={css.img}
-      src={src}
+      src={require(`images/${src}`)}
     />
   </A>
 )
@@ -70,3 +70,7 @@ const AuthorSocial = ({ twitter }) => {
   )
 }
 
+export default connect(
+  state => ({
+    loading: state.global.loading,
+  }))(Post)

@@ -19,20 +19,19 @@ class Navigation extends Component {
 
   componentWillMount() {
     const { pathname, query } = this.props
-    const url = `/api${pathname}${query && query.page ? `?page=${query.page}` : ''}`
-    this.props.fetchData(url)
+    this.props.fetchData(pathname, query)
   }
 
   componentWillReceiveProps(nextProps) {
     const { pathname, query } = nextProps
-    const url = `/api${pathname}${query && query.page ? `?page=${query.page}` : ''}`
-    if (this.props.url !== url) {
-      this.fetch(url)
-    }
+    this.fetch(pathname, query)
   }
 
-  fetch(url) {
-    this.props.fetchData(url)
+  fetch(pathname, query) {
+    const url = `/api${pathname}${query && query.page ? `?page=${query.page}` : ''}`
+    if (this.props.url !== url) {
+      this.props.fetchData(url)
+    }
   }
 
   render() {
@@ -47,10 +46,14 @@ class Navigation extends Component {
           <Match pattern="/post" component={BySlug} />
           <SidePanel authors={this.props.authors} />
         </div>
-        <Pagination
-          pathname={this.props.pathname}
-          meta={this.props.meta}
-        />
+
+        {this.props.meta
+          ? <Pagination
+              pathname={this.props.pathname}
+              meta={this.props.meta}
+            />
+          : null
+        }
       </div>
     )
   }

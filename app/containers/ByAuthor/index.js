@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from '../Post'
+import LoadingIndicator from '../../components/LoadingIndicator'
 import A from '../../components/A'
 import css from './styles.css'
 
@@ -10,14 +11,20 @@ class ByAuthor extends Component {
       <div className={css.posts}>
         <AuthorPageHeader
           author={this.props.author}
-          src={require(`images/${this.props.author.profile_img}`)}
+          src={this.props.author.profile_img}
         />
-        {this.props.posts.map((x, i) =>
-          <Post
-            { ...x }
-            key={i}
-          />
-        )}
+
+        {this.props.loading
+          ? <LoadingIndicator />
+          : this.props.posts
+            ? this.props.posts.map((x, i) =>
+                <Post
+                  { ...x }
+                  key={i}
+                />
+              )
+            : null
+        }
       </div>
     )
   }
@@ -30,7 +37,7 @@ const AuthorPageHeader = ({ author, src }) => {
   return (
     <div className={css.profile}>
       <div className={css.av}>
-        <img src={src} />
+        <img src={require(`images/${src}`)} />
       </div>
       <div className={css.bio}>
         <div className={css.name}>{author.name}</div>
