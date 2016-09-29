@@ -18,7 +18,7 @@ export default function byPost(req, res, next) {
           path: 'author',
           model: 'Author',
           options: {
-            select: '-twitter.keys -twitter.cronjob -blog.cronjob -content',
+            select: '-twitter.keys -cronjobs -content',
           }
         })
         .then(posts => {

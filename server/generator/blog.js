@@ -2,7 +2,7 @@ import { Author, Post } from '../models'
 import request from 'request'
 import Generator from './sg'
 
-export default async function blog(_id, data) {
+export default async function blog(author, data) {
   const generator = Generator(data)
   const blogPostText = createTextData(generator)
   try {
@@ -10,7 +10,7 @@ export default async function blog(_id, data) {
     const blogPost = Object.assign({}, {
       ...blogPostText,
       ...blogPostMedia,
-       author: _id,
+       author: author._id,
     })
     const newPost = await saveBlogPost(blogPost)
   } catch (e) {
@@ -68,8 +68,7 @@ function callGihpyAPI(title) {
         try {
           const json = JSON.parse(body)
           if (json) {
-            const { image_url, image_mp4_url } = json.data
-            resolve({ image_url, image_mp4_url })
+            resolve({ image_url: json.data.image_url })
           } else {
             resolve()
           }

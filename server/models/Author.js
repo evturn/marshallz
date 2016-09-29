@@ -1,27 +1,21 @@
 import mongoose, { Schema } from 'mongoose'
 
 const Author = new Schema({
-  name:                  { type: String },
-  content:               { type: String },
-  username:              { type: String },
-  avatar_img:            { type: String },
-  profile_img:           { type: String },
-  posts: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Post'
-  }],
-  blog: {
-    url:                 { type: String },
-    cronjob:             { type: String },
-  },
+  name: String,
+  content: String,
+  username: String,
+  avatar_img: String,
+  profile_img: String,
+  posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+  cronjobs: [],
+  blog:{ url: String },
   twitter: {
-    url:                 { type: String },
-    cronjob:             { type: String },
+    url: String,
     keys: {
-      consumer_key:      { type: String },
-      consumer_secret:   { type: String },
-      token_key:         { type: String },
-      token_secret:      { type: String },
+      consumer_key: String,
+      consumer_secret: String,
+      access_token_key: String,
+      access_token_secret: String,
     }
   },
 })

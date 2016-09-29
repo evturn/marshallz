@@ -11,18 +11,18 @@ export default [
       '57171ae0b7ea5c07222205ae',
       '571c0c81f2b687c0342203e8'
     ],
-    blog: {
-      url: '/authors/marshall',
-      cronjob: '00 00 01,06,11,17,22 * * *',
-    },
+    cronjobs: [
+      { type: 'blog',    cron: '00 00 09,14,22 * * *' },
+      { type: 'twitter', cron: '00 00 08,22 * * *' },
+    ],
+    blog: { url: '/authors/marshall' },
     twitter: {
       url: 'https://twitter.com/marshallzBlog',
-      cronjob: '00 00 08,22 * * *',
       keys: {
         consumer_key: process.env.MARSHALLZ_TWITTER_CONSUMER_KEY,
         consumer_secret: process.env.MARSHALLZ_TWITTER_CONSUMER_SECRET,
-        token_key: process.env.MARSHALLZ_TWITTER_TOKEN_KEY,
-        token_secret: process.env.MARSHALLZ_TWITTER_TOKEN_SECRET,
+        access_token_key: process.env.MARSHALLZ_TWITTER_TOKEN_KEY,
+        access_token_secret: process.env.MARSHALLZ_TWITTER_TOKEN_SECRET,
       },
     }
   },{
@@ -36,18 +36,18 @@ export default [
       '571711d7e85951a92053ef65',
       '571780d485781e1d2e1a70fc'
     ],
-    blog: {
-      url: '/authors/clang',
-      cronjob: '00 00 00,09,14,20,23 * * *',
-    },
+    cronjobs: [
+      { type: 'blog', cron: '00 00 00,09,16 * * *' },
+      { type: 'twitter', cron: '00 00 04,00 * * *' },
+    ],
+    blog: { url: '/authors/clang' },
     twitter: {
       url: 'https://twitter.com/__clang__',
-      cronjob: '00 00 04,00 * * *',
       keys: {
         consumer_key: process.env.CLANG_TWITTER_CONSUMER_KEY,
         consumer_secret: process.env.CLANG_TWITTER_CONSUMER_SECRET,
-        token_key: process.env.CLANG_TWITTER_TOKEN_KEY,
-        token_secret: process.env.CLANG_TWITTER_TOKEN_SECRET,
+        access_token_key: process.env.CLANG_TWITTER_TOKEN_KEY,
+        access_token_secret: process.env.CLANG_TWITTER_TOKEN_SECRET,
       },
     }
   },{
@@ -61,9 +61,9 @@ export default [
       '571c0033d8983faf3122c6d6',
       '57177f1285781e1d2e1a70fb'
     ],
-    blog: {
-      url: '/authors/b0rf',
-      cronjob: '00 00 02,08,18 * * *',
-    }
+    cronjobs: [
+     { type: 'blog', cron: '00 00 02,20 * * *' }
+    ],
+    blog: { url: '/authors/b0rf' }
   }
 ]

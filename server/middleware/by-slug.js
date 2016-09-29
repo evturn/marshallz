@@ -7,7 +7,7 @@ export default function bySlug(req, res, next) {
       path: 'author',
       model: 'Author',
       options: {
-        select: '-twitter.keys -twitter.cronjob -blog.cronjob -content',
+        select: '-twitter.keys -cronjobs -content',
       }
     })
     .then(post => res.json({
