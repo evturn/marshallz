@@ -12,7 +12,7 @@
     "fetch": "node config/build.js",
     "prod": "NODE_ENV=production node lib",
     "predeploy": "npm run fetch && npm run seed && npm run build",
-    "deploy": "NODE_ENV=production nohup node lib &"
+    "deploy": "NODE_ENV=production nohup node lib &>/dev/null &"
   },
   "repository": {
     "type": "git",

@@ -6,7 +6,6 @@ const Author = new Schema({
   username: String,
   avatar_img: String,
   profile_img: String,
-  posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   cronjobs: [],
   blog:{ url: String },
   twitter: {

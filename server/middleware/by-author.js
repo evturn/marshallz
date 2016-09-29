@@ -7,7 +7,7 @@ export default function byAuthor(req, res, next) {
 
   Author
     .findOne({ 'username': req.params.author })
-    .select('-twitter.keys -cronjobs -content -posts')
+    .select('-twitter.keys -cronjobs -content')
     .exec()
     .then(author => {
       return Post
@@ -23,7 +23,7 @@ export default function byAuthor(req, res, next) {
               path: 'author',
               model: 'Author',
               options: {
-                select: '-twitter.keys -cronjobs -content -posts',
+                select: '-twitter.keys -cronjobs -content',
               }
             })
             .then(posts => {
