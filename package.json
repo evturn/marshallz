@@ -9,7 +9,7 @@
     "prebuild": "rm -rf build && rm -rf lib",
     "build": "NODE_ENV=production npm run build:webpack && npm run build:server",
     "seed": "babel-node config/scripts/seed.js",
-    "fetch": "node config/build.js",
+    "fetch": "node config/scripts/build.js",
     "prod": "NODE_ENV=production node lib",
     "predeploy": "npm run fetch && npm run seed && npm run build",
     "deploy": "NODE_ENV=production nohup node lib &>/dev/null &"

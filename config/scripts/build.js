@@ -5,7 +5,7 @@ const request = require('request')
 const mkdirp = require('mkdirp')
 const rimraf = require('rimraf')
 const { Observable } = require('rxjs')
-const { assets, dirs, seeds } = require('./manifest.json')
+const { assets, dirs, seeds } = require('../manifest.json')
 
 dirs.remove.map(rimraf.sync)
 dirs.make.map(x => mkdirp(x))

@@ -5,6 +5,7 @@ export default function byAuthor(req, res, next) {
   const limit = 5
   const skip = page > 1 ? ((limit * page) - limit) : 0
 
+
   Author
     .findOne({ 'username': req.params.author })
     .select('-twitter.keys -cronjobs -content')
