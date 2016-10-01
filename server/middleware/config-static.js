@@ -7,7 +7,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import DashboardPlugin from 'webpack-dashboard/plugin'
 import webpackConfig from '../../config/webpack/webpack.dev.babel.js'
-import writeConfigLog from '../../config/log'
+import writeConfigLog from '../../config/scripts/log'
 
 export default app => {
   if (process.env.NODE_ENV === 'development') {

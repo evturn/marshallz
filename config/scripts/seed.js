@@ -43,9 +43,8 @@ function getEnvVars(obj) {
 
 function onSuccess(files) {
   const n = `\n`
-  const __ = `               `
-  const _ = __
-  const say = args => c.green(n + __ + args)
+  const _ = `               `
+  const say = args => c.green(n + _ + args)
   const msg = [
     `${say('  Dropping DB')}`,
     `${c.red.bgRed(_)}`,
@@ -60,7 +59,7 @@ function onSuccess(files) {
     `${c.yellow.bgYellow(_)}`,
     `${say(files.length + ' models added' + n)}`,
   ]
-  .map(x => __ + x)
+  .map(x => _ + x)
   .join(n + n)
   console.log(msg)
   process.exit(0)
