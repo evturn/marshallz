@@ -4,15 +4,14 @@
   "description": "Welcome! And more importantly, Welcome to Marshallz Blog",
   "scripts": {
     "start": "NODE_ENV=development webpack-dashboard -- babel-node server",
-    "build:webpack": "NODE_ENV=production webpack --config config/webpack/webpack.prod.babel.js",
-    "build:server": "NODE_ENV=production mkdir lib && babel server -d lib",
-    "prebuild": "rm -rf build && rm -rf lib",
-    "build": "NODE_ENV=production npm run build:webpack && npm run build:server",
     "seed": "babel-node config/scripts/seed.js",
     "fetch": "node config/scripts/build.js",
-    "prod": "NODE_ENV=production node lib",
-    "predeploy": "npm run fetch && npm run seed && npm run build",
-    "deploy": "NODE_ENV=production nohup node lib &>/dev/null &"
+    "clean": "rm -rf build && rm -rf lib",
+    "build:client": "NODE_ENV=production webpack --config config/webpack/webpack.prod.babel.js",
+    "build:server": "NODE_ENV=production mkdir lib && babel server -d lib",
+    "build": "NODE_ENV=production npm run clean && npm run fetch && npm run seed && npm run build:client && npm run build:server",
+    "start:prod": "NODE_ENV=production node lib",
+    "deploy": "NODE_ENV=production nohup node lib &"
   },
   "repository": {
     "type": "git",
