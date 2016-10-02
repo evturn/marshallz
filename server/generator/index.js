@@ -9,7 +9,6 @@ function startCronJobs() {
     .find()
     .exec()
     .then(xs => {
-      console.log(xs)
       return xs
         .map(x => x.toObject())
         .map(createAuthorJobs)
