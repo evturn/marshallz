@@ -3,13 +3,13 @@ import Generator from './sg'
 import Twitter from 'twitter'
 
 export default function twitter(author, data) {
-  const request = new Twitter(author.twitter.keys)
-
-  createStatus(Generator(data), createRequest(request))
+  createStatus(Generator(data), createRequest(author.twitter.keys))
 }
 
-function createRequest(request) {
+function createRequest(keys) {
+  const request = new Twitter(keys)
   return body => {
+    console.log(body)
     request.post('statuses/update', body, (err, tweet, res) => {
       if (err) { console.log(err.message) }
     })
@@ -26,5 +26,9 @@ function createStatus(genFn, requestFn) {
   }
 
   const status = writeText('')
-  return status.length > 140 ? createStatus(genFn) : requestFn({ status })
+  if (status.length > 140) {
+    return createStatus(genFn, requestFn)
+  } else {
+    return requestFn({ status })
+  }
 }

@@ -9,6 +9,7 @@ function startCronJobs() {
     .find()
     .exec()
     .then(xs => {
+      console.log(xs)
       return xs
         .map(x => x.toObject())
         .map(createAuthorJobs)
@@ -17,13 +18,13 @@ function startCronJobs() {
 }
 
 function createAuthorJobs(author) {
-  author.cronjobs.map(({ type, cron }) => {
-    const jobFn = type === 'twitter' ? twitter : blog
-    return new CronJob(cron, dispatchJob(author, jobFn), null, true)
+  author.cronjobs.map(x => {
+    return new CronJob(x.cron, dispatchJob(x.type, author), null, true)
   })
 }
 
-function dispatchJob(author, jobFn) {
+function dispatchJob(jobType, author) {
+  const jobFn = jobType === 'twitter' ? twitter : blog
   return _ => {
     fs.readFile(`assets/${author.content}`, (e, data) => {
       if (!e && data) {

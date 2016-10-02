@@ -19,6 +19,7 @@ collections.map(x => {
     .then(_ =>
       Promise.all(
         authors.data
+          .map(getEnvVars)
           .map(x => new Author(x))
           .concat(posts.data.map(x => new Post(x)))
           .map(x => x.save())
