@@ -4,7 +4,6 @@
     "remove": [ "assets" ],
     "make": [
       "assets",
-      "assets/content",
       "assets/images"
     ]
   },
@@ -18,18 +17,6 @@
       "url": "https://www.dropbox.com/s/76zqogojg4qe6tj/authors.json?dl=1"
   }],
   "assets": [{
-      "format": "txt",
-      "file": "content/01",
-      "url": "https://www.dropbox.com/s/9dbi8uj4femused/01-content.txt?dl=1"
-    },{
-      "format": "txt",
-      "file": "content/02",
-      "url": "https://www.dropbox.com/s/95amdskrmtpgxk6/02-content.txt?dl=1"
-    },{
-      "format": "txt",
-      "file": "content/03",
-      "url": "https://www.dropbox.com/s/q7r4q8f0kbzwnn2/03-content.txt?dl=1"
-    },{
       "format": "png",
       "file": "images/01-avatar",
       "url": "https://www.dropbox.com/s/ap6u79gnmhute65/01-avatar.png?dl=1"

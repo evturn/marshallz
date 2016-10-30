@@ -33,10 +33,7 @@ function fetchAssets() {
         .on('error', e => observer.error(e))
         .on('response', response => {
           response.pipe(fs.createWriteStream(dest))
-          response.on('end', _ => {
-
-            observer.next(true)
-          })
+          response.on('end', _ => observer.next(true))
         })
     })
   }
