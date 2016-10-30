@@ -3,7 +3,7 @@
   "version": "3.5.0",
   "description": "Welcome! And more importantly, Welcome to Marshallz Blog",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dashboard -- babel-node server",
+    "start": "NODE_ENV=development babel-node server",
     "seed": "babel-node config/scripts/seed.js",
     "fetch": "node config/scripts/build.js",
     "clean": "rm -rf build && rm -rf lib",
