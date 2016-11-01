@@ -10,7 +10,6 @@ export default function twitter({ author, gen }) {
       return writeText()
     } else if (value.length > author.threshold) {
       return postToTwitter(value)
-      return
     } else {
       return writeText()
     }
@@ -29,7 +28,6 @@ function callAPI(keys) {
   return status => {
     request.post('statuses/update', { status }, (e, tweet, res) => {
       if (e) { console.log(e.message) }
-      console.log(res)
     })
   }
 }

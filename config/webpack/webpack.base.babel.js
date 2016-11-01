@@ -58,7 +58,10 @@ module.exports = opts => ({
       'main',
     ],
     alias: {
-      images:  path.resolve(process.cwd(), 'assets', 'images')
+      images: path.resolve(process.cwd(), 'assets', 'images'),
+      containers: path.resolve(process.cwd(), 'app', 'containers'),
+      components: path.resolve(process.cwd(), 'app', 'components'),
+      api: path.resolve(process.cwd(), 'app', 'api'),
     }
   },
 

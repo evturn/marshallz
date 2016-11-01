@@ -1,10 +1,12 @@
 import axios from 'axios'
+import firebase from 'firebase'
 import { api } from '../generator'
 
 export default function blog({author, gen}) {
   const title = gen.run()
   return callAPI(title.split(' ').join('+'))
     .then(image_url => ({image_url, author, title, slug: toSlug(title), body: gen.take(5)}))
+    .then(x => ({ timestamp: firebase.database.ServerValue.TIMESTAMP, ...x }))
     .then(saveBlogPost)
 }
 

@@ -23,8 +23,6 @@ export default function main() {
   return Ob$
     .fromPromise(fetchInitialData())
     .mergeMap(streamAllElements)
-    .pluck('cronjobs')
-    .mergeMap(streamAllElements)
     .map(createCronjob)
     .subscribe(subscriber)
 }
@@ -33,7 +31,7 @@ function fetchInitialData() {
   return api
     .database()
     .ref()
-    .child(`authors`)
+    .child(`cronjobs`)
     .once('value')
     .then(x => x.val())
 }
@@ -47,7 +45,7 @@ function createCronjob(data) {
 }
 
 function cronjobToDispatch({ type, index, source }) {
-  const jobToRun = type === 'blog' ? writeBlogPost : writeTwitterPost
+  const jobToRun = type === 'blog' ? writeBlogPost : _ => 'hi'
   return _ => {
     Promise.all([fetchAuthor(index), fetchContent(source)])
       .then(([author, gen]) => ({ author, gen }))
@@ -69,8 +67,4 @@ function fetchContent(source) {
     .get(process.env[source])
     .then(x => x.data)
     .then(createGenerator)
-}
-
-function noop() {
-  return
 }

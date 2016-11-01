@@ -34,7 +34,7 @@ function devMiddleware(app) {
   writeConfigLog(compiler)
 
   const file = fs.readFileSync(path.join(process.cwd(), 'build', 'index.html'))
-  return (req, res, next) => res.send(file.toString())
+  app.get('*', (req, res) => res.send(file.toString()))
 }
 
 function prodMiddleware(app) {
@@ -44,5 +44,5 @@ function prodMiddleware(app) {
   app.use(compression())
   app.use(publicPath, express.static(outputPath))
 
-  return (req, res, next) => res.sendFile(path.resolve(outputPath, 'index.html'))
+  app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')))
 }

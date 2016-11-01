@@ -18,7 +18,7 @@ import css from './styles.css'
             <AuthorName url={this.props.author.blog.url} name={this.props.author.name}  />
             <AuthorSocial twitter={this.props.author.twitter} />
             <span className={css.tag}>Author</span>
-            <Timestamp className={css.date} value={this.props.createdAt} />
+            <Timestamp className={css.date} value={this.props.timestamp} />
           </div>
         </div>
 
