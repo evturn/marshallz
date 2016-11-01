@@ -39,7 +39,7 @@ function createCronjob(data) {
 }
 
 function cronjobToDispatch({ type, index, source }) {
-  const jobToRun = type === 'blog' ? writeBlogPost : _ => 'hi'
+  const jobToRun = type === 'blog' ? writeBlogPost : writeTwitterPost
   return _ => {
     Promise.all([fetchAuthor(index), fetchContent(source)])
       .then(([author, gen]) => ({ author, gen }))
