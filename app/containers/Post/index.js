@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Timestamp from '../../components/Timestamp'
-
-import A from '../../components/A'
+import Link from 'react-router/Link'
 import Img from '../../components/Img'
 import css from './styles.css'
 
@@ -23,7 +22,7 @@ import css from './styles.css'
         </div>
 
         <div className={css.title}>
-          <A pathname={`/post/${this.props.slug}`}>{this.props.title}</A>
+          <Link to={`/post/${this.props.slug}`}>{this.props.title}</Link>
         </div>
 
         <div className={css.media}>
@@ -40,19 +39,14 @@ import css from './styles.css'
 }
 
 const AuthorAvatar = ({ url, src })=> (
-  <A
-    className={css.avatar}
-    pathname={url}>
-    <Img
-      className={css.img}
-      src={src}
-    />
-  </A>
+  <Link className={css.avatar} to={url}>
+    <Img className={css.img} src={src} />
+  </Link>
 )
 
 const AuthorName = ({ url, name }) => (
   <span className={css.name}>
-    <A pathname={url}>{name}</A>
+    <Link to={url}>{name}</Link>
   </span>
 )
 
@@ -62,12 +56,12 @@ const AuthorSocial = ({ twitter }) => {
   }
 
   return (
-    <A
+    <a
       className={css.social}
-      pathname={twitter.url}
+      href={twitter.url}
       target="_blank">
       <span className="fa fa-twitter" />
-    </A>
+    </a>
   )
 }
 

@@ -33,7 +33,7 @@ const postsReducer = (state=[], action) => {
   switch (action.type) {
 
     case 'FETCH_SUCCESS':
-      return action.payload.posts
+      return action.posts
 
     default:
       return state
@@ -43,47 +43,36 @@ const postsReducer = (state=[], action) => {
 const authorsReducer = (state=[], action) => {
   switch (action.type) {
 
-    case 'FETCH_SUCCESS':
-      return action.payload.authors
+    case 'AUTHORS_FETCHED':
+      console.log(action)
+      return action.authors
 
     default:
       return state
   }
 }
 
-const authorReducer = (state={}, action) => {
+const authorReducer = (state=null, action) => {
   switch (action.type) {
 
-    case 'FETCH_SUCCESS':
-      return action.payload.author || {}
+    case 'FETCH_BY_AUTHOR':
+      return action.payload.author
 
     default:
       return state
   }
 }
 
-const paginationReducer = (state={}, action) => {
-    switch (action.type) {
+// const paginationReducer = (state={}, action) => {
+//     switch (action.type) {
 
-    case 'FETCH_SUCCESS':
-      return action.payload.meta || {}
+//     case 'FETCH_SUCCESS':
+//       return action.payload.meta || {}
 
-    default:
-      return state
-  }
-}
-
-const routeReducer = (state=null, action) => {
-  switch (action.type) {
-
-    case 'FETCH_SUCCESS':
-      return action.payload.url
-
-    default:
-      return state
-  }
-}
-
+//     default:
+//       return state
+//   }
+// }
 
 const locationParamsReducer = (state=null, action) => {
   switch (action.type) {
@@ -103,12 +92,8 @@ export default combineReducers({
     posts: postsReducer,
     authors: authorsReducer,
     author: authorReducer,
-    meta: paginationReducer,
+    // meta: paginationReducer,
     error: errorReducer,
     loading: loadingReducer,
   }),
-  routing: combineReducers({
-    params: locationParamsReducer,
-    url: routeReducer,
-  })
 })

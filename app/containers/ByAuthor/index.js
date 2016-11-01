@@ -7,12 +7,30 @@ import * as Actions from 'api/actions'
 import css from './styles.css'
 
 class ByAuthor extends Component {
-  componentWillMount() {
-    this.props.setLocationParams(this.props.params)
+  constructor(props) {
+    super(props)
+    this.fetch = ::this.fetch
   }
 
-  componentWillUnmount() {
-    this.props.unsetLocationParams()
+  componentDidMount() {
+    const { params, location } = this.props
+    this.fetch({ params, location })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { pathname, params, location } = nextProps
+    if (this.props.pathname !== pathname) {
+      this.fetch({ params, location })
+    }
+  }
+
+
+  fetch({ params, location }) {
+    if (params.slug) {
+      this.props.fetchPost({ slug: params.slug })
+    } else if (params.author) {
+      this.props.fetchByAuthor({ author: params.author, query: location.query })
+    }
   }
 
   render() {

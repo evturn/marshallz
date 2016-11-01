@@ -12,24 +12,17 @@ import css from './styles.css'
 
 class Navigation extends Component {
   componentWillMount() {
-    this.props.fetchData(this.props.url)
-  }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.url !== nextProps.url) {
-      this.props.fetchData(nextProps.url)
-    }
+    this.props.fetchInitialData()
   }
 
   render() {
     return (
-      <div
-        className={css.site}
-        style={{ backgroundImage: `url(${Background})` }}>
+      <div className={css.site} style={{ backgroundImage: `url(${Background})` }}>
         <Header />
         <div className={css.content}>
           <Match pattern="/" exactly component={ByDate} />
           <Match pattern="/authors/:author" component={ByAuthor} />
-          <Match pattern="/post/:slug" component={ByAuthor} />
+          <Match pattern="/posts/:slug" component={ByAuthor} />
           <SidePanel authors={this.props.authors} />
         </div>
 
@@ -48,7 +41,7 @@ export default connect(
       url: ownProps.url,
       pathname: ownProps.location.pathname,
       query: ownProps.location.query,
-      pagination: !state.routing.params || !state.routing.params.slug,
+      // pagination: !state.routing.params || !state.routing.params.slug,
       loading: state.global.loading,
       error: state.global.error,
       posts: state.global.posts,

@@ -11,16 +11,45 @@ function fetchInitialData() {
   return api
     .database()
     .ref()
+    .child('authors')
     .once('value')
     .then(x => x.val())
-    .then(x => {
-      const posts = Object.keys(x.posts).reduce(convertMapToList(x.posts), [])
-      return { posts, authors: x.authors }
-    })
+    .then(authors => ({
+      type: 'AUTHORS_FETCHED',
+      authors
+    }))
+}
+
+function fetchByAuthor(username) {
+  return api
+    .database()
+    .ref()
+    .child('posts')
+    .orderByChild('author/username')
+    .equalTo(username)
+    .once('value')
+    .then(x => x.val())
+    .then(x => ({
+      type: 'FETCH_SUCCESS',
+      posts: Object.keys(x).reduce(convertMapToList(x), [])
+    }))
+}
+
+function fetchByDate() {
+  return api
+    .database()
+    .ref()
+    .child('posts')
+    .once('value')
+    .then(x => x.val())
+    .then(x => ({
+      type: 'FETCH_SUCCESS',
+      posts: Object.keys(x).reduce(convertMapToList(x), [])
+    }))
 }
 
 function convertMapToList(data) {
   return (acc, x) => acc.concat(data[x])
 }
 
-export { fetchInitialData }
+export { fetchInitialData, fetchByAuthor, fetchByDate }

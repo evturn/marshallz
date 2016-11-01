@@ -1,5 +1,5 @@
 import React from 'react'
-import A from '../A'
+import Link from 'react-router/Link'
 import Img from '../Img'
 import css from './style.css'
 
@@ -11,14 +11,14 @@ export default ({ authors }) => (
         <li
           key={x._id}
           className={css.li}>
-          <A
+          <Link
             className={css.sidelink}
-            pathname={x.blog.url}>
+            to={x.blog.url}>
             <Img
               className={css.hg}
               src={require(`images/${x.profile_img}`)} />
             <span className={css.name}>{x.name}</span>
-          </A>
+          </Link>
         </li>
       )}
     </ul>

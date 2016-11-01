@@ -1,20 +1,22 @@
 import { Observable as Ob$ } from 'rxjs'
 import { combineEpics } from 'redux-observable'
-import { fetchInitialData } from 'api'
+import * as API from 'api'
 
-function fetchData(action$) {
-  return action$.ofType('FETCH')
-    .switchMap(action => {
-      return Ob$
-        .fromPromise(fetchInitialData())
-        .map(data => ({
-          type: 'FETCH_SUCCESS',
-          payload: {
-            ...data,
-            url: action.payload.url,
-          },
-        }))
-    })
+function fetchInitialData(action$) {
+  return action$.ofType('FETCH_INITIAL_DATA')
+    .mergeMap(API.fetchInitialData)
 }
 
-export default combineEpics(fetchData)
+function fetchByAuthor(action$) {
+  return action$.ofType('FETCH_BY_AUTHOR')
+    .pluck('payload', 'author')
+    .mergeMap(API.fetchByAuthor)
+}
+
+function fetchByDate(action$) {
+  return action$.ofType('FETCH_BY_DATE')
+    .pluck('payload')
+    .mergeMap(API.fetchByDate)
+}
+
+export default combineEpics(fetchInitialData, fetchByAuthor, fetchByDate)
