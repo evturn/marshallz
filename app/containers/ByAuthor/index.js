@@ -33,51 +33,38 @@ class ByAuthor extends Component {
   }
 
   render() {
+    const { author, loading, posts } = this.props
     return (
       <div className={css.posts}>
-        <AuthorPageHeader author={this.props.author} />
-
-        {this.props.loading
+        {!author || loading
           ? <LoadingIndicator />
-          : this.props.posts
-            ? this.props.posts.map((x, i) =>
-                <Post
-                  { ...x }
-                  key={i}
-                />
-              )
-            : null
+          : <div>
+              <div className={css.profile}>
+                <div className={css.av}>
+                  <img src={require(`images/${author.profile_img}`)} />
+                </div>
+                <div className={css.bio}>
+                  <div className={css.name}>{author.name}</div>
+                  {author.twitter
+                    ? <a className={css.social} href={author.twitter.url}>
+                        <span className="fa fa-twitter" />
+                      </a>
+                    : null
+                  }
+                </div>
+              </div>
+              {posts.map((x, i) => <Post {...x} key={i} />)}
+            </div>
         }
       </div>
     )
   }
 }
 
-const AuthorPageHeader = ({ author }) => {
-  if (!author || author.profile_img) {
-    return null
-  }
-  return (
-    <div className={css.profile}>
-      <div className={css.av}>
-        <img src={require(`images/${author.profile_img}`)} />
-      </div>
-      <div className={css.bio}>
-        <div className={css.name}>{author.name}</div>
-        {author.twitter
-          ? <a className={css.social} href={author.twitter.url}>
-              <span className="fa fa-twitter" />
-            </a>
-          : null
-        }
-      </div>
-    </div>
-  )
-}
-
 export default connect(
   state => ({
-    author: state.authors.filter(x => state.author === x.username)[0],
+    author: state.author,
+    loading: state.loading,
     posts: state.posts,
   }),
   Actions

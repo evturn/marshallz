@@ -28,23 +28,24 @@ class ByDate extends Component {
   }
 
   render() {
+    const { loading, posts } = this.props
     return (
       <div className={css.posts}>
-
-        {this.props.loading
+        {loading
           ? <LoadingIndicator />
-          : this.props.posts
-            ? this.props.posts.map((x, i) =>
-                <Post
-                  { ...x }
-                  key={i}
-                />
-              )
-            : null
+          : <div>
+              {posts.map((x, i) => <Post {...x} key={i} />)}
+            </div>
         }
       </div>
     )
   }
 }
 
-export default connect(state => ({ posts: state.posts }), Actions)(ByDate)
+export default connect(
+  state => ({
+    posts: state.posts,
+    loading: state.loading,
+  }),
+  Actions
+)(ByDate)

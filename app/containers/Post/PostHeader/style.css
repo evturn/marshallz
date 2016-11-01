@@ -1,0 +1,72 @@
+.root {
+  text-align: left;
+}
+
+.avatar {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  margin-right: 10px;
+  vertical-align: top;
+}
+
+.avatar .img {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.tag,
+.date {
+  font-size: 11px;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: -0.5px;
+  composes: tx-gray from 'containers/App/style.css';
+  text-transform: uppercase;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #E8E4E7;
+  color: #515151;
+  padding-right: 5px;
+  padding-left: 5px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: text-top;
+}
+
+.date {
+  display: block;
+}
+
+.info {
+  display: inline-block;
+}
+
+.name {
+  display: inline-block;
+  text-align: left;
+  margin-right: 10px;
+  font-family: 'Open Sans', sans;
+}
+
+.social {
+  display: inline-block;
+  text-align: left;
+  color: #C8C5C7;
+  margin-right: 5px;
+  transition: 0.2s;
+}
+
+.date:before,
+.social:before, {
+  content: '•';
+  font-size: 11px;
+  margin-right: 5px;
+  margin-left: 5px;
+  color: #C8C5C7;
+}

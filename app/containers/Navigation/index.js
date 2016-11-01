@@ -38,16 +38,8 @@ class Navigation extends Component {
 export default connect(
   (state, ownProps) => {
     return {
-      url: ownProps.url,
-      pathname: ownProps.location.pathname,
-      query: ownProps.location.query,
       // pagination: !state.routing.params || !state.routing.params.slug,
-      loading: state.loading,
-      error: state.error,
-      posts: state.posts,
       authors: state.authors,
-      author: state.author,
-      meta: state.meta,
     }
   },
   Actions

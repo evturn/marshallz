@@ -1,168 +1,21 @@
-.post {
+.root {
   display: block;
   position: relative;
   margin: 0 15px 40px 15px;
   padding: 15px;
   max-width: 750px;
   border-radius: 1px;
-  composes: bg-light from '../App/style.css';
+  composes: bg-light from 'containers/App/style.css';
   box-shadow: 0px 1px 2px -2px rgba(0,0,0,0.4);
 }
 
-.header {
-  text-align: left;
-}
-
-.avatar {
-  display: inline-block;
-  position: relative;
-  text-align: left;
-  margin-right: 10px;
-  vertical-align: top;
-}
-
-.avatar .img {
-  position: relative;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-}
-
-.tag,
-.date {
-  font-size: 11px;
-  text-align: left;
-  font-family: 'Open Sans', sans-serif;
-  letter-spacing: -0.5px;
-  composes: tx-gray from '../App/style.css';
-  text-transform: uppercase;
-}
-
-.tag {
-  display: inline-block;
-  background-color: #E8E4E7;
-  color: #515151;
-  padding-right: 5px;
-  padding-left: 5px;
-  border-radius: 3px;
-  margin-right: 5px;
-  vertical-align: text-top;
-}
-
-.date {
-  display: block;
-}
-
-.info {
-  display: inline-block;
-}
-
-.name {
-  display: inline-block;
-  text-align: left;
-  margin-right: 10px;
-  font-family: 'Open Sans', sans;
-}
-
-.social {
-  display: inline-block;
-  text-align: left;
-  color: #C8C5C7;
-  margin-right: 5px;
-  transition: 0.2s;
-}
-
-.date:before,
-.social:before, {
-  content: '•';
-  font-size: 11px;
-  margin-right: 5px;
-  margin-left: 5px;
-  color: #C8C5C7;
-}
-
-.media {
-  position: relative;
-  background-color:  #F1F1F1;
-  height: 200px;
-  width: 100%;
-  overflow: hidden;
-}
-
-@media (min-width: 1024px) {
-  .media {
-    height: 330px;
-  }
-}
-
-.media .img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 110%;
-  min-height: 110%;
-  width: auto;
-  height: auto;
-  transform: translateX(-50%) translateY(-50%);
-  transition-property: all;
-  transition-duration: 0.2s;
-  transition-timing-function: initial;
-  transition-delay: initial;
-}
-
-.title {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-weight: 700;
-  font-family: 'Open Sans', sans-serif;
-  text-transform: uppercase;
-  color: rgba(0,0,0,0.8);
-  font-size: 28px;
-  line-height: 0.93;
-  letter-spacing: -0.022em;
-  text-align: left;
-}
-
-@media (min-width: 1024px) {
-  .title {
-    font-size: 3vw;
-  }
-}
-
-.body {
-  text-align: justify;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  font-size: 18px;
-  line-height: 1.5;
-  font-weight: 300;
-  letter-spacing: -0.004em;
-  font-family: 'Open Sans', sans;
-  font-weight: 300;
-  font-style: normal;
-  composes: tx-dark from '../App/style.css';
-}
-
-.post a {
+.root a {
   text-decoration: none;
   color: #2C3235;
 }
 
 @media (min-width: 767px) {
-  .post {
+  .root {
     margin: 0 auto 40px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .content {
-    box-shadow: none;
-  }
-  .body {
-    font-size: 18px;
-    line-height: 1.5em;
   }
 }

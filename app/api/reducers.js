@@ -3,7 +3,10 @@ import { combineReducers } from 'redux'
 const loadingReducer = (state=false, action) => {
   switch (action.type) {
 
-    case 'FETCH':
+    case 'FETCH_INITIAL_DATA':
+    case 'FETCH_BY_AUTHOR':
+    case 'FETCH_POST':
+    case 'FETCH_BY_DATE':
       return true
 
     case 'FETCH_SUCCESS':
@@ -18,7 +21,9 @@ const loadingReducer = (state=false, action) => {
 const errorReducer = (state=null, action) => {
   switch (action.type) {
 
-    case 'FETCH':
+    case 'FETCH_INITIAL_DATA':
+    case 'FETCH_BY_AUTHOR':
+    case 'FETCH_BY_DATE':
       return null
 
     case 'FETCH_ERROR':
@@ -54,8 +59,8 @@ const authorsReducer = (state=[], action) => {
 const authorReducer = (state=null, action) => {
   switch (action.type) {
 
-    case 'FETCH_BY_AUTHOR':
-      return action.payload.author
+    case 'FETCH_SUCCESS':
+      return action.author || state
 
     default:
       return state
