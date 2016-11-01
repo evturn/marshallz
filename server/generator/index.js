@@ -20,29 +20,25 @@ const subscriber = {
 export default function main() {
   return Ob$
     .fromPromise(fetchInitialData())
-    .mergeMap(selectJobsToExec)
-    .mergeMap(populateGenerator)
+    .map(combineAllCronjobs)
+    .groupBy(groupByJobType)
+    // .mergeMap(selectJobsToExec)
+    // .mergeMap(x => Ob$
+    //   .fromPromise(fetchAuthor(x.index))
+    //   .pluck('source_url')
+    //   .mergeMap(fetchAuthorContent)
+    //   .map(createGenerator)
+    //   .map(x.fn)
+    // )
     .subscribe(subscriber)
 }
 
-function populateGenerator(x) {
-  return Ob$
-    .fromPromise(fetchAuthor(x.index))
-    .map(filterSourceURL)
-    .mergeMap(x => Ob$.fromPromise(fetchAuthorContent(x)))
-    .map(createGenerator)
-    .map(x.fn)
+function combineAllCronjobs(data) {
+  return data.reduce((acc, x) => acc.concat(x.cronjobs), [])
 }
 
-function selectJobsToExec(data) {
-  return Ob$
-    .from(data.map(filterCronjobs))
-    .mergeMap(x => Ob$.from(x))
-}
-
-function filterCronjobs(data) {
-  const jobs = {blog: writeBlogPost, twitter: writeTwitterPost}
-  return data.cronjobs.map(x => ({fn: jobs[x.type], index: x.index}))
+function groupByJobType(data) {
+  return data.type === 'blog'
 }
 
 function filterSourceURL(data) {
