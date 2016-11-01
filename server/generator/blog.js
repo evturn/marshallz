@@ -1,51 +1,25 @@
-import { Author, Post } from '../models'
-import request from 'request'
-import Generator from './sg'
+import axios from 'axios'
+import { api } from '../generator'
 
-export default async function blog(author, data) {
-  const generator = Generator(data)
-  const blogPostText = createTextData(generator)
-  try {
-    const blogPostMedia = await callGihpyAPI(blogPostText.title)
-    const blogPost = Object.assign({}, {
-      ...blogPostText,
-      ...blogPostMedia,
-       author: author._id,
-    })
-    const newPost = await saveBlogPost(blogPost)
-  } catch (e) {
-    console.log(e)
-  }
+export default function blog({author, gen}) {
+  const title = gen.run()
+  return callAPI(title.split(' ').join('+'))
+    .then(image_url => ({image_url, author, title, slug: toSlug(title), body: gen.take(5)}))
+    .then(saveBlogPost)
 }
 
-function saveBlogPost(blogPost) {
-  const newPost = new Post(blogPost)
-  return newPost
-    .save()
-    .then(post => {
-      return Author
-        .findById(post.author)
-        .exec()
-        .then(author => {
-          author.posts.push(post)
-          return author.save()
-        })
-    })
+function callAPI(query) {
+  return axios(`http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=${query}`)
+    .then(x => x.data.data.image_url)
+    .catch(e => console.error(`Fucking fuck! ${e.message}`))
 }
 
-function createTextData(generator) {
-  function writeBody(acc) {
-    acc.push(generator())
-    if (acc.length < 4) {
-      writeBody(acc)
-    }
-    return acc.join('. ')
-  }
-
-  const title = generator()
-  const slug = toSlug(title)
-  const body = writeBody([])
-  return { title, slug, body }
+function saveBlogPost(x) {
+  return api
+    .database()
+    .ref()
+    .child('posts')
+    .push(x)
 }
 
 function toSlug(text) {
@@ -53,29 +27,4 @@ function toSlug(text) {
     .replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-')
     .replace(/^-+|-+$/g,'')
     .toLowerCase()
-}
-
-function callGihpyAPI(title) {
-  const tag = `tag=${title.split(' ').join('+')}`
-  const api_key = `api_key=${'dc6zaTOxFJmzC'}` // It's public, chill out.
-  const url = `http://api.giphy.com/v1/gifs/random?${api_key}&${tag}`
-
-  return new Promise((resolve, reject) => {
-    request(url, (err, res, body) => {
-      if (err) {
-        reject(err)
-      } else {
-        try {
-          const json = JSON.parse(body)
-          if (json) {
-            resolve({ image_url: json.data.image_url })
-          } else {
-            resolve()
-          }
-        } catch (e) {
-          reject(e)
-        }
-      }
-    })
-  })
 }

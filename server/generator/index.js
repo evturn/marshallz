@@ -1,10 +1,11 @@
 import axios from 'axios'
 import firebase from 'firebase'
 import createGenerator from './instance'
+import writeBlogPost from './blog'
 import { CronJob as Cron } from 'cron'
 import { Observable as Ob$ } from 'rxjs'
 
-const api = firebase.initializeApp({
+export const api = firebase.initializeApp({
   apiKey: 'AIzaSyBqnVMFW5iidbPpvNL-Vmc5rVf4Cn1Uqq4',
   authDomain: 'marshallz-5ff65.firebaseapp.com',
   databaseURL: 'https://marshallz-5ff65.firebaseio.com/',
@@ -20,37 +21,11 @@ const subscriber = {
 export default function main() {
   return Ob$
     .fromPromise(fetchInitialData())
-    .map(combineAllCronjobs)
-    .groupBy(groupByJobType)
-    // .mergeMap(selectJobsToExec)
-    // .mergeMap(x => Ob$
-    //   .fromPromise(fetchAuthor(x.index))
-    //   .pluck('source_url')
-    //   .mergeMap(fetchAuthorContent)
-    //   .map(createGenerator)
-    //   .map(x.fn)
-    // )
+    .mergeMap(streamAllElements)
+    .pluck('cronjobs')
+    .mergeMap(streamAllElements)
+    .map(createCronjob)
     .subscribe(subscriber)
-}
-
-function combineAllCronjobs(data) {
-  return data.reduce((acc, x) => acc.concat(x.cronjobs), [])
-}
-
-function groupByJobType(data) {
-  return data.type === 'blog'
-}
-
-function filterSourceURL(data) {
-  return data.source_url
-}
-
-function writeBlogPost(gen) {
-  return gen.take(8)
-}
-
-function writeTwitterPost(gen) {
-  return gen.run()
 }
 
 function fetchInitialData() {
@@ -62,6 +37,23 @@ function fetchInitialData() {
     .then(x => x.val())
 }
 
+function streamAllElements(xs) {
+  return Ob$.from(xs)
+}
+
+function createCronjob(data) {
+  return new Cron('05,15,25,35,45,55 * * * * *', cronjobToDispatch(data), null, true)
+}
+
+function cronjobToDispatch({ type, index, source }) {
+  const jobToRun = type === 'blog' ? writeBlogPost : noop
+  return _ => {
+    Promise.all([fetchAuthor(index), fetchContent(source)])
+      .then(([author, gen]) => ({ author, gen }))
+      .then(jobToRun)
+  }
+}
+
 function fetchAuthor(index) {
   return api
     .database()
@@ -71,8 +63,13 @@ function fetchAuthor(index) {
     .then(x => x.val())
 }
 
-function fetchAuthorContent(url) {
+function fetchContent(source) {
   return axios
-    .get(process.env[url])
+    .get(process.env[source])
     .then(x => x.data)
+    .then(createGenerator)
+}
+
+function noop() {
+  return
 }
