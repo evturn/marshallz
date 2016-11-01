@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch'
 import { Observable as Ob$ } from 'rxjs'
 import { combineEpics } from 'redux-observable'
 import { fetchInitialData } from 'api'

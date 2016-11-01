@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Post from '../Post'
-import LoadingIndicator from '../../components/LoadingIndicator'
-import A from '../../components/A'
-import * as Actions from './actions'
+import Post from 'containers/Post'
+import LoadingIndicator from 'components/LoadingIndicator'
+import A from 'components/A'
+import * as Actions from 'api/actions'
 import css from './styles.css'
 
 class ByAuthor extends Component {

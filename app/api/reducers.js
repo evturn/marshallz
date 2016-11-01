@@ -73,17 +73,7 @@ const paginationReducer = (state={}, action) => {
   }
 }
 
-export default combineReducers({
-  posts: postsReducer,
-  authors: authorsReducer,
-  author: authorReducer,
-  meta: paginationReducer,
-  error: errorReducer,
-  loading: loadingReducer,
-})
-
-
-export const routeReducer = (state=null, action) => {
+const routeReducer = (state=null, action) => {
   switch (action.type) {
 
     case 'FETCH_SUCCESS':
@@ -93,3 +83,32 @@ export const routeReducer = (state=null, action) => {
       return state
   }
 }
+
+
+const locationParamsReducer = (state=null, action) => {
+  switch (action.type) {
+    case 'SET_LOCATION_PARAMS':
+      return action.payload.params
+
+    case 'UNSET_LOCATION_PARAMS':
+      return null
+
+    default:
+      return state
+  }
+}
+
+export default combineReducers({
+  global: combineReducers({
+    posts: postsReducer,
+    authors: authorsReducer,
+    author: authorReducer,
+    meta: paginationReducer,
+    error: errorReducer,
+    loading: loadingReducer,
+  }),
+  routing: combineReducers({
+    params: locationParamsReducer,
+    url: routeReducer,
+  })
+})

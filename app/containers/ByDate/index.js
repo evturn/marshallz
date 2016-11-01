@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Post from '../Post'
-import LoadingIndicator from '../../components/LoadingIndicator'
+import Post from 'containers/Post'
+import LoadingIndicator from 'components/LoadingIndicator'
 import css from './styles.css'
 
 class ByDate extends Component {
