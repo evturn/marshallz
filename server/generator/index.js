@@ -2,6 +2,7 @@ import axios from 'axios'
 import firebase from 'firebase'
 import createGenerator from './instance'
 import writeBlogPost from './blog'
+import writeTwitterPost from './twitter'
 import { CronJob as Cron } from 'cron'
 import { Observable as Ob$ } from 'rxjs'
 
@@ -42,11 +43,11 @@ function streamAllElements(xs) {
 }
 
 function createCronjob(data) {
-  return new Cron('05,15,25,35,45,55 * * * * *', cronjobToDispatch(data), null, true)
+  return new Cron(data.cron, cronjobToDispatch(data), null, true)
 }
 
 function cronjobToDispatch({ type, index, source }) {
-  const jobToRun = type === 'blog' ? writeBlogPost : noop
+  const jobToRun = type === 'blog' ? writeBlogPost : writeTwitterPost
   return _ => {
     Promise.all([fetchAuthor(index), fetchContent(source)])
       .then(([author, gen]) => ({ author, gen }))

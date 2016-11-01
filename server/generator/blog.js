@@ -11,7 +11,7 @@ export default function blog({author, gen}) {
 function callAPI(query) {
   return axios(`http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=${query}`)
     .then(x => x.data.data.image_url)
-    .catch(e => console.error(`Fucking fuck! ${e.message}`))
+    .catch(_ => 'https://raw.githubusercontent.com/evturn/marshallz-blog-node/master/public/images/marshallz-bg.jpg')
 }
 
 function saveBlogPost(x) {

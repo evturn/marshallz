@@ -1,34 +1,35 @@
-import { Author } from '../models'
-import Generator from './sg'
 import Twitter from 'twitter'
 
-export default function twitter(author, data) {
-  createStatus(Generator(data), createRequest(author.twitter.keys))
-}
+export default function twitter({ author, gen }) {
+  const postToTwitter = callAPI(author.twitter.keys)
 
-function createRequest(keys) {
-  const request = new Twitter(keys)
-  return body => {
-    console.log(body)
-    request.post('statuses/update', body, (err, tweet, res) => {
-      if (err) { console.log(err.message) }
-    })
-  }
-}
-
-function createStatus(genFn, requestFn) {
-  function writeText(acc) {
-    acc += genFn() + '. '
-    if (acc.length < 100) {
-      return writeText(acc)
+  function writeText() {
+    const value = gen.generate()
+    if (value.length > 140) {
+      gen.clear()
+      return writeText()
+    } else if (value.length > author.threshold) {
+      return postToTwitter(value)
+      return
+    } else {
+      return writeText()
     }
-    return acc.trim()
   }
 
-  const status = writeText('')
-  if (status.length > 140) {
-    return createStatus(genFn, requestFn)
-  } else {
-    return requestFn({ status })
+  writeText()
+}
+
+function callAPI(keys) {
+  const request = new Twitter({
+    access_token_key: process.env[keys.access_token_key],
+    access_token_secret: process.env[keys.access_token_secret],
+    consumer_key: process.env[keys.consumer_key],
+    consumer_secret: process.env[keys.consumer_secret],
+  })
+  return status => {
+    request.post('statuses/update', { status }, (e, tweet, res) => {
+      if (e) { console.log(e.message) }
+      console.log(res)
+    })
   }
 }
