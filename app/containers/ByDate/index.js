@@ -47,4 +47,4 @@ class ByDate extends Component {
   }
 }
 
-export default connect(state => ({ posts: state.global.posts }), Actions)(ByDate)
+export default connect(state => ({ posts: state.posts }), Actions)(ByDate)

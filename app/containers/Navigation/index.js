@@ -42,12 +42,12 @@ export default connect(
       pathname: ownProps.location.pathname,
       query: ownProps.location.query,
       // pagination: !state.routing.params || !state.routing.params.slug,
-      loading: state.global.loading,
-      error: state.global.error,
-      posts: state.global.posts,
-      authors: state.global.authors,
-      author: state.global.author,
-      meta: state.global.meta,
+      loading: state.loading,
+      error: state.error,
+      posts: state.posts,
+      authors: state.authors,
+      author: state.author,
+      meta: state.meta,
     }
   },
   Actions

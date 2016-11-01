@@ -14,13 +14,28 @@ function fetchInitialData() {
     .child('authors')
     .once('value')
     .then(x => x.val())
-    .then(authors => ({
-      type: 'AUTHORS_FETCHED',
-      authors
-    }))
+    .then(authors => ({type: 'AUTHORS_FETCHED', authors}))
 }
 
 function fetchByAuthor(username) {
+  const posts = fetchPostsByAuthor(username)
+  const author = fetchAuthor(username)
+  return Promise.all([posts, author])
+    .then(([posts, author]) => ({ posts, author }))
+    .then(x => ({type: 'FETCH_SUCCESS', ...x}))
+}
+
+function fetchAuthor(username) {
+  return api
+    .database()
+    .ref()
+    .child('authors')
+    .once('value')
+    .then(x => x.val())
+    .then(x => x.filter(x => x.username === username)[0])
+}
+
+function fetchPostsByAuthor(username) {
   return api
     .database()
     .ref()
@@ -29,10 +44,7 @@ function fetchByAuthor(username) {
     .equalTo(username)
     .once('value')
     .then(x => x.val())
-    .then(x => ({
-      type: 'FETCH_SUCCESS',
-      posts: Object.keys(x).reduce(convertMapToList(x), [])
-    }))
+    .then(reduceToArray)
 }
 
 function fetchByDate() {
@@ -42,14 +54,14 @@ function fetchByDate() {
     .child('posts')
     .once('value')
     .then(x => x.val())
-    .then(x => ({
-      type: 'FETCH_SUCCESS',
-      posts: Object.keys(x).reduce(convertMapToList(x), [])
-    }))
+    .then(reduceToArray)
+    .then(posts => ({type: 'FETCH_SUCCESS', posts}))
 }
 
-function convertMapToList(data) {
-  return (acc, x) => acc.concat(data[x])
+function reduceToArray(data) {
+  return Object
+    .keys(data)
+    .reduce((acc, x) => acc.concat(data[x]), [])
 }
 
 export { fetchInitialData, fetchByAuthor, fetchByDate }

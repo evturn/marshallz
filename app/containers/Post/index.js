@@ -67,5 +67,5 @@ const AuthorSocial = ({ twitter }) => {
 
 export default connect(
   state => ({
-    loading: state.global.loading,
+    loading: state.loading,
   }))(Post)

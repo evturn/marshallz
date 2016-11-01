@@ -44,7 +44,6 @@ const authorsReducer = (state=[], action) => {
   switch (action.type) {
 
     case 'AUTHORS_FETCHED':
-      console.log(action)
       return action.authors
 
     default:
@@ -74,26 +73,10 @@ const authorReducer = (state=null, action) => {
 //   }
 // }
 
-const locationParamsReducer = (state=null, action) => {
-  switch (action.type) {
-    case 'SET_LOCATION_PARAMS':
-      return action.payload.params
-
-    case 'UNSET_LOCATION_PARAMS':
-      return null
-
-    default:
-      return state
-  }
-}
-
 export default combineReducers({
-  global: combineReducers({
-    posts: postsReducer,
-    authors: authorsReducer,
-    author: authorReducer,
-    // meta: paginationReducer,
-    error: errorReducer,
-    loading: loadingReducer,
-  }),
+  posts: postsReducer,
+  authors: authorsReducer,
+  author: authorReducer,
+  error: errorReducer,
+  loading: loadingReducer,
 })
