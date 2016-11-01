@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from 'containers/Post'
 import LoadingIndicator from 'components/LoadingIndicator'
+import ProfilePic from 'components/ProfilePic'
 import * as Actions from 'api/actions'
 import css from './styles.css'
 
@@ -23,7 +24,6 @@ class ByAuthor extends Component {
     }
   }
 
-
   fetch({ params, location }) {
     if (params.slug) {
       this.props.fetchPost({ slug: params.slug })
@@ -41,7 +41,7 @@ class ByAuthor extends Component {
           : <div>
               <div className={css.profile}>
                 <div className={css.av}>
-                  <img src={require(`images/${author.profile_img}`)} />
+                  <ProfilePic src={author.profile_img} />
                 </div>
                 <div className={css.bio}>
                   <div className={css.name}>{author.name}</div>

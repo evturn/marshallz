@@ -13,18 +13,12 @@ export const api = firebase.initializeApp({
   storageBucket: 'gs://marshallz-5ff65.appspot.com',
 })
 
-const subscriber = {
-  next: x => console.log(x),
-  error: e => console.error(`Jesus fuck! ${e}`),
-  complete: _ => console.log(`Bye.`)
-}
-
 export default function main() {
   return Ob$
     .fromPromise(fetchInitialData())
     .mergeMap(streamAllElements)
     .map(createCronjob)
-    .subscribe(subscriber)
+    .subscribe()
 }
 
 function fetchInitialData() {

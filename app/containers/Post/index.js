@@ -6,7 +6,6 @@ import css from './styles.css'
 
  class Post extends Component {
   render() {
-
     return (
       <div className={css.root}>
         <PostHeader {...this.props} />

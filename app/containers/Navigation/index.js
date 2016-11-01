@@ -7,7 +7,7 @@ import ByAuthor from 'containers/ByAuthor'
 import SidePanel from 'components/SidePanel'
 import Pagination from 'components/Pagination'
 import * as Actions from 'api/actions'
-import Background from './bg.jpg'
+import bg from './bg.jpg'
 import css from './styles.css'
 
 class Navigation extends Component {
@@ -17,7 +17,7 @@ class Navigation extends Component {
 
   render() {
     return (
-      <div className={css.site} style={{ backgroundImage: `url(${Background})` }}>
+      <div className={css.site} style={{ backgroundImage: `url(${bg})` }}>
         <Header />
         <div className={css.content}>
           <Match pattern="/" exactly component={ByDate} />

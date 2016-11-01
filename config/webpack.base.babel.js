@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-
 const cssnext = require('postcss-cssnext')
 const postcssFocus = require('postcss-focus')
 const postcssReporter = require('postcss-reporter')

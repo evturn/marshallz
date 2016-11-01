@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'react-router/Link'
-import Img from '../Img'
+import ProfilePic from 'components/ProfilePic'
 import css from './style.css'
 
 export default ({ authors }) => (
@@ -8,15 +8,9 @@ export default ({ authors }) => (
     <ul>
       <li className={css.title}>Writers</li>
       {authors.map(x =>
-        <li
-          key={x._id}
-          className={css.li}>
-          <Link
-            className={css.sidelink}
-            to={x.blog.url}>
-            <Img
-              className={css.hg}
-              src={require(`images/${x.profile_img}`)} />
+        <li key={x._id} className={css.li}>
+          <Link className={css.sidelink} to={x.blog.url}>
+            <ProfilePic className={css.hg} src={x.profile_img} />
             <span className={css.name}>{x.name}</span>
           </Link>
         </li>
