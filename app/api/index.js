@@ -62,6 +62,7 @@ function reduceToArray(data) {
   return Object
     .keys(data)
     .reduce((acc, x) => acc.concat(data[x]), [])
+    .reverse()
 }
 
 export { fetchInitialData, fetchByAuthor, fetchByDate }
