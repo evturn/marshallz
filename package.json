@@ -24,7 +24,9 @@
     ],
     "plugins": [
       "add-module-exports",
-      "transform-function-bind"
+      "transform-function-bind",
+      "transform-decorators-legacy",
+      "transform-decorators"
     ],
     "env": {
       "production": {
@@ -55,6 +57,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^4.0.0-alpha.3",
     "redux": "^3.6.0",
+    "redux-connect-decorator": "^0.1.0",
     "redux-observable": "^0.10.0",
     "rxjs": "^5.0.0-beta.11",
     "sanitize.css": "^4.1.0",
@@ -66,6 +69,7 @@
     "babel-loader": "^6.2.4",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-decorators": "^6.22.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-function-bind": "^6.8.0",
     "babel-plugin-transform-react-constant-elements": "^6.9.1",

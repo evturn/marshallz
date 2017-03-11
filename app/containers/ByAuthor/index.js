@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import connect from 'redux-connect-decorator'
 import Post from 'containers/Post'
 import LoadingIndicator from 'components/LoadingIndicator'
 import ProfilePic from 'components/ProfilePic'
 import * as Actions from 'api/actions'
 import css from './styles.css'
+
+@connect(state => ({
+  author: state.author,
+  loading: state.loading,
+  posts: state.posts,
+}), Actions)
 
 class ByAuthor extends Component {
   constructor(props) {
@@ -61,11 +67,4 @@ class ByAuthor extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    author: state.author,
-    loading: state.loading,
-    posts: state.posts,
-  }),
-  Actions
-)(ByAuthor)
+export default ByAuthor

@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import connect from 'redux-connect-decorator'
 import PostHeader from './PostHeader'
 import PostContent from './PostContent'
 import css from './styles.css'
+
+@connect(state => ({
+  loading: state.loading,
+}))
 
  class Post extends Component {
   render() {
@@ -15,7 +19,4 @@ import css from './styles.css'
   }
 }
 
-export default connect(
-  state => ({
-    loading: state.loading,
-  }))(Post)
+export default Post

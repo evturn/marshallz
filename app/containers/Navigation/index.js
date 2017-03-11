@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
+import connect from 'redux-connect-decorator'
 import Match from 'react-router/Match'
 import Header from 'components/Header'
 import ByDate from 'containers/ByDate'
@@ -9,6 +9,10 @@ import Pagination from 'components/Pagination'
 import * as Actions from 'api/actions'
 import bg from './bg.jpg'
 import css from './styles.css'
+
+@connect(state => ({
+  authors: state.authors,
+}), Actions)
 
 class Navigation extends Component {
   componentWillMount() {
@@ -35,12 +39,4 @@ class Navigation extends Component {
   }
 }
 
-export default connect(
-  (state, ownProps) => {
-    return {
-      // pagination: !state.routing.params || !state.routing.params.slug,
-      authors: state.authors,
-    }
-  },
-  Actions
-)(Navigation)
+export default Navigation

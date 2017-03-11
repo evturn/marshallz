@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import connect from 'redux-connect-decorator'
 import Post from 'containers/Post'
 import LoadingIndicator from 'components/LoadingIndicator'
 import * as Actions from 'api/actions'
 import css from './styles.css'
+
+@connect(state => ({
+  posts: state.posts,
+  loading: state.loading,
+}), Actions)
 
 class ByDate extends Component {
   constructor(props) {
@@ -42,10 +47,4 @@ class ByDate extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    posts: state.posts,
-    loading: state.loading,
-  }),
-  Actions
-)(ByDate)
+export default ByDate
