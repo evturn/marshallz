@@ -24,7 +24,7 @@
   text-align: left;
   font-family: 'Open Sans', sans-serif;
   letter-spacing: -0.5px;
-  composes: tx-gray from 'containers/App/style.css';
+  color: #C8C5C7;
   text-transform: uppercase;
 }
 

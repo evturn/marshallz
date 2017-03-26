@@ -59,7 +59,7 @@
   font-family: 'Open Sans', sans;
   font-weight: 300;
   font-style: normal;
-  composes: tx-dark from 'containers/App/style.css';
+  color: #2C3235;
 }
 
 @media (min-width: 1024px) {

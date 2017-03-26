@@ -1,6 +1,6 @@
 {
   "name": "marshallz",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Welcome! And more importantly, Welcome to Marshallz Blog",
   "scripts": {
     "start": "NODE_ENV=development babel-node server",

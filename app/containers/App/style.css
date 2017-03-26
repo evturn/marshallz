@@ -1,37 +1,30 @@
-@import url(https://fonts.googleapis.com/css?family=Monofett);
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
-
-.inner {
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  max-width: 1200px;
-}
-
-.clearfix {
+.root {
+  min-height: 100vh;
+  width: 100%;
   zoom: 1;
+  background-repeat: repeat;
 }
-.clearfix:before,
-.clearfix:after {
+.root:before,
+.root:after {
   content: " ";
   display: table;
 }
-.clearfix:after {
+
+.root:after {
   clear: both;
 }
 
-.site {
+.root {
   min-height: 100vh;
   width: 100%;
   zoom: 1;
 }
-.site:before,
-.site:after {
+.root:before,
+.root:after {
   content: " ";
   display: table;
 }
-.site:after {
+.root:after {
   clear: both;
 }
 
@@ -52,80 +45,64 @@
   clear: both;
 }
 
-.tx-gray {
-  color: #C8C5C7;
-}
-.bg-gray {
-  background-color: #C8C5C7;
-}
-.tx-light {
-  color: #FEFEFE;
-}
-.bg-light {
-  background-color: #FEFEFE;
-}
-.tx-dark {
- color: #2C3235;
-}
-.bg-dark {
-  background-color: #2C3235;
-}
-
-
-button:focus {
-  outline: 0;
-}
-
-body {
-  font-family: 'Droid Serif', serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-a {
-  text-decoration: none;
-}
-/* Base Styles
--------------------------------------------------------- */
-html,
-body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
+.content {
   position: relative;
-  box-sizing: border-box;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 15px;
+  padding-bottom: 30px;
+  zoom: 1;
+  background-repeat: repeat;
+}
+.content:before,
+.content:after {
+  content: " ";
+  display: table;
+}
+.content:after {
+  clear: both;
 }
 
-@-webkit-keyframes bugfix {
-  from {padding:0;}
-  to {padding:0;}
+.posts {
+  position: relative;
+  width: 100%;
+  zoom: 1;
+}
+.posts:before,
+.posts:after {
+  content: " ";
+  display: table;
+}
+.posts:after {
+  clear: both;
 }
 
-/* Resets
----------------------*/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+@media(min-width: 1024px) {
+  .posts {
+    float: left;
+    width: 70%;
+  }
 }
 
-ul {
-  padding-left: 0;
+.item {
+  display: block;
+  position: relative;
+  margin: 0 15px 40px 15px;
+  padding: 15px;
+  max-width: 750px;
+  border-radius: 1px;
+  background-color: #FEFEFE;
+  box-shadow: 0px 1px 2px -2px rgba(0,0,0,0.4);
 }
 
-ol, li {
-  list-style-type: none;
-}
-
-/* Links
----------------------*/
-a,
-a:hover,
-a:active,
-a:focus {
+.item a {
   text-decoration: none;
-  outline: none;
+  color: #2C3235;
 }
 
-button:focus {
-  outline: 0;
+@media (min-width: 767px) {
+  .item {
+    margin: 0 auto 40px;
+  }
 }

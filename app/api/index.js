@@ -52,6 +52,7 @@ function fetchByDate() {
     .database()
     .ref()
     .child('posts')
+    .limitToLast(5)
     .once('value')
     .then(x => x.val())
     .then(reduceToArray)
