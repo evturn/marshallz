@@ -2,111 +2,31 @@
   "name": "marshallz",
   "version": "5.0.0",
   "description": "Welcome! And more importantly, Welcome to Marshallz Blog",
-  "scripts": {
-    "start": "NODE_ENV=development babel-node server",
-    "clean": "rm -rf build && rm -rf lib",
-    "build:client": "NODE_ENV=production webpack --config config/webpack.prod.babel.js",
-    "build:server": "NODE_ENV=production mkdir lib && babel server -d lib",
-    "build": "NODE_ENV=production npm run clean && npm run build:client && npm run build:server",
-    "start:prod": "NODE_ENV=production node lib",
-    "deploy": "NODE_ENV=production nohup node lib &"
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.1",
+    "cron": "^1.2.1",
+    "express": "^4.15.3",
+    "firebase": "^4.0.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "rxjs": "^5.4.0",
+    "twitter": "^1.7.0"
   },
+  "devDependencies": {
+    "react-scripts": "1.0.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "author": "Evan Turner",
+  "homepage": "https://github.com/evturn/marshallz",
+  "license": "ISC",
   "repository": {
     "url": "git@github.com:evturn/marshallz.git",
     "type": "git"
-  },
-  "author": "Evan Turner",
-  "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-0"
-    ],
-    "plugins": [
-      "add-module-exports",
-      "transform-function-bind",
-      "transform-decorators-legacy",
-      "transform-decorators"
-    ],
-    "env": {
-      "production": {
-        "only": [
-          "app"
-        ],
-        "plugins": [
-          "transform-react-remove-prop-types",
-          "transform-react-constant-elements",
-          "transform-react-inline-elements"
-        ]
-      }
-    }
-  },
-  "dependencies": {
-    "axios": "^0.15.2",
-    "body-parser": "^1.15.2",
-    "chalk": "^1.1.3",
-    "classnames": "^2.2.3",
-    "compression": "^1.6.2",
-    "cron": "^1.1.0",
-    "express": "^4.14.0",
-    "firebase": "^3.5.2",
-    "history": "^2.0.1",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
-    "react-intl": "^2.1.3",
-    "react-redux": "^4.4.5",
-    "react-router": "^4.0.0-alpha.3",
-    "redux": "^3.6.0",
-    "redux-connect-decorator": "^0.1.0",
-    "redux-observable": "^0.10.0",
-    "rxjs": "^5.0.0-beta.11",
-    "sanitize.css": "^4.1.0",
-    "twitter": "^1.3.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.11.4",
-    "babel-core": "^6.13.2",
-    "babel-loader": "^6.2.4",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-react-transform": "^2.0.2",
-    "babel-plugin-transform-decorators": "^6.22.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-function-bind": "^6.8.0",
-    "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "babel-plugin-transform-react-inline-elements": "^6.8.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.2.7",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-react-hmre": "^1.1.1",
-    "babel-preset-stage-0": "^6.5.0",
-    "css-loader": "0.23.1",
-    "exports-loader": "0.6.3",
-    "extract-text-webpack-plugin": "1.0.1",
-    "file-loader": "0.9.0",
-    "html-loader": "0.4.3",
-    "html-webpack-plugin": "2.22.0",
-    "image-webpack-loader": "2.0.0",
-    "imports-loader": "0.6.5",
-    "json-loader": "0.5.4",
-    "null-loader": "0.1.1",
-    "postcss-cssnext": "2.7.0",
-    "postcss-focus": "1.0.0",
-    "postcss-loader": "0.9.1",
-    "postcss-reporter": "1.4.1",
-    "redux-logger": "^2.6.1",
-    "rimraf": "^2.5.4",
-    "style-loader": "0.13.1",
-    "url-loader": "0.5.7",
-    "webpack": "2.1.0-beta.15",
-    "webpack-dashboard": "^0.1.8",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.2",
-    "write-file-webpack-plugin": "^3.3.0"
-  },
-  "main": "index.js",
-  "homepage": "https://github.com/evturn/marshallz",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/evturn/marshallz/issues"
   }
 }

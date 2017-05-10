@@ -7,25 +7,24 @@ export const api = firebase.initializeApp({
   storageBucket: 'gs://marshallz-5ff65.appspot.com',
 })
 
-function fetchInitialData() {
+export const fetchInitialData = () => {
   return api
     .database()
     .ref()
     .child('authors')
     .once('value')
     .then(x => x.val())
-    .then(authors => ({type: 'AUTHORS_FETCHED', authors}))
-}
+    .then(authors => fetchByDate().then(posts => ({ authors, posts})))
+};
 
-function fetchByAuthor(username) {
+export const fetchByAuthor = username => {
   const posts = fetchPostsByAuthor(username)
   const author = fetchAuthor(username)
   return Promise.all([posts, author])
-    .then(([posts, author]) => ({ posts, author }))
-    .then(x => ({type: 'FETCH_SUCCESS', ...x}))
-}
+    .then(([posts, author]) => ({ posts, author }));
+};
 
-function fetchAuthor(username) {
+export const fetchAuthor = username => {
   return api
     .database()
     .ref()
@@ -33,9 +32,9 @@ function fetchAuthor(username) {
     .once('value')
     .then(x => x.val())
     .then(x => x.filter(x => x.username === username)[0])
-}
+};
 
-function fetchPostsByAuthor(username) {
+const fetchPostsByAuthor = username => {
   return api
     .database()
     .ref()
@@ -44,20 +43,19 @@ function fetchPostsByAuthor(username) {
     .equalTo(username)
     .once('value')
     .then(x => x.val())
-    .then(reduceToArray)
-}
+    .then(reduceToArray);
+};
 
-function fetchByDate() {
+export const fetchByDate = () => {
   return api
     .database()
     .ref()
     .child('posts')
-    .limitToLast(5)
+    .limitToLast(10)
     .once('value')
     .then(x => x.val())
-    .then(reduceToArray)
-    .then(posts => ({type: 'FETCH_SUCCESS', posts}))
-}
+    .then(reduceToArray);
+};
 
 function reduceToArray(data) {
   return Object
@@ -65,5 +63,3 @@ function reduceToArray(data) {
     .reduce((acc, x) => acc.concat(data[x]), [])
     .reverse()
 }
-
-export { fetchInitialData, fetchByAuthor, fetchByDate }
