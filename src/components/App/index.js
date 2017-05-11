@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.authors)
     return (
         <div className="container">
           <div className="header">
@@ -36,7 +35,7 @@ class App extends Component {
           <div className="content">
             <div className="posts">
               {this.state.posts.map((x, ii) =>
-                <div className="post">
+                <div key={ii} className="post">
                   <div className="post-row" key={ii}>
                     <div className="post-header">
                       <div className="image-container">
