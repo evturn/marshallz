@@ -3,13 +3,6 @@ import * as API from '../../api.js';
 import './styles.css';
 
 class App extends Component {
-  static defaultProps = {
-    images: {
-      marshall: 'http://marshallz.com/d1fdecb21af78615980a7e1763cee94f.png',
-      clang: 'http://marshallz.com/9a256811011a5b187a227a61081af257.png',
-      b0rf: 'http://marshallz.com/fde5ddffc808c1bf535e8b200d007b44.png',
-    }
-  }
   state = {
     authors: [],
     posts: [],
@@ -39,7 +32,10 @@ class App extends Component {
                   <div className="post-row" key={ii}>
                     <div className="post-header">
                       <div className="image-container">
-                        <img className="image" src={this.props.images[x.author.username]} alt=""/>
+                        <img
+                          className="image"
+                          src={require(`../../static/images/${x.author.profile_img}`)}
+                          alt={x.author.name} />
                       </div>
                       <div className="name">{x.author.name}</div>
                     </div>
@@ -62,7 +58,10 @@ class App extends Component {
               {this.state.authors.map((x, ii)=>
                 <div className="author" key={ii}>
                   <div className="image-container">
-                    <img className="image" src={this.props.images[x.username]} alt=""/>
+                    <img
+                      className="image"
+                      src={require(`../../static/images/${x.avatar_img}`)}
+                      alt={x.name} />
                   </div>
                   <div className="name">{x.name}</div>
                 </div>)}
