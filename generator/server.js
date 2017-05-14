@@ -31,5 +31,4 @@ async function getGenerator(endpoint) {
 getGenerator(endpoints[0])
   .then(gen => console.log(gen.take(3)));
 
-
 app.listen(4000, () => console.log('Running'));
