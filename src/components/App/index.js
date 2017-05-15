@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as API from '../../api.js';
-import './styles.css';
 
 class App extends Component {
   state = {
@@ -15,14 +14,13 @@ class App extends Component {
 
   render() {
     return (
-        <div className="container">
-          <div className="header">
-            <h1 className="title">Marshallz Blog</h1>
-            <p className="caption">
-              Welcome! And more importantly, Welcome to Marshallz Blog!
-            </p>
-          </div>
-
+      <div className="container">
+        <div className="header">
+          <h1 className="title">Marshallz Blog</h1>
+          <p className="caption">
+            Welcome! And more importantly, Welcome to Marshallz Blog!
+          </p>
+        </div>
 
         <div className="root">
           <div className="content">

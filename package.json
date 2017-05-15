@@ -22,8 +22,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build:server": "babel lib -d dist",
+    "build:production": "npm run build && npm run build:server",
+    "serve": "babel-node lib/server.js",
+    "serve:production": "nohup node dist/server.js &",
+    "eject": "react-scripts eject",
+    "test": "react-scripts test --env=jsdom"
   },
   "author": "Evan Turner",
   "homepage": "https://github.com/evturn/marshallz",
