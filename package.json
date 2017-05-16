@@ -22,10 +22,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:server": "babel lib -d dist",
-    "build:production": "npm run build && npm run build:server",
-    "serve": "babel-node lib/server.js",
-    "serve:production": "nohup node dist/server.js &",
+    "build:server": "NODE_ENV=production babel lib -d dist --plugins=transform-es2015-modules-commonjs",
+    "build:all": "npm run build && npm run build:server",
+    "dev": "babel-node lib/server.js",
+    "serve": "nohup node dist/server.js &",
     "eject": "react-scripts eject",
     "test": "react-scripts test --env=jsdom"
   },
