@@ -3,7 +3,7 @@
 
 {-# LANGUAGE OverloadedStrings #-}
 
-module Run ( run ) where
+module Marshallz.Shell ( run ) where
 
 import qualified Data.Text as T
 import           Turtle
