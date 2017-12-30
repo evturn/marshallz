@@ -3,4 +3,4 @@ packages:
 - '.'
 - location:
     git: https://github.com/evturn/jaws.git
-    commit: dcfddf180923c8e965d96767162d1ed64a34e2c0
+    commit: 215b231e30a30aa5e73b8452ce2bd223be76a6fb
