@@ -26,8 +26,8 @@
     "build:server": "NODE_ENV=production babel lib -d dist --plugins=transform-es2015-modules-commonjs",
     "build:all": "npm run build && npm run build:server",
     "dev": "babel-node lib/server.js",
-    "standalone": "node lib/generator/test.js",
     "dev:cron": "babel-node lib/cron.js",
+    "dev:process": "node --experimental-modules process/main.mjs",
     "serve": "nohup node dist/server.js &",
     "eject": "react-scripts eject",
     "test": "react-scripts test --env=jsdom"
