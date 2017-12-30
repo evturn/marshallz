@@ -1,16 +1,15 @@
 import axios from 'axios'
 import firebase from 'firebase'
-import { api } from '../generator'
 
 const blog = async ({ author, gen }) => {
     const subject = gen.run();
     const source = await requestImage(subject);
-    return await savePost({
+    return await {
       ...bodyProp(gen.take(5)),
       ...mediaProps(source),
       ...metaProps(author),
       ...titleProps(subject),
-    });
+    };
 };
 
 const requestImage = async text => {
@@ -21,13 +20,6 @@ const requestImage = async text => {
   return res.data.data.image_url;
 };
 
-const savePost = async post => {
-  return await api
-    .database()
-    .ref()
-    .child('posts')
-    .push(post);
-};
 
 const bodyProp = text => ({
   body: text,
