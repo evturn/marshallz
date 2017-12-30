@@ -2,5 +2,8 @@ resolver: lts-10.1
 packages:
 - '.'
 - location:
-    git: https://github.com/evturn/jaws.git
-    commit: 215b231e30a30aa5e73b8452ce2bd223be76a6fb
+    git: https://github.com/evturn/jaws
+    commit: a0c5bb90972762789932ea75d03b7de33a4dedcc
+extra-deps:
+- git: git@github.com:evturn/jaws.git
+  commit: a0c5bb90972762789932ea75d03b7de33a4dedcc
