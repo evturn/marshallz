@@ -2,31 +2,56 @@ import axios from 'axios'
 import firebase from 'firebase'
 import { api } from '../generator'
 
-export default function blog({author, gen}) {
-  const title = gen.run()
-  return callAPI(title.split(' ').join('+'))
-    .then(image_url => ({image_url, author, title, slug: toSlug(title), body: gen.take(5)}))
-    .then(x => ({ timestamp: firebase.database.ServerValue.TIMESTAMP, ...x }))
-    .then(saveBlogPost)
-}
+const blog = async ({ author, gen }) => {
+    const subject = gen.run();
+    const source = await requestImage(subject);
+    return await savePost({
+      ...bodyProp(gen.take(5)),
+      ...mediaProps(source),
+      ...metaProps(author),
+      ...titleProps(subject),
+    });
+};
 
-function callAPI(query) {
-  return axios(`http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=${query}`)
-    .then(x => x.data.data.image_url)
-    .catch(_ => 'https://raw.githubusercontent.com/evturn/marshallz-blog-node/master/public/images/marshallz-bg.jpg')
-}
+const requestImage = async text => {
+  const query = text.split(' ').join('+');
+  const route = 'api.giphy.com/v1/gifs/random';
+  const params = `api_key=dc6zaTOxFJmzC&tag=${query}`;
+  const res = await axios(`http://${route}?${params}`);
+  return res.data.data.image_url;
+};
 
-function saveBlogPost(x) {
-  return api
+const savePost = async post => {
+  return await api
     .database()
     .ref()
     .child('posts')
-    .push(x)
-}
+    .push(post);
+};
 
-function toSlug(text) {
+const bodyProp = text => ({
+  body: text,
+});
+
+const mediaProps = url => ({
+  image_url: url,
+});
+
+const metaProps = author => ({
+  author, 
+  timestamp: firebase.database.ServerValue.TIMESTAMP,
+});
+
+const titleProps = text => ({
+  slug: toSlug(text), 
+  title: text, 
+});
+
+const toSlug = text => {
   return text.trim()
     .replace(/[%\\\s\/?#\[\]@!\$&\'\(\)\*\+,;="]{1,}/g, '-')
     .replace(/^-+|-+$/g,'')
-    .toLowerCase()
-}
+    .toLowerCase();
+};
+
+export default blog;
