@@ -3,7 +3,7 @@ packages:
 - '.'
 - location:
     git: https://github.com/evturn/jaws
-    commit: a0c5bb90972762789932ea75d03b7de33a4dedcc
+    commit: 2837b01b149de8617fcd5a6797a64ee191945ad7
 extra-deps:
 - git: git@github.com:evturn/jaws.git
-  commit: a0c5bb90972762789932ea75d03b7de33a4dedcc
+  commit: 2837b01b149de8617fcd5a6797a64ee191945ad7
