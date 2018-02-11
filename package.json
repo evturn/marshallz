@@ -1,6 +1,6 @@
 {
   "name": "marshallz",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "Welcome! And more importantly, Welcome to Marshallz Blog",
   "private": true,
   "proxy": "http://localhost:4000",
@@ -25,10 +25,9 @@
     "build": "react-scripts build",
     "build:server": "NODE_ENV=production babel lib -d dist --plugins=transform-es2015-modules-commonjs",
     "build:all": "npm run build && npm run build:server",
-    "dev": "babel-node lib/server.js",
-    "dev:cron": "babel-node lib/cron.js",
-    "dev:process": "node --experimental-modules lib/api.mjs",
-    "serve": "nohup node dist/server.js &",
+    "dev": "node --experimental-modules ./lib/server.mjs",
+    "dev:process": "node --experimental-modules ./lib/api.mjs",
+    "serve": "nohup node --experimental-modules ./lib/server.mjs &",
     "eject": "react-scripts eject",
     "test": "react-scripts test --env=jsdom"
   },
