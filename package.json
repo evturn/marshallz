@@ -27,7 +27,7 @@
     "build:all": "npm run build && npm run build:server",
     "dev": "babel-node lib/server.js",
     "dev:cron": "babel-node lib/cron.js",
-    "dev:process": "node --experimental-modules process/main.mjs",
+    "dev:process": "node --experimental-modules lib/api.mjs",
     "serve": "nohup node dist/server.js &",
     "eject": "react-scripts eject",
     "test": "react-scripts test --env=jsdom"
