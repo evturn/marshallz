@@ -1,6 +1,0 @@
-[submodule "exec/lib/jaws"]
-	path = exec/lib/jaws
-	url = git@github.com:evturn/jaws.git
-[submodule "exec/lib/twhs"]
-	path = exec/lib/twhs
-	url = git@github.com:evturn/twhs.git
