@@ -25,7 +25,7 @@ class App extends Component {
         <div className="root">
           <div className="content">
             <div className="posts">
-              {this.state.posts.map((x, ii) =>
+              {this.state.posts.map((x, ii) => console.log(x) ||
                 <div key={ii} className="post">
                   <div className="post-row" key={ii}>
                     <div className="post-header">
@@ -41,6 +41,12 @@ class App extends Component {
                   <div className="post-row">
                     <div className="post-copy">
                       <div className="post-title">{x.title}</div>
+                    </div>
+                  </div>
+                  <div className="post-row">
+                    <div 
+                      className="post-media"
+                      style={{backgroundImage: `url(${x.image_url})`}}>
                     </div>
                   </div>
                   <div className="post-row">
