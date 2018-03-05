@@ -25,7 +25,7 @@ class App extends Component {
         <div className="root">
           <div className="content">
             <div className="posts">
-              {this.state.posts.map((x, ii) => console.log(x) ||
+              {this.state.posts.map((x, ii) =>
                 <div key={ii} className="post">
                   <div className="post-row" key={ii}>
                     <div className="post-header">
